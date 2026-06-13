@@ -1,10 +1,9 @@
 @use 'sass:math';
 @forward '@cfpb/cfpb-design-system/src/abstracts';
+@forward '@cfpb/cfpb-design-system/src/base' show licensed-font;
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use '@cfpb/cfpb-design-system/src/base' as *;
 @use '@cfpb/cfpb-design-system/dist/index.css' as *;
-@include licensed-font('@fontsource-variable/source-sans-3/files');
-
 
 /* ==========================================================================
    Color variables

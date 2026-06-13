@@ -87,6 +87,10 @@ export const querySelector = (selector) => {
       return match;
     }
   }
+  // Avoid matching host-page elements when the app runs inside a shadow root.
+  if (root instanceof ShadowRoot) {
+    return null;
+  }
   return document.querySelector(selector);
 };
 
@@ -98,5 +102,43 @@ export const querySelectorAll = (selector) => {
       return matches;
     }
   }
+  if (root instanceof ShadowRoot) {
+    return [];
+  }
   return document.querySelectorAll(selector);
+};
+
+export const getIntroTarget = () => {
+  const root = getAppRoot();
+  // intro.js calls getBoundingClientRect on its target element; ShadowRoot has no such API.
+  if (root instanceof ShadowRoot) {
+    return getModalPortalParent();
+  }
+  if (root instanceof HTMLElement) {
+    return root;
+  }
+  return document.body;
+};
+
+export const resolveTourStepElements = (steps) => {
+  if (!steps) {
+    return steps;
+  }
+  return steps.map((step) => {
+    if (!step?.element || typeof step.element !== 'string') {
+      return step;
+    }
+    const element = querySelector(step.element);
+    return element ? { ...step, element } : step;
+  });
+};
+
+export const registerDomGlobals = () => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  window.__ccdbDom = {
+    querySelector,
+    querySelectorAll,
+  };
 };

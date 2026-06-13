@@ -1,6 +1,5 @@
 import './Tour.scss';
-import * as d3 from 'd3';
-import { useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectViewIsPrintMode,
@@ -8,16 +7,77 @@ import {
   selectViewTab,
   selectViewWidth,
 } from '../../reducers/view/selectors';
-import { Steps } from 'intro.js-react';
+import { BP_SM_SPLIT_WIDE_MIN } from '../../constants/breakpoints';
 import { TOUR_STEPS } from './constants/tourStepsConstants';
+import { TOUR_INTRO_OPTIONS } from './constants/tourIntroOptions';
+import { TOUR_SELECTORS } from './constants/tourSelectorConstants';
 import { TourButton } from './TourButton';
+import { TourSteps } from './TourSteps';
 import { tourHidden } from '../../reducers/view/viewSlice';
 import { useGetAggregations } from '../../api/hooks/useGetAggregations';
 import { useGetMap } from '../../api/hooks/useGetMap';
 import { useGetList } from '../../api/hooks/useGetList';
 import { useGetTrends } from '../../api/hooks/useGetTrends';
 import { isTrue } from '../../utils';
-import { getAppRoot, querySelector } from '../../utils/dom';
+import { querySelector } from '../../utils/dom';
+
+const MOBILE_FILTER_TOGGLE_SELECTOR = TOUR_SELECTORS.MOBILE_FILTER_TOGGLE;
+
+const ROW_CHART_SECTION_SELECTOR = TOUR_SELECTORS.ROW_CHART_SECTION;
+const MAP_ROW_CHART_SECTION_SELECTOR = TOUR_SELECTORS.MAP_ROW_CHART_SECTION;
+
+const isRowChartStep = (selector) =>
+  selector === ROW_CHART_SECTION_SELECTOR ||
+  selector === MAP_ROW_CHART_SECTION_SELECTOR;
+
+const prepareRowChartStep = () => {
+  const rowChartSection =
+    querySelector(MAP_ROW_CHART_SECTION_SELECTOR) ||
+    querySelector(ROW_CHART_SECTION_SELECTOR);
+  rowChartSection?.scrollIntoView({ block: 'center' });
+  requestAnimationFrame(() => {
+    const expandable = querySelector(TOUR_SELECTORS.ROW_CHART_EXPANDABLE);
+    expandable?.click();
+  });
+};
+
+const DATE_FILTER_POLL_MS = 10;
+const DATE_FILTER_MAX_WAIT_MS = 5000;
+
+// Mobile tour inserts MOBILE_STEP_OPEN at index 3 and MOBILE_STEP_CLOSE at index 7
+// (after slice(0, 3), slice(4, 7), slice(7) of the desktop step list).
+const MOBILE_FILTER_OPEN_STEP_INDEX = 3;
+const MOBILE_FILTER_CLOSE_STEP_INDEX = 7;
+
+const MOBILE_STEP_OPEN = {
+  disableInteraction: false,
+  element: MOBILE_FILTER_TOGGLE_SELECTOR,
+  intro:
+    'On mobile devices, click the Filter Panel toggle button to open the Filter Panel. Please click the button to proceed.',
+};
+
+const MOBILE_STEP_CLOSE = {
+  disableInteraction: false,
+  element: MOBILE_FILTER_TOGGLE_SELECTOR,
+  intro:
+    'Click the Filter Panel toggle button again to close the Filter Panel. Please close the Filter Panel to proceed.',
+};
+
+const waitForDateFilter = () =>
+  new Promise((resolve) => {
+    const start = Date.now();
+    const interval = setInterval(() => {
+      if (querySelector(TOUR_SELECTORS.DATE_FILTER) !== null) {
+        clearInterval(interval);
+        resolve();
+        return;
+      }
+      if (Date.now() - start >= DATE_FILTER_MAX_WAIT_MS) {
+        clearInterval(interval);
+        resolve();
+      }
+    }, DATE_FILTER_POLL_MS);
+  });
 
 export const Tour = () => {
   const dispatch = useDispatch();
@@ -47,146 +107,118 @@ export const Tour = () => {
     trendsFetching,
   ]);
 
-  const mobileStepOpen = {
-    disableInteraction: false,
-    element: '.filter-panel-toggle .m-btn-group .a-btn',
-    intro:
-      'On mobile devices, click the Filter Panel toggle button to open the Filter Panel. Please click the button to proceed.',
-  };
-  const mobileStepClose = {
-    disableInteraction: false,
-    element: '.filter-panel-toggle .m-btn-group .a-btn',
-    intro:
-      'Click the Filter Panel toggle button again to close the Filter Panel. Please close the Filter Panel to proceed.',
-  };
+  const isMobileTour = viewWidth < BP_SM_SPLIT_WIDE_MIN;
 
-  const steps =
-    viewWidth < 750
-      ? TOUR_STEPS[tab]
-          .slice(0, 3)
-          .concat(
-            mobileStepOpen,
-            TOUR_STEPS[tab].slice(4, 7),
-            mobileStepClose,
-            TOUR_STEPS[tab].slice(7),
-          )
-      : TOUR_STEPS[tab];
+  const baseSteps = useMemo(
+    () =>
+      isMobileTour
+        ? TOUR_STEPS[tab]
+            .slice(0, 3)
+            .concat(
+              MOBILE_STEP_OPEN,
+              TOUR_STEPS[tab].slice(4, 7),
+              MOBILE_STEP_CLOSE,
+              TOUR_STEPS[tab].slice(7),
+            )
+        : TOUR_STEPS[tab],
+    [tab, isMobileTour],
+  );
 
-  // INTRODUCTION / TUTORIAL OPTIONS:
-  const options = {
-    disableInteraction: true,
-    scrollToElement: true,
-    scrollTo: 'tooltip',
-    showStepNumbers: false,
-    exitOnOverlayClick: false,
-    exitOnEsc: true,
-    nextLabel: 'Next',
-    prevLabel: 'Previous',
-    doneLabel: 'End Tour',
-    steps: steps,
-  };
+  const handleBeforeChange = useCallback(
+    (ref) => {
+      if (!ref.current) {
+        return;
+      }
+      const currentStep = ref.current.introJs.currentStep();
 
-  /**
-   * Before Change handler
-   *
-   * @param {object} ref - React component reference.
-   */
-  function handleBeforeChange(ref) {
-    if (!ref.current) {
-      // early exit, tour not set
-      return;
-    }
-    const currentStep = ref.current.introJs.currentStep();
+      if (!baseSteps[currentStep]) {
+        return;
+      }
 
-    // exit out when we're on last step and keyboard nav pressed
-    if (!steps[currentStep]) {
-      return;
-    }
+      if (isRowChartStep(baseSteps[currentStep]?.element)) {
+        // Collapse row chart rows so the tour can expand the first row consistently.
+        prepareRowChartStep();
+      }
 
-    if (steps[currentStep].element === '.row-chart-section') {
-      // when the tour is initiated, we reset the chart so that the
-      // rows are collapsed. This way we can click the first row to expand it
-      // to guarantee a consistent tour.
-      const expandable = d3
-        .select(getAppRoot())
-        .select('#row-chart-product .tick.expandable');
-      expandable.dispatch('click');
-    }
+      const filterListener = () => {
+        querySelector('.introjs-nextbutton')?.setAttribute(
+          'style',
+          'display: inline',
+        );
 
-    // Add listener to filter toggle if it's mobile and at step 4 or 7
-    const filterListener = () => {
-      // Make sure next button isn't being hidden from steps 3 or 7
-      querySelector('.introjs-nextbutton')?.setAttribute(
-        'style',
-        'display: inline',
-      );
-      // Wait for date inputs to render, then proceed
-      const promise = new Promise((resolve) => {
-        if (currentStep === 7) return resolve();
-        const interval = setInterval(() => {
-          if (querySelector('.date-filter') !== null) {
-            clearInterval(interval);
-            return resolve();
-          }
-        }, 10);
-      });
-      promise.then(() => {
-        ref.current.introJs.nextStep().then(() => {
-          querySelector(mobileStepOpen.element).removeEventListener(
-            'click',
-            filterListener,
-          );
+        const afterFilterAction =
+          currentStep === MOBILE_FILTER_CLOSE_STEP_INDEX
+            ? Promise.resolve()
+            : waitForDateFilter();
+
+        afterFilterAction.then(() => {
+          ref.current.introJs.nextStep().then(() => {
+            querySelector(MOBILE_FILTER_TOGGLE_SELECTOR)?.removeEventListener(
+              'click',
+              filterListener,
+            );
+          });
         });
-      });
-    };
-    if (viewWidth < 750 && (currentStep === 3 || currentStep === 7)) {
-      querySelector('.introjs-nextbutton').setAttribute(
-        'style',
-        'display: none',
-      );
-      querySelector(mobileStepOpen.element).addEventListener(
-        'click',
-        filterListener,
-      );
-    }
-  }
+      };
 
-  /**
-   * Exit handler
-   *
-   * @param {object} ref - React component reference.
-   * @returns {boolean} Can we exit?
-   */
-  function handleBeforeExit(ref) {
-    if (ref.current === null || !showTour) {
+      if (
+        isMobileTour &&
+        (currentStep === MOBILE_FILTER_OPEN_STEP_INDEX ||
+          currentStep === MOBILE_FILTER_CLOSE_STEP_INDEX)
+      ) {
+        querySelector('.introjs-nextbutton')?.setAttribute(
+          'style',
+          'display: none',
+        );
+        querySelector(MOBILE_FILTER_TOGGLE_SELECTOR)?.addEventListener(
+          'click',
+          filterListener,
+        );
+      }
+    },
+    [baseSteps, isMobileTour],
+  );
+
+  const handleBeforeExit = useCallback(
+    (ref) => {
+      if (ref.current === null || !showTour) {
+        return true;
+      }
+      if (ref.current.introJs.currentStep() + 1 < baseSteps.length) {
+        return window.confirm('Are you sure you want to exit the tour?');
+      }
       return true;
-    }
-    if (ref.current.introJs.currentStep() + 1 < steps.length) {
-      return window.confirm('Are you sure you want to exit the tour?');
-    }
-    return true;
-  }
+    },
+    [baseSteps.length, showTour],
+  );
 
-  /**
-   * wrapper function to only hide tour when it is visible
-   */
-  function hideTour() {
+  const hideTour = useCallback(() => {
     if (showTour) {
       dispatch(tourHidden());
     }
-  }
+  }, [dispatch, showTour]);
+
+  const onBeforeChange = useCallback(
+    () => handleBeforeChange(stepRef),
+    [handleBeforeChange],
+  );
+
+  const onBeforeExit = useCallback(
+    () => handleBeforeExit(stepRef),
+    [handleBeforeExit],
+  );
 
   return isLoading ? null : (
     <>
       <TourButton />
-      <Steps
-        enabled={showTour}
+      <TourSteps
+        isEnabled={showTour}
         initialStep={0}
-        steps={steps}
-        onExit={() => hideTour()}
-        options={options}
-        onBeforeChange={() => handleBeforeChange(stepRef)}
-        onBeforeExit={() => handleBeforeExit(stepRef)}
+        steps={baseSteps}
+        onExit={hideTour}
+        options={TOUR_INTRO_OPTIONS}
+        onBeforeChange={onBeforeChange}
+        onBeforeExit={onBeforeExit}
         ref={stepRef}
       />
     </>

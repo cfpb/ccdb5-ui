@@ -10,6 +10,23 @@ import { aggResponse } from '../Map/fixture';
 import { trendsOverviewResponse } from '../Trends/TrendsPanel/fixture';
 import { trendsState } from '../../reducers/trends/trendsSlice';
 import { queryState } from '../../reducers/query/querySlice';
+import { BP_SM_SPLIT_WIDE_MIN } from '../../constants/breakpoints';
+
+const mockFetchResponses = () => {
+  fetchMock.mockResponse((req) => {
+    if (req.url.indexOf('API/trends?') > -1) {
+      return Promise.resolve({
+        body: JSON.stringify(trendsOverviewResponse),
+      });
+    }
+    if (req.url.indexOf('API?') > -1) {
+      return Promise.resolve({
+        body: JSON.stringify(aggResponse),
+      });
+    }
+    return Promise.resolve({ body: '{}' });
+  });
+};
 
 const renderComponent = (newViewModelState) => {
   const newQueryState = { dateLastIndexed: '2021-01-01' };
@@ -54,22 +71,65 @@ describe('Tour loading behavior', () => {
       .spyOn(viewActions, 'tourShown')
       .mockImplementation(() => jest.fn());
 
-    fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API/trends?') > -1) {
-        return Promise.resolve({
-          body: JSON.stringify(trendsOverviewResponse),
-        });
-      } else if (req.url.indexOf('API?') > -1) {
-        return Promise.resolve({
-          body: JSON.stringify(aggResponse),
-        });
-      }
-    });
+    mockFetchResponses();
 
     renderComponent({ tab: MODE_TRENDS, showTour: false });
     await screen.findByRole('button', { name: /Take a tour/ });
     expect(screen.getByRole('button', { name: /Take a tour/ })).toBeVisible();
     await user.click(screen.getByRole('button', { name: /Take a tour/ }));
     expect(tourShownSpy).toHaveBeenCalled();
+  });
+
+  test('hides the tour when intro.js exits', async () => {
+    const tourHiddenSpy = jest
+      .spyOn(viewActions, 'tourHidden')
+      .mockImplementation(() => jest.fn());
+
+    mockFetchResponses();
+
+    renderComponent({
+      tab: MODE_TRENDS,
+      showTour: true,
+      width: 1200,
+    });
+    await screen.findByRole('dialog');
+
+    const skipButton = document.querySelector('.introjs-skipbutton');
+    expect(skipButton).not.toBeNull();
+    await user.click(skipButton);
+
+    expect(tourHiddenSpy).toHaveBeenCalled();
+  });
+
+  test('prompts before exiting an in-progress tour', async () => {
+    mockFetchResponses();
+    window.confirm = jest.fn(() => false);
+
+    renderComponent({
+      tab: MODE_TRENDS,
+      showTour: true,
+      width: 1200,
+    });
+    await screen.findByRole('dialog');
+
+    const skipButton = document.querySelector('.introjs-skipbutton');
+    expect(skipButton).not.toBeNull();
+    await user.click(skipButton);
+
+    expect(window.confirm).toHaveBeenCalledWith(
+      'Are you sure you want to exit the tour?',
+    );
+  });
+
+  test('builds mobile-specific steps on narrow viewports', async () => {
+    mockFetchResponses();
+
+    renderComponent({
+      tab: MODE_TRENDS,
+      showTour: true,
+      width: BP_SM_SPLIT_WIDE_MIN - 1,
+    });
+
+    expect(await screen.findByRole('dialog')).toBeInTheDocument();
   });
 });

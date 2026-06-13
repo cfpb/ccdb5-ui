@@ -163,7 +163,7 @@ x/y positioning on the SVG elements.
     filter: drop-shadow(1px 1px 2px rgb(0 0 0 / 20%));
     color: var(--gray-dark);
 
-    span {
+    foreignObject body > div {
       background-color: var(--gray-5);
       border: 1px solid var(--gray-40);
       font-family: inherit;
@@ -227,106 +227,106 @@ x/y positioning on the SVG elements.
     }
   }
 
-  .highcharts-tooltip > span::before,
-  .highcharts-tooltip > span::after,
-  .highcharts-tooltip > span[data-caret]::before,
-  .highcharts-tooltip > span[data-caret]::after {
+  .highcharts-tooltip foreignObject body > div::before,
+  .highcharts-tooltip foreignObject body > div::after,
+  .highcharts-tooltip foreignObject body > div[data-caret]::before,
+  .highcharts-tooltip foreignObject body > div[data-caret]::after {
     content: '';
     position: absolute;
     width: 0;
     height: 0;
   }
 
-  .highcharts-tooltip[data-caret='top'] > span::before,
-  .highcharts-tooltip[data-caret='top'] > span::after,
-  .highcharts-tooltip > span[data-caret='top']::before,
-  .highcharts-tooltip > span[data-caret='top']::after {
+  .highcharts-tooltip[data-caret='top'] foreignObject body > div::before,
+  .highcharts-tooltip[data-caret='top'] foreignObject body > div::after,
+  .highcharts-tooltip foreignObject body > div[data-caret='top']::before,
+  .highcharts-tooltip foreignObject body > div[data-caret='top']::after {
     left: var(--caret-pos);
     transform: translateX(-50%);
   }
 
-  .highcharts-tooltip[data-caret='top'] > span::before,
-  .highcharts-tooltip > span[data-caret='top']::before {
+  .highcharts-tooltip[data-caret='top'] foreignObject body > div::before,
+  .highcharts-tooltip foreignObject body > div[data-caret='top']::before {
     bottom: calc(var(--caret-size) * -1);
     border-width: var(--caret-size) var(--caret-size) 0 var(--caret-size);
     border-style: solid;
     border-color: var(--gray-40) transparent transparent transparent;
   }
 
-  .highcharts-tooltip[data-caret='top'] > span::after,
-  .highcharts-tooltip > span[data-caret='top']::after {
+  .highcharts-tooltip[data-caret='top'] foreignObject body > div::after,
+  .highcharts-tooltip foreignObject body > div[data-caret='top']::after {
     bottom: calc((var(--caret-size) - 1px) * -1);
     border-width: calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px) 0;
     border-style: solid;
     border-color: var(--gray-5) transparent transparent transparent;
   }
 
-  .highcharts-tooltip[data-caret='bottom'] > span::before,
-  .highcharts-tooltip[data-caret='bottom'] > span::after,
-  .highcharts-tooltip > span[data-caret='bottom']::before,
-  .highcharts-tooltip > span[data-caret='bottom']::after {
+  .highcharts-tooltip[data-caret='bottom'] foreignObject body > div::before,
+  .highcharts-tooltip[data-caret='bottom'] foreignObject body > div::after,
+  .highcharts-tooltip foreignObject body > div[data-caret='bottom']::before,
+  .highcharts-tooltip foreignObject body > div[data-caret='bottom']::after {
     left: var(--caret-pos);
     transform: translateX(-50%);
   }
 
-  .highcharts-tooltip[data-caret='bottom'] > span::before,
-  .highcharts-tooltip > span[data-caret='bottom']::before {
+  .highcharts-tooltip[data-caret='bottom'] foreignObject body > div::before,
+  .highcharts-tooltip foreignObject body > div[data-caret='bottom']::before {
     top: calc(var(--caret-size) * -1);
     border-width: 0 var(--caret-size) var(--caret-size) var(--caret-size);
     border-style: solid;
     border-color: transparent transparent var(--gray-40) transparent;
   }
 
-  .highcharts-tooltip[data-caret='bottom'] > span::after,
-  .highcharts-tooltip > span[data-caret='bottom']::after {
+  .highcharts-tooltip[data-caret='bottom'] foreignObject body > div::after,
+  .highcharts-tooltip foreignObject body > div[data-caret='bottom']::after {
     top: calc((var(--caret-size) - 1px) * -1);
     border-width: 0 calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px);
     border-style: solid;
     border-color: transparent transparent var(--gray-5) transparent;
   }
 
-  .highcharts-tooltip[data-caret='left'] > span::before,
-  .highcharts-tooltip[data-caret='left'] > span::after,
-  .highcharts-tooltip > span[data-caret='left']::before,
-  .highcharts-tooltip > span[data-caret='left']::after {
+  .highcharts-tooltip[data-caret='left'] foreignObject body > div::before,
+  .highcharts-tooltip[data-caret='left'] foreignObject body > div::after,
+  .highcharts-tooltip foreignObject body > div[data-caret='left']::before,
+  .highcharts-tooltip foreignObject body > div[data-caret='left']::after {
     top: var(--caret-pos);
     transform: translateY(-50%);
   }
 
-  .highcharts-tooltip[data-caret='left'] > span::before,
-  .highcharts-tooltip > span[data-caret='left']::before {
+  .highcharts-tooltip[data-caret='left'] foreignObject body > div::before,
+  .highcharts-tooltip foreignObject body > div[data-caret='left']::before {
     right: calc(var(--caret-size) * -1);
     border-width: var(--caret-size) 0 var(--caret-size) var(--caret-size);
     border-style: solid;
     border-color: transparent transparent transparent var(--gray-40);
   }
 
-  .highcharts-tooltip[data-caret='left'] > span::after,
-  .highcharts-tooltip > span[data-caret='left']::after {
+  .highcharts-tooltip[data-caret='left'] foreignObject body > div::after,
+  .highcharts-tooltip foreignObject body > div[data-caret='left']::after {
     right: calc((var(--caret-size) - 1px) * -1);
     border-width: calc(var(--caret-size) - 1px) 0 calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px);
     border-style: solid;
     border-color: transparent transparent transparent var(--gray-5);
   }
 
-  .highcharts-tooltip[data-caret='right'] > span::before,
-  .highcharts-tooltip[data-caret='right'] > span::after,
-  .highcharts-tooltip > span[data-caret='right']::before,
-  .highcharts-tooltip > span[data-caret='right']::after {
+  .highcharts-tooltip[data-caret='right'] foreignObject body > div::before,
+  .highcharts-tooltip[data-caret='right'] foreignObject body > div::after,
+  .highcharts-tooltip foreignObject body > div[data-caret='right']::before,
+  .highcharts-tooltip foreignObject body > div[data-caret='right']::after {
     top: var(--caret-pos);
     transform: translateY(-50%);
   }
 
-  .highcharts-tooltip[data-caret='right'] > span::before,
-  .highcharts-tooltip > span[data-caret='right']::before {
+  .highcharts-tooltip[data-caret='right'] foreignObject body > div::before,
+  .highcharts-tooltip foreignObject body > div[data-caret='right']::before {
     left: calc(var(--caret-size) * -1);
     border-width: var(--caret-size) var(--caret-size) var(--caret-size) 0;
     border-style: solid;
     border-color: transparent var(--gray-40) transparent transparent;
   }
 
-  .highcharts-tooltip[data-caret='right'] > span::after,
-  .highcharts-tooltip > span[data-caret='right']::after {
+  .highcharts-tooltip[data-caret='right'] foreignObject body > div::after,
+  .highcharts-tooltip foreignObject body > div[data-caret='right']::after {
     left: calc((var(--caret-size) - 1px) * -1);
     border-width: calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px) calc(var(--caret-size) - 1px) 0;
     border-style: solid;
@@ -376,7 +376,7 @@ $mobile-xs-tiles-breakpoint-max: 400px;
     }
 
     // column tooltip
-    .highcharts-tooltip span {
+    .highcharts-tooltip foreignObject body > div {
       padding: 15px;
 
       h4.title {
@@ -401,7 +401,7 @@ $mobile-xs-tiles-breakpoint-max: 400px;
 
     // adjustments to make a smaller tooltip at mobile
     .highcharts-tooltip {
-      span {
+      foreignObject body > div {
         width: 230px;
         max-width: 230px;
 
