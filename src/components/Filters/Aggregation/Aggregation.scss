@@ -1,11 +1,12 @@
 @use 'sass:math';
-@use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
 .aggregation {
   ul {
     padding-left: 0;
     margin-top: math.div($grid-gutter-width, 1.5);
+
     li {
       padding: 0;
       border: 0;

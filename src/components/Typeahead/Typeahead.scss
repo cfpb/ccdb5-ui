@@ -1,14 +1,16 @@
-@use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
 .typeahead {
   input {
     box-sizing: border-box;
     width: 100%;
+
     &:focus {
       border: solid 2px var(--pacific);
     }
   }
+
   &-selector {
     width: 100%;
     position: relative;
@@ -81,6 +83,7 @@
     background-color: var(--white);
     cursor: default;
     list-style-type: none;
+
     &:hover,
     &.selected {
       border-top: solid 2px var(--pacific);
@@ -103,7 +106,6 @@
   }
 
 
-
   .o-search-input__input {
     &-label {
       z-index: 1;
@@ -117,14 +119,17 @@
   top: 0.5em;
   cursor: pointer;
   font-size: 0.875em;
+
   ~ input[type='text'] {
     padding-left: 1.78571429em;
     padding-bottom: 0.28em;
   }
+
   &--search .cf-icon-svg {
     position: relative;
     top: 2px;
   }
+
   .cf-icon-svg {
     z-index: 9;
   }
