@@ -1,9 +1,9 @@
 @use 'sass:math';
-@forward '@cfpb/cfpb-design-system/src/elements/abstracts';
-@use '@cfpb/cfpb-design-system/src/elements/abstracts' as *;
-@use '@cfpb/cfpb-design-system/src/elements/base' as *;
+@forward '@cfpb/cfpb-design-system/src/abstracts';
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+@use '@cfpb/cfpb-design-system/src/base' as *;
 @use '@cfpb/cfpb-design-system/dist/index.css' as *;
-@include licensed-font('/src/static/fonts');
+@include licensed-font('@fontsource-variable/source-sans-3/files');
 
 
 /* ==========================================================================

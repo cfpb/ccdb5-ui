@@ -12,15 +12,6 @@ yarn install
 
 Yarn is managed via Corepack, using the version pinned in `package.json`.
 
-This installs the dependencies. If you run `yarn build` at this point,
-you should received an error `Module not found: Error: Can't resolve …` in
-regard to the font files. Follow the next step to install the font files.
-
-### Install font files
-
-To install self-hosted fonts locally, place the font files
-in `./src/static/fonts/`. This can be done with the script `./scripts/fonts.sh`.
-
 ## Verifying the build
 
 ```bash

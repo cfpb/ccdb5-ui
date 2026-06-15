@@ -1,5 +1,5 @@
 @use 'sass:math';
-@use '@cfpb/cfpb-design-system/src/elements/abstracts/index' as *;
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
 
 // select
 $select-border: var(--gray-40);
@@ -17,14 +17,14 @@ $input-bg-disabled: var(--gray-10);
 
   select {
     width: 100%;
-    padding: math.div(4px, $base-font-size-px) + em 0
-      math.div(6px, $base-font-size-px) + em 1rem;
+    padding: math.div(4px, $base-font-size-px) + em 0 math.div(6px, $base-font-size-px) + em 1rem;
     border: 0;
     border-radius: 0;
     appearance: none;
     background-color: $input-bg;
     color: var(--black);
     margin-right: $grid-gutter-width;
+
     &:hover,
     &.hover,
     &:active,
