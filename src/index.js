@@ -3,7 +3,9 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import { StrictMode } from 'react';
-import { getElementById, getMountId } from './utils/dom';
+import { getElementById, getMountId, registerDomGlobals } from './utils/dom';
+
+registerDomGlobals();
 
 const container = getElementById(getMountId());
 if (!container) {

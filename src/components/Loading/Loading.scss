@@ -1,12 +1,17 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
+// Portaled to the app/shadow root so the overlay sits above sidebar and search UI.
+.ccdb-ui-overlay-portal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
 .light-box {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
 
   display: flex;
   justify-content: center;
@@ -16,8 +21,8 @@
   --faded-gray-dark: 67, 72, 78;
 
   background-color: rgb(var(--faded-gray-dark), 0.75);
-
-  z-index: 1;
+  pointer-events: auto;
+  z-index: 100;
 }
 
 .loading-box {

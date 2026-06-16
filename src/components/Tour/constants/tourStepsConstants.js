@@ -7,9 +7,7 @@ import {
 } from './tourStepSelectors';
 
 const generateLinkText = (index, linkObject) =>
-  `<li><button class="a-btn a-btn--link" onclick="document.querySelectorAll('.introjs-bullets li a')[${
-    index + 1
-  }].click()">` +
+  `<li><button class="a-btn a-btn--link" onclick="(function(){var t=window.__ccdbDom&&window.__ccdbDom.querySelectorAll('.introjs-bullets li a')[${index + 1}];t&&t.click();})()">` +
   linkObject[1].label +
   '</button></li>';
 

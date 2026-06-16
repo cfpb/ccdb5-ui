@@ -17,7 +17,11 @@ export default defineConfig({
     distPath: {
       js: '',
       css: '',
-      font: 'static/fonts',
+    },
+    // Inline the latin variable font (~29 KiB) into ccdb5.css so dist does not
+    // need a separate static/fonts directory for consumerfinance.gov embeds.
+    dataUriLimit: {
+      font: 32 * 1024,
     },
     filename: {
       js: 'ccdb5.js', // Custom name for JavaScript files

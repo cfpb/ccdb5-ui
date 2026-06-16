@@ -1493,7 +1493,6 @@ __metadata:
     husky: "npm:^9.1.7"
     identity-obj-proxy: "npm:3.0.0"
     intro.js: "npm:7.2.0"
-    intro.js-react: "npm:1.0.0"
     jest: "npm:^30.4.2"
     jest-environment-jsdom: "npm:^30.4.1"
     jest-fetch-mock: "npm:^3.0.3"
@@ -8283,16 +8282,6 @@ __metadata:
   version: 2.0.3
   resolution: "internmap@npm:2.0.3"
   checksum: 10c0/8cedd57f07bbc22501516fbfc70447f0c6812871d471096fad9ea603516eacc2137b633633daf432c029712df0baefd793686388ddf5737e3ea15074b877f7ed
-  languageName: node
-  linkType: hard
-
-"intro.js-react@npm:1.0.0":
-  version: 1.0.0
-  resolution: "intro.js-react@npm:1.0.0"
-  peerDependencies:
-    intro.js: ">=2.5.0"
-    react: ">=0.14.0"
-  checksum: 10c0/e45a429419dc746408c7ad5a97f716a0bb16eb66f36742719e140f26f23a81ccab1cdc5f9d3a59b46ff00869ddeb8edf3c62a8f97024b746a13a891eaebc0b12
   languageName: node
   linkType: hard
 

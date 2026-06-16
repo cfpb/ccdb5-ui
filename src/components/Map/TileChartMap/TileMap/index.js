@@ -652,6 +652,7 @@ function clamp(value, min, max) {
 
 const TOOLTIP_AXIS_X = 'x';
 const TOOLTIP_AXIS_Y = 'y';
+const TOOLTIP_CONTENT_SELECTOR = 'foreignObject body > div';
 const TOOLTIP_INSET = 8;
 
 /**
@@ -780,20 +781,22 @@ function computeTooltipPosition({
  * Resolve tooltip DOM nodes for caret placement.
  *
  * @param {object|null} label - Highcharts tooltip label.
- * @returns {object} Tooltip wrapper and span nodes.
+ * @returns {object} Tooltip wrapper and content nodes.
  */
 // eslint-disable-next-line complexity
 function getTooltipElements(label) {
-  const htmlRoot = label?.div || label?.element || null;
-  const wrapper =
-    htmlRoot && htmlRoot.classList?.contains('highcharts-tooltip')
-      ? htmlRoot
-      : htmlRoot?.parentNode || null;
-  const span = htmlRoot?.querySelector
-    ? htmlRoot.querySelector('span')
-    : wrapper?.querySelector?.('span') || null;
+  const svgLabel = label?.element || null;
+  const wrapper = svgLabel?.classList?.contains('highcharts-tooltip')
+    ? svgLabel
+    : svgLabel?.closest?.('.highcharts-tooltip') ||
+      svgLabel?.parentNode ||
+      null;
+  const content =
+    svgLabel?.querySelector?.(TOOLTIP_CONTENT_SELECTOR) ||
+    wrapper?.querySelector?.(TOOLTIP_CONTENT_SELECTOR) ||
+    null;
 
-  return { wrapper, span };
+  return { wrapper, content };
 }
 
 /**
@@ -804,14 +807,14 @@ function getTooltipElements(label) {
  * @param {number} caretPos - Caret offset along the tooltip edge.
  */
 function applyTooltipCaret(label, placement, caretPos) {
-  const { wrapper, span } = getTooltipElements(label);
+  const { wrapper, content } = getTooltipElements(label);
   if (wrapper?.setAttribute) {
     wrapper.setAttribute('data-caret', placement);
     wrapper.style.setProperty('--caret-pos', `${caretPos}px`);
   }
-  if (span?.setAttribute) {
-    span.setAttribute('data-caret', placement);
-    span.style.setProperty('--caret-pos', `${caretPos}px`);
+  if (content?.setAttribute) {
+    content.setAttribute('data-caret', placement);
+    content.style.setProperty('--caret-pos', `${caretPos}px`);
   }
 }
 
@@ -917,6 +920,11 @@ class TileMap {
         headerFormat: '',
         pointFormatter: tooltipFormatter,
         useHTML: true,
+        borderWidth: 0,
+        shadow: false,
+        style: {
+          padding: 0,
+        },
         positioner: tooltipPositioner,
       },
       plotOptions: {

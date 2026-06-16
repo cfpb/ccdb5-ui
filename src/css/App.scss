@@ -3,6 +3,8 @@
 @use 'base' as *;
 @use 'components/Print/print' as *;
 
+// Load Source Sans 3 once for the app (not in base.scss, which many components @use).
+@include licensed-font('@fontsource-variable/source-sans-3/files');
 
 // Icon font path
 $cf-icon-path: '../css/fonts';
@@ -100,6 +102,8 @@ $cf-icon-path: '../css/fonts';
 // Overrides
 
 .content--1-3.ccdb-content {
+  position: relative;
+
   .content__wrapper {
     display: flex;
     align-items: stretch;
