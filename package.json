@@ -1,6 +1,6 @@
 {
   "name": "@cfpb/ccdb5-ui",
-  "version": "2.17.0",
+  "version": "2.18.0",
   "packageManager": "yarn@4.16.0",
   "description": "Consumer Complaint Database UI",
   "homepage": "https://www.consumerfinance.gov/",
