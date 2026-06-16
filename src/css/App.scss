@@ -102,6 +102,8 @@ $cf-icon-path: '../css/fonts';
 // Overrides
 
 .content--1-3.ccdb-content {
+  position: relative;
+
   .content__wrapper {
     display: flex;
     align-items: stretch;

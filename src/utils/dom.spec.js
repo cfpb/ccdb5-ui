@@ -4,6 +4,7 @@ import {
   getElementById,
   getIntroTarget,
   getModalPortalParent,
+  getOverlayPortalParent,
   getMountId,
   querySelector,
   querySelectorAll,
@@ -86,6 +87,32 @@ describe('dom utilities', () => {
       const host = document.createElement('div');
       window.__CCDB_CONFIG__ = { root: host };
       expect(getModalPortalParent()).toBe(host);
+    });
+  });
+
+  describe('getOverlayPortalParent', () => {
+    it('returns document.body by default', () => {
+      expect(getOverlayPortalParent()).toBe(document.body);
+    });
+
+    it('creates and returns an overlay portal inside a shadow root', () => {
+      const host = document.createElement('div');
+      const shadow = host.attachShadow({ mode: 'open' });
+      window.__CCDB_CONFIG__ = { root: shadow };
+
+      const portal = getOverlayPortalParent();
+      expect(portal.id).toBe('ccdb-ui-overlay-portal');
+      expect(portal.className).toBe('ccdb-ui-overlay-portal');
+      expect(shadow.querySelector('#ccdb-ui-overlay-portal')).toBe(portal);
+
+      const portalAgain = getOverlayPortalParent();
+      expect(portalAgain).toBe(portal);
+    });
+
+    it('returns an HTMLElement root directly', () => {
+      const host = document.createElement('div');
+      window.__CCDB_CONFIG__ = { root: host };
+      expect(getOverlayPortalParent()).toBe(host);
     });
   });
 

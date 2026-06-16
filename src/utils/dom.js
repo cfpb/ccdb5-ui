@@ -1,5 +1,6 @@
 const DEFAULT_MOUNT_ID = 'ccdb-ui-root';
 const MODAL_PORTAL_ID = 'ccdb-ui-modal-portal';
+const OVERLAY_PORTAL_ID = 'ccdb-ui-overlay-portal';
 
 const getConfig = () => {
   if (typeof window === 'undefined') {
@@ -42,6 +43,25 @@ export const getModalPortalParent = () => {
     if (!portal) {
       portal = document.createElement('div');
       portal.id = MODAL_PORTAL_ID;
+      root.appendChild(portal);
+    }
+    return portal;
+  }
+  if (root instanceof HTMLElement) {
+    return root;
+  }
+  return document.body;
+};
+
+export const getOverlayPortalParent = () => {
+  const root = getAppRoot();
+  if (root instanceof ShadowRoot) {
+    const escaped = escapeId(OVERLAY_PORTAL_ID);
+    let portal = root.querySelector(`#${escaped}`);
+    if (!portal) {
+      portal = document.createElement('div');
+      portal.id = OVERLAY_PORTAL_ID;
+      portal.className = 'ccdb-ui-overlay-portal';
       root.appendChild(portal);
     }
     return portal;
