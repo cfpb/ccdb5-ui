@@ -24,81 +24,32 @@
       margin-bottom: $gutter-normal;
     }
 
-    .group {
+    fieldset {
       margin-bottom: $gutter-normal;
-
-      .group-title {
-        margin: $gutter-normal 0;
-        font-size: $size-iv;
-        font-weight: bold;
-      }
-
-      .m-form-field {
-        margin-bottom: $gutter-normal;
-
-        .multiline-label {
-          display: inline-block;
-        }
-      }
-
-      .other-formats {
-        margin-top: $gutter-normal * 1.5;
-      }
-
-      .required-helper {
-        color: var(--gray);
-      }
-    }
-
-    .timeliness-warning {
-      margin-bottom: $gutter-normal * 1.5;
-
-      font-size: smaller;
     }
 
     .export-tabs {
-      display: flex;
-      gap: 0;
       margin-bottom: $gutter-normal;
-      border-bottom: 1px solid var(--gray-20);
-    }
 
-    .export-tab {
-      margin: 0;
-      padding: 8px 24px;
-      border: 1px solid var(--gray-20);
-      border-bottom: none;
-      background: var(--gray-5);
-      color: var(--pacific-dark);
-      font-size: $size-iv;
-      font-weight: 500;
-      cursor: pointer;
-
-      &:not(.active):hover,
-      &:not(.active):focus {
-        color: var(--navy-dark);
-      }
-
-      &.active {
-        background: var(--white);
-        border-color: var(--gray-40);
+      .export-tab {
+        background-color: var(--pacific-20);
         color: var(--black);
-        position: relative;
 
-        &::after {
-          content: '';
-          display: block;
-          width: calc(100% - 2px);
-          outline: 1px solid var(--white);
-          position: absolute;
-          bottom: -1px;
-          left: 1px;
+        &.selected {
+          background-color: var(--pacific-60);
+          font-weight: 600;
         }
       }
     }
 
-    .monthly-download-empty {
+    .monthly-download-empty,
+    .timeliness-warning {
+      margin-bottom: $gutter-normal * 1.5;
       color: var(--gray);
+      font-size: smaller;
+    }
+
+    .monthly-download-empty {
       font-style: italic;
     }
 
@@ -118,29 +69,8 @@
         }
       }
 
-      .monthly-download-link {
-        display: block;
-        margin: 0;
-        padding: 0;
-        border: none;
-        background: none;
-        color: var(--pacific);
-        font: inherit;
-        text-align: left;
-        text-decoration: underline;
-        cursor: pointer;
-
-        &:hover,
-        &:focus {
-          color: var(--navy-dark);
-        }
-      }
-
       .monthly-download-filename {
-        display: block;
         margin-top: 2px;
-        color: var(--gray);
-        font-size: smaller;
       }
 
       a {
