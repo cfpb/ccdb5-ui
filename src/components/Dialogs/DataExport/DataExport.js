@@ -1,6 +1,6 @@
 import './DataExport.scss';
 import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
-import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
+import { buildAllResultsUri, buildMonthlyExportUrls, buildSomeResultsUri, downloadExportFile } from './dataExportUtils';
 import { modalHidden, modalShown } from '../../../reducers/view/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Heading } from '@cfpb/design-system-react';
@@ -18,6 +18,9 @@ const FORMAT_JSON = 'json';
 const DATASET_FILTERED = 'filtered';
 const DATASET_FULL = 'full';
 
+const TAB_EXPORT = 'export';
+const TAB_DOWNLOAD = 'download';
+
 export const DataExport = () => {
   const dispatch = useDispatch();
   const queryState = useSelector(selectQueryRoot);
@@ -34,20 +37,39 @@ export const DataExport = () => {
   const [format, setFormat] = useState(FORMAT_CSV);
 
   const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState(TAB_EXPORT);
+
+  const mergedState = useMemo(
+    () => ({
+      ...filtersState,
+      ...queryState,
+    }),
+    [filtersState, queryState],
+  );
 
   const exportDataset = isFullDatasetOnly ? DATASET_FULL : dataset;
 
   const exportUri = useMemo(() => {
-    const mergedState = {
-      ...filtersState,
-      ...queryState,
-    };
     const url =
       exportDataset === DATASET_FULL
         ? buildAllResultsUri(format)
         : buildSomeResultsUri(format, someComplaintsCount, mergedState);
     return getFullUrl(url);
-  }, [exportDataset, format, someComplaintsCount, filtersState, queryState]);
+  }, [exportDataset, format, someComplaintsCount, mergedState]);
+
+  const exportSize = isFullDatasetOnly
+    ? allComplaintsCount
+    : someComplaintsCount;
+
+  const monthlyExportUrls = useMemo(() => {
+    return buildMonthlyExportUrls(format, exportSize, mergedState).map(
+      ({ label, uri, filename }) => ({
+        label,
+        filename,
+        uri: getFullUrl(uri),
+      }),
+    );
+  }, [exportSize, format, mergedState]);
 
   const handleExportClicked = () => {
     if (exportDataset === DATASET_FULL) {
@@ -87,6 +109,24 @@ export const DataExport = () => {
         />
       </div>
       <div className="body">
+        <div className="export-tabs">
+          <button
+            type="button"
+            className={`export-tab ${activeTab === TAB_EXPORT ? 'active' : ''}`}
+            onClick={() => setActiveTab(TAB_EXPORT)}
+          >
+            Export
+          </button>
+          <button
+            type="button"
+            className={`export-tab ${activeTab === TAB_DOWNLOAD ? 'active' : ''}`}
+            onClick={() => setActiveTab(TAB_DOWNLOAD)}
+          >
+            Download
+          </button>
+        </div>
+        {activeTab === TAB_EXPORT ? (
+          <>
         <div className="instructions">
           To download a copy of this dataset, choose the file format and which
           complaints you want to export below.
@@ -207,8 +247,82 @@ export const DataExport = () => {
           The export process could take several minutes if you’re downloading
           many complaints
         </div>
+          </>
+        ) : (
+          <div className="monthly-download">
+            <div className="instructions">
+              Proof of concept: download your export in smaller monthly chunks
+              to avoid timeouts on very large date ranges. Each link uses the
+              same search and filter parameters as your current view, with only
+              the date range adjusted per month.
+            </div>
+            {monthlyExportUrls.length === 0 ? (
+              <p className="monthly-download-empty">
+                Unable to determine a date range for monthly downloads.
+              </p>
+            ) : (
+              <>
+                <div className="group">
+                  <div className="group-title">
+                    Select a format for the exported file
+                  </div>
+                  <div>
+                    <div className="m-form-field m-form-field--radio m-form-field--lg-target">
+                      <input
+                        checked={format === FORMAT_CSV}
+                        className="a-radio"
+                        id="download_format_csv"
+                        onChange={() => setFormat(FORMAT_CSV)}
+                        type="radio"
+                        value="csv"
+                      />
+                      <label className="a-label" htmlFor="download_format_csv">
+                        CSV
+                      </label>
+                    </div>
+                    <div className="m-form-field m-form-field--radio m-form-field--lg-target">
+                      <input
+                        checked={format === FORMAT_JSON}
+                        className="a-radio"
+                        id="download_format_json"
+                        onChange={() => setFormat(FORMAT_JSON)}
+                        type="radio"
+                        value="json"
+                      />
+                      <label className="a-label" htmlFor="download_format_json">
+                        JSON
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="group">
+                  <div className="group-title">
+                    Monthly download links ({monthlyExportUrls.length})
+                  </div>
+                  <ul className="monthly-download-list">
+                    {monthlyExportUrls.map(({ label, uri, filename }) => (
+                      <li key={`${filename}-${uri}`}>
+                        <button
+                          type="button"
+                          className="monthly-download-link"
+                          onClick={() => downloadExportFile(uri, filename)}
+                        >
+                          {label}
+                        </button>
+                        <span className="monthly-download-filename">
+                          {filename}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            )}
+          </div>
+        )}
       </div>
       <div className="footer layout-row">
+        {activeTab === TAB_EXPORT ? (
         <Button
           label="Start export"
           data-gtm_ignore="true"
@@ -216,6 +330,7 @@ export const DataExport = () => {
             handleExportClicked();
           }}
         />
+        ) : null}
         <Button
           label="Cancel"
           isLink
