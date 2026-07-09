@@ -186,13 +186,13 @@ describe('DataExport', () => {
       name: /Filtered dataset/i,
     });
     expect(radioFiltered).toBeInTheDocument();
-    expect(radioFiltered).not.toBeChecked();
+    expect(radioFiltered).toBeChecked();
 
     const radioFull = screen.getByRole('radio', {
       name: /Full dataset/i,
     });
     expect(radioFull).toBeInTheDocument();
-    expect(radioFull).toBeChecked();
+    expect(radioFull).not.toBeChecked();
     fireEvent.click(radioFiltered);
     await waitFor(() => {
       expect(radioFiltered).toBeChecked();
@@ -235,14 +235,14 @@ describe('DataExport', () => {
     expect(radioJson).not.toBeChecked();
 
     expect(screen.getByRole('textbox')).toHaveValue(
-      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
+      'http://localhost/@@API?field=all&format=csv&no_aggs=true&size=4303365',
     );
 
     fireEvent.click(radioJson);
 
     await waitFor(() => {
       expect(screen.getByRole('textbox')).toHaveValue(
-        'https://files.consumerfinance.gov/ccdb/complaints.json.zip',
+        'http://localhost/@@API?field=all&format=json&no_aggs=true&size=4303365',
       );
     });
     await waitFor(() => {
@@ -264,7 +264,7 @@ describe('DataExport', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('textbox')).toHaveValue(
-        'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
+        'http://localhost/@@API?field=all&format=csv&no_aggs=true&size=4303365',
       );
     });
   });
@@ -281,26 +281,26 @@ describe('DataExport', () => {
       name: /Filtered dataset/i,
     });
     expect(radioFiltered).toBeInTheDocument();
-    expect(radioFiltered).not.toBeChecked();
+    expect(radioFiltered).toBeChecked();
 
     const radioFull = screen.getByRole('radio', {
       name: /Full dataset/i,
     });
     expect(radioFull).toBeInTheDocument();
-    expect(radioFull).toBeChecked();
-    fireEvent.click(radioFiltered);
-    await waitFor(() => {
-      expect(radioFiltered).toBeChecked();
-    });
-    await waitFor(() => {
-      expect(radioFull).not.toBeChecked();
-    });
+    expect(radioFull).not.toBeChecked();
     fireEvent.click(radioFull);
     await waitFor(() => {
       expect(radioFiltered).not.toBeChecked();
     });
     await waitFor(() => {
       expect(radioFull).toBeChecked();
+    });
+    fireEvent.click(radioFiltered);
+    await waitFor(() => {
+      expect(radioFiltered).toBeChecked();
+    });
+    await waitFor(() => {
+      expect(radioFull).not.toBeChecked();
     });
   });
 });
