@@ -17,6 +17,7 @@ const FORMAT_JSON = 'json';
 
 const DATASET_FILTERED = 'filtered';
 const DATASET_FULL = 'full';
+const FILTER_MAX = 1e6;
 
 export const DataExport = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,9 @@ export const DataExport = () => {
   const isFullDatasetOnly = someComplaintsCount === allComplaintsCount;
 
   // can only be full or filtered
-  const [dataset, setDataset] = useState(DATASET_FULL);
+  const [dataset, setDataset] = useState(
+    someComplaintsCount > FILTER_MAX ? DATASET_FULL : DATASET_FILTERED,
+  );
   // can only be csv or json
   const [format, setFormat] = useState(FORMAT_CSV);
 
