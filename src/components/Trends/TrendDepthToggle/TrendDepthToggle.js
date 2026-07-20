@@ -59,12 +59,10 @@ export const TrendDepthToggle = () => {
   ).length;
 
   // The total source depends on the lens.  There are no aggs for companies
-  let totalResultsLength = 0;
-  if (lensKey === 'product') {
-    totalResultsLength = coalesce(aggs, lensKey, []).length;
-  } else {
-    totalResultsLength = clamp(coalesce(filters, lensKey, []).length, 0, 10);
-  }
+  const totalResultsLength =
+    lensKey === 'product'
+      ? coalesce(aggs, lensKey, []).length
+      : clamp(coalesce(filters, lensKey, []).length, 0, 10);
 
   // handle cases where some specified filters are selected
   const filterCount = filters[lensKey]

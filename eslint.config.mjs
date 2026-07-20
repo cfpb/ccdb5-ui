@@ -1,5 +1,6 @@
 // Run `npx @eslint/config-inspector` to inspect the config.
 
+import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
 import globals from 'globals';
 import js from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
@@ -13,32 +14,31 @@ import reactReduxPlugin from 'eslint-plugin-react-redux';
 import testingLibraryPlugin from 'eslint-plugin-testing-library';
 import pluginCypress from 'eslint-plugin-cypress';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import babelParser from '@babel/eslint-parser';
 
 export default [
   {
     ignores: ['*_/**fixtures**/_.js', 'serviceWorker.js'],
   },
   js.configs.recommended,
-  importPlugin.flatConfigs.recommended,
-  jestDom.configs['flat/recommended'],
-  jsdoc.configs['flat/recommended'],
-  jsxA11y.flatConfigs.recommended,
-  reactPlugin.configs.flat.recommended,
-  pluginCypress.configs.recommended,
+  ...fixupConfigRules(importPlugin.flatConfigs.recommended),
+  ...fixupConfigRules(jestDom.configs['flat/recommended']),
+  ...fixupConfigRules(jsdoc.configs['flat/recommended']),
+  ...fixupConfigRules(jsxA11y.flatConfigs.recommended),
+  ...fixupConfigRules(reactPlugin.configs.flat.recommended),
+  ...fixupConfigRules(pluginCypress.configs.recommended),
   eslintConfigPrettier,
   {
     plugins: {
-      jest: jestPlugin,
-      'testing-library': testingLibraryPlugin,
-      'react-hooks': reactHooksPlugin,
-      'react-redux': reactReduxPlugin,
+      jest: fixupPluginRules(jestPlugin),
+      'testing-library': fixupPluginRules(testingLibraryPlugin),
+      'react-hooks': fixupPluginRules(reactHooksPlugin),
+      'react-redux': fixupPluginRules(reactReduxPlugin),
     },
   },
   {
+    files: ['**/*.{js,jsx,mjs,cjs}'],
     languageOptions: {
       ecmaVersion: 2023,
-      parser: babelParser,
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -63,7 +63,11 @@ export default [
         },
       },
       // Treat these as internal/global so ESLint doesn't complain about them being unresolved
-      'import/core-modules': ['@cfpb/design-system-react', '@icons'],
+      'import/core-modules': [
+        '@cfpb/design-system-react',
+        '@icons',
+        'react-router',
+      ],
       jest: {
         version: 30,
       },
