@@ -17,7 +17,7 @@ const FORMAT_JSON = 'json';
 
 const DATASET_FILTERED = 'filtered';
 const DATASET_FULL = 'full';
-const FILTER_MAX = 1e6;
+const FILTER_MAX = 1e5;
 
 export const DataExport = () => {
   const dispatch = useDispatch();
