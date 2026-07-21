@@ -1454,7 +1454,7 @@ __metadata:
     "@cfpb/cfpb-design-system": "npm:^5.8.0"
     "@cfpb/design-system-react": "npm:^1.0.8"
     "@eslint/js": "npm:^9.39.5"
-    "@fontsource-variable/source-sans-3": "npm:5.3.0"
+    "@fontsource-variable/source-sans-3": "npm:5.2.9"
     "@reduxjs/toolkit": "npm:^2.12.0"
     "@rsbuild/core": "npm:^2.1.6"
     "@rsbuild/plugin-react": "npm:^2.1.0"
@@ -2016,13 +2016,6 @@ __metadata:
   version: 5.2.9
   resolution: "@fontsource-variable/source-sans-3@npm:5.2.9"
   checksum: 10c0/d3d428e5d592ef99ebaa975838af21770f0bc754f98e0185f2be6f7329b7bdca7f0579770bae5abb82513adf38fb6262b2c33a57d3edb68cab20b01671a8f34c
-  languageName: node
-  linkType: hard
-
-"@fontsource-variable/source-sans-3@npm:5.3.0":
-  version: 5.3.0
-  resolution: "@fontsource-variable/source-sans-3@npm:5.3.0"
-  checksum: 10c0/8cc54fa29ea56713924dc97d39274dd26e83c9305365bfe6d663bebdff41795863996441c47a9e14660a2da7f77dfe7ae9a5fe324297d01271d48b4534a878e2
   languageName: node
   linkType: hard
 
