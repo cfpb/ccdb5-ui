@@ -17,6 +17,7 @@ const FORMAT_JSON = 'json';
 
 const DATASET_FILTERED = 'filtered';
 const DATASET_FULL = 'full';
+const FILTER_MAX = 1e5;
 
 export const DataExport = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,9 @@ export const DataExport = () => {
   const isFullDatasetOnly = someComplaintsCount === allComplaintsCount;
 
   // can only be full or filtered
-  const [dataset, setDataset] = useState(DATASET_FULL);
+  const [dataset, setDataset] = useState(
+    someComplaintsCount > FILTER_MAX ? DATASET_FULL : DATASET_FILTERED,
+  );
   // can only be csv or json
   const [format, setFormat] = useState(FORMAT_CSV);
 
@@ -139,6 +142,7 @@ export const DataExport = () => {
               <div className="m-form-field m-form-field--radio m-form-field--lg-target">
                 <input
                   checked={dataset === DATASET_FILTERED}
+                  disabled={someComplaintsCount > FILTER_MAX}
                   className="a-radio"
                   id="dataset_filtered"
                   onChange={() => {
@@ -153,7 +157,9 @@ export const DataExport = () => {
                     someComplaintsCount.toLocaleString() +
                     ' complaints)'}
                   <br />
-                  (only the results of the last search and/or filter)
+                  {someComplaintsCount > FILTER_MAX
+                    ? `(limited to ${FILTER_MAX.toLocaleString()} complaints or fewer)`
+                    : '(only the results of the last search and/or filter)'}
                 </label>
               </div>
               <div className="m-form-field m-form-field--radio m-form-field--lg-target">
@@ -173,7 +179,7 @@ export const DataExport = () => {
                     allComplaintsCount.toLocaleString() +
                     ' complaints)'}
                   <br />
-                  (not recommended due to very large file size)
+                  (large, zipped file of every complaint)
                 </label>
               </div>
             </div>
