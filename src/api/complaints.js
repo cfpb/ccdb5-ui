@@ -87,7 +87,7 @@ export const complaintsApi = createApi({
     }),
     getMeta: builder.query({
       query: () => ({
-        url: `?field=all&size=0`,
+        url: `?field=all&size=0&no_aggs=true`,
       }),
     }),
     getSuggest: builder.query({
