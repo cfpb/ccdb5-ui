@@ -1,9 +1,24 @@
 import './DataExport.scss';
 import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
-import { buildAllResultsUri, buildSomeResultsUri } from './dataExportUtils';
+import {
+  buildAllResultsUri,
+  buildMonthlyExportUrls,
+  buildSomeResultsUri,
+  downloadExportFile,
+} from './dataExportUtils';
 import { modalHidden, modalShown } from '../../../reducers/view/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Heading } from '@cfpb/design-system-react';
+import {
+  Button,
+  ButtonGroup,
+  Fieldset,
+  Heading,
+  List,
+  ListItem,
+  Paragraph,
+  RadioButton,
+  TextInput,
+} from '@cfpb/design-system-react';
 import { useMemo, useState } from 'react';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { selectQueryRoot } from '../../../reducers/query/selectors';
@@ -18,6 +33,34 @@ const FORMAT_JSON = 'json';
 const DATASET_FILTERED = 'filtered';
 const DATASET_FULL = 'full';
 
+const TAB_EXPORT = 'export';
+const TAB_DOWNLOAD = 'download';
+
+const FormatOptions = ({ format, onChange }) => (
+  <Fieldset legend="Select a format for the exported file">
+    <RadioButton
+      checked={format === FORMAT_CSV}
+      id="format_csv"
+      isLarge
+      label="CSV"
+      name="export_format"
+      onChange={() => onChange(FORMAT_CSV)}
+      type="radio"
+      value="csv"
+    />
+    <RadioButton
+      checked={format === FORMAT_JSON}
+      id="format_json"
+      isLarge
+      label="JSON"
+      name="export_format"
+      onChange={() => onChange(FORMAT_JSON)}
+      type="radio"
+      value="json"
+    />
+  </Fieldset>
+);
+
 export const DataExport = () => {
   const dispatch = useDispatch();
   const queryState = useSelector(selectQueryRoot);
@@ -28,26 +71,47 @@ export const DataExport = () => {
   const allComplaintsCount = data?.doc_count || 0;
   const isFullDatasetOnly = someComplaintsCount === allComplaintsCount;
 
-  // can only be full or filtered
   const [dataset, setDataset] = useState(DATASET_FULL);
-  // can only be csv or json
   const [format, setFormat] = useState(FORMAT_CSV);
-
   const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState(TAB_EXPORT);
+
+  const mergedState = useMemo(
+    () => ({
+      ...filtersState,
+      ...queryState,
+    }),
+    [filtersState, queryState],
+  );
 
   const exportDataset = isFullDatasetOnly ? DATASET_FULL : dataset;
 
   const exportUri = useMemo(() => {
-    const mergedState = {
-      ...filtersState,
-      ...queryState,
-    };
     const url =
       exportDataset === DATASET_FULL
         ? buildAllResultsUri(format)
         : buildSomeResultsUri(format, someComplaintsCount, mergedState);
     return getFullUrl(url);
-  }, [exportDataset, format, someComplaintsCount, filtersState, queryState]);
+  }, [exportDataset, format, someComplaintsCount, mergedState]);
+
+  const exportSize = isFullDatasetOnly
+    ? allComplaintsCount
+    : someComplaintsCount;
+
+  const monthlyExportUrls = useMemo(() => {
+    return buildMonthlyExportUrls(format, exportSize, mergedState).map(
+      ({ label, uri, filename }) => ({
+        label,
+        filename,
+        uri: getFullUrl(uri),
+      }),
+    );
+  }, [exportSize, format, mergedState]);
+
+  const handleFormatChange = (nextFormat) => {
+    setCopied(false);
+    setFormat(nextFormat);
+  };
 
   const handleExportClicked = () => {
     if (exportDataset === DATASET_FULL) {
@@ -63,13 +127,16 @@ export const DataExport = () => {
   const copyToClipboard = (ev) => {
     const uriControl = getElementById('export-uri-input');
     uriControl.select();
-    // For mobile devices
     uriControl.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(uriControl.value);
     ev.target.focus();
 
     setCopied(true);
   };
+
+  const tabButtonClassName = (tabName) =>
+    `export-tab${activeTab === tabName ? ' selected' : ''}`;
+
   return (
     <section className="export-modal">
       <div className="header layout-row">
@@ -87,60 +154,42 @@ export const DataExport = () => {
         />
       </div>
       <div className="body">
-        <div className="instructions">
-          To download a copy of this dataset, choose the file format and which
-          complaints you want to export below.
-        </div>
-        <div className="group">
-          <div className="group-title">
-            Select a format for the exported file
-          </div>
-          <div>
-            <div className="m-form-field m-form-field--radio m-form-field--lg-target">
-              <input
-                checked={format === FORMAT_CSV}
-                className="a-radio"
-                id="format_csv"
-                onChange={() => {
-                  setCopied(false);
-                  setFormat(FORMAT_CSV);
-                }}
-                type="radio"
-                value="csv"
-              />
-              <label className="a-label" htmlFor="format_csv">
-                CSV
-              </label>
-            </div>
-            <div className="m-form-field m-form-field--radio m-form-field--lg-target">
-              <input
-                checked={format === FORMAT_JSON}
-                className="a-radio"
-                id="format_json"
-                onChange={() => {
-                  setCopied(false);
-                  setFormat(FORMAT_JSON);
-                }}
-                type="radio"
-                value="json"
-              />
-              <label className="a-label" htmlFor="format_json">
-                JSON
-              </label>
-            </div>
-          </div>
-        </div>
-        {isFullDatasetOnly ? null : (
-          <div className="group">
-            <div className="group-title">
-              Select which complaints you’d like to export
-            </div>
-            <div>
-              <div className="m-form-field m-form-field--radio m-form-field--lg-target">
-                <input
+        <ButtonGroup className="m-btn-group export-tabs">
+          <Button
+            label="Export"
+            className={tabButtonClassName(TAB_EXPORT)}
+            onClick={() => setActiveTab(TAB_EXPORT)}
+          />
+          <Button
+            label="Download"
+            className={tabButtonClassName(TAB_DOWNLOAD)}
+            onClick={() => setActiveTab(TAB_DOWNLOAD)}
+          />
+        </ButtonGroup>
+
+        <FormatOptions format={format} onChange={handleFormatChange} />
+
+        {activeTab === TAB_EXPORT ? (
+          <>
+            <Paragraph className="instructions">
+              To download a copy of this dataset, choose the file format and
+              which complaints you want to export below.
+            </Paragraph>
+
+            {!isFullDatasetOnly ? (
+              <Fieldset legend="Select which complaints you’d like to export">
+                <RadioButton
                   checked={dataset === DATASET_FILTERED}
-                  className="a-radio"
                   id="dataset_filtered"
+                  isLarge
+                  label={
+                    <>
+                      {`Filtered dataset (${someComplaintsCount.toLocaleString()} complaints)`}
+                      <br />
+                      (only the results of the last search and/or filter)
+                    </>
+                  }
+                  name="export_dataset"
                   onChange={() => {
                     setCopied(false);
                     setDataset(DATASET_FILTERED);
@@ -148,19 +197,18 @@ export const DataExport = () => {
                   type="radio"
                   value="filtered"
                 />
-                <label className="a-label" htmlFor="dataset_filtered">
-                  {'Filtered dataset (' +
-                    someComplaintsCount.toLocaleString() +
-                    ' complaints)'}
-                  <br />
-                  (only the results of the last search and/or filter)
-                </label>
-              </div>
-              <div className="m-form-field m-form-field--radio m-form-field--lg-target">
-                <input
+                <RadioButton
                   checked={dataset === DATASET_FULL}
-                  className="a-radio"
                   id="dataset_full"
+                  isLarge
+                  label={
+                    <>
+                      {`Full dataset (${allComplaintsCount.toLocaleString()} complaints)`}
+                      <br />
+                      (not recommended due to very large file size)
+                    </>
+                  }
+                  name="export_dataset"
                   onChange={() => {
                     setCopied(false);
                     setDataset(DATASET_FULL);
@@ -168,54 +216,84 @@ export const DataExport = () => {
                   type="radio"
                   value="full"
                 />
-                <label className="a-label" htmlFor="dataset_full">
-                  {'Full dataset (' +
-                    allComplaintsCount.toLocaleString() +
-                    ' complaints)'}
-                  <br />
-                  (not recommended due to very large file size)
-                </label>
+              </Fieldset>
+            ) : null}
+
+            <div className="heres-the-url">
+              <Heading type="4">
+                Link to your complaint search results for future reference
+              </Heading>
+              <div className="layout-row">
+                <TextInput
+                  className="flex-all"
+                  id="export-uri-input"
+                  isFullWidth
+                  name="export-uri"
+                  readOnly
+                  value={exportUri}
+                />
+                <Button
+                  label={copied ? 'Copied' : 'Copy'}
+                  iconLeft={copied ? 'checkmark-round' : 'copy'}
+                  className={`a-btn ${
+                    copied ? 'export-url-copied' : 'a-btn__secondary'
+                  }`}
+                  disabled={!exportUri}
+                  onClick={copyToClipboard}
+                />
               </div>
             </div>
+
+            <Paragraph className="timeliness-warning">
+              The export process could take several minutes if you’re downloading
+              many complaints
+            </Paragraph>
+          </>
+        ) : (
+          <div className="monthly-download">
+            <Paragraph className="instructions">
+              Proof of concept: download your export in smaller monthly chunks
+              to avoid timeouts on very large date ranges. Each link uses the
+              same search and filter parameters as your current view, with only
+              the date range adjusted per month.
+            </Paragraph>
+
+            {monthlyExportUrls.length === 0 ? (
+              <Paragraph className="monthly-download-empty">
+                Unable to determine a date range for monthly downloads.
+              </Paragraph>
+            ) : (
+              <Fieldset
+                legend={`Monthly download links (${monthlyExportUrls.length})`}
+              >
+                <List isUnstyled className="monthly-download-list">
+                  {monthlyExportUrls.map(({ label, uri, filename }) => (
+                    <ListItem key={`${filename}-${uri}`}>
+                      <Button
+                        isLink
+                        iconLeft="download"
+                        label={label}
+                        onClick={() => downloadExportFile(uri, filename)}
+                      />
+                      <Paragraph className="monthly-download-filename a-micro-copy">
+                        {filename}
+                      </Paragraph>
+                    </ListItem>
+                  ))}
+                </List>
+              </Fieldset>
+            )}
           </div>
         )}
-
-        <div className="heres-the-url">
-          <Heading type="4">
-            Link to your complaint search results for future reference
-          </Heading>
-          <div className="layout-row">
-            <input
-              className="flex-all a-text-input"
-              id="export-uri-input"
-              type="text"
-              value={exportUri}
-              readOnly
-            />
-            <Button
-              label={copied ? 'Copied' : 'Copy'}
-              iconLeft={copied ? 'checkmark-round' : 'copy'}
-              className={`a-btn ${
-                copied ? 'export-url-copied' : 'a-btn__secondary'
-              }`}
-              disabled={!exportUri}
-              onClick={copyToClipboard}
-            />
-          </div>
-        </div>
-        <div className="timeliness-warning">
-          The export process could take several minutes if you’re downloading
-          many complaints
-        </div>
       </div>
       <div className="footer layout-row">
-        <Button
-          label="Start export"
-          data-gtm_ignore="true"
-          onClick={() => {
-            handleExportClicked();
-          }}
-        />
+        {activeTab === TAB_EXPORT ? (
+          <Button
+            label="Start export"
+            data-gtm_ignore="true"
+            onClick={handleExportClicked}
+          />
+        ) : null}
         <Button
           label="Cancel"
           isLink

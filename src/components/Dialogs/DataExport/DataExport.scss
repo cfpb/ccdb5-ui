@@ -24,36 +24,65 @@
       margin-bottom: $gutter-normal;
     }
 
-    .group {
+    fieldset {
+      margin-bottom: $gutter-normal;
+    }
+
+    .export-tabs {
       margin-bottom: $gutter-normal;
 
-      .group-title {
-        margin: $gutter-normal 0;
-        font-size: $size-iv;
-        font-weight: bold;
-      }
+      .export-tab {
+        background-color: var(--pacific-20);
+        color: var(--black);
 
-      .m-form-field {
-        margin-bottom: $gutter-normal;
-
-        .multiline-label {
-          display: inline-block;
+        &.selected {
+          background-color: var(--pacific-60);
+          font-weight: 600;
         }
-      }
-
-      .other-formats {
-        margin-top: $gutter-normal * 1.5;
-      }
-
-      .required-helper {
-        color: var(--gray);
       }
     }
 
+    .monthly-download-empty,
     .timeliness-warning {
       margin-bottom: $gutter-normal * 1.5;
-
+      color: var(--gray);
       font-size: smaller;
+    }
+
+    .monthly-download-empty {
+      font-style: italic;
+    }
+
+    .monthly-download-list {
+      max-height: 300px;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      list-style: none;
+
+      li {
+        padding: $gutter-minimum 0;
+        border-bottom: 1px solid var(--gray-10);
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      .monthly-download-filename {
+        margin-top: 2px;
+      }
+
+      a {
+        color: var(--pacific);
+        text-decoration: underline;
+        word-break: break-all;
+
+        &:hover,
+        &:focus {
+          color: var(--navy-dark);
+        }
+      }
     }
   }
 }
