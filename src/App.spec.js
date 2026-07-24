@@ -1,9 +1,11 @@
 import App from './App';
 import { Provider } from 'react-redux';
+import { DSRProvider } from '@cfpb/design-system-react';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import { render, screen } from '@testing-library/react';
 import * as useUpdateLocationHook from './hooks/useUpdateLocation';
 import { ComplaintDetail } from './components/ComplaintDetail/ComplaintDetail';
+import { DsrLink } from './components/DsrLink/DsrLink';
 import { configureStoreUtil, waitFor } from './testUtils/test-utils';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from './components/List/ListPanel/fixture';
@@ -63,9 +65,11 @@ describe('initial state', () => {
     render(
       <MemoryRouter initialEntries={['/detail/6026335']}>
         <Provider store={store}>
-          <Routes>
-            <Route path="/detail/:id" element={<ComplaintDetail />} />
-          </Routes>
+          <DSRProvider LinkComponent={DsrLink}>
+            <Routes>
+              <Route path="/detail/:id" element={<ComplaintDetail />} />
+            </Routes>
+          </DSRProvider>
         </Provider>
       </MemoryRouter>,
     );

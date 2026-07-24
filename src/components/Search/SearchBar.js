@@ -143,7 +143,7 @@ export const SearchBar = () => {
             </div>
             <Link
               className="u-visually-hidden"
-              href="#search-summary"
+              to="#search-summary"
               label="Skip to Results"
             />
 
