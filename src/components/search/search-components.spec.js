@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react';
+import { DSRProvider } from '@cfpb/design-system-react';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import { Provider } from 'react-redux';
 import { SearchComponents } from './search-components';
+import { DsrLink } from '../dsr-link/dsr-link';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../list/list-panel/fixture';
 import { trendsResponse } from '../trends/fixture';
@@ -34,9 +36,11 @@ describe('SearchComponents', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <Provider store={store}>
-          <Routes>
-            <Route path="/" element={<SearchComponents />} />
-          </Routes>
+          <DSRProvider LinkComponent={DsrLink}>
+            <Routes>
+              <Route path="/" element={<SearchComponents />} />
+            </Routes>
+          </DSRProvider>
         </Provider>
       </MemoryRouter>,
     );

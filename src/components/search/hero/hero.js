@@ -24,7 +24,7 @@ export const Hero = () => {
         </li>
         <li className="m-list__item">
           <Link
-            href={LINK_DATA_USE}
+            to={LINK_DATA_USE}
             label="How we use complaint data"
             target="_blank"
             rel="noopener noreferrer"
@@ -32,7 +32,7 @@ export const Hero = () => {
         </li>
         <li className="m-list__item">
           <Link
-            href="https://cfpb.github.io/api/ccdb/"
+            to="https://cfpb.github.io/api/ccdb/"
             iconRight="external-link"
             target="_blank"
             rel="noopener noreferrer"

@@ -33,15 +33,14 @@ export const ComplaintDetail = () => {
       <nav className="layout-row">
         <div className="back-to-search flex-fixed">
           <Link
-            href={backUrl}
-            isRouterLink
+            to={backUrl}
             iconLeft="left"
             label="Back to search results"
           />
         </div>
         <div className="meaning flex-fixed">
           <Link
-            href={LINK_DATA_USE}
+            to={LINK_DATA_USE}
             target="_blank"
             rel="noopener noreferrer"
             label="What do all these data points mean?"
