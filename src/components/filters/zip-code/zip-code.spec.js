@@ -32,7 +32,7 @@ describe('ZipCode', () => {
     fetchMock.resetMocks();
     zipAggsResponse = cloneDeep(aggResponse);
     zipAggsResponse.aggregations.zip_code = {
-      doc_count: 4303365,
+      doc_count: 4_303_365,
       zip_code: {
         doc_count_error_upper_bound: 0,
         sum_other_doc_count: 0,

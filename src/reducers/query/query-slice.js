@@ -3,6 +3,7 @@ import { minDate } from '../../constants';
 import {
   calculateDateRange,
   coalesce,
+  setMaxDate,
   shortIsoFormat,
   startOfToday,
 } from '../../utils';
@@ -56,19 +57,19 @@ export function alignDateRange(state) {
     '1y': dayjs(dateMax).subtract(1, 'year'),
   };
   const ranges = Object.keys(rangeMap);
-  let matched = false;
+  let isMatched = false;
 
-  for (let idx = 0; idx < ranges.length && !matched; idx++) {
+  for (let idx = 0; !isMatched && idx < ranges.length; idx++) {
     const range = ranges[idx];
 
     if (dayjs(dateMin).isSame(rangeMap[range], 'day')) {
       state.dateRange = range;
-      matched = true;
+      isMatched = true;
     }
   }
 
   // No matches, clear
-  if (!matched) {
+  if (!isMatched) {
     state.dateRange = '';
   }
 }
@@ -116,8 +117,8 @@ export function validateDateInterval(queryState) {
   const { date_received_min, date_received_max, dateInterval } = queryState;
   // determine if we need to update date Interval if range > 1 yr
   if (
-    isGreaterThanYear(date_received_min, date_received_max) &&
-    dateInterval === 'Day'
+    dateInterval === 'Day' &&
+    isGreaterThanYear(date_received_min, date_received_max)
   ) {
     queryState.dateInterval = 'Week';
     queryState.trendsDateWarningEnabled = true;
@@ -137,7 +138,11 @@ export function validateDateInterval(queryState) {
  * @returns {Array} array containing complaint's received date and id
  */
 function getSearchAfter(breakPoints, page) {
-  return breakPoints && breakPoints[page] ? breakPoints[page].join('_') : '';
+  if (!breakPoints || !Object.hasOwn(breakPoints, page)) {
+    return '';
+  }
+  const point = breakPoints[page];
+  return point ? point.join('_') : '';
 }
 
 /**
@@ -179,11 +184,15 @@ export function stateToQS(state) {
 
   for (const field of fields) {
     // Do not include empty fields
-    if (!state[field]) {
+    if (!Object.hasOwn(state, field)) {
+      continue;
+    }
+    const fieldValue = state[field];
+    if (!fieldValue) {
       continue;
     }
 
-    let value = state[field];
+    let value = fieldValue;
 
     // Process dates
     if (types.dateFilters.includes(field)) {
@@ -197,7 +206,7 @@ export function stateToQS(state) {
     }
 
     // Map the internal field names to the API field names
-    if (fieldMap[field]) {
+    if (Object.hasOwn(fieldMap, field)) {
       params[fieldMap[field]] = value;
     } else {
       params[field] = value;
@@ -241,12 +250,12 @@ export function stateToQS(state) {
   }
 
   // where we only filter out the params required for each of the tabs
-  const filteredParams = Object.keys(params)
-    .filter((key) => filterKeys.includes(key))
-    .reduce((obj, key) => {
-      obj[key] = params[key];
-      return obj;
-    }, {});
+  const filteredParams = {};
+  for (const [key, value] of Object.entries(params)) {
+    if (filterKeys.includes(key)) {
+      filteredParams[key] = value;
+    }
+  }
 
   return '?' + queryString.stringify(filteredParams);
 }
@@ -341,7 +350,7 @@ export const querySlice = createSlice({
           ? formatDate(dayjs(maxDate).startOf('day'))
           : null;
 
-        const datesChanged =
+        const isDatesChanged =
           state.date_received_min !== minDate ||
           state.date_received_max !== maxDate;
 
@@ -351,7 +360,7 @@ export const querySlice = createSlice({
           state.dateLastIndexed,
         );
 
-        if (dateRange && datesChanged) {
+        if (dateRange && isDatesChanged) {
           state.dateRange = dateRange;
         } else {
           delete state.dateRange;
@@ -439,8 +448,12 @@ export const querySlice = createSlice({
           'sort',
         ];
         for (const item of keys) {
-          if (params[item]) {
-            state[item] = enforceValues(params[item], item);
+          if (!Object.hasOwn(params, item)) {
+            continue;
+          }
+          const paramValue = params[item];
+          if (paramValue) {
+            state[item] = enforceValues(paramValue, item);
           }
         }
 
@@ -453,8 +466,8 @@ export const querySlice = createSlice({
         // Handle numeric fields
         const defaultPage = coalesce(params, 'page', queryState.page);
         const defaultSize = coalesce(params, 'size', queryState.size);
-        state.page = Number.parseInt(defaultPage, 10);
-        state.size = Number.parseInt(defaultSize, 10);
+        state.page = Number(defaultPage);
+        state.size = Number(defaultSize);
 
         if (params.search_after) {
           state.searchAfter = params.search_after;
@@ -474,8 +487,8 @@ export const querySlice = createSlice({
             .startOf('day')
             .format('YYYY-MM-DD');
 
-          globalThis.MAX_DATE = formatDate(
-            dayjs(state.dateLastIndexed).startOf('day'),
+          setMaxDate(
+            formatDate(dayjs(state.dateLastIndexed).startOf('day')),
           );
 
           // set defaults if the value is not set yet

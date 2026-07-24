@@ -4,6 +4,11 @@ import { Component, isValidElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { getIntroTarget, querySelector } from '../../utils/dom';
 
+const tourElementPropType =
+  typeof Element === 'undefined'
+    ? PropTypes.any
+    : PropTypes.instanceOf(Element);
+
 /**
  * Intro.js Steps wrapper scoped to the CCDB app root (shadow DOM when embedded).
  * intro.js uses document.querySelector for its overlay UI; we temporarily redirect
@@ -15,12 +20,7 @@ export class TourSteps extends Component {
     initialStep: PropTypes.number.isRequired,
     steps: PropTypes.arrayOf(
       PropTypes.shape({
-        element: PropTypes.oneOfType([
-          PropTypes.string,
-          typeof Element === 'undefined'
-            ? PropTypes.any
-            : PropTypes.instanceOf(Element),
-        ]),
+        element: PropTypes.oneOfType([PropTypes.string, tourElementPropType]),
         intro: PropTypes.node.isRequired,
         position: PropTypes.string,
         tooltipClass: PropTypes.string,
@@ -49,47 +49,6 @@ export class TourSteps extends Component {
     onComplete: null,
     options: {},
   };
-
-  constructor(props) {
-    super(props);
-    this.introJs = null;
-    this.isConfigured = false;
-    this.isVisible = false;
-    this._documentQuerySelector = null;
-    this._documentQuerySelectorAll = null;
-    this._queryTarget = null;
-    this.installIntroJs();
-  }
-
-  componentDidMount() {
-    if (!this.props.isEnabled) {
-      return;
-    }
-
-    this.configureIntroJs();
-    this.renderSteps();
-  }
-
-  componentDidUpdate(prevProps) {
-    const { isEnabled, steps, options } = this.props;
-    const configChanged =
-      !this.isConfigured ||
-      prevProps.steps !== steps ||
-      prevProps.options !== options;
-    const enabledChanged = prevProps.isEnabled !== isEnabled;
-
-    if (configChanged) {
-      this.configureIntroJs();
-    }
-    if (configChanged || enabledChanged) {
-      this.renderSteps();
-    }
-  }
-
-  componentWillUnmount() {
-    this.restoreDocumentQueryPatch();
-    this.introJs?.exit();
-  }
 
   onExit = () => {
     this.restoreDocumentQueryPatch();
@@ -196,6 +155,47 @@ export class TourSteps extends Component {
       element: element || undefined,
     };
   };
+
+  constructor(props) {
+    super(props);
+    this.introJs = null;
+    this.isConfigured = false;
+    this.isVisible = false;
+    this._documentQuerySelector = null;
+    this._documentQuerySelectorAll = null;
+    this._queryTarget = null;
+    this.installIntroJs();
+  }
+
+  componentDidMount() {
+    if (!this.props.isEnabled) {
+      return;
+    }
+
+    this.configureIntroJs();
+    this.renderSteps();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { isEnabled, steps, options } = this.props;
+    const isConfigChanged =
+      !this.isConfigured ||
+      prevProps.steps !== steps ||
+      prevProps.options !== options;
+    const isEnabledChanged = prevProps.isEnabled !== isEnabled;
+
+    if (isConfigChanged) {
+      this.configureIntroJs();
+    }
+    if (isConfigChanged || isEnabledChanged) {
+      this.renderSteps();
+    }
+  }
+
+  componentWillUnmount() {
+    this.restoreDocumentQueryPatch();
+    this.introJs?.exit();
+  }
 
   enableDocumentQueryPatch() {
     const target = getIntroTarget();

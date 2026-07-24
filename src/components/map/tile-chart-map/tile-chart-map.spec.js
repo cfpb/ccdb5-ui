@@ -45,7 +45,11 @@ describe('TileChartMap', () => {
   });
 
   afterEach(() => {
-    for (const chart of Highcharts.charts.filter(Boolean)) chart.destroy();
+    for (const chart of Highcharts.charts) {
+      if (chart) {
+        chart.destroy();
+      }
+    }
   });
 
   it('renders empty set without crashing', () => {

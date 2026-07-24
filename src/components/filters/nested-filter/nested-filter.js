@@ -44,9 +44,13 @@ export const generateOptions = (
     const isFocusItem = tab === MODE_TRENDS && lens.toLowerCase() === fieldName;
     for (const opt of options) {
       opt.isDisabled = isFocusItem ? opt.key !== focus : false;
-      if (opt[subAggFieldName]) {
-        for (const bucket of opt[subAggFieldName].buckets) {
-          bucket.isDisabled = isFocusItem ? opt.isDisabled : false;
+      if (Object.hasOwn(opt, subAggFieldName)) {
+        const subAgg = opt[subAggFieldName];
+        if (subAgg) {
+          const subBuckets = subAgg.buckets;
+          for (const bucket of subBuckets) {
+            bucket.isDisabled = isFocusItem ? opt.isDisabled : false;
+          }
         }
       }
     }
@@ -82,7 +86,12 @@ export const NestedFilter = ({ desc, fieldName }) => {
   // --------------------------------------------------------------------------
   // MoreOrLess Helpers
   const _onBucket = (bucket, props) => {
-    props.subitems = bucket[subFieldName] ? bucket[subFieldName].buckets : [];
+    if (Object.hasOwn(bucket, subFieldName)) {
+      const subAgg = bucket[subFieldName];
+      props.subitems = subAgg ? subAgg.buckets : [];
+    } else {
+      props.subitems = [];
+    }
     return props;
   };
 

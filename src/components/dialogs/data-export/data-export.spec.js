@@ -168,7 +168,7 @@ describe('DataExport', () => {
 
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     renderComponent(
-      { doc_count: 999, total: 10000 },
+      { doc_count: 999, total: 10_000 },
       {
         date_received_max: '2020-05-05',
         date_received_min: '2017-05-05',

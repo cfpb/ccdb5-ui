@@ -45,7 +45,7 @@ export const filtersSlice = createSlice({
         const { filterName, filterValue } = action.payload;
         if (filterName === 'has_narrative') {
           state.has_narrative = true;
-        } else if (filterName in state) {
+        } else if (Object.hasOwn(state, filterName)) {
           const idx = state[filterName].indexOf(filterValue);
           if (idx === -1) {
             state[filterName].push(filterValue);
@@ -65,7 +65,7 @@ export const filtersSlice = createSlice({
         const { filterName, filterValue } = action.payload;
         if (filterName === 'has_narrative') {
           delete state.has_narrative;
-        } else if (filterName in state) {
+        } else if (Object.hasOwn(state, filterName)) {
           const idx = state[filterName].indexOf(filterValue);
           if (idx !== -1) {
             state[filterName].splice(idx, 1);
@@ -88,7 +88,7 @@ export const filtersSlice = createSlice({
           allFilters.splice(idx, 1);
         }
         for (const knownFilter of allFilters) {
-          if (knownFilter in state) {
+          if (Object.hasOwn(state, knownFilter)) {
             state[knownFilter] = [];
           }
         }
@@ -145,7 +145,7 @@ export const filtersSlice = createSlice({
     },
     multipleFiltersRemoved: {
       reducer: (state, action) => {
-        if (state[action.payload.filterName]) {
+        if (Object.hasOwn(state, action.payload.filterName)) {
           for (const val of action.payload.values) {
             const idx = state[action.payload.filterName].indexOf(val);
             if (idx !== -1) {
@@ -186,8 +186,14 @@ export const filtersSlice = createSlice({
     toggleFlagFilter: {
       reducer: (state, action) => {
         const filterName = action.payload;
-        state[filterName] = !state[filterName];
-        if (!state[filterName]) delete state[filterName];
+        if (Object.hasOwn(state, filterName)) {
+          const current = state[filterName];
+          if (current) {
+            delete state[filterName];
+            return;
+          }
+        }
+        state[filterName] = true;
       },
     },
   },

@@ -105,12 +105,14 @@ export default tseslint.config(
       'no-console': ['warn'],
 
       // Match DSR unicorn overrides
-      'unicorn/prevent-abbreviations': 'off',
+      'unicorn/prevent-abbreviations': 'off', // Airbnb was less strict than Unicorn
       'unicorn/null-data-property': 'off',
       'unicorn/no-null': 'off',
-      // Unicorn 72: rename campaign is too large for this JS app right now
+      // Unicorn 72 companion to prevent-abbreviations (same rename campaign DSR opted out of)
       'unicorn/name-replacements': 'off',
-      // Keep Jest convention dirs; kebab-case the rest
+      // App bootstrap (dayjs plugins, store, analytics) — DSR is a component lib without this
+      'unicorn/no-top-level-side-effects': 'off',
+      // ccdb5: keep Jest convention dirs; kebab-case the rest (DSR uses recommended default)
       'unicorn/filename-case': [
         'error',
         {
@@ -118,47 +120,6 @@ export default tseslint.config(
           ignore: ['^__fixtures__$', '^__tests__$', '^__mocks__$'],
         },
       ],
-      // Extremely noisy on large numeric fixtures
-      'unicorn/numeric-separators-style': 'off',
-      'unicorn/no-zero-fractions': 'off',
-      // Impractical on this codebase (d3/highcharts `this`, CJS cypress/colors, reducers)
-      'unicorn/no-this-outside-of-class': 'off',
-      'unicorn/prefer-module': 'off',
-      'unicorn/no-anonymous-default-export': 'off',
-      'unicorn/no-array-reduce': 'off',
-      'unicorn/consistent-function-scoping': 'off',
-      'unicorn/no-array-callback-reference': 'off',
-      'unicorn/no-top-level-side-effects': 'off',
-      'unicorn/no-global-object-property-assignment': 'off',
-      'unicorn/consistent-boolean-name': 'off',
-      'unicorn/default-export-style': 'off',
-      'unicorn/prefer-await': 'off',
-      'unicorn/no-computed-property-existence-check': 'off',
-      'unicorn/no-declarations-before-early-exit': 'off',
-      'unicorn/prefer-simple-condition-first': 'off',
-      'unicorn/prefer-number-coercion': 'off',
-      'unicorn/no-unnecessary-global-this': 'off',
-      'unicorn/no-break-in-nested-loop': 'off',
-      'unicorn/max-nested-calls': 'off',
-      'unicorn/consistent-class-member-order': 'off',
-      'unicorn/no-unreadable-for-of-expression': 'off',
-      'unicorn/require-array-sort-compare': 'off',
-      'unicorn/prefer-minimal-ternary': 'off',
-      'unicorn/no-top-level-assignment-in-function': 'off',
-      'unicorn/prefer-object-iterable-methods': 'off',
-      'unicorn/no-duplicate-loops': 'off',
-      'unicorn/prefer-simple-sort-comparator': 'off',
-      'unicorn/no-invalid-argument-count': 'off',
-      // getHTML() not reliable in jsdom test environment
-      'unicorn/prefer-dom-node-html-methods': 'off',
-      // Prefer explicit coercions in a mostly-untyped JS codebase
-      'unicorn/no-useless-coercion': 'off',
-      'unicorn/no-useless-boolean-cast': 'off',
-      // Keep explicit Boolean()/String() coercions for clarity
-      'unicorn/prefer-native-coercion-functions': 'off',
-      'unicorn/no-typeof-undefined': 'off',
-      'unicorn/prefer-logical-operator-over-ternary': 'off',
-      'unicorn/prefer-modern-dom-apis': 'off',
 
       'no-use-before-define': 'off',
       // variables:false — createSlice action refs used in addMatcher before export
@@ -223,6 +184,53 @@ export default tseslint.config(
       '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/no-var-requires': 'off',
       '@typescript-eslint/no-empty-function': 'off',
+    },
+  },
+
+  // ccdb5-only: large numeric API fixtures (DSR has no equivalent). Keep readable diffs.
+  {
+    files: [
+      '**/fixture.js',
+      '**/fixture*.js',
+      '**/__fixtures__/**',
+      '**/fixtures/**',
+    ],
+    rules: {
+      'unicorn/numeric-separators-style': 'off',
+      'unicorn/no-zero-fractions': 'off',
+    },
+  },
+
+  // jsdom does not implement Element#getHTML(); keep innerHTML in unit tests.
+  {
+    files: ['**/*.{spec,test}.{js,jsx,ts,tsx}'],
+    rules: {
+      'unicorn/prefer-dom-node-html-methods': 'off',
+      // Specs routinely assign mocks onto globals / prototypes
+      'unicorn/no-global-object-property-assignment': 'off',
+      // Nested helpers inside describe/it are normal Jest style
+      'unicorn/consistent-function-scoping': 'off',
+      'unicorn/no-top-level-assignment-in-function': 'off',
+    },
+  },
+
+  // Cypress plugins remain CJS; chart libs bind `this` in callbacks
+  {
+    files: ['cypress/plugins/**'],
+    rules: {
+      'unicorn/prefer-module': 'off',
+      'unicorn/no-anonymous-default-export': 'off',
+    },
+  },
+  {
+    files: [
+      '**/tile-map/**',
+      '**/row-chart/**',
+      '**/line-chart/**',
+      '**/stacked-area-chart/**',
+    ],
+    rules: {
+      'unicorn/no-this-outside-of-class': 'off',
     },
   },
 

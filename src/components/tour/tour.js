@@ -130,7 +130,7 @@ export const Tour = () => {
       }
       const currentStep = ref.current.introJs.currentStep();
 
-      if (!baseSteps[currentStep]) {
+      if (!Object.hasOwn(baseSteps, currentStep)) {
         return;
       }
 
@@ -139,7 +139,7 @@ export const Tour = () => {
         prepareRowChartStep();
       }
 
-      const filterListener = () => {
+      const filterListener = async () => {
         querySelector('.introjs-nextbutton')?.setAttribute(
           'style',
           'display: inline',
@@ -150,14 +150,12 @@ export const Tour = () => {
             ? Promise.resolve()
             : waitForDateFilter();
 
-        afterFilterAction.then(() => {
-          ref.current.introJs.nextStep().then(() => {
-            querySelector(MOBILE_FILTER_TOGGLE_SELECTOR)?.removeEventListener(
-              'click',
-              filterListener,
-            );
-          });
-        });
+        await afterFilterAction;
+        await ref.current.introJs.nextStep();
+        querySelector(MOBILE_FILTER_TOGGLE_SELECTOR)?.removeEventListener(
+          'click',
+          filterListener,
+        );
       };
 
       if (
@@ -180,11 +178,11 @@ export const Tour = () => {
 
   const handleBeforeExit = useCallback(
     (ref) => {
-      if (ref.current === null || !showTour) {
+      if (!showTour || ref.current === null) {
         return true;
       }
       if (ref.current.introJs.currentStep() + 1 < baseSteps.length) {
-        return globalThis.confirm('Are you sure you want to exit the tour?');
+        return confirm('Are you sure you want to exit the tour?');
       }
       return true;
     },

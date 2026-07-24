@@ -64,13 +64,13 @@ export const TileChartMap = () => {
   );
 
   const _redrawMap = useCallback(() => {
-    const mapElement = getElementById('tile-chart-map');
-    const containerWidth = mapElement.clientWidth || width;
-
-    const mapWidth = isPrintMode ? 650 : containerWidth;
     if (!data) {
       return;
     }
+
+    const mapElement = getElementById('tile-chart-map');
+    const containerWidth = mapElement.clientWidth || width;
+    const mapWidth = isPrintMode ? 650 : containerWidth;
 
     const dataSet = updateData(data, stateFilters);
 

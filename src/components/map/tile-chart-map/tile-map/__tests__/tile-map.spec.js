@@ -70,7 +70,7 @@ describe('Tile map', () => {
     it('gets complaints bins - All', () => {
       const quantiles = [
         880.2857142857142, 1622.5714285714282, 3064.9999999999995,
-        6136.714285714284, 7788.142857142858, 13909.714285714286,
+        6136.714285714284, 7788.142857142858, 13_909.714285714286,
       ];
       const expected = [
         { from: 0, color: '#ffffff', name: '≥ 0', shortName: '≥ 0' },
@@ -79,7 +79,7 @@ describe('Tile map', () => {
         { from: 3065, color: 3065, name: '≥ 3,065', shortName: '≥ 3.0K' },
         { from: 6137, color: 6137, name: '≥ 6,137', shortName: '≥ 6.1K' },
         { from: 7788, color: 7789, name: '> 7,788', shortName: '> 7.7K' },
-        { from: 13910, color: 13910, name: '≥ 13,910', shortName: '≥ 13K' },
+        { from: 13_910, color: 13_910, name: '≥ 13,910', shortName: '≥ 13K' },
       ];
 
       const result = sutClone.getBins(quantiles, scaleFn);
@@ -148,7 +148,7 @@ describe('Tile map', () => {
   it('formats a map tile', () => {
     sutClone.point = {
       className: 'default',
-      displayValue: 10000,
+      displayValue: 10_000,
       name: 'FA',
     };
 
@@ -160,7 +160,7 @@ describe('Tile map', () => {
 
   it('formats the map tooltip w/ missing data', () => {
     sutClone.name = 'FL';
-    sutClone.value = 10000;
+    sutClone.value = 10_000;
     const result = sutClone.tooltipFormatter();
     expect(result).toEqual(
       '<h4 class="title">Florida (FL)</h4><div class="row row--count"><p class="u-float-left">Complaint count</p><p class="u-right">10,000</p></div><div class="row row--count-mobile"><p class="u-right">10,000 complaints</p></div>',
@@ -169,7 +169,7 @@ describe('Tile map', () => {
 
   it('formats the map tooltip w/ prod & issue', () => {
     sutClone.name = 'FL';
-    sutClone.value = 10000;
+    sutClone.value = 10_000;
     sutClone.product = 'Expensive Item';
     sutClone.issue = 'Being Broke';
     const result = sutClone.tooltipFormatter();
@@ -212,11 +212,11 @@ describe('Tile map', () => {
       className: 'deselected',
       name: 'AL',
       fullName: 'Alabama',
-      value: 10380,
+      value: 10_380,
       issue: 'Incorrect information on your report',
       product:
         'Credit reporting, credit repair services, or other personal consumer reports',
-      displayValue: 10380,
+      displayValue: 10_380,
       color: 'rgba(247, 248, 249, 1)',
       path: 'M550,-337L633,-337,633,-253,550,-253,550,-337',
     });
@@ -327,12 +327,12 @@ describe('Tile map', () => {
       { n: 567, e: '567' },
       { n: 3456, e: '3.4K' },
       { n: 9873, e: '9.8K' },
-      { n: 23456, e: '23K' },
-      { n: 98765, e: '98K' },
-      { n: 234567, e: '234K' },
-      { n: 782345, e: '782K' },
-      { n: 1450000, e: '1.4M' },
-      { n: 9870000, e: '9.8M' },
+      { n: 23_456, e: '23K' },
+      { n: 98_765, e: '98K' },
+      { n: 234_567, e: '234K' },
+      { n: 782_345, e: '782K' },
+      { n: 1_450_000, e: '1.4M' },
+      { n: 9_870_000, e: '9.8M' },
     ];
 
     for (const x of cases) {

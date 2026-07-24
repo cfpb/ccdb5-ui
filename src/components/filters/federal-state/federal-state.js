@@ -12,13 +12,14 @@ import { formatStateLabel } from '../../../utils/filters';
 
 const FIELD_NAME = 'state';
 
+const buildLabel = (state) => formatStateLabel(state);
+
 export const FederalState = () => {
   const { data: aggsData, error } = useGetAggregations();
   const aggsState = error ? [] : aggsData?.state || [];
   const stickyOptions = structuredClone(aggsState);
   const dispatch = useDispatch();
   const filters = useSelector(selectFiltersState);
-  const buildLabel = (state) => formatStateLabel(state);
   const starterOptions = Object.keys(THESE_UNITED_STATES).map((key) => {
     const label = buildLabel(key);
     return {

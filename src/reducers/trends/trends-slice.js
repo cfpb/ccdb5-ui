@@ -119,8 +119,12 @@ export function trendsReceived(state, data) {
 export function processAggregations(keys, state, aggregations, results) {
   for (const key of keys) {
     /* istanbul ignore else */
-    if (aggregations[key]) {
-      results[key] = processBucket(state, aggregations[key][key].buckets);
+    if (!Object.hasOwn(aggregations, key)) {
+      continue;
+    }
+    const aggregation = aggregations[key];
+    if (aggregation) {
+      results[key] = processBucket(state, aggregation[key].buckets);
     }
   }
 }
@@ -337,11 +341,14 @@ function processLineData(lens, aggregations, focus, subLens) {
  */
 export function processTrendPeriod(bucket) {
   const subKeyName = getSubKeyName(bucket);
-  if (bucket[subKeyName]) {
-    const subaggBuckets = bucket[subKeyName].buckets;
-    for (const subaggBucket of subaggBuckets) {
-      subaggBucket.parent = bucket.key;
-      processTrendPeriod(subaggBucket);
+  if (Object.hasOwn(bucket, subKeyName)) {
+    const nested = bucket[subKeyName];
+    if (nested) {
+      const subaggBuckets = nested.buckets;
+      for (const subaggBucket of subaggBuckets) {
+        subaggBucket.parent = bucket.key;
+        processTrendPeriod(subaggBucket);
+      }
     }
   }
 }
@@ -485,8 +492,12 @@ export const trendsSlice = createSlice({
         // Handle flag filters
         const filters = ['chartType', 'focus', 'lens', 'subLens'];
         for (const val of filters) {
-          if (params[val]) {
-            state[val] = enforceValues(params[val], val);
+          if (!Object.hasOwn(params, val)) {
+            continue;
+          }
+          const paramValue = params[val];
+          if (paramValue) {
+            state[val] = enforceValues(paramValue, val);
           }
         }
         validateTrendsReducer(state);

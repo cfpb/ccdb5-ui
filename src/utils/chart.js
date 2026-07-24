@@ -24,7 +24,7 @@ export const getLastDate = (dataSet, config) => {
 
   const deDuped = [
     ...new Set(dataSet.map((obj) => dayjs(obj.date).toISOString())),
-  ].toSorted();
+  ].toSorted((left, right) => left.localeCompare(right));
   const lastDate = deDuped.pop();
   const lastPointValues = dataSet.filter((obj) =>
     isDateEqual(obj.date, lastDate),
@@ -49,7 +49,9 @@ export const getLastLineDate = (dataSet, config) => {
     dates = [...dates, ...datum.dates];
   }
 
-  const deDuped = [...new Set(dates.map((obj) => obj.date))].toSorted();
+  const deDuped = [
+    ...new Set(dates.map((obj) => obj.date)),
+  ].toSorted((left, right) => left.localeCompare(right));
   const lastDate = deDuped.pop();
   const values = dataSet.dataByTopic.map((datum) => {
     const lastPoint = datum.dates.find((val) =>
@@ -130,10 +132,10 @@ export const getColorScheme = (rowNames, colorMap, lens) =>
     const name = obj.name.trim();
     const parent = obj.parent ? obj.parent.trim() : '';
     // parent should have priority
-    if (colorMap[parent]) {
+    if (Object.hasOwn(colorMap, parent)) {
       return colorMap[parent];
     }
-    if (colorMap[name]) {
+    if (Object.hasOwn(colorMap, name)) {
       return colorMap[name];
     }
 
@@ -153,7 +155,7 @@ export const getD3Names = (obj, nameMap) => {
   let name = obj.key;
   // D3 doesnt allow dupe keys, so we have to to append
   // spaces so we have unique keys
-  while (nameMap[name]) {
+  while (Object.hasOwn(nameMap, name)) {
     name += ' ';
   }
 
@@ -218,7 +220,7 @@ export const updateDateBuckets = (name, buckets, areaBuckets) => {
 
   return buckets
     .toSorted((first, second) =>
-      first.key_as_string > second.key_as_string ? 1 : -1,
+      first.key_as_string.localeCompare(second.key_as_string),
     )
     .map((obj) => ({
       name: name,
@@ -267,9 +269,9 @@ export const dateOutOfEndBounds = (dateTo, lastFromChart, interval) => {
     .endOf(interval.toLowerCase());
   const dateRangeTo = dayjs(dateTo).utc();
   const isSameTo = dateRangeTo.isSame(completeEndPeriod, 'day');
-  const afterEnd = completeEndPeriod.isAfter(dateRangeTo);
+  const isAfterEnd = completeEndPeriod.isAfter(dateRangeTo);
 
-  return afterEnd && !isSameTo;
+  return isAfterEnd && !isSameTo;
 };
 
 /**
@@ -350,7 +352,7 @@ export const pruneIncompleteStackedAreaInterval = (
   let filteredData = structuredClone(data);
   //  need to rebuild and sort dates in memory
   const dates = [...new Set(filteredData.map((datum) => datum.date))];
-  dates.sort();
+  dates.sort((left, right) => left.localeCompare(right));
 
   const startFromChart = dates[0];
   const lastFromChart = dates.at(-1);

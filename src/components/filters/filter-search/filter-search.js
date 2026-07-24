@@ -41,8 +41,9 @@ export const FilterSearch = ({ fieldName }) => {
       buckets.push(parentAgg);
     }
 
-    if (option[subaggName] && option[subaggName].buckets) {
-      for (const bucket of option[subaggName].buckets) {
+    if (Object.hasOwn(option, subaggName) && option[subaggName]?.buckets) {
+      const subBuckets = option[subaggName].buckets;
+      for (const bucket of subBuckets) {
         const item = {
           key: option.key + SLUG_SEPARATOR + bucket.key,
           label: bucket.key,

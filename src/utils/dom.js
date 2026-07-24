@@ -157,6 +157,8 @@ export const registerDomGlobals = () => {
   if (globalThis.window === undefined) {
     return;
   }
+  // Bridge for tour step inline onclick handlers that cannot import modules
+  // eslint-disable-next-line unicorn/no-global-object-property-assignment -- tour HTML needs window.__ccdbDom
   globalThis.__ccdbDom = {
     querySelector,
     querySelectorAll,

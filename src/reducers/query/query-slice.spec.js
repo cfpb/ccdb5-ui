@@ -89,7 +89,7 @@ describe('reducer:query', () => {
         target(
           state,
           nextPageShown({
-            2: [99, 22131],
+            2: [99, 22_131],
             3: [909, 131],
           }),
         ),
@@ -114,7 +114,7 @@ describe('reducer:query', () => {
         target(
           state,
           prevPageShown({
-            2: [99, 22131],
+            2: [99, 22_131],
             3: [909, 131],
           }),
         ),
@@ -138,7 +138,7 @@ describe('reducer:query', () => {
         target(
           state,
           prevPageShown({
-            2: [99, 22131],
+            2: [99, 22_131],
             3: [909, 131],
           }),
         ),

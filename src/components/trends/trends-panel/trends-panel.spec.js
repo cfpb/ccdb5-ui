@@ -251,7 +251,7 @@ describe('component::TrendsPanel', () => {
         title: 'Date range: 6/30/2024 - 9/29/2024',
         total: 3699,
       },
-      total: 12514,
+      total: 12_514,
     };
 
     view = {

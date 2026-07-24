@@ -18,7 +18,38 @@ import { Pill } from './pill';
 import { filtersCleared } from '../../reducers/filters/filters-slice';
 import { formatStateLabel } from '../../utils/filters';
 
-/* eslint complexity: ["error", 5] */
+const buildKnownFilterPills = (filterState) => {
+  const filters = [];
+  for (const fieldName of knownFilters) {
+    if (!Object.hasOwn(filterState, fieldName)) {
+      continue;
+    }
+    const values = filterState[fieldName];
+    for (const value of values) {
+      filters.push({ fieldName, value });
+    }
+  }
+  return filters;
+};
+
+const buildDatePill = (dateReceivedMin, dateReceivedMax, dateLastIndexed) => {
+  if (
+    dayjs(dateReceivedMin).isSame(dayjs(DATE_RANGE_MIN), 'day') &&
+    dayjs(dateReceivedMax).isSame(dayjs(dateLastIndexed), 'day')
+  ) {
+    return null;
+  }
+
+  return {
+    fieldName: 'date_received',
+    value:
+      'Date Received: ' +
+      dayjs(dateReceivedMin).format('M/D/YYYY') +
+      ' - ' +
+      dayjs(dateReceivedMax).format('M/D/YYYY'),
+  };
+};
+
 export const PillPanel = () => {
   const dispatch = useDispatch();
   const filterState = useSelector(selectFiltersRoot);
@@ -28,16 +59,8 @@ export const PillPanel = () => {
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
   const searchField = useSelector(selectQuerySearchField);
 
-  const filters = knownFilters
-    // Only use the known filters that are in the query
-    .filter((filter) => filter in filterState)
-    // Create a flattened array of pill objects
-    .reduce((accum, fieldName) => {
-      const arr = filterState[fieldName].map((value) => ({ fieldName, value }));
-      return [...accum, ...arr];
-    }, []);
+  const filters = buildKnownFilterPills(filterState);
 
-  // Add Has Narrative, if it exists
   if (hasNarrative) {
     filters.push({
       fieldName: 'has_narrative',
@@ -45,19 +68,13 @@ export const PillPanel = () => {
     });
   }
 
-  // only add the filter the date is NOT the "All"
-  if (
-    !dayjs(dateReceivedMin).isSame(dayjs(DATE_RANGE_MIN), 'day') ||
-    !dayjs(dateReceivedMax).isSame(dayjs(dateLastIndexed), 'day')
-  ) {
-    filters.unshift({
-      fieldName: 'date_received',
-      value:
-        'Date Received: ' +
-        dayjs(dateReceivedMin).format('M/D/YYYY') +
-        ' - ' +
-        dayjs(dateReceivedMax).format('M/D/YYYY'),
-    });
+  const datePill = buildDatePill(
+    dateReceivedMin,
+    dateReceivedMax,
+    dateLastIndexed,
+  );
+  if (datePill) {
+    filters.unshift(datePill);
   }
 
   if (filters.length === 0) {

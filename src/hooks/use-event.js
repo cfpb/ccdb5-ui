@@ -9,14 +9,15 @@ import { useEffect } from 'react';
  * @param {(e: Event) => void} handler - function to run
  * @param {boolean} passive - if true, means function will never call preventDefault
  */
+// eslint-disable-next-line unicorn/consistent-boolean-name -- mirrors EventListenerOptions.passive
 export function useEvent(event, handler, passive = false) {
   useEffect(() => {
     // initiate the event handler
-    globalThis.addEventListener(event, handler, passive);
+    addEventListener(event, handler, passive);
 
     // this will clean up the event every time the component is re-rendered
     return function cleanup() {
-      globalThis.removeEventListener(event, handler);
+      removeEventListener(event, handler);
     };
   });
 }

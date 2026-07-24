@@ -34,7 +34,8 @@ export const getUpdatedFilters = (filterName, filters, aggs, fieldName) => {
   const sibs = [];
   const siblings = aggs.find((agg) => agg.key === parentFilter);
   if (hasParent && siblings) {
-    for (const bucket of siblings['sub_' + fieldName + '.raw'].buckets) {
+    const buckets = siblings['sub_' + fieldName + '.raw'].buckets;
+    for (const bucket of buckets) {
       // don't include self
       if (bucket.key !== parts[1]) {
         sibs.push(slugify(parentFilter, bucket.key));

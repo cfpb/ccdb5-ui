@@ -67,7 +67,7 @@ export const DataExport = () => {
     const uriControl = getElementById('export-uri-input');
     uriControl.select();
     // For mobile devices
-    uriControl.setSelectionRange(0, 99999);
+    uriControl.setSelectionRange(0, 99_999);
     navigator.clipboard.writeText(uriControl.value);
     ev.target.focus();
 

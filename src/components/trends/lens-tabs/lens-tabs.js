@@ -35,11 +35,12 @@ export const LensTabs = () => {
   const lens = useSelector(selectTrendsLens);
   const subLens = useSelector(selectTrendsSubLens);
   const { data } = useGetTrends();
-  const subProducts = data?.results['sub-product'];
 
   if (lens === 'Overview') {
     return null;
   }
+
+  const subProducts = data?.results['sub-product'];
   const hasProductTab = displayProductTab(lens, focus, subProducts);
   const onTab = (lens, tab) => {
     const labelMap = {

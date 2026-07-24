@@ -58,6 +58,11 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   }));
 
   const buckets = sortOptions(unsorted, allFilters, fieldName);
+
+  if (buckets.length === 0) {
+    return <AggregationItem item={item} key={item.key} fieldName={fieldName} />;
+  }
+
   const liStyle = 'parent m-form-field m-form-field--checkbox';
   const id = sanitizeHtmlId(`${fieldName} ${item.key}`);
 
@@ -79,10 +84,6 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
       dispatch(filtersReplaced(fieldName, [...replacementFilters]));
     }
   };
-
-  if (buckets.length === 0) {
-    return <AggregationItem item={item} key={item.key} fieldName={fieldName} />;
-  }
 
   return (
     <>

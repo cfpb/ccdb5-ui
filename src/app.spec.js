@@ -58,7 +58,7 @@ describe('initial state', () => {
         screen.getByRole('button', { name: /Take a tour/ }),
       ).toBeInTheDocument();
     });
-  }, 10000);
+  }, 10_000);
 
   it('renders the detail route', () => {
     render(

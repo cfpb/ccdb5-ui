@@ -7,17 +7,18 @@ import { Heading } from '@cfpb/design-system-react';
 
 const MAX_NARRATIVE = 300;
 
+const _stripPossibleHighlight = (str) => {
+  const re = /(<em>)?(.*?)(<\/em>)?/gi;
+  return str.replaceAll(re, '$2');
+};
+
+const _renderPossibleHighlight = (str) => {
+  return <span dangerouslySetInnerHTML={{ __html: str }} />;
+};
+
 export const ComplaintCard = ({ row }) => {
-  const _stripPossibleHighlight = (str) => {
-    const re = /(<em>)?(.*?)(<\/em>)?/gi;
-    return str.replaceAll(re, '$2');
-  };
   const cleanId = _stripPossibleHighlight(row.complaint_id);
   const complaintIdPath = 'detail/' + _stripPossibleHighlight(row.complaint_id);
-
-  const _renderPossibleHighlight = (str) => {
-    return <span dangerouslySetInnerHTML={{ __html: str }} />;
-  };
 
   const _renderNarrative = (narrative, url) => {
     const hasOverflow = narrative.length > MAX_NARRATIVE;

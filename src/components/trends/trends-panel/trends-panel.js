@@ -105,10 +105,9 @@ export const TrendsPanel = () => {
 
   const lensKey = lens.toLowerCase();
   const focusKey = subLens.replace('_', '-');
-  const lensHelperText =
-    subLens === '' ? lensHelperTextMap[lensKey] : lensHelperTextMap[subLens];
+  const lensHelperText = lensHelperTextMap[subLens === '' ? lensKey : subLens];
   const focusHelperText =
-    subLens === '' ? focusHelperTextMap[lensKey] : focusHelperTextMap[subLens];
+    focusHelperTextMap[subLens === '' ? lensKey : subLens];
   const results = error ? {} : data?.results || {};
   const colorMap = error ? {} : data?.colorMap;
   const total = error ? 0 : data?.total;

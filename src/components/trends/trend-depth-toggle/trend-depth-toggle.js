@@ -55,30 +55,31 @@ export const TrendDepthToggle = () => {
   const filters = useSelector(selectFiltersRoot);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
+
+  // hide on Overview and Focus pages
+  if (focus || lens === 'Overview' || error) {
+    return null;
+  }
+
   const results = data?.results;
   const lensKey = lensMap[lens];
+
   const resultCount = coalesce(results, lensKey, []).filter(
     (obj) => obj.isParent,
   ).length;
 
-  // The total source depends on the lens.  There are no aggs for companies
   const totalResultsLength =
     lensKey === 'product'
       ? coalesce(aggs, lensKey, []).length
       : clamp(coalesce(filters, lensKey, []).length, 0, 10);
 
   // handle cases where some specified filters are selected
-  const filterCount = filters[lensKey]
+  const filterCount = Object.hasOwn(filters, lensKey)
     ? filters[lensKey].filter((obj) => !obj.includes(SLUG_SEPARATOR)).length
     : totalResultsLength;
 
   const diff = totalResultsLength - resultCount;
   const hasToggle = showToggle(totalResultsLength, filterCount);
-
-  // hide on Overview and Focus pages
-  if (focus || lens === 'Overview' || error) {
-    return null;
-  }
 
   if (hasToggle) {
     if (showMore(filterCount, resultCount)) {

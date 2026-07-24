@@ -20,18 +20,18 @@ describe('getSubLens', () => {
 });
 describe('showCompanyOverLay', () => {
   it('hides overlay when it is loading', () => {
-    const res = sut.showCompanyOverLay('Company', ['foo', 'nar'], true);
-    expect(res).toBeFalsy();
+    const isRes = sut.showCompanyOverLay('Company', ['foo', 'nar'], true);
+    expect(isRes).toBeFalsy();
   });
 
   it('shows overlay when it is Company and no filters', () => {
-    const res = sut.showCompanyOverLay('Company', [], false);
-    expect(res).toBeTruthy();
+    const isRes = sut.showCompanyOverLay('Company', [], false);
+    expect(isRes).toBeTruthy();
   });
 
   it('shows overlay when it is Company and null filters', () => {
-    const res = sut.showCompanyOverLay('Company', null, false);
-    expect(res).toBeTruthy();
+    const isRes = sut.showCompanyOverLay('Company', null, false);
+    expect(isRes).toBeTruthy();
   });
 });
 

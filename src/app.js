@@ -6,9 +6,9 @@ import { SearchComponents } from './components/search/search-components';
 
 /**
  *
- * @returns {ReactElement} Main application component
+ * @returns {import('react').ReactElement} Main application component
  */
-const App = () => {
+export default function App() {
   return (
     <Router>
       <Routes>
@@ -32,6 +32,4 @@ const App = () => {
       </Routes>
     </Router>
   );
-};
-
-export default App;
+}

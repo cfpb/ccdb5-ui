@@ -6,9 +6,9 @@ import { STATE_TILES } from './constants';
 import { getAppRoot } from '../../../../utils/dom';
 import { formatStateLabel } from '../../../../utils/filters';
 
-const TEN_K = 10000;
-const HUN_K = 100000;
-const MILLION = 1000000;
+const TEN_K = 10_000;
+const HUN_K = 100_000;
+const MILLION = 1_000_000;
 
 const WHITE = '#ffffff';
 const DEFAULT_BIN_COUNT = 5;
@@ -107,10 +107,12 @@ export function getMaxValue(data) {
   if (!data || data.length === 0) {
     return 0;
   }
-  return data.reduce((max, datum) => {
+  let max = 0;
+  for (const datum of data) {
     const value = Number.isFinite(datum.displayValue) ? datum.displayValue : 0;
-    return Math.max(max, value);
-  }, 0);
+    max = Math.max(max, value);
+  }
+  return max;
 }
 
 /**
@@ -186,7 +188,7 @@ export function createFixedBins(data, colors, binCount = DEFAULT_BIN_COUNT) {
 export function processMapData(data, scale, inset) {
   // Filter out any empty values just in case
   data = data.filter(function (row) {
-    return Boolean(row.name);
+    return row.name;
   });
 
   const tileInset = Number.isFinite(inset) ? inset : 0;
@@ -196,7 +198,7 @@ export function processMapData(data, scale, inset) {
     const center = getTileCenter(path);
     const color = getColorByValue(obj.displayValue, scale);
 
-    if (obj.className !== 'selected' && color === WHITE) {
+    if (color === WHITE && obj.className !== 'selected') {
       // handle cases where value is empty or no color, so we can set the border
       obj.className = 'empty';
     }
@@ -243,7 +245,7 @@ function insetTilePath(path, inset) {
   const x2 = Number(points[2]);
   const y2 = Number(points[5]);
 
-  if (![x1, y1, x2, y2].every(Number.isFinite)) {
+  if ([x1, y1, x2, y2].some((value) => !Number.isFinite(value))) {
     return path;
   }
 
@@ -371,43 +373,55 @@ function getTileCenter(path) {
  */
 // Nested loops over tile path coordinates; splitting would obscure the algorithm.
 // eslint-disable-next-line complexity -- coordinate min/max scan over all state paths
+function expandBoundsFromPathPoints(points, bounds) {
+  for (let index = 0; index < points.length; index += 2) {
+    const xValue = Number(points[index]);
+    const yValue = Number(points[index + 1]);
+    if (!Number.isFinite(xValue)) {
+      continue;
+    }
+    bounds.minX = Math.min(bounds.minX, xValue);
+    bounds.maxX = Math.max(bounds.maxX, xValue);
+    if (!Number.isFinite(yValue)) {
+      continue;
+    }
+    bounds.minY = Math.min(bounds.minY, yValue);
+    bounds.maxY = Math.max(bounds.maxY, yValue);
+  }
+}
+
+// eslint-disable-next-line complexity -- aggregates path bounds across all state tiles
 function getTileMapBounds() {
-  let minX = Infinity;
-  let maxX = -Infinity;
-  let minY = Infinity;
-  let maxY = -Infinity;
+  const bounds = {
+    minX: Infinity,
+    maxX: -Infinity,
+    minY: Infinity,
+    maxY: -Infinity,
+  };
 
   for (const path of Object.values(STATE_TILES)) {
     const points = path.match(/-?\d+(?:\.\d+)?/g);
     if (!points) {
       continue;
     }
-    for (let index = 0; index < points.length; index += 2) {
-      const xValue = Number(points[index]);
-      const yValue = Number(points[index + 1]);
-      if (!Number.isFinite(xValue)) {
-        continue;
-      }
-      minX = Math.min(minX, xValue);
-      maxX = Math.max(maxX, xValue);
-      if (!Number.isFinite(yValue)) {
-        continue;
-      }
-      minY = Math.min(minY, yValue);
-      maxY = Math.max(maxY, yValue);
-    }
+    expandBoundsFromPathPoints(points, bounds);
   }
 
-  if (
-    !Number.isFinite(minX) ||
-    !Number.isFinite(maxX) ||
-    !Number.isFinite(minY) ||
-    !Number.isFinite(maxY)
-  ) {
+  const { minX, maxX, minY, maxY } = bounds;
+  const isValid =
+    Number.isFinite(minX) &&
+    Number.isFinite(maxX) &&
+    Number.isFinite(minY) &&
+    Number.isFinite(maxY);
+
+  if (!isValid) {
     return { width: 1000, height: 725 };
   }
 
-  return { width: maxX - minX, height: maxY - minY };
+  return {
+    width: maxX - minX,
+    height: maxY - minY,
+  };
 }
 
 const TILE_MAP_BOUNDS = getTileMapBounds();
@@ -581,15 +595,10 @@ function getPlacementFits({ spaces, labelWidth, labelHeight, gap }) {
  * @returns {Array<'top' | 'bottom' | 'left' | 'right'>} Preference order.
  */
 function getPreferredPlacements({ plotX, plotY, plotWidth, plotHeight }) {
-  const leftThird = plotWidth * 0.33;
-  const rightThird = plotWidth * 0.66;
-  const topThird = plotHeight * 0.33;
-  const bottomThird = plotHeight * 0.66;
-
-  if (plotX <= leftThird) return ['right', 'top', 'bottom', 'left'];
-  if (plotX >= rightThird) return ['left', 'top', 'bottom', 'right'];
-  if (plotY <= topThird) return ['bottom', 'left', 'right', 'top'];
-  if (plotY >= bottomThird) return ['top', 'left', 'right', 'bottom'];
+  if (plotX <= plotWidth * 0.33) return ['right', 'top', 'bottom', 'left'];
+  if (plotX >= plotWidth * 0.66) return ['left', 'top', 'bottom', 'right'];
+  if (plotY <= plotHeight * 0.33) return ['bottom', 'left', 'right', 'top'];
+  if (plotY >= plotHeight * 0.66) return ['top', 'left', 'right', 'bottom'];
 
   return ['top', 'bottom', 'right', 'left'];
 }
@@ -603,7 +612,11 @@ function getPreferredPlacements({ plotX, plotY, plotWidth, plotHeight }) {
  */
 function pickPlacement(fits, order) {
   for (const placement of order) {
-    if (fits[placement]) {
+    if (!Object.hasOwn(fits, placement)) {
+      continue;
+    }
+    const doesFit = fits[placement];
+    if (doesFit) {
       return placement;
     }
   }
@@ -671,10 +684,8 @@ const TOOLTIP_INSET = 8;
  */
 function getTooltipAnchor(placement, plotX, plotY, labelWidth, labelHeight) {
   const gap = 12;
-  const centerX = plotX - labelWidth / 2;
-  const aboveY = plotY - labelHeight - gap;
   if (placement === 'bottom') {
-    return { coordX: centerX, coordY: plotY + gap };
+    return { coordX: plotX - labelWidth / 2, coordY: plotY + gap };
   }
   if (placement === 'left') {
     return {
@@ -685,7 +696,10 @@ function getTooltipAnchor(placement, plotX, plotY, labelWidth, labelHeight) {
   if (placement === 'right') {
     return { coordX: plotX + gap, coordY: plotY - labelHeight / 2 };
   }
-  return { coordX: centerX, coordY: aboveY };
+  return {
+    coordX: plotX - labelWidth / 2,
+    coordY: plotY - labelHeight - gap,
+  };
 }
 
 /**
@@ -875,7 +889,7 @@ export const TILE_MAP_COLORS = [
 /* ----------------------------------------------------------------------------
    Tile Map class */
 
-class TileMap {
+export default class TileMap {
   constructor({ el, data, events, height, hasTip, width }) {
     const scale = makeScale(data, TILE_MAP_COLORS);
     const targetGap = 4;
@@ -988,5 +1002,3 @@ class TileMap {
     Highcharts.mapChart(el, options);
   }
 }
-
-export default TileMap;

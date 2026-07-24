@@ -20,12 +20,13 @@ export const calculateDateRange = (minDate, maxDate, dateLastIndexed) => {
   // round off the date so the partial times don't mess up calculations
   const today = dateLastIndexed ? dayjs(dateLastIndexed) : startOfToday();
   const end = dayjs(maxDate).startOf('day');
-  const start = dayjs(minDate).startOf('day');
 
   // make sure end date is the same as today's date
   if (end.diff(today, 'days') !== 0) {
     return '';
   }
+
+  const start = dayjs(minDate).startOf('day');
 
   // is the start date the same as the oldest document?
   if (dayjs(minDate).isSame(DATE_RANGE_MIN, 'day')) {
@@ -122,7 +123,12 @@ export const coalesce = (object, field, alternateValue) => {
     return alternateValue;
   }
 
-  return field in object && object[field] ? object[field] : alternateValue;
+  if (!Object.hasOwn(object, field)) {
+    return alternateValue;
+  }
+
+  const value = object[field];
+  return value || alternateValue;
 };
 
 /**
@@ -132,12 +138,12 @@ export const coalesce = (object, field, alternateValue) => {
  * @returns {number} a hashing of the string
  */
 export function hashCode(someString) {
-  const str = String(someString);
+  const str = someString;
   let hash = 0;
-  let index, chr;
   if (str.length === 0) {
     return hash;
   }
+  let index, chr;
   for (index = 0; index < str.length; index++) {
     chr = str.codePointAt(index);
     hash = (hash << 5) - hash + chr;
@@ -189,13 +195,17 @@ export const insertChildFilter = (filterArray, missingFilter, fieldName) => {
     (item) => item.key === missingFilter.split(SLUG_SEPARATOR)[0],
   );
   const subAggField = `sub_${fieldName}.raw`;
+  if (!Object.hasOwn(filter, subAggField)) {
+    return;
+  }
+  const subAgg = filter[subAggField];
   if (
-    filter[subAggField] &&
-    filter[subAggField].buckets.every(
+    subAgg &&
+    subAgg.buckets.every(
       (bucket) => bucket.key !== missingFilter.split(SLUG_SEPARATOR)[1],
     )
   ) {
-    filter[subAggField].buckets.push({
+    subAgg.buckets.push({
       key: missingFilter.split(SLUG_SEPARATOR)[1],
       doc_count: 0,
     });
@@ -226,19 +236,29 @@ export const sortOptions = (options, filters, fieldName) => {
       return isFirstItemSelected ? -1 : 1;
     }
 
-    const isFirstItemChildSelected =
-      first && first[subAggFieldName]
-        ? first[subAggFieldName].buckets.some((bucket) =>
+    const isFirstItemChildSelected = (() => {
+      if (!first || !Object.hasOwn(first, subAggFieldName)) {
+        return false;
+      }
+      const subAgg = first[subAggFieldName];
+      return subAgg
+        ? subAgg.buckets.some((bucket) =>
             selectedFilters.includes(first.key + SLUG_SEPARATOR + bucket.key),
           )
         : false;
+    })();
 
-    const isSecondItemChildSelected =
-      second && second[subAggFieldName]
-        ? second[subAggFieldName].buckets.some((bucket) =>
+    const isSecondItemChildSelected = (() => {
+      if (!second || !Object.hasOwn(second, subAggFieldName)) {
+        return false;
+      }
+      const subAgg = second[subAggFieldName];
+      return subAgg
+        ? subAgg.buckets.some((bucket) =>
             selectedFilters.includes(second.key + SLUG_SEPARATOR + bucket.key),
           )
         : false;
+    })();
     // then try sorting if parent item has any child selected
     if (isFirstItemChildSelected !== isSecondItemChildSelected) {
       return isFirstItemChildSelected ? -1 : 1;
@@ -303,16 +323,26 @@ export function shortIsoFormat(date) {
 
 /**
  * This value gets set in the querySlice reducer listening to RTKQuery getMeta hook
- *
+ */
+const maxDateState = { value: null };
+
+/**
+ * @param {string} date - midnight today (or last indexed day), local
+ */
+export function setMaxDate(date) {
+  maxDateState.value = date;
+}
+
+/**
  * @returns {string} midnight today, local
  */
 export function startOfToday() {
-  if (!globalThis.MAX_DATE) {
+  if (!maxDateState.value) {
     // eslint-disable-next-line no-console
     console.error('waiting for API response, setting MAX_DATE to today');
-    globalThis.MAX_DATE = formatDate(dayjs().startOf('day'));
+    maxDateState.value = formatDate(dayjs().startOf('day'));
   }
-  return globalThis.MAX_DATE;
+  return maxDateState.value;
 }
 
 // ----------------------------------------------------------------------------
@@ -334,9 +364,9 @@ export function debounce(func, wait, immediate) {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       timeout = null;
-      if (!immediate) func.apply(this, args);
+      if (!immediate) func(...args);
     }, wait);
-    if (immediate && !timeout) func.apply(this, args);
+    if (immediate && !timeout) func(...args);
   };
 }
 
@@ -376,8 +406,8 @@ export function processErrorMessage(err) {
  */
 export function formatPercentage(num) {
   // we have to do this so it is a float and not a string
-  const val = Number.parseFloat(Number.parseFloat(num * 100).toFixed(2));
-  return Number.isNaN(val) ? 0.0 : val;
+  const val = Number((num * 100).toFixed(2));
+  return Number.isNaN(val) ? 0 : val;
 }
 
 /**
@@ -468,17 +498,17 @@ export const selectedClass = (
  * @returns {object} the processed object
  */
 export function removeNullProperties(object) {
-  const myObject = Object.keys(object).reduce((acc, key) => {
+  const myObject = {};
+  for (const [key, value] of Object.entries(object)) {
     if (
-      object[key] !== null &&
-      object[key] !== undefined &&
-      object[key] !== '' &&
-      !Number.isNaN(object[key])
+      value !== null &&
+      value !== undefined &&
+      value !== '' &&
+      !Number.isNaN(value)
     ) {
-      acc[key] = object[key];
+      myObject[key] = value;
     }
-    return acc;
-  }, {});
+  }
 
   for (const key in myObject) {
     if (Array.isArray(myObject[key]) && myObject[key].length === 0) {

@@ -20,7 +20,7 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   const subItems = aggs
     .find((agg) => agg.key === parentFilter)
     ['sub_' + fieldName + '.raw'].buckets.map((agg) => agg.key)
-    .toSorted();
+    .toSorted((left, right) => left.localeCompare(right));
 
   const parentKey = parentFilter + SLUG_SEPARATOR;
   const selectedFilters = filters
@@ -28,7 +28,7 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
     .map((filter) => filter.replace(parentKey, ''));
   selectedFilters.push(childFilter);
 
-  selectedFilters.sort();
+  selectedFilters.sort((left, right) => left.localeCompare(right));
 
   return arrayEquals(selectedFilters, subItems)
     ? [...filters.filter((filter) => !filter.includes(parentKey)), parentFilter]
@@ -40,11 +40,12 @@ export const AggregationItem = ({ fieldName, item }) => {
   const filtersState = useSelector(selectFiltersRoot);
   const dispatch = useDispatch();
   const aggs = coalesce(aggsState, fieldName, []);
-  const filters = coalesce(filtersState, fieldName, []);
 
   if (!isSuccess || !aggs || error) {
     return null;
   }
+
+  const filters = coalesce(filtersState, fieldName, []);
 
   const isActive =
     filters.includes(item.key) ||

@@ -17,7 +17,7 @@ const iconMap = {
  * @param {string} [customClass] - Optional CSS class to add to the icon.
  * @returns {object|false} SVG element or false if name not found.
  */
-function getIcon(name, customClass = '') {
+export default function getIcon(name, customClass = '') {
   if (!Object.hasOwn(iconMap, name)) {
     // eslint-disable-next-line no-console
     console.error(`No icon with the name ${name}.`);
@@ -29,5 +29,3 @@ function getIcon(name, customClass = '') {
     className: `cf-icon-svg ${customClass}`.trim(),
   });
 }
-
-export default getIcon;
