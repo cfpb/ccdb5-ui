@@ -1,0 +1,30 @@
+<svg
+      id="line-chart-icon"
+      data-name="line chart"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 27 21"
+    >
+      <title>line chart icon</title>
+      <g class="cls-1">
+        <line class="cls-2" x1="12" y1="6.27" x2="2" y2="19" />
+        <line class="cls-2" x1="22.9" y1="14" x2="14.1" y2="6" />
+        <path
+          class="cls-3"
+          d="M13,4a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+        />
+        <path
+          class="cls-3"
+          d="M24,14a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+        />
+      </g>
+      <line class="cls-2" x1="12" y1="16.45" x2="2" y2="11" />
+      <line class="cls-2" x1="23" y1="6" x2="14" y2="16" />
+      <path
+        class="cls-3"
+        d="M13,16a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+      />
+      <path
+        class="cls-3"
+        d="M24,4a1,1,0,1,1-1,1,1,1,0,0,1,1-1m0-1a2,2,0,1,0,2,2,2,2,0,0,0-2-2Z"
+      />
+    </svg>

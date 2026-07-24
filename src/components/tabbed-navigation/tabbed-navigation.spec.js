@@ -21,45 +21,54 @@ describe('component: TabbedNavigation', () => {
   describe('initial state', () => {
     it('renders without crashing', async () => {
       renderComponent({});
-      expect(
-        screen.getByRole('button', { name: /Trends/ }),
-      ).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /Trends/ })).toHaveClass(
-        'active',
+      expect(screen.getByRole('tab', { name: /Trends/ })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /Trends/ })).toHaveAttribute(
+        'aria-selected',
+        'true',
       );
-      expect(screen.getByRole('button', { name: /List/ })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /Map/ })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /List/ })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /Map/ })).toBeInTheDocument();
 
-      await user.click(screen.getByRole('button', { name: /List/ }));
-      expect(screen.getByRole('button', { name: /List/ })).toHaveClass(
-        'active',
+      await user.click(screen.getByRole('tab', { name: /List/ }));
+      expect(screen.getByRole('tab', { name: /List/ })).toHaveAttribute(
+        'aria-selected',
+        'true',
       );
 
-      await user.click(screen.getByRole('button', { name: /Map/ }));
-      expect(screen.getByRole('button', { name: /Map/ })).toHaveClass('active');
+      await user.click(screen.getByRole('tab', { name: /Map/ }));
+      expect(screen.getByRole('tab', { name: /Map/ })).toHaveAttribute(
+        'aria-selected',
+        'true',
+      );
 
-      await user.click(screen.getByRole('button', { name: /Trends/ }));
-      expect(screen.getByRole('button', { name: /Trends/ })).toHaveClass(
-        'active',
+      await user.click(screen.getByRole('tab', { name: /Trends/ }));
+      expect(screen.getByRole('tab', { name: /Trends/ })).toHaveAttribute(
+        'aria-selected',
+        'true',
       );
     });
 
     it('shows the List tab', () => {
       renderComponent({ tab: MODE_LIST });
-      expect(screen.getByRole('button', { name: /List/ })).toHaveClass(
-        'active',
+      expect(screen.getByRole('tab', { name: /List/ })).toHaveAttribute(
+        'aria-selected',
+        'true',
       );
     });
 
     it('shows the Map tab', () => {
       renderComponent({ tab: MODE_MAP });
-      expect(screen.getByRole('button', { name: /Map/ })).toHaveClass('active');
+      expect(screen.getByRole('tab', { name: /Map/ })).toHaveAttribute(
+        'aria-selected',
+        'true',
+      );
     });
 
     it('shows the Trends tab', () => {
       renderComponent({ tab: MODE_TRENDS });
-      expect(screen.getByRole('button', { name: /Trends/ })).toHaveClass(
-        'active',
+      expect(screen.getByRole('tab', { name: /Trends/ })).toHaveAttribute(
+        'aria-selected',
+        'true',
       );
     });
   });

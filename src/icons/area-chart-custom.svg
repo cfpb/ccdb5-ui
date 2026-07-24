@@ -1,0 +1,18 @@
+<svg
+      id="area-chart-icon"
+      data-name="area chart"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 27 21"
+    >
+      <title>area chart icon</title>
+      <polygon
+        class="cls-1"
+        points="27 11 23.48 14 15.26 9 7.04 17 0 15 0 21 27 21 27 11"
+      />
+      <g class="cls-2">
+        <polygon
+          class="cls-1"
+          points="6.32 14.79 14.92 6.46 23.36 11.58 27 8.5 27 1 23.48 4 15.26 1 7.04 7 0 9 0 12.94 6.32 14.79"
+        />
+      </g>
+    </svg>

@@ -367,12 +367,11 @@ function getTileCenter(path) {
 }
 
 /**
- * Compute the base tile map bounds from the SVG paths.
+ * Expand bounds min/max from SVG path coordinate pairs.
  *
- * @returns {object} Tile map bounds.
+ * @param {string[]} points - Flat list of numeric path coordinates as strings
+ * @param {{minX: number, maxX: number, minY: number, maxY: number}} bounds - Mutable bounds object
  */
-// Nested loops over tile path coordinates; splitting would obscure the algorithm.
-// eslint-disable-next-line complexity -- coordinate min/max scan over all state paths
 function expandBoundsFromPathPoints(points, bounds) {
   for (let index = 0; index < points.length; index += 2) {
     const xValue = Number(points[index]);
@@ -390,7 +389,11 @@ function expandBoundsFromPathPoints(points, bounds) {
   }
 }
 
-// eslint-disable-next-line complexity -- aggregates path bounds across all state tiles
+/**
+ * Compute the base tile map bounds from the SVG paths.
+ *
+ * @returns {{width: number, height: number}} Tile map dimensions
+ */
 function getTileMapBounds() {
   const bounds = {
     minX: Infinity,
@@ -408,13 +411,11 @@ function getTileMapBounds() {
   }
 
   const { minX, maxX, minY, maxY } = bounds;
-  const isValid =
-    Number.isFinite(minX) &&
-    Number.isFinite(maxX) &&
-    Number.isFinite(minY) &&
-    Number.isFinite(maxY);
+  const hasFiniteBounds = [minX, maxX, minY, maxY].every((value) =>
+    Number.isFinite(value),
+  );
 
-  if (!isValid) {
+  if (!hasFiniteBounds) {
     return { width: 1000, height: 725 };
   }
 

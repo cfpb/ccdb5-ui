@@ -33,7 +33,8 @@ _site/
 .DS_Store?
 .Spotlight-V100
 .Trashes
-Icon?
+# macOS folder custom-icon file (Icon + CR)
+Icon
 ehthumbs.db
 Thumbs.db
 

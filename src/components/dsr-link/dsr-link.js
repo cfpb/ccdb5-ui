@@ -2,7 +2,7 @@ import { Link as RouterLink } from 'react-router';
 import PropTypes from 'prop-types';
 
 /**
- * Adapter for @cfpb/design-system-react DSRProvider.
+ * Adapter for \@cfpb/design-system-react DSRProvider.
  * Uses react-router for in-app paths; native anchors for external / hash / mailto.
  *
  * @param {object} props - Link props from DSR

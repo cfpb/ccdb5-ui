@@ -32,11 +32,7 @@ export const ComplaintDetail = () => {
     <section className="card-container">
       <nav className="layout-row">
         <div className="back-to-search flex-fixed">
-          <Link
-            to={backUrl}
-            iconLeft="left"
-            label="Back to search results"
-          />
+          <Link to={backUrl} iconLeft="left" label="Back to search results" />
         </div>
         <div className="meaning flex-fixed">
           <Link

@@ -487,9 +487,7 @@ export const querySlice = createSlice({
             .startOf('day')
             .format('YYYY-MM-DD');
 
-          setMaxDate(
-            formatDate(dayjs(state.dateLastIndexed).startOf('day')),
-          );
+          setMaxDate(formatDate(dayjs(state.dateLastIndexed).startOf('day')));
 
           // set defaults if the value is not set yet
           if (!state.date_received_max) {

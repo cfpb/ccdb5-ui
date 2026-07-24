@@ -49,9 +49,9 @@ export const getLastLineDate = (dataSet, config) => {
     dates = [...dates, ...datum.dates];
   }
 
-  const deDuped = [
-    ...new Set(dates.map((obj) => obj.date)),
-  ].toSorted((left, right) => left.localeCompare(right));
+  const deDuped = [...new Set(dates.map((obj) => obj.date))].toSorted(
+    (left, right) => left.localeCompare(right),
+  );
   const lastDate = deDuped.pop();
   const values = dataSet.dataByTopic.map((datum) => {
     const lastPoint = datum.dates.find((val) =>

@@ -20,39 +20,55 @@ describe('ResultsPanel', () => {
 
   it('renders trends panel without crashing', () => {
     renderComponent({});
-    expect(screen.getByRole('button', { name: /Trends/ })).toHaveClass(
-      'active',
+    expect(screen.getByRole('tab', { name: /Trends/ })).toHaveAttribute(
+      'aria-selected',
+      'true',
     );
-    expect(screen.getByRole('button', { name: /List/ })).not.toHaveClass(
-      'active',
+    expect(screen.getByRole('tab', { name: /List/ })).toHaveAttribute(
+      'aria-selected',
+      'false',
     );
-    expect(screen.getByRole('button', { name: /Map/ })).not.toHaveClass(
-      'active',
+    expect(screen.getByRole('tab', { name: /Map/ })).toHaveAttribute(
+      'aria-selected',
+      'false',
     );
+    expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'tabpanel-trends');
     expect(screen.getByText('Export data')).toBeInTheDocument();
   });
 
   it('renders list panel without crashing', () => {
     renderComponent({}, { tab: MODE_LIST });
-    expect(screen.getByRole('button', { name: /Trends/ })).not.toHaveClass(
-      'active',
+    expect(screen.getByRole('tab', { name: /Trends/ })).toHaveAttribute(
+      'aria-selected',
+      'false',
     );
-    expect(screen.getByRole('button', { name: /List/ })).toHaveClass('active');
-    expect(screen.getByRole('button', { name: /Map/ })).not.toHaveClass(
-      'active',
+    expect(screen.getByRole('tab', { name: /List/ })).toHaveAttribute(
+      'aria-selected',
+      'true',
     );
+    expect(screen.getByRole('tab', { name: /Map/ })).toHaveAttribute(
+      'aria-selected',
+      'false',
+    );
+    expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'tabpanel-list');
     expect(screen.getByText('Export data')).toBeInTheDocument();
   });
 
   it('renders map panel without crashing', () => {
     renderComponent({}, { tab: MODE_MAP });
-    expect(screen.getByRole('button', { name: /Trends/ })).not.toHaveClass(
-      'active',
+    expect(screen.getByRole('tab', { name: /Trends/ })).toHaveAttribute(
+      'aria-selected',
+      'false',
     );
-    expect(screen.getByRole('button', { name: /List/ })).not.toHaveClass(
-      'active',
+    expect(screen.getByRole('tab', { name: /List/ })).toHaveAttribute(
+      'aria-selected',
+      'false',
     );
-    expect(screen.getByRole('button', { name: /Map/ })).toHaveClass('active');
+    expect(screen.getByRole('tab', { name: /Map/ })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
+    expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'tabpanel-map');
     expect(screen.getByText('Export data')).toBeInTheDocument();
   });
 
@@ -61,13 +77,18 @@ describe('ResultsPanel', () => {
       { searchText: 'Tacos' },
       { isPrintMode: true, tab: MODE_MAP },
     );
-    expect(screen.getByRole('button', { name: /Trends/ })).not.toHaveClass(
-      'active',
+    expect(screen.getByRole('tab', { name: /Trends/ })).toHaveAttribute(
+      'aria-selected',
+      'false',
     );
-    expect(screen.getByRole('button', { name: /List/ })).not.toHaveClass(
-      'active',
+    expect(screen.getByRole('tab', { name: /List/ })).toHaveAttribute(
+      'aria-selected',
+      'false',
     );
-    expect(screen.getByRole('button', { name: /Map/ })).toHaveClass('active');
+    expect(screen.getByRole('tab', { name: /Map/ })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
     expect(screen.getByText('Export data')).toBeInTheDocument();
     expect(screen.getByText('Search Term:')).toBeInTheDocument();
     expect(screen.getByText('Tacos')).toBeInTheDocument();
