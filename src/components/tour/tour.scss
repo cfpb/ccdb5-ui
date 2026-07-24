@@ -1,0 +1,35 @@
+@use '../../../node-modules/intro.js/introjs.css' as *;
+
+// Intro.js styles
+@use 'css/base' as *;
+
+.introjs-tooltip.wide {
+  max-width: 80vw !important;
+  width: 80vw;
+  margin-left: -40vw;
+
+  .left {
+    width: 80%;
+    float: left;
+  }
+
+  .right {
+    display: inline-block;
+    margin-left: $gutter-normal;
+  }
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.introjs-tooltipReferenceLayer > .first-step {
+  @media screen and (min-width: $bp-sm-min) and (max-width: $bp-sm-max) {
+    margin-top: -110vh !important;
+  }
+
+  @media screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
+    margin-top: -130vh !important;
+  }
+
+  @media screen and (max-width: $bp-xs-max) {
+    margin-top: -110vh !important;
+  }
+}

@@ -1,0 +1,27 @@
+import './search-panel.scss';
+import { PillPanel } from './pill-panel';
+import { SearchBar } from './search-bar';
+import { formatDisplayDate } from '../../utils/format-date';
+import { useGetMetaQuery } from '../../api/complaints';
+import { Loading } from '../loading/loading';
+import { Heading, WellContainer } from '@cfpb/design-system-react';
+
+export const SearchPanel = () => {
+  const { data, isLoading, isFetching } = useGetMetaQuery('meta');
+  const lastIndexed = data?._meta?.last_indexed;
+  const lastIndexedMessage = lastIndexed ? (
+    <span className="date-subscript">
+      (last updated: {formatDisplayDate(lastIndexed)})
+    </span>
+  ) : null;
+
+  return isLoading || isFetching ? (
+    <Loading isLoading={true} />
+  ) : (
+    <WellContainer className="search-panel">
+      <Heading type="2">Search complaint data {lastIndexedMessage}</Heading>
+      <SearchBar />
+      <PillPanel />
+    </WellContainer>
+  );
+};

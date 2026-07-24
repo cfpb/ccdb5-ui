@@ -2,7 +2,7 @@ import { DATE_RANGE_MIN, SLUG_SEPARATOR } from '../constants/index';
 import Analytics from '../actions/analytics';
 import dayjs from 'dayjs';
 import queryString from 'query-string';
-import { formatDate } from './formatDate';
+import { formatDate } from './format-date';
 
 /**
  * Breaks up '123' to '1 2 3' to help screen readers read digits individually
@@ -12,7 +12,7 @@ import { formatDate } from './formatDate';
  * @returns {string} an expanded string of digits
  */
 export function ariaReadoutNumbers(digits) {
-  return Array.from(digits || '').join(' ');
+  return [...digits || ''].join(' ');
 }
 
 export const calculateDateRange = (minDate, maxDate, dateLastIndexed) => {
@@ -137,11 +137,11 @@ export function hashCode(someString) {
     return hash;
   }
   for (index = 0; index < str.length; index++) {
-    chr = str.charCodeAt(index);
+    chr = str.codePointAt(index);
     hash = (hash << 5) - hash + chr;
 
     // Convert to 32bit integer
-    hash |= 0;
+    hash = Math.trunc(hash);
   }
   return hash;
 }
@@ -164,13 +164,12 @@ export const isTrue = (argArray) => argArray.some((element) => !!element);
  * @returns {string} sanitized string eat-at-joe-s
  */
 export const sanitizeHtmlId = (str) =>
-  str.replace(/\s+|\W/g, '-').toLowerCase();
+  str.replaceAll(/\s+|\W/g, '-').toLowerCase();
 
 export const slugify = (first, second) => first + SLUG_SEPARATOR + second;
 
 export const insertParentFilter = (filterArray, missingFilter, fieldName) => {
-  const filter = filterArray.find((item) => item.key === missingFilter);
-  if (!filter) {
+  if (!filterArray.some((item) => item.key === missingFilter)) {
     filterArray.push({
       key: missingFilter,
       doc_count: 0,
@@ -190,7 +189,7 @@ export const insertChildFilter = (filterArray, missingFilter, fieldName) => {
   const subAggField = `sub_${fieldName}.raw`;
   if (
     filter[subAggField] &&
-    !filter[subAggField].buckets.find(
+    !filter[subAggField].buckets.some(
       (bucket) => bucket.key === missingFilter.split(SLUG_SEPARATOR)[1],
     )
   ) {
@@ -215,8 +214,8 @@ export const insertChildFilter = (filterArray, missingFilter, fieldName) => {
 export const sortOptions = (options, filters, fieldName) => {
   const selectedFilters = filters || [];
   const subAggFieldName = `sub_${fieldName}.raw`;
-  const retVal = (structuredClone(options) || []).slice();
-  return retVal.sort((first, second) => {
+  const retVal = [...(structuredClone(options) || [])];
+  return retVal.toSorted((first, second) => {
     // sort by parent items first
     const isFirstItemSelected = selectedFilters.includes(first.key);
     const isSecondItemSelected = selectedFilters.includes(second.key);
@@ -227,16 +226,16 @@ export const sortOptions = (options, filters, fieldName) => {
 
     const isFirstItemChildSelected =
       first && first[subAggFieldName]
-        ? first[subAggFieldName].buckets.filter((bucket) =>
+        ? first[subAggFieldName].buckets.some((bucket) =>
             selectedFilters.includes(first.key + SLUG_SEPARATOR + bucket.key),
-          ).length > 0
+          )
         : false;
 
     const isSecondItemChildSelected =
       second && second[subAggFieldName]
-        ? second[subAggFieldName].buckets.filter((bucket) =>
+        ? second[subAggFieldName].buckets.some((bucket) =>
             selectedFilters.includes(second.key + SLUG_SEPARATOR + bucket.key),
-          ).length > 0
+          )
         : false;
     // then try sorting if parent item has any child selected
     if (isFirstItemChildSelected !== isSecondItemChildSelected) {
@@ -261,14 +260,14 @@ export const sortSelThenCount = (options, selectedFilters, fieldName) => {
   const retVal = sortOptions(options, selectedFilters, fieldName);
   // insert any missing filters from Product / Issue
   if (selectedFilters.length > 0) {
-    selectedFilters.forEach((item) => {
-      if (item.indexOf(SLUG_SEPARATOR) !== -1) {
+    for (const item of selectedFilters) {
+      if (item.includes(SLUG_SEPARATOR)) {
         insertParentFilter(retVal, item.split(SLUG_SEPARATOR)[0], fieldName);
         insertChildFilter(retVal, item, fieldName);
       } else {
         insertParentFilter(retVal, item, fieldName);
       }
-    });
+    }
   }
   return retVal;
 };
@@ -305,12 +304,12 @@ export function shortIsoFormat(date) {
  * @returns {string} midnight today, local
  */
 export function startOfToday() {
-  if (!window.MAX_DATE) {
+  if (!globalThis.MAX_DATE) {
     // eslint-disable-next-line no-console
     console.error('waiting for API response, setting MAX_DATE to today');
-    window.MAX_DATE = formatDate(dayjs().startOf('day'));
+    globalThis.MAX_DATE = formatDate(dayjs().startOf('day'));
   }
-  return window.MAX_DATE;
+  return globalThis.MAX_DATE;
 }
 
 // ----------------------------------------------------------------------------
@@ -328,15 +327,13 @@ export function startOfToday() {
  */
 export function debounce(func, wait, immediate) {
   let timeout;
-  return function () {
-    const context = this,
-      args = arguments;
+  return function (...args) {
     clearTimeout(timeout);
-    timeout = setTimeout(function () {
+    timeout = setTimeout(() => {
       timeout = null;
-      if (!immediate) func.apply(context, args);
+      if (!immediate) func.apply(this, args);
     }, wait);
-    if (immediate && !timeout) func.apply(context, args);
+    if (immediate && !timeout) func.apply(this, args);
   };
 }
 
@@ -376,8 +373,8 @@ export function processErrorMessage(err) {
  */
 export function formatPercentage(num) {
   // we have to do this so it is a float and not a string
-  const val = parseFloat(parseFloat(num * 100).toFixed(2));
-  return isNaN(val) ? 0.0 : val;
+  const val = Number.parseFloat(Number.parseFloat(num * 100).toFixed(2));
+  return Number.isNaN(val) ? 0.0 : val;
 }
 
 /**
@@ -404,15 +401,11 @@ export const getSubKeyName = (bucket) => {
  * @param {object} arrayParams - the array of strings that we will check against
  */
 export const processUrlArrayParams = (params, state, arrayParams) => {
-  arrayParams.forEach((field) => {
-    if (typeof params[field] !== 'undefined') {
-      if (typeof params[field] === 'string') {
-        state[field] = [params[field]];
-      } else {
-        state[field] = params[field];
-      }
+  for (const field of arrayParams) {
+    if (params[field] !== undefined) {
+      state[field] = typeof params[field] === 'string' ? [params[field]] : params[field];
     }
-  });
+  }
 
   if (params.has_narrative) {
     state.has_narrative = !!params.has_narrative;
@@ -429,13 +422,12 @@ export const processUrlArrayParams = (params, state, arrayParams) => {
  * @returns {Set<string>} returns a set of uniques Debt, Debt*Foo
  */
 export const getAllFilters = (filterKey, subitems) => {
-  const values = new Set();
+  const values = new Set([filterKey]);
   // Add the parent
-  values.add(filterKey);
   // Add the shown subitems
-  subitems.forEach((sub) => {
+  for (const sub of subitems) {
     values.add(slugify(filterKey, sub.key));
-  });
+  }
   return values;
 };
 

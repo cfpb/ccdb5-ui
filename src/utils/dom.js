@@ -3,17 +3,17 @@ const MODAL_PORTAL_ID = 'ccdb-ui-modal-portal';
 const OVERLAY_PORTAL_ID = 'ccdb-ui-overlay-portal';
 
 const getConfig = () => {
-  if (typeof window === 'undefined') {
+  if (globalThis.window === undefined) {
     return {};
   }
-  return window.__CCDB_CONFIG__ || {};
+  return globalThis.__CCDB_CONFIG__ || {};
 };
 
 const escapeId = (id) => {
   if (typeof CSS !== 'undefined' && CSS.escape) {
     return CSS.escape(id);
   }
-  return String(id).replace(/[^a-zA-Z0-9_-]/g, '\\\\$&');
+  return String(id).replaceAll(/[^a-zA-Z0-9_-]/g, String.raw`\\$&`);
 };
 
 export const getMountId = () => {
@@ -43,7 +43,7 @@ export const getModalPortalParent = () => {
     if (!portal) {
       portal = document.createElement('div');
       portal.id = MODAL_PORTAL_ID;
-      root.appendChild(portal);
+      root.append(portal);
     }
     return portal;
   }
@@ -62,7 +62,7 @@ export const getOverlayPortalParent = () => {
       portal = document.createElement('div');
       portal.id = OVERLAY_PORTAL_ID;
       portal.className = 'ccdb-ui-overlay-portal';
-      root.appendChild(portal);
+      root.append(portal);
     }
     return portal;
   }
@@ -81,7 +81,7 @@ export const getElementById = (id) => {
       return match;
     }
   }
-  return document.getElementById(id);
+  return document.querySelector(`#${escaped}`);
 };
 
 export const getAppElement = () => {
@@ -118,7 +118,7 @@ export const querySelectorAll = (selector) => {
   const root = getAppRoot();
   if (root && root.querySelectorAll) {
     const matches = root.querySelectorAll(selector);
-    if (matches && matches.length) {
+    if (matches.length > 0 && matches.length > 0) {
       return matches;
     }
   }
@@ -154,10 +154,10 @@ export const resolveTourStepElements = (steps) => {
 };
 
 export const registerDomGlobals = () => {
-  if (typeof window === 'undefined') {
+  if (globalThis.window === undefined) {
     return;
   }
-  window.__ccdbDom = {
+  globalThis.__ccdbDom = {
     querySelector,
     querySelectorAll,
   };

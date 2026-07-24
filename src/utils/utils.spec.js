@@ -167,7 +167,7 @@ describe('module::utils', () => {
       expect(actual).toEqual(50.0);
     });
     it('handles NaN values', () => {
-      const actual = formatPercentage(NaN);
+      const actual = formatPercentage(Number.NaN);
       expect(actual).toEqual(0.0);
     });
   });

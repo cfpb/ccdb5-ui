@@ -13,6 +13,7 @@ import reactReduxPlugin from 'eslint-plugin-react-redux';
 import testingLibraryPlugin from 'eslint-plugin-testing-library';
 import pluginCypress from 'eslint-plugin-cypress';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import unicorn from 'eslint-plugin-unicorn';
 import babelParser from '@babel/eslint-parser';
 
 export default [
@@ -26,6 +27,9 @@ export default [
   jsxA11y.flatConfigs.recommended,
   reactPlugin.configs.flat.recommended,
   pluginCypress.configs.recommended,
+  // Match DSR: unicorn recommended (includes unicorn/filename-case → kebabCase).
+  // DSR uses unicorn ^72 (eslint 10); we use ^65 for eslint 9 compatibility.
+  unicorn.configs.recommended,
   eslintConfigPrettier,
   {
     plugins: {
@@ -83,6 +87,27 @@ export default [
       'jsdoc/require-hyphen-before-param-description': ['warn', 'always'],
       'jsdoc/tag-lines': ['error', 'any', { startLines: 1 }],
       'no-console': ['warn'],
+      // Match DSR unicorn overrides
+      'unicorn/prevent-abbreviations': 'off',
+      'unicorn/no-null': 'off',
+      // Keep Jest convention dirs; kebab-case the rest (same rule DSR relies on)
+      'unicorn/filename-case': [
+        'error',
+        {
+          case: 'kebabCase',
+          ignore: ['^__fixtures__$', '^__tests__$', '^__mocks__$'],
+        },
+      ],
+      // Extremely noisy on large numeric fixtures; little value for this app
+      'unicorn/numeric-separators-style': 'off',
+      'unicorn/no-zero-fractions': 'off',
+      // Impractical on this codebase (d3/highcharts `this`, CJS cypress/colors, reducers)
+      'unicorn/no-this-outside-of-class': 'off',
+      'unicorn/prefer-module': 'off',
+      'unicorn/no-anonymous-default-export': 'off',
+      'unicorn/no-array-reduce': 'off',
+      'unicorn/consistent-function-scoping': 'off',
+      'unicorn/no-array-callback-reference': 'off',
       'no-use-before-define': ['error', 'nofunc'],
       'no-unused-vars': [
         'error',

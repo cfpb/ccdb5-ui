@@ -81,12 +81,12 @@ describe('scrollToFocus', () => {
     const selectElement = document.createElement('div');
     selectElement.setAttribute('id', 'search-summary');
     selectElement.scrollIntoView = jest.fn();
-    window.domNode = selectElement;
-    document.body.appendChild(selectElement);
+    globalThis.domNode = selectElement;
+    document.body.append(selectElement);
 
     sut.scrollToFocus();
     expect(selectElement.scrollIntoView).toHaveBeenCalled();
-    document.body.removeChild(selectElement);
+    selectElement.remove();
     jest.clearAllMocks();
   });
 

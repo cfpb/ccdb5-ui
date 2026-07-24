@@ -1,12 +1,12 @@
-import filtersReducer from '../reducers/filters/filtersSlice';
-import queryReducer from '../reducers/query/querySlice';
-import routesReducer from '../reducers/routes/routesSlice';
-import trendsReducer from '../reducers/trends/trendsSlice';
-import viewReducer from '../reducers/view/viewSlice';
+import filtersReducer from '../reducers/filters/filters-slice';
+import queryReducer from '../reducers/query/query-slice';
+import routesReducer from '../reducers/routes/routes-slice';
+import trendsReducer from '../reducers/trends/trends-slice';
+import viewReducer from '../reducers/view/view-slice';
 import { configureStore } from '@reduxjs/toolkit';
 import { complaintsApi } from '../api/complaints';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import synchUrl from '../middleware/synchUrl/synchUrl';
+import synchUrl from '../middleware/synch-url/synch-url';
 
 export const store = configureStore({
   devTools: true,
@@ -19,7 +19,7 @@ export const store = configureStore({
     view: viewReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([synchUrl, complaintsApi.middleware]),
+    [...getDefaultMiddleware(), synchUrl, complaintsApi.middleware],
 });
 
 setupListeners(store.dispatch);

@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 /* eslint-disable complexity */
-import { adjustDate, formatDisplayDate, isDateEqual } from './formatDate';
+import { adjustDate, formatDisplayDate, isDateEqual } from './format-date';
 import { clampDate, coalesce } from '../utils';
 import dayjs from 'dayjs';
 import dayjsQuarterOfYear from 'dayjs/plugin/quarterOfYear';
@@ -24,7 +24,7 @@ export const getLastDate = (dataSet, config) => {
 
   const deDuped = [
     ...new Set(dataSet.map((obj) => dayjs(obj.date).toISOString())),
-  ].sort();
+  ].toSorted();
   const lastDate = deDuped.pop();
   const lastPointValues = dataSet.filter((obj) =>
     isDateEqual(obj.date, lastDate),
@@ -45,11 +45,11 @@ export const getLastLineDate = (dataSet, config) => {
   }
 
   let dates = [];
-  dataSet.dataByTopic.forEach((datum) => {
-    dates = dates.concat(datum.dates);
-  });
+  for (const datum of dataSet.dataByTopic) {
+    dates = [...dates, ...datum.dates];
+  }
 
-  const deDuped = [...new Set(dates.map((obj) => obj.date))].sort();
+  const deDuped = [...new Set(dates.map((obj) => obj.date))].toSorted();
   const lastDate = deDuped.pop();
   const values = dataSet.dataByTopic.map((datum) => {
     const lastPoint = datum.dates.find((val) =>
@@ -87,18 +87,19 @@ export const getTooltipTitle = (inputDate, interval, dateRange, external) => {
   let endDate = dayjs(inputDate).utc();
 
   switch (interval) {
-    case 'day':
+    case 'day': {
       endDate = endDate.format();
       break;
+    }
     case 'week':
-    case 'year':
+    case 'year': {
       endDate = endDate.add(1, interval).subtract(1, 'day').format();
       break;
-    case 'quarter':
-    case 'month':
-    default:
+    }
+    default: {
       endDate = endDate.endOf(interval).subtract(1, 'day').format();
       break;
+    }
   }
 
   endDate = getTooltipDate(endDate, dateRange);
@@ -204,18 +205,18 @@ export const processRows = (data, colorMap, lens, expandedRows) => {
  */
 export const updateDateBuckets = (name, buckets, areaBuckets) => {
   // fill in empty zero values
-  areaBuckets.forEach((obj) => {
-    if (!buckets.find((bucket) => bucket.key_as_string === obj.key_as_string)) {
+  for (const obj of areaBuckets) {
+    if (!buckets.some((bucket) => bucket.key_as_string === obj.key_as_string)) {
       buckets.push({
         name: name,
         doc_count: 0,
         key_as_string: obj.key_as_string,
       });
     }
-  });
+  }
 
   return buckets
-    .sort((first, second) =>
+    .toSorted((first, second) =>
       first.key_as_string > second.key_as_string ? 1 : -1,
     )
     .map((obj) => ({
@@ -232,7 +233,7 @@ export const externalTooltipFormatter = (tooltip, colorMap) => {
   const newTooltip = structuredClone(tooltip);
   const parts = tooltip.title.split(':');
   const colorValues = Object.values(colors.DataLens);
-  newTooltip.values.forEach((obj) => {
+  for (const obj of newTooltip.values) {
     // const newObj = { ...obj };
     if (!Object.hasOwn(obj, 'colorIndex')) {
       obj.colorIndex = colorValues.indexOf(colorMap[obj.name]) || 0;
@@ -241,7 +242,7 @@ export const externalTooltipFormatter = (tooltip, colorMap) => {
     if (!Object.hasOwn(obj, 'value')) {
       obj.value = coalesce(obj, 'value', 0);
     }
-  });
+  }
 
   return {
     ...newTooltip,
@@ -280,8 +281,8 @@ export const isLineDataEmpty = (data) => {
   return (
     !data ||
     !data.dataByTopic ||
-    !data.dataByTopic.length ||
-    !data.dataByTopic[0].dates.length ||
+    data.dataByTopic.length === 0 ||
+    data.dataByTopic[0].dates.length === 0 ||
     // we consider line data to be empty if length < 2
     // since you need at least 2 points to plot
     data.dataByTopic[0].dates.length < 2
@@ -295,7 +296,7 @@ export const isLineDataEmpty = (data) => {
  * @returns {boolean} Tells us whether we have dates to render the chart.
  */
 export const isStackedAreaDataEmpty = (data) => {
-  if (!data || !data.length) {
+  if (!data || data.length === 0) {
     return true;
   }
   const allDates = [...new Set(data.map((obj) => obj.date))];
@@ -324,17 +325,17 @@ export const pruneIncompleteLineInterval = (data, dateRange, interval) => {
 
   // start date from chart same as date range from, then go ahead keep it
   if (dateOutOfStartBounds(dateFrom, startFromChart, interval)) {
-    dataClone.dataByTopic.forEach((datum) => {
+    for (const datum of dataClone.dataByTopic) {
       datum.dates = datum.dates.filter((date) => date.date !== startFromChart);
-    });
+    }
   }
 
   // we only eliminate the last incomplete interval
   // this is if the end date of the interval comes after To Date
   if (dateOutOfEndBounds(dateTo, lastFromChart, interval)) {
-    dataClone.dataByTopic.forEach((datum) => {
+    for (const datum of dataClone.dataByTopic) {
       datum.dates = datum.dates.filter((date) => date.date !== lastFromChart);
-    });
+    }
   }
   return dataClone;
 };
@@ -351,7 +352,7 @@ export const pruneIncompleteStackedAreaInterval = (
   dates.sort();
 
   const startFromChart = dates[0];
-  const lastFromChart = dates[dates.length - 1];
+  const lastFromChart = dates.at(-1);
   // start date from chart same as date range from, then go ahead keep it
   if (dateOutOfStartBounds(dateFrom, startFromChart, interval)) {
     filteredData = filteredData.filter(
