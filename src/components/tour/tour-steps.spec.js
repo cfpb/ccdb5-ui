@@ -35,7 +35,7 @@ describe('TourSteps', () => {
 
   afterEach(() => {
     delete globalThis.__CCDB_CONFIG__;
-    document.body.innerHTML = '';
+    document.body.replaceChildren();
     jest.clearAllMocks();
   });
 

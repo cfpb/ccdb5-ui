@@ -12,7 +12,7 @@ import { formatDate } from './format-date';
  * @returns {string} an expanded string of digits
  */
 export function ariaReadoutNumbers(digits) {
-  return [...digits || ''].join(' ');
+  return [...(digits || '')].join(' ');
 }
 
 export const calculateDateRange = (minDate, maxDate, dateLastIndexed) => {
@@ -72,9 +72,11 @@ export const capitalize = (string) => {
 export const clamp = (number, boundOne, boundTwo) => {
   if (!boundTwo) {
     return Math.max(number, boundOne) === boundOne ? boundOne : number;
-  } else if (Math.min(number, boundOne) === number) {
+  }
+  if (Math.min(number, boundOne) === number) {
     return boundOne;
-  } else if (Math.max(number, boundTwo) === number) {
+  }
+  if (Math.max(number, boundTwo) === number) {
     return boundTwo;
   }
   return number;
@@ -169,7 +171,7 @@ export const sanitizeHtmlId = (str) =>
 export const slugify = (first, second) => first + SLUG_SEPARATOR + second;
 
 export const insertParentFilter = (filterArray, missingFilter, fieldName) => {
-  if (!filterArray.some((item) => item.key === missingFilter)) {
+  if (filterArray.every((item) => item.key !== missingFilter)) {
     filterArray.push({
       key: missingFilter,
       doc_count: 0,
@@ -189,8 +191,8 @@ export const insertChildFilter = (filterArray, missingFilter, fieldName) => {
   const subAggField = `sub_${fieldName}.raw`;
   if (
     filter[subAggField] &&
-    !filter[subAggField].buckets.some(
-      (bucket) => bucket.key === missingFilter.split(SLUG_SEPARATOR)[1],
+    filter[subAggField].buckets.every(
+      (bucket) => bucket.key !== missingFilter.split(SLUG_SEPARATOR)[1],
     )
   ) {
     filter[subAggField].buckets.push({
@@ -292,7 +294,8 @@ export function shortFormat(date) {
 export function shortIsoFormat(date) {
   if (typeof date === 'string') {
     return date.slice(0, 10);
-  } else if (typeof date === 'object' && date !== null) {
+  }
+  if (typeof date === 'object' && date !== null) {
     return dayjs(date).toISOString().slice(0, 10);
   }
   return '';
@@ -403,7 +406,8 @@ export const getSubKeyName = (bucket) => {
 export const processUrlArrayParams = (params, state, arrayParams) => {
   for (const field of arrayParams) {
     if (params[field] !== undefined) {
-      state[field] = typeof params[field] === 'string' ? [params[field]] : params[field];
+      state[field] =
+        typeof params[field] === 'string' ? [params[field]] : params[field];
     }
   }
 

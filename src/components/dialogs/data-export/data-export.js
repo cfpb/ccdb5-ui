@@ -59,7 +59,7 @@ export const DataExport = () => {
       sendAnalyticsEvent('Export Some Data', tab + ':' + format);
     }
 
-    globalThis.location.assign(exportUri);
+    location.assign(exportUri);
     dispatch(modalShown(MODAL_TYPE_EXPORT_CONFIRMATION));
   };
 

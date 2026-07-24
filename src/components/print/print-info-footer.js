@@ -6,7 +6,7 @@ export const PrintInfoFooter = () => {
   return isPrintMode ? (
     <section className="print-info-footer">
       <p>
-        <span>URL:</span> {globalThis.location.href}
+        <span>URL:</span> {location.href}
       </p>
     </section>
   ) : null;

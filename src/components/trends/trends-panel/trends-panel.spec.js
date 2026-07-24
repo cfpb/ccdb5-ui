@@ -134,7 +134,8 @@ describe('component::TrendsPanel', () => {
         return Promise.resolve({
           body: JSON.stringify(trendsOverviewResponse),
         });
-      } else if (req.url.includes('API?')) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -269,7 +270,8 @@ describe('component::TrendsPanel', () => {
         return Promise.resolve({
           body: JSON.stringify(trendsCompanyFocusResponse),
         });
-      } else if (req.url.includes('API?')) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -314,7 +316,8 @@ describe('component::TrendsPanel', () => {
         return Promise.resolve({
           body: JSON.stringify(trendsProductResponse),
         });
-      } else if (req.url.includes('API?')) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),

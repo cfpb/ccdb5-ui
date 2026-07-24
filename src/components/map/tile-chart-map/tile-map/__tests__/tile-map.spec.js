@@ -16,7 +16,7 @@ describe('Tile map', () => {
 
   // shim this so highcharts test doesn't die
   beforeEach(() => {
-    globalThis.SVGElement.prototype.getBBox = () => ({
+    SVGElement.prototype.getBBox = () => ({
       // eslint-disable-next-line id-length
       x: 0,
       // eslint-disable-next-line id-length
@@ -26,7 +26,7 @@ describe('Tile map', () => {
   });
 
   afterEach(() => {
-    delete globalThis.SVGElement.prototype.getBBox;
+    delete SVGElement.prototype.getBBox;
   });
 
   describe('makeScale', () => {
@@ -288,8 +288,7 @@ describe('Tile map', () => {
     };
 
     const drawSpy = jest.spyOn(TileMap.prototype, 'draw');
-    // eslint-disable-next-line no-unused-vars
-    const map = new TileMap(options);
+    new TileMap(options);
     expect(drawSpy).toHaveBeenCalled();
   });
 
@@ -301,8 +300,7 @@ describe('Tile map', () => {
     };
 
     const drawSpy = jest.spyOn(TileMap.prototype, 'draw');
-    // eslint-disable-next-line no-unused-vars
-    const map = new TileMap(options);
+    new TileMap(options);
     expect(drawSpy).toHaveBeenCalled();
   });
 
@@ -316,8 +314,7 @@ describe('Tile map', () => {
     };
 
     const drawSpy = jest.spyOn(TileMap.prototype, 'draw');
-    // eslint-disable-next-line no-unused-vars
-    const map = new TileMap(options);
+    new TileMap(options);
     expect(drawSpy).toHaveBeenCalled();
   });
 

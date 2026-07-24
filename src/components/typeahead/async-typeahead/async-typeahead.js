@@ -126,10 +126,12 @@ export const AsyncTypeahead = ({
               setSearchValue('');
             }}
             onKeyDown={(evt) => {
-              if (handlePressEnter && evt.key === 'Enter') {
-                handlePressEnter(evt);
-                setIsOpen(false);
+              if (!(handlePressEnter && evt.key === 'Enter')) {
+                return;
               }
+
+              handlePressEnter(evt);
+              setIsOpen(false);
             }}
             onSearch={onSearchHandler}
             options={options}

@@ -80,12 +80,14 @@ export const SearchBar = () => {
   };
 
   const onPressEnter = (event) => {
-    if (event.key === 'Enter') {
-      setShouldCallClear(false);
-      dispatch(searchTextChanged(event.target.value));
-      setInputValue(event.target.value);
-      setIsDirty(false);
+    if (event.key !== 'Enter') {
+      return;
     }
+
+    setShouldCallClear(false);
+    dispatch(searchTextChanged(event.target.value));
+    setInputValue(event.target.value);
+    setIsDirty(false);
   };
   return (
     <div>
@@ -103,9 +105,9 @@ export const SearchBar = () => {
                 value={searchField}
               >
                 <optgroup label="Search Within">
-                  {Object.keys(searchFields).map((key) => (
+                  {Object.entries(searchFields).map(([key, value]) => (
                     <option key={key} value={key}>
-                      {searchFields[key]}
+                      {value}
                     </option>
                   ))}
                 </optgroup>

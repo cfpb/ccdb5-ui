@@ -24,7 +24,7 @@ export const FilterSearch = ({ fieldName }) => {
   const [inputText, setInputText] = useState('');
 
   for (const option of aggResults) {
-    if (!buckets.some((item) => item.key === option.key) ) {
+    if (buckets.every((item) => item.key !== option.key)) {
       const parentAgg = {
         ...option,
         isParent: true,

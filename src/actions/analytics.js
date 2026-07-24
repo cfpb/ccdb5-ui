@@ -28,7 +28,9 @@ const Analytics = {
    */
   init: function () {
     // detect if Google tag manager is loaded
-    if (Object.prototype.hasOwnProperty.call(globalThis, 'google_tag_manager')) {
+    if (
+      Object.prototype.hasOwnProperty.call(globalThis, 'google_tag_manager')
+    ) {
       Analytics.tagManagerIsLoaded = true;
     } else {
       let _tagManager;

@@ -132,7 +132,8 @@ export const getColorScheme = (rowNames, colorMap, lens) =>
     // parent should have priority
     if (colorMap[parent]) {
       return colorMap[parent];
-    } else if (colorMap[name]) {
+    }
+    if (colorMap[name]) {
       return colorMap[name];
     }
 
@@ -206,7 +207,7 @@ export const processRows = (data, colorMap, lens, expandedRows) => {
 export const updateDateBuckets = (name, buckets, areaBuckets) => {
   // fill in empty zero values
   for (const obj of areaBuckets) {
-    if (!buckets.some((bucket) => bucket.key_as_string === obj.key_as_string)) {
+    if (buckets.every((bucket) => bucket.key_as_string !== obj.key_as_string)) {
       buckets.push({
         name: name,
         doc_count: 0,

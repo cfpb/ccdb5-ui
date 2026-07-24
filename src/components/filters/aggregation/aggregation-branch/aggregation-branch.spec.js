@@ -1,4 +1,7 @@
-import { screen, testRender as render } from '../../../../test-utils/test-utils';
+import {
+  screen,
+  testRender as render,
+} from '../../../../test-utils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { merge } from '../../../../test-utils/function-helpers';
 import * as filter from '../../../../reducers/filters/filters-slice';

@@ -29,14 +29,13 @@ export const Select = ({ id, handleChange, label, title, value, values }) => {
             value: val,
             disabled: val.disabled,
           }));
-    } else {
-      // case 3
-      return Object.keys(values).map((obj) => ({
-        name: values[obj],
-        value: obj,
-        disabled: obj.disabled,
-      }));
     }
+    // case 3
+    return Object.entries(values).map(([obj, value_]) => ({
+      name: value_,
+      value: obj,
+      disabled: obj.disabled,
+    }));
   }, [values]);
 
   return (

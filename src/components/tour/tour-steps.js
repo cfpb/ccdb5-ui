@@ -62,10 +62,12 @@ export class TourSteps extends Component {
   }
 
   componentDidMount() {
-    if (this.props.isEnabled) {
-      this.configureIntroJs();
-      this.renderSteps();
+    if (!this.props.isEnabled) {
+      return;
     }
+
+    this.configureIntroJs();
+    this.renderSteps();
   }
 
   componentDidUpdate(prevProps) {

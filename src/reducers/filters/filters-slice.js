@@ -186,7 +186,7 @@ export const filtersSlice = createSlice({
     toggleFlagFilter: {
       reducer: (state, action) => {
         const filterName = action.payload;
-        state[filterName] = Boolean(!state[filterName]);
+        state[filterName] = !state[filterName];
         if (!state[filterName]) delete state[filterName];
       },
     },

@@ -22,7 +22,8 @@ const lensMaps = {
 const displayProductTab = (lens, focus, subProducts) => {
   if (!focus) {
     return true;
-  } else if (subProducts && subProducts.length > 0) {
+  }
+  if (subProducts && subProducts.length > 0) {
     return true;
   }
   return false;

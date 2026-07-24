@@ -55,7 +55,8 @@ describe('component:TrendDepthToggle', () => {
         return Promise.resolve({
           body: JSON.stringify(trendsResponse),
         });
-      } else if (req.url.includes('API?')) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -81,7 +82,8 @@ describe('component:TrendDepthToggle', () => {
         return Promise.resolve({
           body: JSON.stringify(trendsResponse),
         });
-      } else if (req.url.includes('API?')) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -106,7 +108,8 @@ describe('component:TrendDepthToggle', () => {
         return Promise.resolve({
           body: JSON.stringify(trendsResponseDepth14),
         });
-      } else if (req.url.includes('API?')) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -136,7 +139,8 @@ describe('component:TrendDepthToggle', () => {
         return Promise.resolve({
           body: JSON.stringify(trendsResponseCompany),
         });
-      } else if (req.url.includes('API?')) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -163,7 +167,8 @@ describe('component:TrendDepthToggle', () => {
         return Promise.resolve({
           body: JSON.stringify(trendsResponseCompanyDepth7),
         });
-      } else if (req.url.includes('API?')) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),

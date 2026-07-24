@@ -158,6 +158,13 @@ function getPagination(page, state) {
 // ----------------------------------------------------------------------------
 // Query String Builder
 
+const fieldMap = {
+  searchAfter: 'search_after',
+  searchText: 'search_term',
+  searchField: 'field',
+  from: 'frm',
+};
+
 /**
  * Converts a set of key/value pairs into a query string for API calls
  *
@@ -272,13 +279,6 @@ export const queryState = {
   size: 25,
   sort: 'created_date_desc',
   trendsDateWarningEnabled: false,
-};
-
-const fieldMap = {
-  searchAfter: 'search_after',
-  searchText: 'search_term',
-  searchField: 'field',
-  from: 'frm',
 };
 
 export const querySlice = createSlice({
@@ -445,10 +445,7 @@ export const querySlice = createSlice({
         }
 
         for (const field of types.dateFilters) {
-          if (
-            params[field] !== undefined &&
-            dayjs(params[field]).isValid()
-          ) {
+          if (params[field] !== undefined && dayjs(params[field]).isValid()) {
             state[field] = toDate(params[field]);
           }
         }
@@ -495,7 +492,6 @@ export const querySlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          /*eslint no-use-before-define: ["error", { "variables": false }]*/
           companyReceivedDateChanged,
           datesChanged,
           dateIntervalChanged,

@@ -41,7 +41,7 @@ export const complaintsApi = createApi({
       },
     }),
     getDocument: builder.query({
-      query: (id) => `${id}`,
+      query: (id) => id,
       transformResponse: (response) => response.hits.hits[0]._source,
     }),
     getList: builder.query({
@@ -54,8 +54,8 @@ export const complaintsApi = createApi({
           const item = { ...hit._source };
 
           if (hit.highlight) {
-            for (const field of Object.keys(hit.highlight)) {
-              item[field] = hit.highlight[field][0];
+            for (const [field, value] of Object.entries(hit.highlight)) {
+              item[field] = value[0];
             }
           }
 

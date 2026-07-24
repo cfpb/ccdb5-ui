@@ -116,7 +116,7 @@ describe('Tour loading behavior', () => {
     expect(skipButton).not.toBeNull();
     await user.click(skipButton);
 
-    expect(globalThis.confirm).toHaveBeenCalledWith(
+    expect(confirm).toHaveBeenCalledWith(
       'Are you sure you want to exit the tour?',
     );
   });

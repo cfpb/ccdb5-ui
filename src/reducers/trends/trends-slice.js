@@ -204,7 +204,7 @@ function processAreaData(state, aggregations) {
 
   // overall buckets
   for (const obj of aggregations.dateRangeBuckets.dateRangeBuckets.buckets) {
-    if (!compBuckets.some((val) => obj.key_as_string === val.date)) {
+    if (compBuckets.every((val) => obj.key_as_string !== val.date)) {
       compBuckets.push({
         name: mainName,
         value: 0,
@@ -246,9 +246,9 @@ function processAreaData(state, aggregations) {
     if (result.trend_period.buckets.length !== referenceBuckets.length) {
       for (const obj of referenceBuckets) {
         if (
-          !compBuckets
+          compBuckets
             .filter((bckt) => bckt.name === result.key)
-            .some((bckt) => isDateEqual(bckt.date, obj.date))
+            .every((bckt) => !isDateEqual(bckt.date, obj.date))
         ) {
           compBuckets.push({
             name: result.key,
@@ -291,9 +291,7 @@ function processLineData(lens, aggregations, focus, subLens) {
 
     // backfill empties
     for (const obj of rangeBuckets) {
-      if (
-        !dataByTopic[0].dates.some((val) => obj.key_as_string === val.date)
-      ) {
+      if (dataByTopic[0].dates.every((val) => obj.key_as_string !== val.date)) {
         dataByTopic[0].dates.push({
           date: obj.key_as_string,
           value: 0,

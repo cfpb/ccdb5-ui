@@ -36,8 +36,8 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   );
 
   // Does the key contain the separator?
-  const activeChildren = keyFilters.filter(
-    (key) => key.includes(SLUG_SEPARATOR),
+  const activeChildren = keyFilters.filter((key) =>
+    key.includes(SLUG_SEPARATOR),
   );
 
   const activeParent = keyFilters.filter((key) => key === item.key);

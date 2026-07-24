@@ -38,9 +38,11 @@ export function makeScale(data, colors) {
 export function makeShortName(value) {
   if (value < 1000) {
     return value.toLocaleString();
-  } else if (value < TEN_K) {
+  }
+  if (value < TEN_K) {
     return (Math.floor(value / 100) / 10).toFixed(1) + 'K';
-  } else if (value < MILLION) {
+  }
+  if (value < MILLION) {
     return Math.floor(value / 1000) + 'K';
   }
 

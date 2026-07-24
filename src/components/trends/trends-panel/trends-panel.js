@@ -158,7 +158,8 @@ export const TrendsPanel = () => {
   const areaChartTitle = () => {
     if (hasOverview) {
       return 'Complaints by date received by the CFPB';
-    } else if (focus) {
+    }
+    if (focus) {
       return (
         'Complaints by ' +
         subLensMap[subLens].toLowerCase() +

@@ -21,10 +21,12 @@ export const DateRanges = () => {
   };
 
   const toggleDateRange = (selectedDateRange) => {
-    if (dateRange !== selectedDateRange) {
-      sendAnalyticsEvent('Button', tab + ':' + selectedDateRange);
-      dispatch(dateRangeChanged(selectedDateRange));
+    if (dateRange === selectedDateRange) {
+      return;
     }
+
+    sendAnalyticsEvent('Button', tab + ':' + selectedDateRange);
+    dispatch(dateRangeChanged(selectedDateRange));
   };
 
   return (

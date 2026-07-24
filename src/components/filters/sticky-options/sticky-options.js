@@ -13,7 +13,7 @@ export const StickyOptions = ({ fieldName, options, selections, getLabel }) => {
 
   // Then, iterate through selections to add missing ones with default values
   for (const sel of selections) {
-    if (!trackedSelections.some((opt) => opt.key === sel)) {
+    if (trackedSelections.every((opt) => opt.key !== sel)) {
       // Use some() for efficiency
       trackedSelections.push({
         key: sel,

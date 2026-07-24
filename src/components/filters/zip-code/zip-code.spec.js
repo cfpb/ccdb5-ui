@@ -45,11 +45,13 @@ describe('ZipCode', () => {
 
   test('Options appear when user types and dispatches addMultipleFilters on selection', async () => {
     fetchMock.mockResponse((req) => {
-      return req.url.includes('_suggest_zip') ? Promise.resolve({
-          body: JSON.stringify(['22191', '22202', '22031', '22203', '22204']),
-        }) : Promise.resolve({
-          body: JSON.stringify(zipAggsResponse),
-        });
+      return req.url.includes('_suggest_zip')
+        ? Promise.resolve({
+            body: JSON.stringify(['22191', '22202', '22031', '22203', '22204']),
+          })
+        : Promise.resolve({
+            body: JSON.stringify(zipAggsResponse),
+          });
     });
 
     const multipleFiltersAddedSpy = jest

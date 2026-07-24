@@ -19,7 +19,7 @@ const clearConfig = () => {
 describe('dom utilities', () => {
   afterEach(() => {
     clearConfig();
-    document.body.innerHTML = '';
+    document.body.replaceChildren();
   });
 
   describe('getMountId', () => {

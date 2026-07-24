@@ -31,10 +31,7 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   selectedFilters.sort();
 
   return arrayEquals(selectedFilters, subItems)
-    ? [
-        ...filters.filter((filter) => !filter.includes(parentKey)),
-        parentFilter,
-      ]
+    ? [...filters.filter((filter) => !filter.includes(parentKey)), parentFilter]
     : [...filters, item.key];
 };
 
