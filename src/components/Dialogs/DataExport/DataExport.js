@@ -39,6 +39,9 @@ export const DataExport = () => {
   const [copied, setCopied] = useState(false);
 
   const exportDataset = isFullDatasetOnly ? DATASET_FULL : dataset;
+  // Filtered exports are CSV-only; JSON is available for the full dataset zip.
+  const isJsonAvailable = exportDataset === DATASET_FULL;
+  const exportFormat = isJsonAvailable ? format : FORMAT_CSV;
 
   const exportUri = useMemo(() => {
     const mergedState = {
@@ -47,20 +50,34 @@ export const DataExport = () => {
     };
     const url =
       exportDataset === DATASET_FULL
-        ? buildAllResultsUri(format)
-        : buildSomeResultsUri(format, someComplaintsCount, mergedState);
+        ? buildAllResultsUri(exportFormat)
+        : buildSomeResultsUri(someComplaintsCount, mergedState);
     return getFullUrl(url);
-  }, [exportDataset, format, someComplaintsCount, filtersState, queryState]);
+  }, [
+    exportDataset,
+    exportFormat,
+    someComplaintsCount,
+    filtersState,
+    queryState,
+  ]);
 
   const handleExportClicked = () => {
     if (exportDataset === DATASET_FULL) {
-      sendAnalyticsEvent('Export All Data', tab + ':' + format);
+      sendAnalyticsEvent('Export All Data', tab + ':' + exportFormat);
     } else {
-      sendAnalyticsEvent('Export Some Data', tab + ':' + format);
+      sendAnalyticsEvent('Export Some Data', tab + ':' + exportFormat);
     }
 
     window.location.assign(exportUri);
     dispatch(modalShown(MODAL_TYPE_EXPORT_CONFIRMATION));
+  };
+
+  const selectDataset = (nextDataset) => {
+    setCopied(false);
+    setDataset(nextDataset);
+    if (nextDataset === DATASET_FILTERED) {
+      setFormat(FORMAT_CSV);
+    }
   };
 
   const copyToClipboard = (ev) => {
@@ -101,7 +118,7 @@ export const DataExport = () => {
           <div>
             <div className="m-form-field m-form-field--radio m-form-field--lg-target">
               <input
-                checked={format === FORMAT_CSV}
+                checked={exportFormat === FORMAT_CSV}
                 className="a-radio"
                 id="format_csv"
                 onChange={() => {
@@ -115,22 +132,24 @@ export const DataExport = () => {
                 CSV
               </label>
             </div>
-            <div className="m-form-field m-form-field--radio m-form-field--lg-target">
-              <input
-                checked={format === FORMAT_JSON}
-                className="a-radio"
-                id="format_json"
-                onChange={() => {
-                  setCopied(false);
-                  setFormat(FORMAT_JSON);
-                }}
-                type="radio"
-                value="json"
-              />
-              <label className="a-label" htmlFor="format_json">
-                JSON
-              </label>
-            </div>
+            {isJsonAvailable ? (
+              <div className="m-form-field m-form-field--radio m-form-field--lg-target">
+                <input
+                  checked={format === FORMAT_JSON}
+                  className="a-radio"
+                  id="format_json"
+                  onChange={() => {
+                    setCopied(false);
+                    setFormat(FORMAT_JSON);
+                  }}
+                  type="radio"
+                  value="json"
+                />
+                <label className="a-label" htmlFor="format_json">
+                  JSON
+                </label>
+              </div>
+            ) : null}
           </div>
         </div>
         {isFullDatasetOnly ? null : (
@@ -146,8 +165,7 @@ export const DataExport = () => {
                   className="a-radio"
                   id="dataset_filtered"
                   onChange={() => {
-                    setCopied(false);
-                    setDataset(DATASET_FILTERED);
+                    selectDataset(DATASET_FILTERED);
                   }}
                   type="radio"
                   value="filtered"
@@ -168,8 +186,7 @@ export const DataExport = () => {
                   className="a-radio"
                   id="dataset_full"
                   onChange={() => {
-                    setCopied(false);
-                    setDataset(DATASET_FULL);
+                    selectDataset(DATASET_FULL);
                   }}
                   type="radio"
                   value="full"
