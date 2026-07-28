@@ -39,9 +39,9 @@ export const DataExport = () => {
   const [copied, setCopied] = useState(false);
 
   const exportDataset = isFullDatasetOnly ? DATASET_FULL : dataset;
-  // Filtered exports are CSV-only; JSON is available for the full dataset zip.
-  const isJsonAvailable = exportDataset === DATASET_FULL;
-  const exportFormat = isJsonAvailable ? format : FORMAT_CSV;
+  // Filtered exports are CSV-only; format options (CSV/JSON) are for the full dataset zip.
+  const showFormatOptions = exportDataset === DATASET_FULL;
+  const exportFormat = showFormatOptions ? format : FORMAT_CSV;
 
   const exportUri = useMemo(() => {
     const mergedState = {
@@ -65,7 +65,7 @@ export const DataExport = () => {
     if (exportDataset === DATASET_FULL) {
       sendAnalyticsEvent('Export All Data', tab + ':' + exportFormat);
     } else {
-      sendAnalyticsEvent('Export Some Data', tab + ':' + exportFormat);
+      sendAnalyticsEvent('Export Some Data', tab);
     }
 
     window.location.assign(exportUri);
@@ -90,6 +90,13 @@ export const DataExport = () => {
 
     setCopied(true);
   };
+
+  const instructions = showFormatOptions
+    ? isFullDatasetOnly
+      ? 'To download a copy of this dataset, choose the file format below.'
+      : 'To download a copy of this dataset, choose the file format and which complaints you want to export below.'
+    : 'To download a copy of this dataset, choose which complaints you want to export below.';
+
   return (
     <section className="export-modal">
       <div className="header layout-row">
@@ -107,32 +114,29 @@ export const DataExport = () => {
         />
       </div>
       <div className="body">
-        <div className="instructions">
-          To download a copy of this dataset, choose the file format and which
-          complaints you want to export below.
-        </div>
-        <div className="group">
-          <div className="group-title">
-            Select a format for the exported file
-          </div>
-          <div>
-            <div className="m-form-field m-form-field--radio m-form-field--lg-target">
-              <input
-                checked={exportFormat === FORMAT_CSV}
-                className="a-radio"
-                id="format_csv"
-                onChange={() => {
-                  setCopied(false);
-                  setFormat(FORMAT_CSV);
-                }}
-                type="radio"
-                value="csv"
-              />
-              <label className="a-label" htmlFor="format_csv">
-                CSV
-              </label>
+        <div className="instructions">{instructions}</div>
+        {showFormatOptions ? (
+          <div className="group">
+            <div className="group-title">
+              Select a format for the exported file
             </div>
-            {isJsonAvailable ? (
+            <div>
+              <div className="m-form-field m-form-field--radio m-form-field--lg-target">
+                <input
+                  checked={exportFormat === FORMAT_CSV}
+                  className="a-radio"
+                  id="format_csv"
+                  onChange={() => {
+                    setCopied(false);
+                    setFormat(FORMAT_CSV);
+                  }}
+                  type="radio"
+                  value="csv"
+                />
+                <label className="a-label" htmlFor="format_csv">
+                  CSV
+                </label>
+              </div>
               <div className="m-form-field m-form-field--radio m-form-field--lg-target">
                 <input
                   checked={format === FORMAT_JSON}
@@ -149,9 +153,9 @@ export const DataExport = () => {
                   JSON
                 </label>
               </div>
-            ) : null}
+            </div>
           </div>
-        </div>
+        ) : null}
         {isFullDatasetOnly ? null : (
           <div className="group">
             <div className="group-title">

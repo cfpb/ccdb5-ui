@@ -209,14 +209,11 @@ describe('DataExport', () => {
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
 
-    expect(sendAnalyticsSpy).toHaveBeenCalledWith(
-      'Export Some Data',
-      'List:csv',
-    );
+    expect(sendAnalyticsSpy).toHaveBeenCalledWith('Export Some Data', 'List');
     expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
-  it('hides JSON format for filtered exports', async () => {
+  it('hides format options for filtered exports', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     renderComponent({}, {}, {});
     await screen.findByText(/Select which complaints you’d like to export/);
@@ -224,10 +221,10 @@ describe('DataExport', () => {
       screen.getByText(/Select which complaints you’d like to export/),
     ).toBeInTheDocument();
 
-    const radioCsv = screen.getByRole('radio', {
-      name: /CSV/i,
-    });
-    expect(radioCsv).toBeChecked();
+    expect(
+      screen.queryByText(/Select a format for the exported file/),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('radio', { name: /CSV/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('radio', { name: /JSON/i })).not.toBeInTheDocument();
 
     expect(screen.getByRole('textbox')).toHaveValue(
@@ -242,6 +239,10 @@ describe('DataExport', () => {
     await waitFor(() => {
       expect(radioFull).toBeChecked();
     });
+
+    expect(
+      screen.getByText(/Select a format for the exported file/),
+    ).toBeInTheDocument();
 
     const radioJson = screen.getByRole('radio', {
       name: /JSON/i,
@@ -269,7 +270,7 @@ describe('DataExport', () => {
     });
     await waitFor(() => {
       expect(
-        screen.queryByRole('radio', { name: /JSON/i }),
+        screen.queryByText(/Select a format for the exported file/),
       ).not.toBeInTheDocument();
     });
     await waitFor(() => {
