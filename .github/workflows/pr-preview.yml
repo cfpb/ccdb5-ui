@@ -1,0 +1,47 @@
+name: Deploy PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        if: github.event.action != 'closed'
+        run: |
+          corepack enable
+          yarn install --immutable
+
+      - name: Build
+        if: github.event.action != 'closed'
+        env:
+          # Nested preview URL: https://cfpb.github.io/ccdb5-ui/pr-previews/pr-N/
+          BASE_PATH: /ccdb5-ui/pr-previews/pr-${{ github.event.number }}/
+          # github.io cannot proxy /data-research; hit production CCDB API.
+          CCDB_API_BASE: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/
+        run: yarn build
+
+      - name: Disable Jekyll
+        if: github.event.action != 'closed'
+        run: touch dist/.nojekyll
+
+      - name: Deploy preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-previews

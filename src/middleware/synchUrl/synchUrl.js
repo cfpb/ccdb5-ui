@@ -122,7 +122,9 @@ const synchUrl = (store) => (next) => (action) => {
   const params = extractQueryStringParams(state);
   // See if processing should continue
   // Update the application
-  const history = createBrowserHistory();
+  const history = createBrowserHistory({
+    basename: (process.env.BASE_PATH || '/').replace(/\/$/, '') || undefined,
+  });
   const location = history.location;
 
   const { queryString: oldQS } = state.routes;
