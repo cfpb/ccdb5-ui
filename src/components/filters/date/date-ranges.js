@@ -21,23 +21,25 @@ export const DateRanges = () => {
   };
 
   const toggleDateRange = (selectedDateRange) => {
-    if (dateRange !== selectedDateRange) {
-      sendAnalyticsEvent('Button', tab + ':' + selectedDateRange);
-      dispatch(dateRangeChanged(selectedDateRange));
+    if (dateRange === selectedDateRange) {
+      return;
     }
+
+    sendAnalyticsEvent('Button', tab + ':' + selectedDateRange);
+    dispatch(dateRangeChanged(selectedDateRange));
   };
 
   return (
     <section className="date-ranges">
       <p>Date range (Click to modify range)</p>
       <div className="m-btn-group">
-        {Object.keys(dateRanges).map((range) => (
+        {Object.entries(dateRanges).map(([range, label]) => (
           <Button
             key={range}
             label={range}
-            aria-label={dateRanges[range]}
+            aria-label={label}
             className={btnClassName(range)}
-            title={dateRanges[range]}
+            title={label}
             onClick={() => {
               toggleDateRange(range);
             }}

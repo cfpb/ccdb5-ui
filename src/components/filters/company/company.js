@@ -20,9 +20,9 @@ export const Company = () => {
   const options = structuredClone(aggsCompany);
   const isFocusPage = focus && lens === 'Company';
 
-  options.forEach((opt) => {
+  for (const opt of options) {
     opt.disabled = Boolean(isFocusPage && opt.key !== focus);
-  });
+  }
 
   const desc = 'The complaint is about this company.';
 

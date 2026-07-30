@@ -119,7 +119,7 @@ describe('module::utils', () => {
       let actual = hashCode('');
       expect(actual).toEqual(0);
       actual = hashCode('foobar');
-      expect(actual).toEqual(-1268878963);
+      expect(actual).toEqual(-1_268_878_963);
     });
   });
 
@@ -164,11 +164,11 @@ describe('module::utils', () => {
   describe('formatPercentage', () => {
     it('handles regular values', () => {
       const actual = formatPercentage(0.5);
-      expect(actual).toEqual(50.0);
+      expect(actual).toEqual(50);
     });
     it('handles NaN values', () => {
       const actual = formatPercentage(NaN);
-      expect(actual).toEqual(0.0);
+      expect(actual).toEqual(0);
     });
   });
 
@@ -191,15 +191,15 @@ describe('module::utils', () => {
       options = [
         {
           key: 'Credit reporting or other personal consumer reports',
-          doc_count: 4782819,
+          doc_count: 4_782_819,
           'sub_product.raw': {
             doc_count_error_upper_bound: 0,
             sum_other_doc_count: 0,
             buckets: [
-              { key: 'Credit reporting', doc_count: 4761272 },
+              { key: 'Credit reporting', doc_count: 4_761_272 },
               {
                 key: 'Other personal consumer report',
-                doc_count: 21547,
+                doc_count: 21_547,
               },
             ],
           },

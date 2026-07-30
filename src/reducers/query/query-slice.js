@@ -3,6 +3,7 @@ import { minDate } from '../../constants';
 import {
   calculateDateRange,
   coalesce,
+  setMaxDate,
   shortIsoFormat,
   startOfToday,
 } from '../../utils';
@@ -56,19 +57,19 @@ export function alignDateRange(state) {
     '1y': dayjs(dateMax).subtract(1, 'year'),
   };
   const ranges = Object.keys(rangeMap);
-  let matched = false;
+  let isMatched = false;
 
-  for (let idx = 0; idx < ranges.length && !matched; idx++) {
+  for (let idx = 0; !isMatched && idx < ranges.length; idx++) {
     const range = ranges[idx];
 
     if (dayjs(dateMin).isSame(rangeMap[range], 'day')) {
       state.dateRange = range;
-      matched = true;
+      isMatched = true;
     }
   }
 
   // No matches, clear
-  if (!matched) {
+  if (!isMatched) {
     state.dateRange = '';
   }
 }
@@ -116,8 +117,8 @@ export function validateDateInterval(queryState) {
   const { date_received_min, date_received_max, dateInterval } = queryState;
   // determine if we need to update date Interval if range > 1 yr
   if (
-    isGreaterThanYear(date_received_min, date_received_max) &&
-    dateInterval === 'Day'
+    dateInterval === 'Day' &&
+    isGreaterThanYear(date_received_min, date_received_max)
   ) {
     queryState.dateInterval = 'Week';
     queryState.trendsDateWarningEnabled = true;
@@ -137,7 +138,11 @@ export function validateDateInterval(queryState) {
  * @returns {Array} array containing complaint's received date and id
  */
 function getSearchAfter(breakPoints, page) {
-  return breakPoints && breakPoints[page] ? breakPoints[page].join('_') : '';
+  if (!breakPoints || !Object.hasOwn(breakPoints, page)) {
+    return '';
+  }
+  const point = breakPoints[page];
+  return point ? point.join('_') : '';
 }
 
 /**
@@ -158,6 +163,13 @@ function getPagination(page, state) {
 // ----------------------------------------------------------------------------
 // Query String Builder
 
+const fieldMap = {
+  searchAfter: 'search_after',
+  searchText: 'search_term',
+  searchField: 'field',
+  from: 'frm',
+};
+
 /**
  * Converts a set of key/value pairs into a query string for API calls
  *
@@ -170,41 +182,46 @@ export function stateToQS(state) {
 
   // Copy over the fields
 
-  fields.forEach((field) => {
+  for (const field of fields) {
     // Do not include empty fields
-    if (!state[field]) {
-      return;
+    if (!Object.hasOwn(state, field)) {
+      continue;
+    }
+    const fieldValue = state[field];
+    if (!fieldValue) {
+      continue;
     }
 
-    let value = state[field];
+    let value = fieldValue;
 
     // Process dates
-    if (types.dateFilters.indexOf(field) !== -1) {
+    if (types.dateFilters.includes(field)) {
       value = shortIsoFormat(value);
     }
 
     // Process boolean flags
     const positives = ['yes', 'true'];
-    if (types.flagFilters.indexOf(field) !== -1) {
+    if (types.flagFilters.includes(field)) {
       value = positives.includes(String(value).toLowerCase());
     }
 
     // Map the internal field names to the API field names
-    if (fieldMap[field]) {
+    if (Object.hasOwn(fieldMap, field)) {
       params[fieldMap[field]] = value;
     } else {
       params[field] = value;
     }
-  });
+  }
 
   // list of API params
   // https://cfpb.github.io/api/ccdb/api/index.html#/
-  const commonParams = [].concat(
-    ['search_term', 'field'],
-    types.dateFilters,
-    types.knownFilters,
-    types.flagFilters,
-  );
+  const commonParams = [
+    'search_term',
+    'field',
+    ...types.dateFilters,
+    ...types.knownFilters,
+    ...types.flagFilters,
+  ];
 
   const paramMap = {
     List: ['frm', 'search_after', 'size', 'sort', 'format', 'no_aggs'],
@@ -220,25 +237,25 @@ export function stateToQS(state) {
     ],
   };
 
-  const filterKeys = [].concat(commonParams, paramMap[params.tab]);
+  const filterKeys = [...commonParams, ...(paramMap[params.tab] ?? [])];
   // if format exists it means we're exporting, so add it to allowable params
   if (Object.keys(params).includes('format')) {
     const exportParams = ['size', 'format', 'no_aggs'];
-    exportParams.forEach((param) => {
+    for (const param of exportParams) {
       /* istanbul ignore else */
       if (!filterKeys.includes(param)) {
         filterKeys.push(param);
       }
-    });
+    }
   }
 
   // where we only filter out the params required for each of the tabs
-  const filteredParams = Object.keys(params)
-    .filter((key) => filterKeys.includes(key))
-    .reduce((obj, key) => {
-      obj[key] = params[key];
-      return obj;
-    }, {});
+  const filteredParams = {};
+  for (const [key, value] of Object.entries(params)) {
+    if (filterKeys.includes(key)) {
+      filteredParams[key] = value;
+    }
+  }
 
   return '?' + queryString.stringify(filteredParams);
 }
@@ -273,13 +290,6 @@ export const queryState = {
   trendsDateWarningEnabled: false,
 };
 
-const fieldMap = {
-  searchAfter: 'search_after',
-  searchText: 'search_term',
-  searchField: 'field',
-  from: 'frm',
-};
-
 export const querySlice = createSlice({
   name: 'query',
   initialState: queryState,
@@ -302,9 +312,7 @@ export const querySlice = createSlice({
           '3y': formatDate(dayjs(maxDate).subtract(3, 'years')),
         };
         state.dateRange = dateRange;
-        state.date_received_min = res[dateRange]
-          ? res[dateRange]
-          : state.date_received_min;
+        state.date_received_min = res[dateRange] ?? state.date_received_min;
         state.date_received_max = maxDate;
         validateDateInterval(state);
       },
@@ -342,7 +350,7 @@ export const querySlice = createSlice({
           ? formatDate(dayjs(maxDate).startOf('day'))
           : null;
 
-        const datesChanged =
+        const isDatesChanged =
           state.date_received_min !== minDate ||
           state.date_received_max !== maxDate;
 
@@ -352,7 +360,7 @@ export const querySlice = createSlice({
           state.dateLastIndexed,
         );
 
-        if (dateRange && datesChanged) {
+        if (dateRange && isDatesChanged) {
           state.dateRange = dateRange;
         } else {
           delete state.dateRange;
@@ -439,26 +447,27 @@ export const querySlice = createSlice({
           'searchText',
           'sort',
         ];
-        keys.forEach((item) => {
-          if (params[item]) {
-            state[item] = enforceValues(params[item], item);
+        for (const item of keys) {
+          if (!Object.hasOwn(params, item)) {
+            continue;
           }
-        });
+          const paramValue = params[item];
+          if (paramValue) {
+            state[item] = enforceValues(paramValue, item);
+          }
+        }
 
-        types.dateFilters.forEach((field) => {
-          if (
-            typeof params[field] !== 'undefined' &&
-            dayjs(params[field]).isValid()
-          ) {
+        for (const field of types.dateFilters) {
+          if (params[field] !== undefined && dayjs(params[field]).isValid()) {
             state[field] = toDate(params[field]);
           }
-        });
+        }
 
         // Handle numeric fields
         const defaultPage = coalesce(params, 'page', queryState.page);
         const defaultSize = coalesce(params, 'size', queryState.size);
-        state.page = parseInt(defaultPage, 10);
-        state.size = parseInt(defaultSize, 10);
+        state.page = Number(defaultPage);
+        state.size = Number(defaultSize);
 
         if (params.search_after) {
           state.searchAfter = params.search_after;
@@ -478,9 +487,7 @@ export const querySlice = createSlice({
             .startOf('day')
             .format('YYYY-MM-DD');
 
-          window.MAX_DATE = formatDate(
-            dayjs(state.dateLastIndexed).startOf('day'),
-          );
+          setMaxDate(formatDate(dayjs(state.dateLastIndexed).startOf('day')));
 
           // set defaults if the value is not set yet
           if (!state.date_received_max) {
@@ -496,7 +503,6 @@ export const querySlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          /*eslint no-use-before-define: ["error", { "variables": false }]*/
           companyReceivedDateChanged,
           datesChanged,
           dateIntervalChanged,

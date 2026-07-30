@@ -36,7 +36,7 @@ export const SearchComponents = () => {
   useEffect(() => {
     if (isPrintMode) {
       setTimeout(() => {
-        window.print();
+        print();
       }, 2000);
     }
   }, [isPrintMode]);

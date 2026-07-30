@@ -61,7 +61,7 @@ describe('MapPanel', () => {
 
   it('renders error', async () => {
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API?') > -1) {
+      if (req.url.includes('API?')) {
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
         });

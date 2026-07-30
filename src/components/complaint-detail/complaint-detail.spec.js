@@ -14,13 +14,13 @@ const fixture = {
   _shards: { total: 5, successful: 5, skipped: 0, failed: 0 },
   hits: {
     total: { value: 1, relation: 'eq' },
-    max_score: 1.0,
+    max_score: 1,
     hits: [
       {
         _index: 'complaint-public-v2',
         _type: '_doc',
         _id: '2371744',
-        _score: 1.0,
+        _score: 1,
         _source: {
           company: 'JPMORGAN CHASE & CO.',
           company_public_response: 'Company acknowledges the complaint',

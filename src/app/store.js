@@ -19,7 +19,7 @@ export const store = configureStore({
     view: viewReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([synchUrl, complaintsApi.middleware]),
+    [...getDefaultMiddleware(), synchUrl, complaintsApi.middleware],
 });
 
 setupListeners(store.dispatch);

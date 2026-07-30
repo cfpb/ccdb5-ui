@@ -32,7 +32,7 @@ describe('ZipCode', () => {
     fetchMock.resetMocks();
     zipAggsResponse = cloneDeep(aggResponse);
     zipAggsResponse.aggregations.zip_code = {
-      doc_count: 4303365,
+      doc_count: 4_303_365,
       zip_code: {
         doc_count_error_upper_bound: 0,
         sum_other_doc_count: 0,
@@ -45,15 +45,11 @@ describe('ZipCode', () => {
 
   test('Options appear when user types and dispatches addMultipleFilters on selection', async () => {
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('_suggest_zip') > -1) {
-        return Promise.resolve({
+      return req.url.includes('_suggest_zip') ? Promise.resolve({
           body: JSON.stringify(['22191', '22202', '22031', '22203', '22204']),
-        });
-      } else {
-        return Promise.resolve({
+        }) : Promise.resolve({
           body: JSON.stringify(zipAggsResponse),
         });
-      }
     });
 
     const multipleFiltersAddedSpy = jest

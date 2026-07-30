@@ -40,13 +40,13 @@ export const StackedAreaChart = () => {
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const width = useSelector(selectViewWidth);
 
-  const showTooltip = lens !== 'Overview';
+  const isShowTooltip = lens !== 'Overview';
 
   const filteredData = useMemo(() => {
-    const dateRange = { from, to };
     if (!areaData) {
       return [];
     }
+    const dateRange = { from, to };
     return pruneIncompleteStackedAreaInterval(areaData, dateRange, interval);
   }, [areaData, from, to, interval]);
 
@@ -58,7 +58,7 @@ export const StackedAreaChart = () => {
     const chartSelector = chartID + ' .stacked-area';
     const root = getAppRoot();
     const container = d3.select(root).select(chartID);
-    if (!container.node() || isDataEmpty) {
+    if (isDataEmpty || !container.node()) {
       return;
     }
 
@@ -163,7 +163,7 @@ export const StackedAreaChart = () => {
 
   return (
     <section className="chart">
-      <ChartWrapper hasKey={showTooltip} domId="stacked-area-chart" />
+      <ChartWrapper hasKey={isShowTooltip} domId="stacked-area-chart" />
     </section>
   );
 };

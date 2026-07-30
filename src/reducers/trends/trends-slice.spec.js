@@ -313,7 +313,7 @@ describe('reducer:trends', () => {
             topicName: 'Alpha',
             name: 'Alpha',
             date: '2021-06-01T00:00:00.000Z',
-            value: 29769,
+            value: 29_769,
           },
           {
             topicName: 'Beta',
@@ -365,7 +365,7 @@ describe('reducer:trends', () => {
             topicName: 'Alpha',
             name: 'Alpha',
             date: '2021-06-01T00:00:00.000Z',
-            value: 29769,
+            value: 29_769,
           },
           {
             topicName: 'Beta',
@@ -393,7 +393,7 @@ describe('reducer:trends', () => {
           },
         ],
         title: expect.stringContaining('Date range: 6/1/2021 -'),
-        total: 43192,
+        total: 43_192,
       });
     });
   });

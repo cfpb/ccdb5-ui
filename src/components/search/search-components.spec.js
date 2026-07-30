@@ -24,7 +24,8 @@ describe('SearchComponents', () => {
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
         });
-      } else if (params.get('no_aggs')) {
+      }
+      if (params.get('no_aggs')) {
         return Promise.resolve({
           body: JSON.stringify(trendsResponse),
         });

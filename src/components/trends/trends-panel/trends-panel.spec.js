@@ -81,7 +81,7 @@ describe('component::TrendsPanel', () => {
 
   it('renders Company overlay', async () => {
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API/trends?') > -1) {
+      if (req.url.includes('API/trends?')) {
         return Promise.resolve({
           body: JSON.stringify(trendsOverviewResponse),
         });
@@ -130,11 +130,12 @@ describe('component::TrendsPanel', () => {
     };
 
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API/trends?') > -1) {
+      if (req.url.includes('API/trends?')) {
         return Promise.resolve({
           body: JSON.stringify(trendsOverviewResponse),
         });
-      } else if (req.url.indexOf('API?') > -1) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -250,7 +251,7 @@ describe('component::TrendsPanel', () => {
         title: 'Date range: 6/30/2024 - 9/29/2024',
         total: 3699,
       },
-      total: 12514,
+      total: 12_514,
     };
 
     view = {
@@ -265,11 +266,12 @@ describe('component::TrendsPanel', () => {
     };
 
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API/trends?') > -1) {
+      if (req.url.includes('API/trends?')) {
         return Promise.resolve({
           body: JSON.stringify(trendsCompanyFocusResponse),
         });
-      } else if (req.url.indexOf('API?') > -1) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -310,11 +312,12 @@ describe('component::TrendsPanel', () => {
     };
 
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API/trends?') > -1) {
+      if (req.url.includes('API/trends?')) {
         return Promise.resolve({
           body: JSON.stringify(trendsProductResponse),
         });
-      } else if (req.url.indexOf('API?') > -1) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),

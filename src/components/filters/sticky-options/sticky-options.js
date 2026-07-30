@@ -3,17 +3,18 @@ import { AggregationItem } from '../aggregation/aggregation-item/aggregation-ite
 
 export const StickyOptions = ({ fieldName, options, selections, getLabel }) => {
   // Pull out filter options that have aggregations and values
-  const trackedSelections = options.reduce((acc, opt) => {
-    if (selections.includes(opt.key)) {
-      const value = getLabel ? getLabel(opt.key) : opt.value;
-      acc.push({ ...opt, value }); // Add the option if its key is in selections
+  const trackedSelections = [];
+  for (const opt of options) {
+    if (!selections.includes(opt.key)) {
+      continue;
     }
-    return acc; // Return the accumulator for the next iteration
-  }, []); // Initialize the accumulator as an empty array
+    const value = getLabel ? getLabel(opt.key) : opt.value;
+    trackedSelections.push({ ...opt, value });
+  }
 
   // Then, iterate through selections to add missing ones with default values
-  selections.forEach((sel) => {
-    if (!trackedSelections.some((opt) => opt.key === sel)) {
+  for (const sel of selections) {
+    if (trackedSelections.every((opt) => opt.key !== sel)) {
       // Use some() for efficiency
       trackedSelections.push({
         key: sel,
@@ -21,7 +22,7 @@ export const StickyOptions = ({ fieldName, options, selections, getLabel }) => {
         doc_count: 0,
       });
     }
-  });
+  }
   return (
     <ul>
       {trackedSelections.map((opt) => (

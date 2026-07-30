@@ -32,7 +32,7 @@ export const routesSlice = createSlice({
     routeChanged: {
       reducer: updateParams,
       prepare: (path, params) => {
-        if (params.size) {
+        if (params.size > 0) {
           // set up the size param so the query reducer can use a valid size
           params.size = enforceValues(params.size.toString(), 'size');
         }

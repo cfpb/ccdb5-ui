@@ -22,12 +22,15 @@ export const getSubLens = (lens) => {
   }
 
   switch (lens) {
-    case 'Overview':
+    case 'Overview': {
       return '';
-    case 'Company':
+    }
+    case 'Company': {
       return 'product';
-    default:
+    }
+    default: {
       return 'sub_' + lens.toLowerCase();
+    }
   }
 };
 

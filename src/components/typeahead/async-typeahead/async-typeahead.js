@@ -12,6 +12,10 @@ import { stateToQS } from '../../../reducers/query/query-slice';
 import { useGetSuggestQuery } from '../../../api/complaints';
 import { multipleFiltersAdded } from '../../../reducers/filters/filters-slice';
 
+// Always include suggestions; prop name required by react-bootstrap-typeahead
+// eslint-disable-next-line unicorn/consistent-boolean-name -- Typeahead API prop name
+const filterBy = () => true;
+
 export const AsyncTypeahead = ({
   ariaLabel,
   defaultValue = '',
@@ -72,7 +76,6 @@ export const AsyncTypeahead = ({
     [handleChange, setIsOpen, setSearchValue],
   );
 
-  const filterBy = () => true;
   const suggestField = fieldName === 'company' ? 'company' : 'zip';
   const queryState = Object.assign({}, query, filters);
   queryState.searchAfter = '';
@@ -126,10 +129,12 @@ export const AsyncTypeahead = ({
               setSearchValue('');
             }}
             onKeyDown={(evt) => {
-              if (handlePressEnter && evt.key === 'Enter') {
-                handlePressEnter(evt);
-                setIsOpen(false);
+              if (!(handlePressEnter && evt.key === 'Enter')) {
+                return;
               }
+
+              handlePressEnter(evt);
+              setIsOpen(false);
             }}
             onSearch={onSearchHandler}
             options={options}

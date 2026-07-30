@@ -33,7 +33,7 @@ describe('FederalState', () => {
     fetchMock.resetMocks();
     statesResponse = cloneDeep(aggResponse);
     statesResponse.aggregations.state = {
-      doc_count: 4303365,
+      doc_count: 4_303_365,
       state: {
         doc_count_error_upper_bound: 0,
         sum_other_doc_count: 0,

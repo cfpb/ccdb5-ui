@@ -68,7 +68,7 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
           </Heading>
           <span>{data.submitted_via}</span>
 
-          {data.tags && data.tags.length ? (
+          {data.tags && data.tags.length > 0 ? (
             <>
               <Heading type="4" className="u-mt15">
                 Tags
@@ -119,16 +119,12 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
           <Heading type="4" className="u-mt15">
             Company response to consumer
           </Heading>
-          <span>{data.company_response ? data.company_response : 'N/A'}</span>
+          <span>{data.company_response || 'N/A'}</span>
 
           <Heading type="4" className="u-mt15">
             Company public response
           </Heading>
-          <span>
-            {data.company_public_response
-              ? data.company_public_response
-              : 'N/A'}
-          </span>
+          <span>{data.company_public_response || 'N/A'}</span>
         </div>
       </div>
     </article>

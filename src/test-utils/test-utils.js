@@ -27,8 +27,10 @@ export function configureStoreUtil(preloadedState) {
       trends,
       view,
     },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(complaintsApi.middleware),
+    middleware: (getDefaultMiddleware) => [
+      ...getDefaultMiddleware(),
+      complaintsApi.middleware,
+    ],
     preloadedState,
   });
 }

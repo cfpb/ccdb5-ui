@@ -39,6 +39,10 @@ export const RowChart = ({
   const lens = tab === MODE_MAP ? 'Product' : trendsLens;
 
   useEffect(() => {
+    if (!data) {
+      return;
+    }
+
     const chartID = '#row-chart-' + id;
 
     const formatTip = (value) => {
@@ -57,12 +61,12 @@ export const RowChart = ({
           // assuming its already split up
           return;
         }
-        const words = innerText.text().split(/\s+/).reverse(),
+        const words = innerText.text().split(/\s+/).toReversed(),
           // ems
           lineHeight = 1.1,
           // eslint-disable-next-line id-length
           y = innerText.attr('y') || 0,
-          dy = parseFloat(innerText.attr('dy') || 0);
+          dy = Number(innerText.attr('dy') || 0);
 
         let word,
           line = [],
@@ -99,7 +103,7 @@ export const RowChart = ({
             .select('.view-more-background');
           const oldHeight = viewMoreBackground.attr('height');
 
-          const newHeight = parseFloat(oldHeight) + wrapCount * 12;
+          const newHeight = Number(oldHeight) + wrapCount * 12;
           viewMoreBackground.attr('height', newHeight);
         }
       });
@@ -154,20 +158,16 @@ export const RowChart = ({
       }
     };
 
-    if (!data) {
-      return;
-    }
-
     // do this to prevent REDUX pollution
     const rows = data.filter((obj) => {
-      if (obj.name && isPrintMode) {
+      if (isPrintMode && obj.name) {
         // remove spacer text if we are in print mode
-        return obj.name.indexOf('Visualize trends for') === -1;
+        return !obj.name.includes('Visualize trends for');
       }
       return true;
     });
 
-    if (!rows || !rows.length || !total) {
+    if (!total || !rows || rows.length === 0) {
       return;
     }
 

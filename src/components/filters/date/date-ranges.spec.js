@@ -46,9 +46,9 @@ describe('component::DateRanges', () => {
       screen.getByText('Date range (Click to modify range)'),
     ).toBeInTheDocument();
 
-    ranges.forEach((range) => {
+    for (const range of ranges) {
       expect(screen.getByRole('button', { name: range })).toBeInTheDocument();
-    });
+    }
   });
 
   it('should select button and trigger toggle on newly selected range', async () => {

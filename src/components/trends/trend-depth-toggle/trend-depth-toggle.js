@@ -1,5 +1,8 @@
 import './trend-depth-toggle.scss';
-import { depthChanged, depthReset } from '../../../reducers/trends/trends-slice';
+import {
+  depthChanged,
+  depthReset,
+} from '../../../reducers/trends/trends-slice';
 import { clamp, coalesce } from '../../../utils';
 import { SLUG_SEPARATOR } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,33 +55,31 @@ export const TrendDepthToggle = () => {
   const filters = useSelector(selectFiltersRoot);
   const focus = useSelector(selectTrendsFocus);
   const lens = useSelector(selectTrendsLens);
-  const results = data?.results;
-  const lensKey = lensMap[lens];
-  const resultCount = coalesce(results, lensKey, []).filter(
-    (obj) => obj.isParent,
-  ).length;
-
-  // The total source depends on the lens.  There are no aggs for companies
-  let totalResultsLength = 0;
-  if (lensKey === 'product') {
-    totalResultsLength = coalesce(aggs, lensKey, []).length;
-  } else {
-    totalResultsLength = clamp(coalesce(filters, lensKey, []).length, 0, 10);
-  }
-
-  // handle cases where some specified filters are selected
-  const filterCount = filters[lensKey]
-    ? filters[lensKey].filter((obj) => obj.indexOf(SLUG_SEPARATOR) === -1)
-        .length
-    : totalResultsLength;
-
-  const diff = totalResultsLength - resultCount;
-  const hasToggle = showToggle(totalResultsLength, filterCount);
 
   // hide on Overview and Focus pages
   if (focus || lens === 'Overview' || error) {
     return null;
   }
+
+  const results = data?.results;
+  const lensKey = lensMap[lens];
+
+  const resultCount = coalesce(results, lensKey, []).filter(
+    (obj) => obj.isParent,
+  ).length;
+
+  const totalResultsLength =
+    lensKey === 'product'
+      ? coalesce(aggs, lensKey, []).length
+      : clamp(coalesce(filters, lensKey, []).length, 0, 10);
+
+  // handle cases where some specified filters are selected
+  const filterCount = Object.hasOwn(filters, lensKey)
+    ? filters[lensKey].filter((obj) => !obj.includes(SLUG_SEPARATOR)).length
+    : totalResultsLength;
+
+  const diff = totalResultsLength - resultCount;
+  const hasToggle = showToggle(totalResultsLength, filterCount);
 
   if (hasToggle) {
     if (showMore(filterCount, resultCount)) {

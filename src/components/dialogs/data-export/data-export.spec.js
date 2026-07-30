@@ -20,13 +20,13 @@ import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../../list/list-panel/fixture';
 
 describe('DataExport', () => {
-  const originalClipboard = { ...global.navigator.clipboard };
+  const originalClipboard = { ...navigator.clipboard };
 
   const renderComponent = (newFiltersState, newQueryState, newViewState) => {
     const mockClipboard = {
       writeText: jest.fn(),
     };
-    global.navigator.clipboard = mockClipboard;
+    navigator.clipboard = mockClipboard;
     merge(newQueryState, { dateLastIndexed: '2020-01-01' });
     merge(newFiltersState, filtersState);
     merge(newQueryState, queryState);
@@ -46,7 +46,7 @@ describe('DataExport', () => {
   });
   afterEach(() => {
     jest.resetAllMocks();
-    global.navigator.clipboard = originalClipboard;
+    navigator.clipboard = originalClipboard;
   });
 
   it('renders default state without crashing', async () => {
@@ -168,7 +168,7 @@ describe('DataExport', () => {
 
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     renderComponent(
-      { doc_count: 999, total: 10000 },
+      { doc_count: 999, total: 10_000 },
       {
         date_received_max: '2020-05-05',
         date_received_min: '2017-05-05',

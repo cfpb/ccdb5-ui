@@ -64,13 +64,13 @@ export const TileChartMap = () => {
   );
 
   const _redrawMap = useCallback(() => {
-    const mapElement = getElementById('tile-chart-map');
-    const containerWidth = mapElement.clientWidth || width;
-
-    const mapWidth = isPrintMode ? 650 : containerWidth;
     if (!data) {
       return;
     }
+
+    const mapElement = getElementById('tile-chart-map');
+    const containerWidth = mapElement.clientWidth || width;
+    const mapWidth = isPrintMode ? 650 : containerWidth;
 
     const dataSet = updateData(data, stateFilters);
 
@@ -90,8 +90,7 @@ export const TileChartMap = () => {
     const modifier = width < 750 ? 50 : 0;
     options.height = Math.round(mapWidth * tileAspect) + modifier;
 
-    // eslint-disable-next-line no-unused-vars
-    const chart = new TileMap(options);
+    new TileMap(options);
   }, [data, hasTip, isPrintMode, stateFilters, width, _toggleState]);
 
   useEffect(() => {
@@ -99,9 +98,7 @@ export const TileChartMap = () => {
     return function cleanup() {
       const mapElement = getElementById('tile-chart-map');
       if (mapElement) {
-        while (mapElement.firstChild) {
-          mapElement.firstChild.remove();
-        }
+        mapElement.replaceChildren();
       }
     };
   }, [_redrawMap]);

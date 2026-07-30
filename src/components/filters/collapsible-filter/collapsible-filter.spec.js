@@ -5,7 +5,7 @@ import { CollapsibleFilter } from './collapsible-filter';
 const renderComponent = (theProps, children) => {
   return render(
     <CollapsibleFilter {...theProps}>
-      {children ? children : <div>test child element</div>}
+      {children ?? <div>test child element</div>}
     </CollapsibleFilter>,
   );
 };

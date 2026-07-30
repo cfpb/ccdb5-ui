@@ -14,11 +14,11 @@ export const processStateAggregations = (agg) => {
 
   // patch any missing data
   if (stateNames.length > 0) {
-    TILE_MAP_STATES.forEach((state) => {
+    for (const state of TILE_MAP_STATES) {
       if (!stateNames.includes(state)) {
         states.push({ name: state, value: 0, issue: '', product: '' });
       }
-    });
+    }
   }
   return states;
 };

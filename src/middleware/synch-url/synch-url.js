@@ -34,10 +34,10 @@ function getQueryAttrs(tab) {
 
   // list view needs these params
   if (tab === MODE_LIST) {
-    return defaultParams.concat(['search_after', 'size', 'page', 'sort']);
+    return [...defaultParams, 'search_after', 'size', 'page', 'sort'];
   }
   if (tab === MODE_TRENDS) {
-    return defaultParams.concat(['dateInterval']);
+    return [...defaultParams, 'dateInterval'];
   }
   return defaultParams;
 }
@@ -108,36 +108,36 @@ export function extractQueryStringParams(state) {
  * @param {import('../types/redux-types').ReduxTypes.Store} store - Redux store
  * @returns {(next: import('../types/redux-types').ReduxTypes.Next) => (action: import('../types/redux-types').ReduxTypes.PlainAction | import('../types/redux-types').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
  */
-const synchUrl = (store) => (next) => (action) => {
-  // Pass the action forward in the chain
+export default function synchUrl(store) {
+  return (next) => (action) => {
+    // Pass the action forward in the chain
 
-  const result = next(action);
-  // Get the current state
-  const state = store.getState();
+    const result = next(action);
+    // Get the current state
+    const state = store.getState();
 
-  if (action.type === 'routes/routeChanged' || !state.query.dateLastIndexed) {
-    return result;
-  }
+    if (action.type === 'routes/routeChanged' || !state.query.dateLastIndexed) {
+      return result;
+    }
 
-  const params = extractQueryStringParams(state);
-  // See if processing should continue
-  // Update the application
-  const history = createBrowserHistory({
-    basename: (process.env.BASE_PATH || '/').replace(/\/$/, '') || undefined,
-  });
-  const location = history.location;
-
-  const { queryString: oldQS } = state.routes;
-  const newQS = queryString.stringify(params);
-  // And record the change in Redux to prevent ROUTE_CHANGED storms
-  if ((oldQS !== '' && oldQS !== newQS) || oldQS === '') {
-    history.push({
-      pathname: location.pathname,
-      search: '?' + newQS,
+    const params = extractQueryStringParams(state);
+    // See if processing should continue
+    // Update the application
+    const history = createBrowserHistory({
+      basename: (process.env.BASE_PATH || '/').replace(/\/$/, '') || undefined,
     });
-    store.dispatch(appUrlChanged(location.pathname, params));
-  }
-  return result;
-};
+    const location = history.location;
 
-export default synchUrl;
+    const { queryString: oldQS } = state.routes;
+    const newQS = queryString.stringify(params);
+    // And record the change in Redux to prevent ROUTE_CHANGED storms
+    if (oldQS === '' || oldQS !== newQS) {
+      history.push({
+        pathname: location.pathname,
+        search: '?' + newQS,
+      });
+      store.dispatch(appUrlChanged(location.pathname, params));
+    }
+    return result;
+  };
+}

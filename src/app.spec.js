@@ -29,7 +29,8 @@ describe('initial state', () => {
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
         });
-      } else if (params.get('no_aggs')) {
+      }
+      if (params.get('no_aggs')) {
         return Promise.resolve({
           body: JSON.stringify(trendsResponse),
         });
@@ -57,7 +58,7 @@ describe('initial state', () => {
         screen.getByRole('button', { name: /Take a tour/ }),
       ).toBeInTheDocument();
     });
-  }, 10000);
+  }, 10_000);
 
   it('renders the detail route', () => {
     render(

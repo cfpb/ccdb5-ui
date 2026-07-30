@@ -30,12 +30,12 @@ describe('TourSteps', () => {
   beforeEach(() => {
     introInstance = createIntroMock();
     introJs.mockImplementation(() => introInstance);
-    delete window.__CCDB_CONFIG__;
+    delete globalThis.__CCDB_CONFIG__;
   });
 
   afterEach(() => {
-    delete window.__CCDB_CONFIG__;
-    document.body.innerHTML = '';
+    delete globalThis.__CCDB_CONFIG__;
+    document.body.replaceChildren();
     jest.clearAllMocks();
   });
 
@@ -106,12 +106,12 @@ describe('TourSteps', () => {
   it('scopes introjs document queries to a shadow root while active', () => {
     const host = document.createElement('div');
     const shadow = host.attachShadow({ mode: 'open' });
-    document.body.appendChild(host);
-    window.__CCDB_CONFIG__ = { root: shadow };
+    document.body.append(host);
+    globalThis.__CCDB_CONFIG__ = { root: shadow };
     const portal = getModalPortalParent();
     const overlay = document.createElement('div');
     overlay.className = 'introjs-helperLayer';
-    portal.appendChild(overlay);
+    portal.append(overlay);
 
     const originalQuerySelector = document.querySelector;
 

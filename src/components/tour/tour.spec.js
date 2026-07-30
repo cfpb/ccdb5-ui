@@ -14,12 +14,12 @@ import { BP_SM_SPLIT_WIDE_MIN } from '../../constants/breakpoints';
 
 const mockFetchResponses = () => {
   fetchMock.mockResponse((req) => {
-    if (req.url.indexOf('API/trends?') > -1) {
+    if (req.url.includes('API/trends?')) {
       return Promise.resolve({
         body: JSON.stringify(trendsOverviewResponse),
       });
     }
-    if (req.url.indexOf('API?') > -1) {
+    if (req.url.includes('API?')) {
       return Promise.resolve({
         body: JSON.stringify(aggResponse),
       });
@@ -103,7 +103,7 @@ describe('Tour loading behavior', () => {
 
   test('prompts before exiting an in-progress tour', async () => {
     mockFetchResponses();
-    window.confirm = jest.fn(() => false);
+    globalThis.confirm = jest.fn(() => false);
 
     renderComponent({
       tab: MODE_TRENDS,
@@ -116,7 +116,7 @@ describe('Tour loading behavior', () => {
     expect(skipButton).not.toBeNull();
     await user.click(skipButton);
 
-    expect(window.confirm).toHaveBeenCalledWith(
+    expect(confirm).toHaveBeenCalledWith(
       'Are you sure you want to exit the tour?',
     );
   });

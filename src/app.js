@@ -15,7 +15,7 @@ const basename = routerBasename === '/' ? undefined : routerBasename;
  *
  * @returns {ReactElement} Main application component
  */
-const App = () => {
+export default function App() {
   return (
     <Router basename={basename}>
       <Routes>
@@ -39,6 +39,4 @@ const App = () => {
       </Routes>
     </Router>
   );
-};
-
-export default App;
+}

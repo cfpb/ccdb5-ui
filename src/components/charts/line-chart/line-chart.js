@@ -42,10 +42,10 @@ export const LineChart = () => {
   const hasTooltip = lens !== 'Overview';
 
   const processData = useMemo(() => {
-    const dateRange = { from: dateFrom, to: dateTo };
     if (!areaData) {
       return [];
     }
+    const dateRange = { from: dateFrom, to: dateTo };
     return pruneIncompleteLineInterval(areaData, dateRange, interval);
   }, [areaData, dateFrom, dateTo, interval]);
 
@@ -98,7 +98,7 @@ export const LineChart = () => {
 
     d3.select(root).select(chartSelector).remove();
     const lineChart = line();
-    const containerWidth = chartWidth(chartID);
+    const containerWidth = chartWidth();
     const colorScheme = processData.dataByTopic.map(
       (obj) => colorMap[obj.topic],
     );
