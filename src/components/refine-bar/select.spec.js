@@ -12,8 +12,7 @@ describe('Select', () => {
     const user = userEvent.setup({ delay: null });
     render(
       <Select
-        label="Select something"
-        title="Show sumthing"
+        label="Show sumthing"
         values={options}
         id="txt"
         value="Dos"
@@ -42,8 +41,7 @@ describe('Select', () => {
 
     render(
       <Select
-        label="Select size"
-        title="Show"
+        label="Show"
         values={sizes}
         id="size"
         value="10"
@@ -67,9 +65,8 @@ describe('Select', () => {
     expect(changeSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('renders disabled and selected options', async () => {
+  it('omits disabled options from the list', () => {
     const changeSpy = jest.fn();
-    const user = userEvent.setup({ delay: null });
 
     const options = [
       { name: 'Uno', disabled: true },
@@ -79,8 +76,7 @@ describe('Select', () => {
 
     render(
       <Select
-        label="Select something"
-        title="Show sumthing"
+        label="Show sumthing"
         values={options}
         id="txt"
         value="Dos"
@@ -88,24 +84,13 @@ describe('Select', () => {
       />,
     );
 
-    expect(screen.getByRole('option', { name: 'Uno' })).toBeDisabled();
-    expect(screen.getByRole('option', { name: 'Uno' }).selected).toBe(false);
+    expect(
+      screen.queryByRole('option', { name: 'Uno' }),
+    ).not.toBeInTheDocument();
     const opts = screen.getAllByRole('option');
-    expect(opts.length).toBe(3);
-    expect(opts[0].value).toBe('Uno');
-    expect(opts[1].value).toBe('Dos');
-    expect(opts[2].value).toBe('Tres');
-
+    expect(opts.length).toBe(2);
+    expect(opts[0].value).toBe('Dos');
+    expect(opts[1].value).toBe('Tres');
     expect(screen.getByRole('option', { name: 'Dos' }).selected).toBe(true);
-
-    await user.selectOptions(screen.getByRole('combobox'), ['Uno']);
-    expect(changeSpy).toHaveBeenCalledTimes(0);
-
-    // Currently selected option, do nothing
-    await user.selectOptions(screen.getByRole('combobox'), ['Dos']);
-    expect(changeSpy).toHaveBeenCalledTimes(0);
-
-    await user.selectOptions(screen.getByRole('combobox'), ['Tres']);
-    expect(changeSpy).toHaveBeenCalledTimes(1);
   });
 });

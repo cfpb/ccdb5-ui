@@ -28,7 +28,7 @@ describe('tour selector constants', () => {
       '.ccdb-content .map-panel [data-tour="row-chart-section"]',
     );
     expect(TOUR_SELECTORS.EXPORT_BTN).toBe(
-      '.ccdb-content .export-results .export-btn',
+      '.ccdb-content [data-tour="download-complaint-data"]',
     );
   });
 

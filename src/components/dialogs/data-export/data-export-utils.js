@@ -24,11 +24,8 @@ export function buildAllResultsUri(format) {
  * @returns {string} the URI for the filtered CSV export
  */
 export function buildSomeResultsUri(size, state) {
-  const params = { ...state };
+  const params = { ...state , size: size, format: 'csv', no_aggs: true,};
 
-  params.size = size;
-  params.format = 'csv';
-  params.no_aggs = true;
 
   // Remove unnecessary pagination query params
   delete params.from;

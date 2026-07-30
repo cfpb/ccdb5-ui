@@ -1,13 +1,8 @@
 import { ActionBar } from './action-bar';
-import * as viewActions from '../../reducers/view/view-slice';
 import { viewState } from '../../reducers/view/view-slice';
 import { merge } from '../../test-utils/function-helpers';
-import {
-  fireEvent,
-  screen,
-  testRender as render,
-} from '../../test-utils/test-utils';
-import * as utils from '../../utils';
+import { screen, testRender as render } from '../../test-utils/test-utils';
+import { waitFor } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../list/list-panel/fixture';
 
@@ -26,42 +21,37 @@ describe('ActionBar', () => {
     });
   };
 
-  let gaSpy;
   beforeEach(() => {
-    gaSpy = jest.spyOn(utils, 'sendAnalyticsEvent');
     fetchMock.resetMocks();
   });
 
-  test('rendering', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+  test('shows loading then success alert as aggregations resolve', async () => {
+    const { promise, resolve } = Promise.withResolvers();
+    fetchMock.mockResponseOnce(() => promise);
 
-    const view = {
-      tab: 'Map',
-    };
+    renderComponent({ tab: 'Map' });
 
-    const dataExportSpy = jest
-      .spyOn(viewActions, 'modalShown')
-      .mockImplementation(() => jest.fn());
-    renderComponent(view);
+    const summary = document.querySelector('#search-summary');
+    expect(summary).toBeInTheDocument();
+    expect(summary).not.toHaveClass('m-notification--success');
+    expect(screen.getByText('Loading complaint counts…')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByLabelText('loading icon')).toBeInTheDocument();
+    });
+
+    resolve({
+      body: JSON.stringify(aggResponse),
+      init: { status: 200 },
+    });
 
     await screen.findByText(
       'Showing 4,303,365 matches out of 6,638,372 total complaints',
     );
-    expect(
-      screen.getByText(
-        'Showing 4,303,365 matches out of 6,638,372 total complaints',
-      ),
-    ).toBeInTheDocument();
-    const buttonExport = screen.getByRole('button', { name: /Export data/ });
-    expect(buttonExport).toBeInTheDocument();
-    fireEvent.click(buttonExport);
-    expect(dataExportSpy).toHaveBeenCalledTimes(1);
-    expect(gaSpy).toHaveBeenCalledWith(
-      'Export',
-      'Map:User Opens Export Modal',
-    );
-    expect(
-      screen.queryByRole('button', { name: /Print/ }),
-    ).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(document.querySelector('#search-summary')).toHaveClass(
+        'm-notification--success',
+      );
+    });
+    expect(screen.getByLabelText('success icon')).toBeInTheDocument();
   });
 });

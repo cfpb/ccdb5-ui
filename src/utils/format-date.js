@@ -23,6 +23,16 @@ export const formatDate = (uglyDate) => {
 export const formatDisplayDate = (dateString) => {
   return dayjs(new Date(dateString)).utc().format('M/D/YYYY');
 };
+
+/**
+ * Formats a date as a natural long date, e.g. July 13, 2026
+ *
+ * @param {(string | object)} dateString - the input date
+ * @returns {string} the cleaned up string in Month D, YYYY
+ */
+export const formatNaturalDate = (dateString) => {
+  return dayjs(new Date(dateString)).utc().format('MMMM D, YYYY');
+};
 /**
  * adjusting dates coming from the charts so the dates are correct
  *

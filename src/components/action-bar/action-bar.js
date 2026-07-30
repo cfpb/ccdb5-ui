@@ -1,56 +1,45 @@
 import './action-bar.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Heading } from '@cfpb/design-system-react';
-import { sendAnalyticsEvent } from '../../utils';
-import { modalShown } from '../../reducers/view/view-slice';
+import { Alert } from '@cfpb/design-system-react';
 import { StaleDataWarnings } from '../warnings/stale-data-warnings';
-import { selectViewTab } from '../../reducers/view/selectors';
-import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
 import { useGetAggregations } from '../../api/hooks/use-get-aggregations';
 
+/**
+ * @param {number} total - Matching complaint count
+ * @param {number} docCount - Total complaints in the dataset
+ * @returns {string} Summary message for the search results alert
+ */
+const buildSummaryMessage = (total, docCount) => {
+  if (total === docCount) {
+    return 'Showing ' + docCount.toLocaleString() + ' total complaints';
+  }
+  return (
+    'Showing ' +
+    total.toLocaleString() +
+    ' matches out of ' +
+    docCount.toLocaleString() +
+    ' total complaints'
+  );
+};
+
 export const ActionBar = () => {
-  const dispatch = useDispatch();
-  const tab = useSelector(selectViewTab);
-  const { data, error } = useGetAggregations();
+  const { data, error, isLoading, isFetching } = useGetAggregations();
+  const isPending = isLoading || isFetching;
   const docCount = error ? 0 : data?.doc_count || 0;
   const total = error ? 0 : data?.total || 0;
 
+  const message =
+    isPending && !data
+      ? 'Loading complaint counts…'
+      : buildSummaryMessage(total, docCount);
+
   return (
     <>
-      <div className="action-bar" id="search-summary">
-        {total === docCount ? (
-          <Heading type="2">
-            {'Showing ' + docCount.toLocaleString() + ' total complaints'}
-          </Heading>
-        ) : (
-          <Heading type="2">
-            {'Showing ' +
-              total.toLocaleString() +
-              ' matches out of ' +
-              docCount.toLocaleString() +
-              ' total complaints'}
-          </Heading>
-        )}
-        {error ? null : (
-          <div>
-            <Heading type="3" className="h4 flex-all export-results">
-              <Button
-                label="Export data"
-                isLink
-                className="export-btn"
-                data-gtm_ignore="true"
-                onClick={() => {
-                  sendAnalyticsEvent(
-                    'Export',
-                    tab + ':User Opens Export Modal',
-                  );
-                  dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
-                }}
-              />
-            </Heading>
-          </div>
-        )}
-      </div>
+      <Alert
+        id="search-summary"
+        className="action-bar"
+        status={isPending ? 'loading' : 'success'}
+        message={message}
+      />
       <StaleDataWarnings />
     </>
   );

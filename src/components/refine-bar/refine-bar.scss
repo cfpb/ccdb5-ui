@@ -3,35 +3,29 @@
 @use 'css/base' as *;
 
 .refine-bar {
-  section {
-    margin: math.div($grid-gutter-width, 3) 0 math.div($grid-gutter-width, 3)
-      math.div($grid-gutter-width, 2);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: $gutter-normal;
+  align-items: start;
+  width: 100%;
+  margin: math.div($grid-gutter-width, 3) 0;
 
-    p,
-    .a-label--heading {
-      font-size: $size-vi;
-      font-weight: 600;
-      color: var(--gray);
-    }
+  section {
+    margin: 0;
+    min-width: 0;
 
     &.refine-select {
       .m-form-field {
         margin-bottom: 0;
       }
-    }
-  }
 
-  .separator {
-    @media screen and (min-width: $bp-med-min) {
-      display: none;
-    }
+      .a-select {
+        width: 100%;
+      }
 
-    @media screen and (min-width: $bp-sm-min) and (max-width: $bp-sm-max) {
-      display: none;
-    }
-
-    @media screen and (max-width: $bp-xs-max) {
-      display: none;
+      select {
+        width: 100%;
+      }
     }
   }
 
@@ -42,6 +36,51 @@
       screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
       > span {
         display: none;
+      }
+    }
+  }
+}
+
+.refine-bar--list,
+.refine-bar--trends {
+  box-sizing: border-box;
+  grid-template-columns: 11rem 11rem max-content;
+  margin: 0;
+  padding: $grid-gutter-width $gutter-normal;
+
+  .refine-select {
+    width: 11rem;
+  }
+
+  @media screen and (max-width: $bp-xs-max) {
+    grid-template-columns: 1fr;
+    padding: $gutter-normal;
+
+    .refine-select {
+      width: 100%;
+    }
+  }
+}
+
+.refine-bar--list {
+  .narratives-buttons {
+    .m-btn-group {
+      flex-wrap: nowrap;
+    }
+
+    .a-btn {
+      white-space: nowrap;
+    }
+  }
+
+  @media screen and (max-width: $bp-xs-max) {
+    .narratives-buttons {
+      .m-btn-group {
+        flex-wrap: wrap;
+      }
+
+      .a-btn {
+        white-space: normal;
       }
     }
   }

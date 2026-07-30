@@ -28,7 +28,7 @@ export const TOUR_SELECTORS = {
   SEARCH_BAR: `${TOUR_SCOPE} .search-bar`,
   SEARCH_SUMMARY: `${TOUR_SCOPE} #search-summary`,
   // Design-system link buttons render as <a>, not <button>
-  EXPORT_BTN: `${TOUR_SCOPE} .export-results .export-btn`,
+  EXPORT_BTN: `${TOUR_SCOPE} [data-tour="download-complaint-data"]`,
   MAP_SHADING: `${TOUR_SCOPE} .map-shading`,
   TILE_MAP: `${TOUR_SCOPE} #tile-chart-map`,
   ROW_CHART_SECTION: `${TOUR_SCOPE} [data-tour="row-chart-section"]`,

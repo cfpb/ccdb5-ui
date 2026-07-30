@@ -3,8 +3,7 @@
 
 .filter-panel {
   padding: $gutter-normal;
-  border-left: 1px solid var(--gray-40);
-  border-right: 1px solid var(--gray-40);
+  border: 1px solid var(--gray-40);
   background: var(--gray-5);
 
   @media screen and (min-width: $bp-med-min) {
@@ -19,8 +18,19 @@
     margin-top: $gutter-normal;
   }
 
+  > h3 {
+    margin-top: 0;
+    margin-bottom: $grid-gutter-width;
+  }
+
+  .o-expandable__header,
+  .o-expandable__content {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
   hr {
-    margin: 0;
+    margin: $gutter-normal 0;
     color: var(--gray-40);
   }
 

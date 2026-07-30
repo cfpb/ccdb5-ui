@@ -334,18 +334,12 @@ describe('component::TrendsPanel', () => {
         /Product and sub-product the consumer identified in the complaint. Click on a product to expand sub-products./,
       ),
     ).toBeInTheDocument();
-    await user.selectOptions(
-      screen.getByLabelText('Date interval'),
-      'Week',
-    );
+    await user.selectOptions(screen.getByLabelText('Date interval'), 'Week');
     await waitFor(() =>
       expect(dateIntervalChangedSpy).toHaveBeenCalledWith('Week'),
     );
 
-    await user.selectOptions(
-      screen.getByLabelText('Aggregate by'),
-      'Overview',
-    );
+    await user.selectOptions(screen.getByLabelText('Aggregate by'), 'Overview');
     await waitFor(() =>
       expect(dataLensChangedSpy).toHaveBeenCalledWith('Overview'),
     );

@@ -33,7 +33,6 @@ export const Hero = () => {
         <li className="m-list__item">
           <Link
             to="https://cfpb.github.io/api/ccdb/"
-            iconRight="external-link"
             target="_blank"
             rel="noopener noreferrer"
             label="Technical documentation"

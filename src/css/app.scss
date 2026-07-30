@@ -154,7 +154,7 @@ $cf-icon-path: '../css/fonts';
 
   .content__main {
     width: calc(100% - 370px);
-    padding: 0 0 0 15px;
+    padding: 0 0 0 $grid-gutter-width;
     border: 0;
 
     &::after {

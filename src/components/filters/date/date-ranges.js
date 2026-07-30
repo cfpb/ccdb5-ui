@@ -1,8 +1,7 @@
-import './date-ranges.scss';
 import { selectQueryDateRange } from '../../../reducers/query/selectors';
 import { selectViewTab } from '../../../reducers/view/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@cfpb/design-system-react';
+import { Button, ButtonGroup } from '@cfpb/design-system-react';
 import { dateRanges } from '../../../constants';
 import { dateRangeChanged } from '../../../reducers/query/query-slice';
 import { sendAnalyticsEvent } from '../../../utils';
@@ -13,11 +12,7 @@ export const DateRanges = () => {
   const tab = useSelector(selectViewTab);
 
   const btnClassName = (selectedDateRange) => {
-    const classes = ['a-btn', 'date-selector', 'range-' + selectedDateRange];
-    if (selectedDateRange === dateRange) {
-      classes.push('selected');
-    }
-    return classes.join(' ').toLowerCase();
+    return selectedDateRange === dateRange ? 'active' : '';
   };
 
   const toggleDateRange = (selectedDateRange) => {
@@ -32,12 +27,14 @@ export const DateRanges = () => {
   return (
     <section className="date-ranges">
       <p>Date range (Click to modify range)</p>
-      <div className="m-btn-group">
+      <ButtonGroup>
         {Object.entries(dateRanges).map(([range, label]) => (
           <Button
             key={range}
             label={range}
             aria-label={label}
+            aria-pressed={range === dateRange}
+            appearance="secondary"
             className={btnClassName(range)}
             title={label}
             onClick={() => {
@@ -45,7 +42,7 @@ export const DateRanges = () => {
             }}
           />
         ))}
-      </div>
+      </ButtonGroup>
     </section>
   );
 };

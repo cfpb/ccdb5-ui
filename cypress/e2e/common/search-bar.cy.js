@@ -22,8 +22,12 @@ describe('Search Bar', () => {
 
       cy.log('has no typeahead functionality in All Data');
       cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
-      cy.findByPlaceholderText('Enter your search term(s)').clear();
-      cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
+      cy.findByRole('searchbox', {
+        name: /Enter the term you want to search for/,
+      }).clear();
+      cy.findByRole('searchbox', {
+        name: /Enter the term you want to search for/,
+      }).type('bank', {
         delay: 200,
       });
       cy.findByText('No matches found.').should('not.exist');
@@ -31,8 +35,12 @@ describe('Search Bar', () => {
       cy.log('has no typeahead functionality in Narratives');
       cy.get(searchFieldDropDown).select('complaint_what_happened');
       waitForLoading();
-      cy.findByPlaceholderText('Enter your search term(s)').clear();
-      cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
+      cy.findByRole('searchbox', {
+        name: /Enter the term you want to search for/,
+      }).clear();
+      cy.findByRole('searchbox', {
+        name: /Enter the term you want to search for/,
+      }).type('bank', {
         delay: 200,
       });
       cy.findByText('No matches found.').should('not.exist');
@@ -47,8 +55,12 @@ describe('Search Bar', () => {
       }).as('typeahead');
       cy.get(searchFieldDropDown).select('company');
       waitForLoading();
-      cy.findByPlaceholderText('Enter your search term(s)').clear();
-      cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
+      cy.findByRole('combobox', {
+        name: /Enter your search term\(s\)/,
+      }).clear();
+      cy.findByRole('combobox', {
+        name: /Enter your search term\(s\)/,
+      }).type('bank', {
         delay: 200,
       });
 

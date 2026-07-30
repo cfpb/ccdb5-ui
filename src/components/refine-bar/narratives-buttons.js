@@ -3,7 +3,7 @@ import {
   filterRemoved,
 } from '../../reducers/filters/filters-slice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, ButtonGroup, Paragraph } from '@cfpb/design-system-react';
+import { Button, ButtonGroup } from '@cfpb/design-system-react';
 import { selectFiltersHasNarrative } from '../../reducers/filters/selectors';
 
 const FIELD_NAME = 'has_narrative';
@@ -15,12 +15,15 @@ export const NarrativesButtons = () => {
 
   return (
     <section className="narratives-buttons">
-      <Paragraph>View</Paragraph>
-      <ButtonGroup>
+      <div className="a-label a-label--heading" id="view-label">
+        View
+      </div>
+      <ButtonGroup aria-labelledby="view-label">
         <Button
           id="btn-remove-narratives"
           label="All complaints"
-          appearance={hasNarrativesOnly ? 'secondary' : 'primary'}
+          appearance="secondary"
+          className={hasNarrativesOnly ? '' : 'active'}
           aria-pressed={!hasNarrativesOnly}
           onClick={() => {
             if (!hasNarrativesOnly) {
@@ -32,7 +35,8 @@ export const NarrativesButtons = () => {
         <Button
           id="btn-add-narratives"
           label="Complaints with narratives"
-          appearance={hasNarrativesOnly ? 'primary' : 'secondary'}
+          appearance="secondary"
+          className={hasNarrativesOnly ? 'active' : ''}
           aria-pressed={hasNarrativesOnly}
           onClick={() => {
             if (hasNarrativesOnly) {

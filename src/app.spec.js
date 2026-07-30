@@ -48,12 +48,16 @@ describe('initial state', () => {
       </Provider>,
     );
 
-    await screen.findByText(/Search within/);
+    await screen.findByText(/Consumer Complaint Database/);
     expect(updateLocationHookSpy).toHaveBeenCalledTimes(1);
     expect(screen.getByText(/Consumer Complaint Database/)).toBeInTheDocument();
-    expect(screen.getByText(/Search within/)).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /Show advanced search tips/ }),
+      await screen.findByRole('combobox', {
+        name: /Choose which field will be searched/,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /Show search tips/ }),
     ).toBeInTheDocument();
     await waitFor(() => {
       expect(

@@ -32,7 +32,7 @@ export const CompanyReceivedFilter = () => {
   const [draftFromDate, setDraftFromDate] = useState(null);
   const [draftThroughDate, setDraftThroughDate] = useState(null);
   const dispatch = useDispatch();
-  const errorMessageText = "'From' date must be less than 'through' date";
+  const errorMessageText = "'From' date must be less than 'To' date";
 
   const fromRef = useRef();
   const throughRef = useRef();
@@ -65,7 +65,7 @@ export const CompanyReceivedFilter = () => {
     }
     if (dayjs(throughDate).isAfter(maxDate)) {
       errs.push(
-        "'Through' date must be before " +
+        "'To' date must be before " +
           dayjs(maxDate).format(DATE_VALIDATION_FORMAT),
       );
     }
@@ -125,7 +125,7 @@ export const CompanyReceivedFilter = () => {
         <ul className="date-inputs">
           <li>
             <label
-              className="a-label a-label__heading"
+              className="a-label a-label--heading"
               htmlFor={`${fieldName}-from`}
             >
               From
@@ -150,15 +150,15 @@ export const CompanyReceivedFilter = () => {
           </li>
           <li>
             <label
-              className="a-label a-label__heading"
-              htmlFor={`${fieldName}-through`}
+              className="a-label a-label--heading"
+              htmlFor={`${fieldName}-to`}
             >
-              Through
+              To
             </label>
             <div className="o-search-input">
               <div className="o-search-input__input">
                 <input
-                  id={`${fieldName}-through`}
+                  id={`${fieldName}-to`}
                   className={inputThroughClassName}
                   onBlur={handleDateChange}
                   onChange={(evt) => setDraftThroughDate(evt.target.value)}

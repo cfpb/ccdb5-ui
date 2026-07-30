@@ -43,7 +43,7 @@ export const FilterPanel = () => {
               />
             </div>
           )}
-          <Heading type="3">Filter results by...</Heading>
+          <Heading type="3">Filter results by</Heading>
           <DateFilter />
           <hr />
           <NestedFilter

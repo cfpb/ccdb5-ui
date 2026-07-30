@@ -68,7 +68,7 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_4.selector,
       intro:
-        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear all filters” under the Search bar.',
+        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear filters” under the Search bar.',
     },
     {
       element: GEO.STEP_5.selector,
@@ -92,7 +92,7 @@ export const TOUR_STEPS = {
       intro:
         'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
         '<br /> <br />' +
-        'Click “Show advanced search tips” to see some advanced ways to refine your word search.',
+        'Click “Show search tips” to see some advanced ways to refine your word search.',
     },
     {
       element: GEO.STEP_9.selector,
@@ -102,7 +102,7 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_10.selector,
       intro:
-        'You can export filtered results as CSV, or the full dataset as CSV or JSON, by selecting “Export data”.',
+        'You can download filtered results as CSV, or the full dataset as a CSV zip, from the Download complaint data section on the List view.',
     },
     {
       element: GEO.STEP_12.selector,
@@ -159,7 +159,7 @@ export const TOUR_STEPS = {
     {
       element: LIST.STEP_4.selector,
       intro:
-        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear all filters” under the Search bar.',
+        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear filters” under the Search bar.',
     },
     {
       element: LIST.STEP_5.selector,
@@ -183,7 +183,7 @@ export const TOUR_STEPS = {
       intro:
         'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
         '<br /> <br />' +
-        'Click “Show advanced search tips” to see some advanced ways to refine your word search.',
+        'Click “Show search tips” to see some advanced ways to refine your word search.',
     },
     {
       element: LIST.STEP_9.selector,
@@ -193,7 +193,7 @@ export const TOUR_STEPS = {
     {
       element: LIST.STEP_10.selector,
       intro:
-        'You can export filtered results as CSV, or the full dataset as CSV or JSON, by selecting “Export data”.',
+        'You can download filtered results as CSV, or the full dataset as a CSV zip, from the Download complaint data section.',
     },
     {
       element: LIST.STEP_11.selector,
@@ -268,7 +268,7 @@ export const TOUR_STEPS = {
     {
       element: TRENDS.STEP_4.selector,
       intro:
-        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear all filters” under the Search bar.',
+        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear filters” under the Search bar.',
     },
     {
       element: TRENDS.STEP_5.selector,
@@ -292,7 +292,7 @@ export const TOUR_STEPS = {
       intro:
         'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
         '<br /> <br />' +
-        'Click “Show advanced search tips” to see some advanced ways to refine your word search.',
+        'Click “Show search tips” to see some advanced ways to refine your word search.',
     },
     {
       element: TRENDS.STEP_9.selector,
@@ -302,7 +302,7 @@ export const TOUR_STEPS = {
     {
       element: TRENDS.STEP_10.selector,
       intro:
-        'You can export filtered results as CSV, or the full dataset as CSV or JSON, by selecting “Export data”.',
+        'You can download filtered results as CSV, or the full dataset as a CSV zip, from the Download complaint data section on the List view.',
     },
     {
       element: TRENDS.STEP_11.selector,

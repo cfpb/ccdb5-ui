@@ -17,8 +17,10 @@ export const ChartToggles = () => {
 
   return (
     <section className="chart-toggles">
-      <p>Chart type</p>
-      <div className="m-btn-group">
+      <div className="a-label a-label--heading" id="chart-type-label">
+        Chart type
+      </div>
+      <div className="m-btn-group" aria-labelledby="chart-type-label">
         <Button
           aria-label="Toggle line chart"
           className={selectedClass('line', chartType)}

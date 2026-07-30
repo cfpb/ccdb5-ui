@@ -21,10 +21,7 @@ describe('RootModal', () => {
     expect(screen.queryByText('Export complaints')).not.toBeInTheDocument();
   });
 
-  it('renders Export dialog', () => {
-    const closeSpy = jest
-      .spyOn(viewActions, 'modalHidden')
-      .mockImplementation(() => jest.fn());
+  it('does not render the removed export dialog', () => {
     const { container } = render(<RootModal />, {
       preloadedState: {
         view: {
@@ -33,9 +30,7 @@ describe('RootModal', () => {
       },
     });
     Modal.setAppElement(container);
-    expect(screen.getByText('Export complaints')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Close/ }));
-    expect(closeSpy).toHaveBeenCalled();
+    expect(screen.queryByText('Export complaints')).not.toBeInTheDocument();
   });
 
   it('renders Export Confirmation dialog', async () => {
