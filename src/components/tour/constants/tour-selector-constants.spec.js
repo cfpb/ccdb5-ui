@@ -33,8 +33,8 @@ describe('tour selector constants', () => {
   });
 
   it('uses a map-specific row chart target in the geo tour', () => {
-    expect(GEO_STEP_SELECTORS.STEP_14).toBe(TOUR_STEP_TARGETS.MAP_ROW_CHARTS);
-    expect(TRENDS_SELECTORS.STEP_14).toBe(TOUR_STEP_TARGETS.ROW_CHARTS);
+    expect(GEO_STEP_SELECTORS.STEP_13).toBe(TOUR_STEP_TARGETS.MAP_ROW_CHARTS);
+    expect(TRENDS_SELECTORS.STEP_13).toBe(TOUR_STEP_TARGETS.ROW_CHARTS);
   });
 
   it('uses the same filter targets across map, list, and trends tours', () => {

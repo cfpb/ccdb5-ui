@@ -2,7 +2,7 @@ import './action-bar.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Heading } from '@cfpb/design-system-react';
 import { sendAnalyticsEvent } from '../../utils';
-import { modalShown, updatePrintModeOn } from '../../reducers/view/view-slice';
+import { modalShown } from '../../reducers/view/view-slice';
 import { StaleDataWarnings } from '../warnings/stale-data-warnings';
 import { selectViewTab } from '../../reducers/view/selectors';
 import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
@@ -15,10 +15,6 @@ export const ActionBar = () => {
   const docCount = error ? 0 : data?.doc_count || 0;
   const total = error ? 0 : data?.total || 0;
 
-  const showPrintView = (tab) => {
-    sendAnalyticsEvent('Print', 'tab:' + tab);
-    dispatch(updatePrintModeOn());
-  };
   return (
     <>
       <div className="action-bar" id="search-summary">
@@ -49,15 +45,6 @@ export const ActionBar = () => {
                     tab + ':User Opens Export Modal',
                   );
                   dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
-                }}
-              />
-              <Button
-                label="Print"
-                isLink
-                iconLeft="print"
-                className="print-preview"
-                onClick={() => {
-                  showPrintView(tab);
                 }}
               />
             </Heading>

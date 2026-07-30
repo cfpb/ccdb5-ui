@@ -105,22 +105,18 @@ export const TOUR_STEPS = {
         'You can export full or filtered results to CSV or JSON by selecting “Export data”.',
     },
     {
-      element: GEO.STEP_11.selector,
-      intro: 'Select “Print” to generate a pdf of the current page.',
-    },
-    {
-      element: GEO.STEP_13.selector,
+      element: GEO.STEP_12.selector,
       intro:
         'Hover over a tile on the map to view complaint information specific to that state. You can filter to see data specific to a state by selecting the state or using the filter panel.',
     },
     {
-      element: GEO.STEP_14.selector,
+      element: GEO.STEP_13.selector,
       intro:
         'View complaint volume by product in the bar chart. Use the blue arrow by each product to view breakdowns by sub-products.' +
         '<br /><br />Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:',
     },
     {
-      element: GEO.STEP_15.selector,
+      element: GEO.STEP_14.selector,
       intro:
         'To learn how to use Trends and List views, select the view and then start the tour.',
     },
@@ -201,38 +197,34 @@ export const TOUR_STEPS = {
     },
     {
       element: LIST.STEP_11.selector,
-      intro: 'Select “Print” to generate a pdf of the current page.',
-    },
-    {
-      element: LIST.STEP_12.selector,
       intro: 'Select the number of complaints to view per page here.',
     },
     {
-      element: LIST.STEP_13.selector,
+      element: LIST.STEP_12.selector,
       intro:
         'Sort complaints in the list view by “Newest to oldest,” “Oldest to newest,” “Relevance,” and “Relevance (asc).”' +
         '<br /><br />' +
         'Relevancy are based on any applied search terms.',
     },
     {
-      element: LIST.STEP_14.selector,
+      element: LIST.STEP_13.selector,
       intro:
         'You can see all complaints or focus on those with consumer complaint narratives.' +
         '<br /><br />' +
         'We publish the consumer’s narrative description of what happened from their complaint if the consumer opts to share it publicly and after taking steps to remove personal information.',
     },
     {
-      element: LIST.STEP_15.selector,
+      element: LIST.STEP_14.selector,
       intro:
         'These are your search results. As you apply filters and search terms, your results will display here. This view shows a preview of the complaint.',
     },
     {
-      element: LIST.STEP_16.selector,
+      element: LIST.STEP_15.selector,
       intro:
         'Click the blue ID number to see more details about a particular complaint.',
     },
     {
-      element: LIST.STEP_17.selector,
+      element: LIST.STEP_16.selector,
       intro:
         'To learn how to use Map and Trend views, select the view and then start the tour.',
     },
@@ -314,26 +306,22 @@ export const TOUR_STEPS = {
     },
     {
       element: TRENDS.STEP_11.selector,
-      intro: 'Select “Print” to generate a pdf of the current page.',
-    },
-    {
-      element: TRENDS.STEP_12.selector,
       intro:
         'Select the dropdown to aggregate the data by product or by the company to which the CFPB sent the complaint for response.',
     },
     {
-      element: TRENDS.STEP_13.selector,
+      element: TRENDS.STEP_12.selector,
       intro:
         'Select this dropdown to change the time interval displayed on the trend line.',
     },
     {
-      element: TRENDS.STEP_14.selector,
+      element: TRENDS.STEP_13.selector,
       intro:
         'View complaint volume by product in the bar chart. Use the blue arrow by each product to view breakdowns by sub-products.' +
         '<br /><br />Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:',
     },
     {
-      element: TRENDS.STEP_15.selector,
+      element: TRENDS.STEP_14.selector,
       intro:
         'To learn how to use List and Map views, select the view and then start the tour.',
       position: 'top',

@@ -29,7 +29,6 @@ export const TOUR_SELECTORS = {
   SEARCH_SUMMARY: `${TOUR_SCOPE} #search-summary`,
   // Design-system link buttons render as <a>, not <button>
   EXPORT_BTN: `${TOUR_SCOPE} .export-results .export-btn`,
-  PRINT_BTN: `${TOUR_SCOPE} .export-results .print-preview`,
   MAP_SHADING: `${TOUR_SCOPE} .map-shading`,
   TILE_MAP: `${TOUR_SCOPE} #tile-chart-map`,
   ROW_CHART_SECTION: `${TOUR_SCOPE} [data-tour="row-chart-section"]`,
@@ -59,7 +58,6 @@ export const TOUR_STEP_TARGETS = {
   SEARCH_BAR: tourStep(TOUR_SELECTORS.SEARCH_BAR, 'Search Bar'),
   SEARCH_SUMMARY: tourStep(TOUR_SELECTORS.SEARCH_SUMMARY, 'Search Summary'),
   EXPORT_DATA: tourStep(TOUR_SELECTORS.EXPORT_BTN, 'Export Data'),
-  PRINT_PAGE: tourStep(TOUR_SELECTORS.PRINT_BTN, 'Print Page'),
   TABBED_NAVIGATION: tourStep(
     TOUR_SELECTORS.TABBED_NAVIGATION,
     'Tabbed Navigation',

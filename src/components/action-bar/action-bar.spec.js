@@ -39,10 +39,6 @@ describe('ActionBar', () => {
       tab: 'Map',
     };
 
-    const printModeOnSpy = jest
-      .spyOn(viewActions, 'updatePrintModeOn')
-      .mockImplementation(() => jest.fn());
-
     const dataExportSpy = jest
       .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
@@ -60,11 +56,12 @@ describe('ActionBar', () => {
     expect(buttonExport).toBeInTheDocument();
     fireEvent.click(buttonExport);
     expect(dataExportSpy).toHaveBeenCalledTimes(1);
-
-    const buttonPrint = screen.getByRole('button', { name: /Print/ });
-    expect(buttonPrint).toBeInTheDocument();
-    fireEvent.click(buttonPrint);
-    expect(gaSpy).toHaveBeenCalledWith('Print', 'tab:Map');
-    expect(printModeOnSpy).toHaveBeenCalledTimes(1);
+    expect(gaSpy).toHaveBeenCalledWith(
+      'Export',
+      'Map:User Opens Export Modal',
+    );
+    expect(
+      screen.queryByRole('button', { name: /Print/ }),
+    ).not.toBeInTheDocument();
   });
 });
