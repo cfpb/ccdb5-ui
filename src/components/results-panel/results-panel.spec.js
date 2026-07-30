@@ -32,7 +32,10 @@ describe('ResultsPanel', () => {
       'aria-selected',
       'false',
     );
-    expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'tabpanel-trends');
+    expect(screen.getByRole('tabpanel')).toHaveAttribute(
+      'id',
+      'tabpanel-trends',
+    );
     expect(screen.getByText('Export data')).toBeInTheDocument();
   });
 

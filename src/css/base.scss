@@ -3,6 +3,7 @@
 @forward '@cfpb/cfpb-design-system/src/base' show licensed-font;
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use '@cfpb/cfpb-design-system/src/base' as *;
+
 // Full Design System CSS (lists, search input, button groups, etc.).
 // Pair with `@cfpb/design-system-react/dsr.css` in app.js for Tabs / DSR-only
 // styles (Pattern B). Do not also import design-system-react/index.css.

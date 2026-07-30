@@ -88,7 +88,9 @@ describe('component:FocusHeader', () => {
     expect(
       screen.queryByRole('tab', { name: /Sub-products/ }),
     ).not.toBeInTheDocument();
-    expect(screen.queryByRole('tab', { name: /Issue/ })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('tab', { name: /Issue/ }),
+    ).not.toBeInTheDocument();
 
     fireEvent.click(
       screen.getByRole('button', { name: /View company trends/ }),
