@@ -3,7 +3,7 @@ import { API_PLACEHOLDER } from '../constants';
 import {
   processAggregations,
   trendsReceived,
-} from '../reducers/trends/trendsSlice';
+} from '../reducers/trends/trends-slice';
 import { processStateAggregations } from '../utils/map';
 import queryString from 'query-string';
 

@@ -1,5 +1,5 @@
 import * as constants from '../../constants';
-import emptyStore from '../../actions/__fixtures__/emptyStore';
+import emptyStore from '../../actions/__fixtures__/empty-store';
 import * as sut from './params';
 
 describe('api.v2.params', () => {

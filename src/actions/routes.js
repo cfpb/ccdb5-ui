@@ -1,4 +1,4 @@
-import { routeChanged } from '../reducers/routes/routesSlice';
+import { routeChanged } from '../reducers/routes/routes-slice';
 import dayjs from 'dayjs';
 
 const isEqual = require('react-fast-compare');
@@ -41,7 +41,7 @@ export function normalizeRouteParams(params) {
  *
  * @param {string} path - the new path being used
  * @param {object} params - the query string
- * @returns {(next: import('../types/reduxTypes').ReduxTypes.Next) => (action: import('../types/reduxTypes').ReduxTypes.PlainAction | import('../types/reduxTypes').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
+ * @returns {(next: import('../types/redux-types').ReduxTypes.Next) => (action: import('../types/redux-types').ReduxTypes.PlainAction | import('../types/redux-types').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
  */
 export function changeRoute(path, params) {
   return function (dispatch, getState) {
