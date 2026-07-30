@@ -1,5 +1,5 @@
 // Internal triggers
-import { formatDate } from '../utils/formatDate';
+import { formatDate } from '../utils/format-date';
 
 export const DATE_RANGE_MIN = '2011-12-01';
 
