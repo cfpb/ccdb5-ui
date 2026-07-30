@@ -19,7 +19,7 @@ const FILTER_PANEL = `${SIDEBAR} .filter-panel`;
 export const TOUR_SELECTORS = {
   CONTENT: `${TOUR_SCOPE}.content`,
   HERO_LINKS: `${TOUR_SCOPE} header.content__hero .m-list--horizontal`,
-  // data-tour avoids matching Trends lens tabs (.tabbed-navigation.lens)
+  // data-tour avoids matching Trends lens TabLists
   TABBED_NAVIGATION: `${TOUR_SCOPE} [data-tour="tabbed-navigation"]`,
   FILTER_PANEL,
   DATE_FILTER: `${FILTER_PANEL} .date-filter`,

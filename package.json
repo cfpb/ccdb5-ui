@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@cfpb/cfpb-design-system": "^5.8.1",
-    "@cfpb/design-system-react": "git+https://github.com/cfpb/design-system-react.git#d5bb42bbad9ec4d732d38810f170f6081b15fdf9",
+    "@cfpb/design-system-react": "git+https://github.com/cfpb/design-system-react.git#889b479ec4ea74023d2c9b7f5e46ebcff92a1ba7",
     "@fontsource-variable/source-sans-3": "5.3.0",
     "@reduxjs/toolkit": "^2.12.0",
     "britecharts": "git+https://github.com/cfpb/cfpb-britecharts.git#v2.6",

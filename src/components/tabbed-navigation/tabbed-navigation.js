@@ -1,4 +1,3 @@
-import './tabbed-navigation.scss';
 import { Tab, TabList } from '@cfpb/design-system-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
@@ -23,8 +22,9 @@ export const TabbedNavigation = () => {
   const tab = useSelector(selectViewTab);
 
   return (
+    // Wrapper keeps print/tour hooks; tab chrome comes from DSR only.
     <div className="tabbed-navigation" data-tour="tabbed-navigation">
-      <TabList>
+      <TabList isInverted>
         {VIEW_TABS.map(({ id, mode, label, iconLeft }) => (
           <Tab
             key={id}

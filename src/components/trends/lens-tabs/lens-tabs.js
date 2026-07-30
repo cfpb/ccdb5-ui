@@ -1,4 +1,3 @@
-import './lens-tabs.scss';
 import { Tab, TabList } from '@cfpb/design-system-react';
 import { dataSubLensChanged } from '../../../reducers/trends/trends-slice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -74,21 +73,19 @@ export const LensTabs = () => {
   ].filter(Boolean);
 
   return (
-    <div className="tabbed-navigation lens">
-      <TabList isInverted>
-        {tabs.map(({ id, label, filterName }) => (
-          <Tab
-            key={id}
-            id={id}
-            value={filterName}
-            label={label}
-            isActive={isTabActive(filterName, subLens)}
-            onClick={() => {
-              onTab(lens, filterName);
-            }}
-          />
-        ))}
-      </TabList>
-    </div>
+    <TabList isInverted>
+      {tabs.map(({ id, label, filterName }) => (
+        <Tab
+          key={id}
+          id={id}
+          value={filterName}
+          label={label}
+          isActive={isTabActive(filterName, subLens)}
+          onClick={() => {
+            onTab(lens, filterName);
+          }}
+        />
+      ))}
+    </TabList>
   );
 };
