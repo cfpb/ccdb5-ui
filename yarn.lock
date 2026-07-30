@@ -1436,8 +1436,8 @@ __metadata:
     "@babel/preset-env": "npm:^7.29.7"
     "@babel/preset-react": "npm:^7.29.7"
     "@cfpb/browserslist-config": "npm:^0.0.7"
-    "@cfpb/cfpb-design-system": "npm:^5.8.0"
-    "@cfpb/design-system-react": "npm:^1.0.8"
+    "@cfpb/cfpb-design-system": "npm:^5.8.1"
+    "@cfpb/design-system-react": "npm:^2.0.1"
     "@eslint/js": "npm:^10.0.1"
     "@fontsource-variable/source-sans-3": "npm:5.3.0"
     "@reduxjs/toolkit": "npm:^2.12.0"
@@ -1487,6 +1487,7 @@ __metadata:
     jest-environment-jsdom: "npm:^30.4.1"
     jest-fetch-mock: "npm:^3.2.0"
     lint-staged: "npm:^17.2.0"
+    lit: "npm:^3.3.3"
     lodash: "npm:^4.18.1"
     postcss: "npm:^8.5.23"
     prettier: "npm:^3.9.6"
@@ -1512,7 +1513,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cfpb/cfpb-design-system@npm:^5.8.0":
+"@cfpb/cfpb-design-system@npm:^5.8.1":
   version: 5.8.1
   resolution: "@cfpb/cfpb-design-system@npm:5.8.1"
   dependencies:
@@ -1523,18 +1524,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cfpb/design-system-react@npm:^1.0.8":
-  version: 1.0.8
-  resolution: "@cfpb/design-system-react@npm:1.0.8"
+"@cfpb/design-system-react@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@cfpb/design-system-react@npm:2.0.1"
   dependencies:
     react-select: "npm:^5.10.2"
   peerDependencies:
-    "@cfpb/cfpb-design-system": 5.8.0
+    "@cfpb/cfpb-design-system": 5.8.1
     lit: ^3.3.3
-    react: 19.2.7
-    react-dom: ^19.2.3
-    react-router: ^8.1.0
-  checksum: 10c0/024cd933a79f459ba6176efdfac65554c9cc5bdd20f75ebc2bccab86475198a6a2ea627ed3315d9a68110ad5aedca12f098965cc87e08c88723accfa5e8c690b
+    react: ^19.2.8
+    react-dom: ^19.2.8
+  checksum: 10c0/cf4cea3e3cf33deec66efd28715eba759c2e43e17a813f9deeb6cd5845e306c9295a981f3217142f81915395f1156b5059c70cc335199db60541c935ff90b121
   languageName: node
   linkType: hard
 
@@ -9890,7 +9890,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:3.3.3":
+"lit@npm:3.3.3, lit@npm:^3.3.3":
   version: 3.3.3
   resolution: "lit@npm:3.3.3"
   dependencies:
