@@ -5,13 +5,19 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import { ComplaintDetail } from './components/complaint-detail/complaint-detail';
 import { SearchComponents } from './components/search/search-components';
 
+// Strip trailing slash; empty/root builds leave basename unset.
+const routerBasename = (process.env.BASE_PATH || '/')
+  .replace(/\/$/, '')
+  .replace(/^$/, '/');
+const basename = routerBasename === '/' ? undefined : routerBasename;
+
 /**
  *
  * @returns {ReactElement} Main application component
  */
 const App = () => {
   return (
-    <Router>
+    <Router basename={basename}>
       <Routes>
         {/*
               we need these duplicate routes to match relative path
