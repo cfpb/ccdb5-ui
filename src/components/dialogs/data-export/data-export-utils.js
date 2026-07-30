@@ -17,15 +17,18 @@ export function buildAllResultsUri(format) {
 }
 
 /**
- * Builds the URI for exporting some results
+ * Builds the URI for exporting filtered results as CSV
  *
- * @param {string} format - CSV or JSON
  * @param {number} size - the number of results to export
  * @param {object} state - the merged query and filters state
- * @returns {string} the URI for the specific type of format
+ * @returns {string} the URI for the filtered CSV export
  */
-export function buildSomeResultsUri(format, size, state) {
-  const params = { ...state, size: size, format: format, no_aggs: true };
+export function buildSomeResultsUri(size, state) {
+  const params = { ...state };
+
+  params.size = size;
+  params.format = 'csv';
+  params.no_aggs = true;
 
   // Remove unnecessary pagination query params
   delete params.from;

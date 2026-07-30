@@ -209,14 +209,11 @@ describe('DataExport', () => {
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
 
-    expect(sendAnalyticsSpy).toHaveBeenCalledWith(
-      'Export Some Data',
-      'List:csv',
-    );
+    expect(sendAnalyticsSpy).toHaveBeenCalledWith('Export Some Data', 'List');
     expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
-  it('switches csv/json data formats', async () => {
+  it('hides format options for filtered exports', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     renderComponent({}, {}, {});
     await screen.findByText(/Select which complaints you’d like to export/);
@@ -224,44 +221,58 @@ describe('DataExport', () => {
       screen.getByText(/Select which complaints you’d like to export/),
     ).toBeInTheDocument();
 
-    const radioJson = screen.getByRole('radio', {
-      name: /JSON/i,
-    });
-
-    const radioCsv = screen.getByRole('radio', {
-      name: /CSV/i,
-    });
-    expect(radioCsv).toBeChecked();
-    expect(radioJson).not.toBeChecked();
+    expect(
+      screen.queryByText(/Select a format for the exported file/),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('radio', { name: /CSV/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('radio', { name: /JSON/i })).not.toBeInTheDocument();
 
     expect(screen.getByRole('textbox')).toHaveValue(
       'http://localhost/@@API?field=all&format=csv&no_aggs=true&size=4303365',
     );
 
+    const radioFull = screen.getByRole('radio', {
+      name: /Full dataset/i,
+    });
+    fireEvent.click(radioFull);
+
+    await waitFor(() => {
+      expect(radioFull).toBeChecked();
+    });
+
+    expect(
+      screen.getByText(/Select a format for the exported file/),
+    ).toBeInTheDocument();
+
+    const radioJson = screen.getByRole('radio', {
+      name: /JSON/i,
+    });
+    expect(radioJson).not.toBeChecked();
+
     fireEvent.click(radioJson);
 
     await waitFor(() => {
-      expect(screen.getByRole('textbox')).toHaveValue(
-        'http://localhost/@@API?field=all&format=json&no_aggs=true&size=4303365',
-      );
-    });
-    await waitFor(() => {
       expect(radioJson).toBeChecked();
     });
-
     await waitFor(() => {
-      expect(radioCsv).not.toBeChecked();
+      expect(screen.getByRole('textbox')).toHaveValue(
+        'https://files.consumerfinance.gov/ccdb/complaints.json.zip',
+      );
     });
 
-    fireEvent.click(radioCsv);
+    const radioFiltered = screen.getByRole('radio', {
+      name: /Filtered dataset/i,
+    });
+    fireEvent.click(radioFiltered);
 
     await waitFor(() => {
-      expect(radioCsv).toBeChecked();
+      expect(radioFiltered).toBeChecked();
     });
     await waitFor(() => {
-      expect(radioJson).not.toBeChecked();
+      expect(
+        screen.queryByText(/Select a format for the exported file/),
+      ).not.toBeInTheDocument();
     });
-
     await waitFor(() => {
       expect(screen.getByRole('textbox')).toHaveValue(
         'http://localhost/@@API?field=all&format=csv&no_aggs=true&size=4303365',

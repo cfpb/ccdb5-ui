@@ -39,6 +39,9 @@ export const DataExport = () => {
   const [copied, setCopied] = useState(false);
 
   const exportDataset = isFullDatasetOnly ? DATASET_FULL : dataset;
+  // Filtered exports are CSV-only; format options (CSV/JSON) are for the full dataset zip.
+  const showFormatOptions = exportDataset === DATASET_FULL;
+  const exportFormat = showFormatOptions ? format : FORMAT_CSV;
 
   const exportUri = useMemo(() => {
     const mergedState = {
@@ -47,20 +50,34 @@ export const DataExport = () => {
     };
     const url =
       exportDataset === DATASET_FULL
-        ? buildAllResultsUri(format)
-        : buildSomeResultsUri(format, someComplaintsCount, mergedState);
+        ? buildAllResultsUri(exportFormat)
+        : buildSomeResultsUri(someComplaintsCount, mergedState);
     return getFullUrl(url);
-  }, [exportDataset, format, someComplaintsCount, filtersState, queryState]);
+  }, [
+    exportDataset,
+    exportFormat,
+    someComplaintsCount,
+    filtersState,
+    queryState,
+  ]);
 
   const handleExportClicked = () => {
     if (exportDataset === DATASET_FULL) {
-      sendAnalyticsEvent('Export All Data', tab + ':' + format);
+      sendAnalyticsEvent('Export All Data', tab + ':' + exportFormat);
     } else {
-      sendAnalyticsEvent('Export Some Data', tab + ':' + format);
+      sendAnalyticsEvent('Export Some Data', tab);
     }
 
     location.assign(exportUri);
     dispatch(modalShown(MODAL_TYPE_EXPORT_CONFIRMATION));
+  };
+
+  const selectDataset = (nextDataset) => {
+    setCopied(false);
+    setDataset(nextDataset);
+    if (nextDataset === DATASET_FILTERED) {
+      setFormat(FORMAT_CSV);
+    }
   };
 
   const copyToClipboard = (ev) => {
@@ -73,6 +90,13 @@ export const DataExport = () => {
 
     setCopied(true);
   };
+
+  const instructions = showFormatOptions
+    ? isFullDatasetOnly
+      ? 'To download a copy of this dataset, choose the file format below.'
+      : 'To download a copy of this dataset, choose the file format and which complaints you want to export below.'
+    : 'To download a copy of this dataset, choose which complaints you want to export below.';
+
   return (
     <section className="export-modal">
       <div className="header layout-row">
@@ -90,49 +114,48 @@ export const DataExport = () => {
         />
       </div>
       <div className="body">
-        <div className="instructions">
-          To download a copy of this dataset, choose the file format and which
-          complaints you want to export below.
-        </div>
-        <div className="group">
-          <div className="group-title">
-            Select a format for the exported file
-          </div>
-          <div>
-            <div className="m-form-field m-form-field--radio m-form-field--lg-target">
-              <input
-                checked={format === FORMAT_CSV}
-                className="a-radio"
-                id="format_csv"
-                onChange={() => {
-                  setCopied(false);
-                  setFormat(FORMAT_CSV);
-                }}
-                type="radio"
-                value="csv"
-              />
-              <label className="a-label" htmlFor="format_csv">
-                CSV
-              </label>
+        <div className="instructions">{instructions}</div>
+        {showFormatOptions ? (
+          <div className="group">
+            <div className="group-title">
+              Select a format for the exported file
             </div>
-            <div className="m-form-field m-form-field--radio m-form-field--lg-target">
-              <input
-                checked={format === FORMAT_JSON}
-                className="a-radio"
-                id="format_json"
-                onChange={() => {
-                  setCopied(false);
-                  setFormat(FORMAT_JSON);
-                }}
-                type="radio"
-                value="json"
-              />
-              <label className="a-label" htmlFor="format_json">
-                JSON
-              </label>
+            <div>
+              <div className="m-form-field m-form-field--radio m-form-field--lg-target">
+                <input
+                  checked={exportFormat === FORMAT_CSV}
+                  className="a-radio"
+                  id="format_csv"
+                  onChange={() => {
+                    setCopied(false);
+                    setFormat(FORMAT_CSV);
+                  }}
+                  type="radio"
+                  value="csv"
+                />
+                <label className="a-label" htmlFor="format_csv">
+                  CSV
+                </label>
+              </div>
+              <div className="m-form-field m-form-field--radio m-form-field--lg-target">
+                <input
+                  checked={format === FORMAT_JSON}
+                  className="a-radio"
+                  id="format_json"
+                  onChange={() => {
+                    setCopied(false);
+                    setFormat(FORMAT_JSON);
+                  }}
+                  type="radio"
+                  value="json"
+                />
+                <label className="a-label" htmlFor="format_json">
+                  JSON
+                </label>
+              </div>
             </div>
           </div>
-        </div>
+        ) : null}
         {isFullDatasetOnly ? null : (
           <div className="group">
             <div className="group-title">
@@ -146,8 +169,7 @@ export const DataExport = () => {
                   className="a-radio"
                   id="dataset_filtered"
                   onChange={() => {
-                    setCopied(false);
-                    setDataset(DATASET_FILTERED);
+                    selectDataset(DATASET_FILTERED);
                   }}
                   type="radio"
                   value="filtered"
@@ -168,8 +190,7 @@ export const DataExport = () => {
                   className="a-radio"
                   id="dataset_full"
                   onChange={() => {
-                    setCopied(false);
-                    setDataset(DATASET_FULL);
+                    selectDataset(DATASET_FULL);
                   }}
                   type="radio"
                   value="full"
