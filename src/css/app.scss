@@ -1,10 +1,32 @@
 // Import Design System Components.
 // no atomic components
+@use 'sass:string';
 @use 'base' as *;
 @use 'components/print/print.scss' as *;
 
 // Load Source Sans 3 once for the app (not in base.scss, which many components @use).
 @include licensed-font('@fontsource-variable/source-sans-3/files');
+
+// DS `custom-props` sets `--font-stack-branded: initial`. Component SCSS that
+// `@use`s base can re-emit that rule after `licensed-font`, so pin the stack
+// (same approach as DSR Pattern A `index.css` / `_shared.scss`). Pattern B
+// `dsr.css` does not include that pin.
+// Keep the family name in a quoted string — Sass list interpolation drops quotes
+// and browsers then treat "Source" as the font name.
+$ccdb-font-stack: string.unquote(
+  '"Source Sans 3 Variable", Arial, sans-serif'
+);
+
+:root {
+  --font-stack-branded: #{$ccdb-font-stack} !important;
+  --font-stack: #{$ccdb-font-stack} !important;
+}
+
+html,
+body,
+#ccdb-ui-root {
+  font-family: #{$ccdb-font-stack} !important;
+}
 
 // Icon font path
 $cf-icon-path: '../css/fonts';
