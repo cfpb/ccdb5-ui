@@ -2,7 +2,7 @@ import { DATE_RANGE_MIN, SLUG_SEPARATOR } from '../constants/index';
 import Analytics from '../actions/analytics';
 import dayjs from 'dayjs';
 import queryString from 'query-string';
-import { formatDate } from './formatDate';
+import { formatDate } from './format-date';
 
 /**
  * Breaks up '123' to '1 2 3' to help screen readers read digits individually

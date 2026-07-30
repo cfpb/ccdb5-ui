@@ -12,12 +12,12 @@ import {
   aggResponse,
   listAPIResponse,
   listResponse,
-} from '../components/List/ListPanel/fixture';
-import { geoAPIResponse, geoResponse } from '../components/Map/fixture';
+} from '../components/list/list-panel/fixture';
+import { geoAPIResponse, geoResponse } from '../components/map/fixture';
 import {
   trendsAPIResponse,
   trendsResponse,
-} from '../components/Trends/fixture';
+} from '../components/trends/fixture';
 
 import fetchMock from 'jest-fetch-mock';
 import { aggResponseTransformed, documentResponse } from './fixture';
