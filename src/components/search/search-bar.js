@@ -81,7 +81,7 @@ export const SearchBar = () => {
 
   const onPressEnter = (event) => {
     if (event.key !== 'Enter') {
-    	return;
+      return;
     }
 
     setShouldCallClear(false);
