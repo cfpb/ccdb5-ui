@@ -1,6 +1,7 @@
 import { render as rtlRender } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import { DSRProvider } from '@cfpb/design-system-react';
 import { BrowserRouter, MemoryRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import actions from '../reducers/actions/actions-slice';
@@ -10,6 +11,7 @@ import routes from '../reducers/routes/routes-slice';
 import trends from '../reducers/trends/trends-slice';
 import view from '../reducers/view/view-slice';
 import { complaintsApi } from '../api/complaints';
+import { DsrLink } from '../components/dsr-link/dsr-link';
 
 /**
  *
@@ -60,7 +62,9 @@ function testRender(
   function Wrapper({ children }) {
     return (
       <Provider store={store}>
-        <BrowserRouter>{children}</BrowserRouter>
+        <BrowserRouter>
+          <DSRProvider LinkComponent={DsrLink}>{children}</DSRProvider>
+        </BrowserRouter>
       </Provider>
     );
   }
@@ -101,7 +105,9 @@ function testRenderWithMemoryRouter(
   function Wrapper({ children }) {
     return (
       <Provider store={store}>
-        <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+        <MemoryRouter initialEntries={initialEntries}>
+          <DSRProvider LinkComponent={DsrLink}>{children}</DSRProvider>
+        </MemoryRouter>
       </Provider>
     );
   }

@@ -34,7 +34,7 @@ export const MoreAbout = ({ onClose }) => {
           in their own words if the consumer agrees to share it and after we
           take steps to&nbsp;
           <Link
-            href={urlScrubbing}
+            to={urlScrubbing}
             target="_blank"
             rel="noopener noreferrer"
             label="remove personal information"
