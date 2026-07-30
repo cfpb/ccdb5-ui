@@ -25,9 +25,7 @@ export function buildAllResultsUri(format) {
  * @returns {string} the URI for the specific type of format
  */
 export function buildSomeResultsUri(format, size, state) {
-  const params = { ...state , size: size, format: format, no_aggs: true,};
-
-
+  const params = { ...state, size: size, format: format, no_aggs: true };
 
   // Remove unnecessary pagination query params
   delete params.from;

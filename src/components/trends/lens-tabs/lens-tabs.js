@@ -1,4 +1,4 @@
-import './lens-tabs.scss';
+import { Tab, TabList } from '@cfpb/design-system-react';
 import { dataSubLensChanged } from '../../../reducers/trends/trends-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendAnalyticsEvent } from '../../../utils';
@@ -29,6 +29,12 @@ const displayProductTab = (lens, focus, subProducts) => {
   return false;
 };
 
+const isTabActive = (filterName, subLens) => {
+  const tab = filterName.toLowerCase();
+  const regex = new RegExp(subLens.toLowerCase(), 'g');
+  return regex.test(tab.replace('-', '_'));
+};
+
 export const LensTabs = () => {
   const dispatch = useDispatch();
   const focus = useSelector(selectTrendsFocus);
@@ -52,41 +58,34 @@ export const LensTabs = () => {
 
     dispatch(dataSubLensChanged(tab.toLowerCase()));
   };
-  const _getTabClass = (tab) => {
-    tab = tab.toLowerCase();
-    const classes = ['tab', tab];
-    const regex = new RegExp(subLens.toLowerCase(), 'g');
-    if (regex.test(tab.replace('-', '_'))) {
-      classes.push('active');
-    }
-    return classes.join(' ');
-  };
-
   const currentLens = lensMaps[lens];
+  const tabs = [
+    hasProductTab && {
+      id: currentLens.tab1.filterName,
+      label: currentLens.tab1.displayName,
+      filterName: currentLens.tab1.filterName,
+    },
+    currentLens.tab2 && {
+      id: currentLens.tab2.filterName,
+      label: currentLens.tab2.displayName,
+      filterName: currentLens.tab2.filterName,
+    },
+  ].filter(Boolean);
+
   return (
-    <div className="tabbed-navigation lens">
-      <section>
-        {!!hasProductTab && (
-          <button
-            className={_getTabClass(currentLens.tab1.filterName)}
-            onClick={() => {
-              onTab(lens, currentLens.tab1.filterName);
-            }}
-          >
-            {currentLens.tab1.displayName}
-          </button>
-        )}
-        {!!lensMaps[lens].tab2 && (
-          <button
-            className={_getTabClass(currentLens.tab2.filterName)}
-            onClick={() => {
-              onTab(lens, currentLens.tab2.filterName);
-            }}
-          >
-            {currentLens.tab2.displayName}
-          </button>
-        )}
-      </section>
-    </div>
+    <TabList isInverted>
+      {tabs.map(({ id, label, filterName }) => (
+        <Tab
+          key={id}
+          id={id}
+          value={filterName}
+          label={label}
+          isActive={isTabActive(filterName, subLens)}
+          onClick={() => {
+            onTab(lens, filterName);
+          }}
+        />
+      ))}
+    </TabList>
   );
 };

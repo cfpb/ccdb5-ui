@@ -144,7 +144,7 @@ describe('ListPanel', () => {
     });
     renderComponent({}, newViewState);
 
-    await screen.findByRole('button', { name: 'Export data' });
+    await screen.findByText('Show');
     expect(screen.queryByText('Filter results by...')).not.toBeInTheDocument();
   });
 });

@@ -1,5 +1,4 @@
 import '../refine-bar/refine-bar.scss';
-import { ActionBar } from '../action-bar/action-bar';
 import { useSelector } from 'react-redux';
 import { ErrorBlock } from '../warnings/error';
 import { FilterPanel } from '../filters/filter-panel/filter-panel';
@@ -9,7 +8,6 @@ import { MapToolbar } from './map-toolbar';
 import { processRows } from '../../utils/chart';
 import { useMemo } from 'react';
 import { RowChart } from '../charts/row-chart/row-chart';
-import { TabbedNavigation } from '../tabbed-navigation/tabbed-navigation';
 import { TileChartMap } from './tile-chart-map/tile-chart-map';
 import { GeoLegend } from './geo-legend/geo-legend';
 import { MapStateNavigation } from './map-state-navigation';
@@ -47,8 +45,7 @@ export const MapPanel = () => {
   }, [hasError, results, expandedRows]);
 
   const productRows = productData?.data || [];
-  const isPlural =
-    (productRows.filter((obj) => obj.isParent).length > 1);
+  const isPlural = productRows.filter((obj) => obj.isParent).length > 1;
   const prodText = isPlural ? 'Products' : 'Product';
   const MAP_ROWCHART_TITLE =
     prodText +
@@ -63,8 +60,6 @@ export const MapPanel = () => {
 
   return (
     <section className="map-panel">
-      <ActionBar />
-      <TabbedNavigation />
       {!!hasMobileFilters && <FilterPanel />}
       <FilterPanelToggle />
       {hasError ? (

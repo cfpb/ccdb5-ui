@@ -43,20 +43,10 @@ describe('MapPanel', () => {
 
   it('renders empty state without crashing', async () => {
     renderComponent({}, {}, {});
-    await screen.findByText('Showing 0 total complaints');
-    expect(screen.getByText(/Showing 0 total complaints/)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Trends/ })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /List/ })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Map/ })).toBeInTheDocument();
     expect(
       screen.getAllByRole('button', { name: /Close filters/ }),
     ).toHaveLength(2);
     expect(screen.getByText('Filter results by...')).toBeInTheDocument();
-
-    expect(
-      screen.getByRole('button', { name: /Export data/ }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Print/ })).toBeInTheDocument();
   });
 
   it('renders error', async () => {

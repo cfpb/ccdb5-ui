@@ -1,45 +1,42 @@
-import './tabbed-navigation.scss';
+import { Tab, TabList } from '@cfpb/design-system-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Icon } from '@cfpb/design-system-react';
+import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
 import { selectViewTab } from '../../reducers/view/selectors';
 import { tabChanged } from '../../reducers/view/view-slice';
+
+export const VIEW_TABS = [
+  { id: 'trends', mode: MODE_TRENDS, label: 'Trends', iconLeft: 'chart' },
+  { id: 'list', mode: MODE_LIST, label: 'List', iconLeft: 'list' },
+  { id: 'map', mode: MODE_MAP, label: 'Map', iconLeft: 'map' },
+];
+
+/**
+ * @param {string} mode - View mode constant (Trends / List / Map)
+ * @returns {string} Tab id used by DSR Tab / TabPanel
+ */
+export const getViewTabId = (mode) =>
+  VIEW_TABS.find((item) => item.mode === mode)?.id ?? 'trends';
 
 export const TabbedNavigation = () => {
   const dispatch = useDispatch();
   const tab = useSelector(selectViewTab);
 
-  const getTabClass = (selectedTab) => {
-    const tabName = selectedTab.toLowerCase() + ' tab';
-    return tab === selectedTab ? tabName + ' active' : tabName;
-  };
-
   return (
+    // Wrapper keeps print/tour hooks; tab chrome comes from DSR only.
     <div className="tabbed-navigation" data-tour="tabbed-navigation">
-      <section>
-        <button
-          className={getTabClass('Trends')}
-          onClick={() => dispatch(tabChanged('Trends'))}
-        >
-          <Icon name="chart" isPresentational />
-          Trends
-        </button>
-
-        <button
-          className={getTabClass('List')}
-          onClick={() => dispatch(tabChanged('List'))}
-        >
-          <Icon name="list" isPresentational />
-          List
-        </button>
-
-        <button
-          className={getTabClass('Map')}
-          onClick={() => dispatch(tabChanged('Map'))}
-        >
-          <Icon name="map" isPresentational />
-          Map
-        </button>
-      </section>
+      <TabList isInverted>
+        {VIEW_TABS.map(({ id, mode, label, iconLeft }) => (
+          <Tab
+            key={id}
+            id={id}
+            value={mode}
+            label={label}
+            iconLeft={iconLeft}
+            isActive={tab === mode}
+            onClick={() => dispatch(tabChanged(mode))}
+          />
+        ))}
+      </TabList>
     </div>
   );
 };

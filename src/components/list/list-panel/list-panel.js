@@ -2,7 +2,6 @@ import './list-panel.scss';
 import '../../refine-bar/refine-bar.scss';
 import { sizeChanged, sortChanged } from '../../../reducers/query/query-slice';
 import { sizes, sorts } from '../../../constants';
-import { ActionBar } from '../../action-bar/action-bar';
 import { ComplaintCard } from '../complaint-card/complaint-card';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorBlock } from '../../warnings/error';
@@ -15,7 +14,6 @@ import { useMemo } from 'react';
 import { Select } from '../../refine-bar/select';
 import { sendAnalyticsEvent } from '../../../utils';
 import { Separator } from '../../refine-bar/separator';
-import { TabbedNavigation } from '../../tabbed-navigation/tabbed-navigation';
 import { selectViewWidth } from '../../../reducers/view/selectors';
 import {
   selectQuerySize,
@@ -91,8 +89,6 @@ export const ListPanel = () => {
 
   return (
     <section className="list-panel">
-      <ActionBar />
-      <TabbedNavigation />
       {!!hasMobileFilters && <FilterPanel />}
       <FilterPanelToggle />
       <div className="layout-row refine-bar">

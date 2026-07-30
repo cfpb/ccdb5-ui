@@ -19,7 +19,7 @@ describe('tour selector constants', () => {
       '.ccdb-content aside.content__sidebar .filter-panel .date-filter',
     );
     expect(TOUR_SELECTORS.TABBED_NAVIGATION).toBe(
-      '.ccdb-content [data-tour="tabbed-navigation"] section',
+      '.ccdb-content [data-tour="tabbed-navigation"]',
     );
     expect(TOUR_SELECTORS.ROW_CHART_SECTION).toBe(
       '.ccdb-content [data-tour="row-chart-section"]',
