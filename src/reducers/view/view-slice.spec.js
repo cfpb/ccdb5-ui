@@ -173,7 +173,7 @@ describe('reducer:View', () => {
         isPrintMode: true,
         modalTypeShown: false,
         showTour: false,
-        tab: types.MODE_TRENDS,
+        tab: types.MODE_LIST,
         width: 0,
       });
     });
@@ -206,7 +206,7 @@ describe('reducer:View', () => {
       tab = 'foo';
       expect(target(state, tabChanged(tab))).toEqual({
         ...state,
-        tab: 'Trends',
+        tab: 'List',
       });
     });
 

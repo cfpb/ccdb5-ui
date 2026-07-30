@@ -1,47 +1,22 @@
 @use 'sass:math';
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
-@use 'select' as *;
 
 .refine-bar {
   section {
-    margin: math.div($grid-gutter-width, 3) 0 math.div($grid-gutter-width, 3) math.div($grid-gutter-width, 2);
+    margin: math.div($grid-gutter-width, 3) 0 math.div($grid-gutter-width, 3)
+      math.div($grid-gutter-width, 2);
 
-    p {
+    p,
+    .a-label--heading {
       font-size: $size-vi;
       font-weight: 600;
       color: var(--gray);
     }
 
-    button {
-      &.selected {
-        background-color: var(--pacific-60);
-        font-weight: 600;
-      }
-
-      &:not(.selected) {
-        background-color: var(--pacific-20);
-      }
-    }
-
-    &:not(.filter-panel-toggle) {
-      button {
-        color: var(--black);
-      }
-    }
-
-    &.cf-select {
-      border: none;
-
-      select {
-        background-color: var(--white);
-        color: var(--black);
-        border: 1px solid var(--gray-40);
-      }
-
-      &::after {
-        background-color: var(--white);
-        transform: translate(-5px, 0);
+    &.refine-select {
+      .m-form-field {
+        margin-bottom: 0;
       }
     }
   }
@@ -60,18 +35,14 @@
     }
   }
 
-  // Per Capita and Narratives buttons in the refine bar.
+  // Per Capita buttons in the refine bar.
   button {
     // Only used to hide "population" on per capita refine buttons.
     @media screen and (max-width: $bp-xs-max),
-    screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
+      screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
       > span {
         display: none;
       }
-    }
-
-    &.disabled.a-btn__disabled {
-      background-color: var(--gray-10);
     }
   }
 }

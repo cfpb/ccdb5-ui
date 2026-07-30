@@ -22,7 +22,7 @@ describe('Select', () => {
     );
 
     expect(screen.getByRole('option', { name: 'Dos' }).selected).toBe(true);
-    expect(screen.getByText('Select something')).toBeInTheDocument();
+    expect(screen.getByText('Show sumthing')).toBeInTheDocument();
     const opts = screen.getAllByRole('option');
     expect(opts.length).toBe(3);
     expect(opts[0].value).toBe('Uno');
@@ -35,7 +35,7 @@ describe('Select', () => {
     await user.selectOptions(screen.getByRole('combobox'), ['Tres']);
     expect(changeSpy).toHaveBeenCalledTimes(1);
   });
-  //
+
   it('renders object values without crashing', async () => {
     const changeSpy = jest.fn();
     const user = userEvent.setup({ delay: null });

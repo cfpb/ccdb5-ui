@@ -1,63 +1,115 @@
 import PropTypes from 'prop-types';
 import { useMemo } from 'react';
+import { SelectSingle } from '@cfpb/design-system-react';
 
-export const Select = ({ id, handleChange, label, title, value, values }) => {
-  const idSelect = 'select-' + id;
-  const vals = useMemo(() => {
-    // different cases that values can me:
-    // Array
-    // handle cases where an array of single entries
-    // case 1: values = [1,2,4]
-    // case 2: values = [
-    // { name: 'Foo', disabled: false},
-    // { name:'bar', disabled: true }
-    // ]
-    // object key val pair
-    // case 3: values = {
-    //   created_date_desc: 'Newest to oldest',
-    //   created_date_asc: 'Oldest to newest',
-    //   relevance_desc: 'Relevance',
-    //   relevance_asc: 'Relevance (asc)'
-    // }
-    // array of objects
-
-    if (Array.isArray(values)) {
-      // do nothing, case 2
-      if (Object.prototype.hasOwnProperty.call(values[0], 'name')) {
-        return values;
-      }
-      // case 1
+/**
+ * Normalize legacy refine-bar value shapes into DSR SelectOption[].
+ *
+ * @param {Array|object} values - Array of strings/objects, or value→label map
+ * @returns {{ label: string, value: string, disabled: boolean }[]}
+ */
+const toOptions = (values) => {
+  if (Array.isArray(values)) {
+    if (
+      values[0] &&
+      Object.prototype.hasOwnProperty.call(values[0], 'name')
+    ) {
       return values.map((val) => ({
-        name: val,
-        value: val,
-        disabled: val.disabled,
+        label: val.name,
+        value: String(val.value ?? val.name),
+        disabled: Boolean(val.disabled),
       }));
     }
-    // case 3
-    return Object.entries(values).map(([obj, value_]) => ({
-      name: value_,
-      value: obj,
-      disabled: obj.disabled,
+    return values.map((val) => ({
+      label: String(val),
+      value: String(val),
+      disabled: false,
     }));
-  }, [values]);
+  }
+
+  return Object.entries(values).map(([key, optionLabel]) => ({
+    label: optionLabel,
+    value: key,
+    disabled: false,
+  }));
+};
+
+/**
+ * Refine-bar select backed by DSR SelectSingle (`.a-select`).
+ * Falls back to the same DS markup when an option must be disabled
+ * (SelectSingle does not yet support per-option disabled).
+ *
+ * @param {object} props - Component props
+ * @param {string} props.id - Select id suffix (`select-${id}`)
+ * @param {Function} props.handleChange - Change handler (`{ target: { value } }`)
+ * @param {string} [props.label] - Accessible label fallback
+ * @param {string} [props.title] - Visible heading label (preferred)
+ * @param {string|number} props.value - Current value
+ * @param {Array|object} props.values - Options
+ * @returns {import('react').JSX.Element} Select field
+ */
+export const Select = ({ id, handleChange, label, title, value, values }) => {
+  const idSelect = 'select-' + id;
+  const options = useMemo(() => toOptions(values), [values]);
+  const hasDisabledOptions = options.some((option) => option.disabled);
+  const visibleLabel = title || label;
+
+  const currentValue = String(value ?? '');
+
+  const onChange = (selected) => {
+    if (!selected?.value || selected.value === currentValue) {
+      return;
+    }
+    handleChange({ target: { value: selected.value } });
+  };
+
+  if (hasDisabledOptions) {
+    return (
+      <section data-tour={idSelect} className="refine-select">
+        <div className="m-form-field">
+          <label className="a-label a-label--heading" htmlFor={idSelect}>
+            {visibleLabel}
+          </label>
+          <div className="a-select">
+            <select
+              id={idSelect}
+              data-testid={idSelect}
+              value={currentValue}
+              onChange={(event) => {
+                if (event.target.value === currentValue) {
+                  return;
+                }
+                handleChange({ target: { value: event.target.value } });
+              }}
+            >
+              {options.map((option) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                  disabled={option.disabled}
+                >
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section className="cf-select" data-tour={idSelect}>
-      <label className="u-visually-hidden" htmlFor={idSelect}>
-        {label}
-      </label>
-      <p>{title}</p>
-      <select value={value} id={idSelect} onChange={handleChange}>
-        {vals.map((val) => (
-          <option
-            disabled={[val.value, val.name].includes(value) || val.disabled}
-            key={val.name}
-            value={val.value || val.name}
-          >
-            {val.name}
-          </option>
-        ))}
-      </select>
+    <section data-tour={idSelect} className="refine-select">
+      <SelectSingle
+        id={idSelect}
+        label={visibleLabel}
+        options={options.map(({ label: optionLabel, value: optionValue }) => ({
+          label: optionLabel,
+          value: optionValue,
+        }))}
+        value={currentValue}
+        onChange={onChange}
+      />
     </section>
   );
 };

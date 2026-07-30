@@ -10,7 +10,7 @@ export const viewState = {
   hasFilters: true,
   modalTypeShown: false,
   showTour: false,
-  tab: types.MODE_TRENDS,
+  tab: types.MODE_LIST,
   width: 0,
 };
 

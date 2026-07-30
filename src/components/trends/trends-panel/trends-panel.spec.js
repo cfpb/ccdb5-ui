@@ -335,7 +335,7 @@ describe('component::TrendsPanel', () => {
       ),
     ).toBeInTheDocument();
     await user.selectOptions(
-      screen.getByLabelText('Choose the Date interval'),
+      screen.getByLabelText('Date interval'),
       'Week',
     );
     await waitFor(() =>
@@ -343,7 +343,7 @@ describe('component::TrendsPanel', () => {
     );
 
     await user.selectOptions(
-      screen.getByLabelText('Aggregate complaints by'),
+      screen.getByLabelText('Aggregate by'),
       'Overview',
     );
     await waitFor(() =>

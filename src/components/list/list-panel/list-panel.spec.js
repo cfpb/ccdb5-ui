@@ -86,7 +86,7 @@ describe('ListPanel', () => {
     renderComponent(newQueryState, {});
     fireEvent.change(
       screen.getByRole('combobox', {
-        name: 'Select the number of results to display at a time',
+        name: 'Show per page',
       }),
       { target: { value: '10' } },
     );
@@ -107,7 +107,7 @@ describe('ListPanel', () => {
     renderComponent(newQueryState, {});
     fireEvent.change(
       screen.getByRole('combobox', {
-        name: 'Choose the order in which the results are displayed',
+        name: 'Sort by',
       }),
       { target: { value: 'created_date_asc' } },
     );
@@ -144,7 +144,7 @@ describe('ListPanel', () => {
     });
     renderComponent({}, newViewState);
 
-    await screen.findByText('Show');
+    await screen.findByText('Show per page');
     expect(screen.queryByText('Filter results by...')).not.toBeInTheDocument();
   });
 });

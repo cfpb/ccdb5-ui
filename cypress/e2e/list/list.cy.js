@@ -42,25 +42,25 @@ describe('List View', () => {
     cy.url().should('contain', 'page=1');
 
     cy.log('should filter the results to narrative-only results and back');
-    // Initially all is checked.
-    cy.get(removeNarrativesButton).should('have.class', 'selected');
+    // Initially all complaints is selected (primary).
+    cy.get(removeNarrativesButton).should('not.have.class', 'a-btn--secondary');
     cy.get(filterHasNarrative).should('not.be.checked');
 
     // Click the narrative-only button.
     cy.get(addNarrativesButton).click();
-    cy.get(addNarrativesButton).should('have.class', 'selected');
+    cy.get(addNarrativesButton).should('not.have.class', 'a-btn--secondary');
 
     cy.get(filterHasNarrative).should('be.checked');
 
     // Click the narrative-only button again. There should be no change.
-    cy.get(addNarrativesButton).click({ force: true });
-    cy.get(addNarrativesButton).should('have.class', 'selected');
+    cy.get(addNarrativesButton).click();
+    cy.get(addNarrativesButton).should('not.have.class', 'a-btn--secondary');
 
     cy.get(filterHasNarrative).should('be.checked');
 
     // Click the all results button. The narratives should be removed.
     cy.get(removeNarrativesButton).click();
-    cy.get(removeNarrativesButton).should('have.class', 'selected');
+    cy.get(removeNarrativesButton).should('not.have.class', 'a-btn--secondary');
 
     cy.get(filterHasNarrative).should('not.be.checked');
 

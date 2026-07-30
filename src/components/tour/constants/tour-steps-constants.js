@@ -56,7 +56,7 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_3.selector,
       intro:
-        'You can change how to view complaint data by selecting the three views we have available — Trends, List, and Map.' +
+        'You can change how to view complaint data by selecting the three views we have available — List, Trends, and Map.' +
         '<br /><br />' +
         'You are currently on the Map view, which displays complaints by state.' +
         '<br /><br />' +
@@ -152,7 +152,7 @@ export const TOUR_STEPS = {
     {
       element: LIST.STEP_3.selector,
       intro:
-        'You can change how to view complaint data by selecting the three views we have available — Trends, List, and Map.' +
+        'You can change how to view complaint data by selecting the three views we have available — List, Trends, and Map.' +
         '<br /><br />' +
         'You are currently on the List view, which shows individual complaints.' +
         '<br /><br />' +
@@ -264,7 +264,7 @@ export const TOUR_STEPS = {
     {
       element: TRENDS.STEP_3.selector,
       intro:
-        'You can change how to view complaint data by selecting the three views we have available—Trends, List, and Map.' +
+        'You can change how to view complaint data by selecting the three views we have available—List, Trends, and Map.' +
         '<br /><br />' +
         'You are currently on the Trends view, which visualizes complaint data using a trend line with product and issue breakdowns.' +
         '<br /><br />' +

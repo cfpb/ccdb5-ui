@@ -1,5 +1,16 @@
 .chart-toggles {
   button {
+    color: var(--black);
+
+    &.selected {
+      background-color: var(--pacific-60);
+      font-weight: 600;
+    }
+
+    &:not(.selected) {
+      background-color: var(--pacific-20);
+    }
+
     svg {
       &#line-chart-icon {
         .cls-1 {
