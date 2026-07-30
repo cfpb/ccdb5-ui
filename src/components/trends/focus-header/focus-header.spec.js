@@ -61,9 +61,9 @@ describe('component:FocusHeader', () => {
     );
     expect(removeFocusSpy).toHaveBeenCalled();
     expect(
-      screen.getByRole('button', { name: /Sub-products/ }),
+      screen.getByRole('tab', { name: /Sub-products/ }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Issue/ })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: /Issue/ })).toBeInTheDocument();
   });
 
   it('renders header on Company focus page', async () => {
@@ -86,10 +86,10 @@ describe('component:FocusHeader', () => {
 
     // no tabs should exist on Company Focus
     expect(
-      screen.queryByRole('button', { name: /Sub-products/ }),
+      screen.queryByRole('tab', { name: /Sub-products/ }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: /Issue/ }),
+      screen.queryByRole('tab', { name: /Issue/ }),
     ).not.toBeInTheDocument();
 
     fireEvent.click(

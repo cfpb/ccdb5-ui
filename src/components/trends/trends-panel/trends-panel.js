@@ -26,8 +26,6 @@ import {
 import { processRows } from '../../../utils/chart';
 import { sendAnalyticsEvent } from '../../../utils';
 import { getIntervals, showCompanyOverLay } from '../../../utils/trends';
-import { ActionBar } from '../../action-bar/action-bar';
-import { TabbedNavigation } from '../../tabbed-navigation/tabbed-navigation';
 import { Warning } from '../../warnings/warning';
 import { FilterPanel } from '../../filters/filter-panel/filter-panel';
 import { FilterPanelToggle } from '../../filters/filter-panel/filter-panel-toggle';
@@ -48,7 +46,7 @@ import { formatDisplayDate } from '../../../utils/format-date';
 import { useGetTrends } from '../../../api/hooks/use-get-trends';
 import { ErrorBlock } from '../../warnings/error';
 import { AsyncTypeahead } from '../../typeahead/async-typeahead/async-typeahead';
-import { Heading } from '@cfpb/design-system-react';
+import { Heading, TabPanel } from '@cfpb/design-system-react';
 
 const WARNING_MESSAGE =
   '“Day” interval is disabled when the date range is longer than one year';
@@ -202,16 +200,17 @@ export const TrendsPanel = () => {
     }
 
     return [
-      <LensTabs key="lens-tab" showTitle={true} />,
-      <RowChart
-        id={lens}
-        colorScheme={dataLensData.colorScheme}
-        data={dataLensData.data}
-        title={subLensTitle + ' ' + minDate + ' to ' + maxDate}
-        helperText={lensHelperText}
-        total={total}
-        key={lens + 'row'}
-      />,
+      <LensTabs key="lens-tab" />,
+      <TabPanel id={subLens || 'sub_product'} key={lens + 'panel'}>
+        <RowChart
+          id={lens}
+          colorScheme={dataLensData.colorScheme}
+          data={dataLensData.data}
+          title={subLensTitle + ' ' + minDate + ' to ' + maxDate}
+          helperText={lensHelperText}
+          total={total}
+        />
+      </TabPanel>,
     ];
   };
 
@@ -219,8 +218,6 @@ export const TrendsPanel = () => {
     <section
       className={'trends-panel' + (hasOverview ? '' : ' external-tooltip')}
     >
-      <ActionBar />
-      <TabbedNavigation />
       {isTrendsDateWarningEnabled ? (
         <Warning text={WARNING_MESSAGE} closeFn={onDismissWarning} />
       ) : null}

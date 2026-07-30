@@ -48,15 +48,15 @@ describe('component:LensTabs', () => {
       lens: 'Product',
       subLens: 'sub_product',
     });
-    await screen.findByRole('button', { name: 'Sub-products' });
+    await screen.findByRole('tab', { name: 'Sub-products' });
     expect(
-      screen.getByRole('button', { name: 'Sub-products' }),
+      screen.getByRole('tab', { name: 'Sub-products' }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Issues' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Sub-products' }));
+    expect(screen.getByRole('tab', { name: 'Issues' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('tab', { name: 'Sub-products' }));
     expect(changeDataSubLensSpy).toHaveBeenCalledWith('sub_product');
 
-    fireEvent.click(screen.getByRole('button', { name: 'Issues' }));
+    fireEvent.click(screen.getByRole('tab', { name: 'Issues' }));
     expect(changeDataSubLensSpy).toHaveBeenCalledWith('issue');
   });
 
@@ -66,10 +66,10 @@ describe('component:LensTabs', () => {
       lens: 'Product',
       subLens: 'sub_product',
     });
-    await screen.findByRole('button', { name: 'Sub-products' });
+    await screen.findByRole('tab', { name: 'Sub-products' });
     expect(
-      screen.getByRole('button', { name: 'Sub-products' }),
+      screen.getByRole('tab', { name: 'Sub-products' }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Issues' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: 'Issues' })).toBeInTheDocument();
   });
 });

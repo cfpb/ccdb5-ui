@@ -1,17 +1,4 @@
-@use '../../tabbed-navigation/tabbed-navigation';
-
-.tabbed-navigation {
-  &.lens {
-    background: none;
-    border-bottom: 1px solid var(--gray-40);
-    .tab {
-      font-size: medium;
-      &.active {
-        background: var(--white);
-      }
-      &:not(.active) {
-        background: var(--pacific-20);
-      }
-    }
-  }
+// Layout only — tab chrome comes from \@cfpb/design-system-react.
+.tabbed-navigation.lens {
+  margin-top: 0;
 }
