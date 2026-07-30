@@ -13,12 +13,12 @@ import * as types from '../../constants';
  * @returns {Array} a cast copy to avoid any state mutation
  */
 export function filterArrayAction(target = [], val) {
-  if (target.indexOf(val) === -1) {
-    target.push(val);
-  } else {
+  if (target.includes(val)) {
     target = target.filter(function (value) {
       return value !== val;
     });
+  } else {
+    target.push(val);
   }
   return [...target];
 }
@@ -45,7 +45,7 @@ export const filtersSlice = createSlice({
         const { filterName, filterValue } = action.payload;
         if (filterName === 'has_narrative') {
           state.has_narrative = true;
-        } else if (filterName in state) {
+        } else if (Object.hasOwn(state, filterName)) {
           const idx = state[filterName].indexOf(filterValue);
           if (idx === -1) {
             state[filterName].push(filterValue);
@@ -65,7 +65,7 @@ export const filtersSlice = createSlice({
         const { filterName, filterValue } = action.payload;
         if (filterName === 'has_narrative') {
           delete state.has_narrative;
-        } else if (filterName in state) {
+        } else if (Object.hasOwn(state, filterName)) {
           const idx = state[filterName].indexOf(filterValue);
           if (idx !== -1) {
             state[filterName].splice(idx, 1);
@@ -81,17 +81,17 @@ export const filtersSlice = createSlice({
     // allFiltersRemoved
     filtersCleared: {
       reducer: (state, action) => {
-        const allFilters = types.knownFilters.concat(types.flagFilters);
+        const allFilters = [...types.knownFilters, ...types.flagFilters];
         if (types.NARRATIVE_SEARCH_FIELD === action.payload) {
           // keep has_narrative intact if we're coming from Narratives search
           const idx = allFilters.indexOf('has_narrative');
           allFilters.splice(idx, 1);
         }
-        allFilters.forEach((knownFilter) => {
-          if (knownFilter in state) {
+        for (const knownFilter of allFilters) {
+          if (Object.hasOwn(state, knownFilter)) {
             state[knownFilter] = [];
           }
-        });
+        }
       },
     },
     filtersReplaced: {
@@ -126,11 +126,11 @@ export const filtersSlice = createSlice({
         const arr = coalesce(state, name, []);
 
         // Add the filters
-        action.payload.values.forEach((val) => {
-          if (arr.indexOf(val) === -1) {
+        for (const val of action.payload.values) {
+          if (!arr.includes(val)) {
             arr.push(val);
           }
-        });
+        }
 
         state[name] = arr;
       },
@@ -145,13 +145,13 @@ export const filtersSlice = createSlice({
     },
     multipleFiltersRemoved: {
       reducer: (state, action) => {
-        if (state[action.payload.filterName]) {
-          action.payload.values.forEach((val) => {
+        if (Object.hasOwn(state, action.payload.filterName)) {
+          for (const val of action.payload.values) {
             const idx = state[action.payload.filterName].indexOf(val);
             if (idx !== -1) {
               state[action.payload.filterName].splice(idx, 1);
             }
-          });
+          }
         }
       },
       prepare: (filterName, values) => {
@@ -186,8 +186,14 @@ export const filtersSlice = createSlice({
     toggleFlagFilter: {
       reducer: (state, action) => {
         const filterName = action.payload;
-        state[filterName] = Boolean(!state[filterName]);
-        if (!state[filterName]) delete state[filterName];
+        if (Object.hasOwn(state, filterName)) {
+          const current = state[filterName];
+          if (current) {
+            delete state[filterName];
+            return;
+          }
+        }
+        state[filterName] = true;
       },
     },
   },
@@ -206,9 +212,9 @@ export const filtersSlice = createSlice({
         if (filterKey === 'company') {
           activeFilters.push(focus);
         } else {
-          filterValues.forEach((val) => {
+          for (const val of filterValues) {
             activeFilters.push(val);
-          });
+          }
         }
         state[filterKey] = activeFilters;
       })

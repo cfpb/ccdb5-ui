@@ -28,7 +28,7 @@ function initialState() {
  * @returns {object} A mocked store for testing purposes.
  */
 function setupStore(targetState, additionalMiddlewares) {
-  const preloadedState = targetState ? targetState : initialState();
+  const preloadedState = targetState ?? initialState();
   const rootReducer = combineReducers({
     actions: actionsReducer,
     filters: filtersReducer,
@@ -39,7 +39,12 @@ function setupStore(targetState, additionalMiddlewares) {
   });
   // this is in case we pass in only a single value
   const middlewares = additionalMiddlewares
-    ? [actionLogger].concat(additionalMiddlewares)
+    ? [
+        actionLogger,
+        ...(Array.isArray(additionalMiddlewares)
+          ? additionalMiddlewares
+          : [additionalMiddlewares]),
+      ]
     : [actionLogger];
   return createStore(
     rootReducer,

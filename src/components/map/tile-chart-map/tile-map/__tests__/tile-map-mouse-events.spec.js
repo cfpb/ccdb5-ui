@@ -8,8 +8,7 @@ jest.mock('d3', () => {
 
   const mock = {};
 
-  for (let idx = 0; idx < props.length; idx++) {
-    const propName = props[idx];
+  for (const propName of props) {
     mock[propName] = jest.fn().mockImplementation(() => {
       return mock;
     });

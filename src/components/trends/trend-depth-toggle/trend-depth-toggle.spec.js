@@ -51,11 +51,12 @@ describe('component:TrendDepthToggle', () => {
   });
   it('does not render on Focus page', () => {
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API/trends?') > -1) {
+      if (req.url.includes('API/trends?')) {
         return Promise.resolve({
           body: JSON.stringify(trendsResponse),
         });
-      } else if (req.url.indexOf('API?') > -1) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -77,11 +78,12 @@ describe('component:TrendDepthToggle', () => {
 
   it('renders Product view more link', async () => {
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API/trends?') > -1) {
+      if (req.url.includes('API/trends?')) {
         return Promise.resolve({
           body: JSON.stringify(trendsResponse),
         });
-      } else if (req.url.indexOf('API?') > -1) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -102,11 +104,12 @@ describe('component:TrendDepthToggle', () => {
 
   it('renders Product show less link', async () => {
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API/trends?') > -1) {
+      if (req.url.includes('API/trends?')) {
         return Promise.resolve({
           body: JSON.stringify(trendsResponseDepth14),
         });
-      } else if (req.url.indexOf('API?') > -1) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -132,11 +135,12 @@ describe('component:TrendDepthToggle', () => {
 
   it('renders Company view more link', async () => {
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API/trends?') > -1) {
+      if (req.url.includes('API/trends?')) {
         return Promise.resolve({
           body: JSON.stringify(trendsResponseCompany),
         });
-      } else if (req.url.indexOf('API?') > -1) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
@@ -159,11 +163,12 @@ describe('component:TrendDepthToggle', () => {
 
   it('renders Company view less link', async () => {
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('API/trends?') > -1) {
+      if (req.url.includes('API/trends?')) {
         return Promise.resolve({
           body: JSON.stringify(trendsResponseCompanyDepth7),
         });
-      } else if (req.url.indexOf('API?') > -1) {
+      }
+      if (req.url.includes('API?')) {
         // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),

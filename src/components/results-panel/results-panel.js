@@ -1,4 +1,4 @@
-import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
+import { MODE_LIST, MODE_MAP } from '../../constants';
 import { useSelector } from 'react-redux';
 import { ListPanel } from '../list/list-panel/list-panel';
 import { MapPanel } from '../map/map-panel';
@@ -12,16 +12,18 @@ export const ResultsPanel = () => {
   let currentPanel;
 
   switch (tab) {
-    case MODE_MAP:
+    case MODE_MAP: {
       currentPanel = <MapPanel />;
       break;
-    case MODE_LIST:
+    }
+    case MODE_LIST: {
       currentPanel = <ListPanel />;
       break;
-    case MODE_TRENDS:
-    default:
+    }
+    default: {
       currentPanel = <TrendsPanel />;
       break;
+    }
   }
 
   return (

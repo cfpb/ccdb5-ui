@@ -5,7 +5,7 @@ export const formatPillPrefix = (fieldName) => {
   // update this if they want the pill prefixes in other fields.
   if (fieldName === 'timely') {
     const rep = /_/g;
-    const prefix = fieldName.replace(rep, ' ');
+    const prefix = fieldName.replaceAll(rep, ' ');
     return prefix[0].toUpperCase() + prefix.slice(1) + ': ';
   }
   return '';
@@ -34,13 +34,14 @@ export const getUpdatedFilters = (filterName, filters, aggs, fieldName) => {
   const sibs = [];
   const siblings = aggs.find((agg) => agg.key === parentFilter);
   if (hasParent && siblings) {
-    siblings['sub_' + fieldName + '.raw'].buckets.forEach((bucket) => {
+    const buckets = siblings['sub_' + fieldName + '.raw'].buckets;
+    for (const bucket of buckets) {
       // don't include self
       if (bucket.key !== parts[1]) {
         sibs.push(slugify(parentFilter, bucket.key));
       }
-    });
+    }
   }
 
-  return oldFilters.concat(sibs);
+  return [...oldFilters, ...sibs];
 };

@@ -33,7 +33,7 @@ export const generateOptions = (
   tab,
   fieldName,
 ) => {
-  const allFilters = selectedFilters ? selectedFilters : [];
+  const allFilters = selectedFilters ?? [];
   // Make a cloned, sorted version of the aggs
   const options = sortSelThenCount(aggsFilters, allFilters, fieldName);
   const subAggFieldName = `sub_${fieldName}.raw`;
@@ -42,14 +42,18 @@ export const generateOptions = (
     // for instance, if we are focused on Credit reporting and all of its child items
     // we should not be able to add or remove other Product filters
     const isFocusItem = tab === MODE_TRENDS && lens.toLowerCase() === fieldName;
-    options.forEach((opt) => {
+    for (const opt of options) {
       opt.isDisabled = isFocusItem ? opt.key !== focus : false;
-      if (opt[subAggFieldName]) {
-        opt[subAggFieldName].buckets.forEach((bucket) => {
-          bucket.isDisabled = isFocusItem ? opt.isDisabled : false;
-        });
+      if (Object.hasOwn(opt, subAggFieldName)) {
+        const subAgg = opt[subAggFieldName];
+        if (subAgg) {
+          const subBuckets = subAgg.buckets;
+          for (const bucket of subBuckets) {
+            bucket.isDisabled = isFocusItem ? opt.isDisabled : false;
+          }
+        }
       }
-    });
+    }
   }
   return options;
 };
@@ -82,7 +86,12 @@ export const NestedFilter = ({ desc, fieldName }) => {
   // --------------------------------------------------------------------------
   // MoreOrLess Helpers
   const _onBucket = (bucket, props) => {
-    props.subitems = bucket[subFieldName] ? bucket[subFieldName].buckets : [];
+    if (Object.hasOwn(bucket, subFieldName)) {
+      const subAgg = bucket[subFieldName];
+      props.subitems = subAgg ? subAgg.buckets : [];
+    } else {
+      props.subitems = [];
+    }
     return props;
   };
 

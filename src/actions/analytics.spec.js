@@ -6,9 +6,9 @@ describe('action:analytics', () => {
       const mockGTMObject = { testing: true };
       expect(Analytics.tagManagerIsLoaded).toBe(false);
       Analytics.init();
-      window.google_tag_manager = mockGTMObject;
+      globalThis.google_tag_manager = mockGTMObject;
       expect(Analytics.tagManagerIsLoaded).toBe(true);
-      expect(window.google_tag_manager).toEqual(mockGTMObject);
+      expect(globalThis.google_tag_manager).toEqual(mockGTMObject);
     });
   });
 
@@ -52,11 +52,11 @@ describe('action:analytics', () => {
   });
 
   it('pushes to dataLayer when tagManager is Loaded', () => {
-    window.dataLayer = [];
+    globalThis.dataLayer = [];
     Analytics.tagManagerIsLoaded = true;
     Analytics.sendEvent(
       Analytics.getDataLayerOptions('woah nelly action', 'label'),
     );
-    expect(window.dataLayer.length > 0).toBe(true);
+    expect(globalThis.dataLayer.length > 0).toBe(true);
   });
 });

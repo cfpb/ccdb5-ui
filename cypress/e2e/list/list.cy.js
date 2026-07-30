@@ -101,12 +101,12 @@ describe('List View', () => {
     cy.get(nextButton).click();
     cy.get(currentPage).should('have.text', 'Page 2');
 
-    fields.forEach((field) => {
+    for (const field of fields) {
       cy.log(`reset paging when search field changes to ${field}`);
       cy.get('#searchField')
         .should('be.visible')
         .select(field, { force: true });
       cy.get(currentPage).should('have.text', 'Page 1');
-    });
+    }
   });
 });

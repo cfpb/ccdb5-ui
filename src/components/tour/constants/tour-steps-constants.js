@@ -14,25 +14,22 @@ const generateLinkText = (index, linkObject) =>
 let geoIndex = '';
 
 // we exclude the first entry so we can have Index appear as the title
-Object.entries(GEO)
-  .slice(1)
-  .forEach((value, key) => {
+for (const [key, value] of Object.entries(GEO)
+  .slice(1).entries()) {
     geoIndex += generateLinkText(key, value);
-  });
+  }
 
 let listIndex = '';
-Object.entries(LIST)
-  .slice(1)
-  .forEach((value, key) => {
+for (const [key, value] of Object.entries(LIST)
+  .slice(1).entries()) {
     listIndex += generateLinkText(key, value);
-  });
+  }
 
 let trendsIndex = '';
-Object.entries(TRENDS)
-  .slice(1)
-  .forEach((value, key) => {
+for (const [key, value] of Object.entries(TRENDS)
+  .slice(1).entries()) {
     trendsIndex += generateLinkText(key, value);
-  });
+  }
 
 export const TOUR_STEPS = {
   [MODE_MAP]: [

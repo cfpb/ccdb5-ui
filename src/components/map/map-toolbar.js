@@ -13,8 +13,8 @@ import { formatStateLabel } from '../../utils/filters';
 export const MapToolbar = () => {
   const dispatch = useDispatch();
   const stateFilters = useSelector(selectFiltersState) || [];
-  const filteredStates = stateFilters.filter(
-    (state) => state in THESE_UNITED_STATES,
+  const filteredStates = stateFilters.filter((state) =>
+    Object.hasOwn(THESE_UNITED_STATES, state),
   );
   const hasFilters = filteredStates.length > 0;
 

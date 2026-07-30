@@ -26,6 +26,19 @@ const buildBaseData = (stateMapResultsState) => {
   });
 };
 
+const formatRangeLabel = (bin, nextBin) => {
+  if (!nextBin || !Number.isFinite(nextBin.from)) {
+    return `${makeShortName(bin.from)} and up`;
+  }
+
+  let endValue = nextBin.from - 1;
+  if (endValue < bin.from) {
+    endValue = nextBin.from;
+  }
+
+  return `${makeShortName(bin.from)}–${makeShortName(endValue)}`;
+};
+
 export const GeoLegend = () => {
   const { data: results, isLoading, isFetching } = useGetMap();
   const stateMapResultsState = results?.results?.state;
@@ -61,19 +74,6 @@ export const GeoLegend = () => {
   const title = 'Complaint count by state';
   const legendDescription =
     'The map is shaded to reflect the complaint count for each state, based on the applied filters. Hover over a tile to view details or select a tile to add the state to your filters.';
-
-  const formatRangeLabel = (bin, nextBin) => {
-    if (!nextBin || !Number.isFinite(nextBin.from)) {
-      return `${makeShortName(bin.from)} and up`;
-    }
-
-    let endValue = nextBin.from - 1;
-    if (endValue < bin.from) {
-      endValue = nextBin.from;
-    }
-
-    return `${makeShortName(bin.from)}–${makeShortName(endValue)}`;
-  };
 
   return (
     <div className="map-legend" aria-label="Map shading">

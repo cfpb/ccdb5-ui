@@ -39,15 +39,11 @@ describe('component::Company', () => {
     };
 
     fetchMock.mockResponse((req) => {
-      if (req.url.indexOf('_suggest') > -1) {
-        return Promise.resolve({
+      return req.url.includes('_suggest') ? Promise.resolve({
           body: JSON.stringify(['Safe-T Deposits LLC']),
-        });
-      } else {
-        return Promise.resolve({
+        }) : Promise.resolve({
           body: JSON.stringify(aggResponse),
         });
-      }
     });
 
     renderComponent(filters, { dateLastIndexed: '2024-10-07' }, {});

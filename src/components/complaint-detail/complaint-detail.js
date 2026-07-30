@@ -23,7 +23,7 @@ export const ComplaintDetail = () => {
 
     const pathName = location.pathname;
     const idx = pathName.indexOf('detail');
-    return formatUri(pathName.substring(0, idx), params);
+    return formatUri(pathName.slice(0, Math.max(0, idx)), params);
   }, [location, params]);
 
   const { data, isLoading, error } = useGetDocumentQuery(id);

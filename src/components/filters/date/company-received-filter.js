@@ -175,7 +175,7 @@ export const CompanyReceivedFilter = () => {
           </li>
         </ul>
 
-        {errors.length ? (
+        {errors.length > 0 ? (
           <div className="a-form-alert a-form-alert--error" role="alert">
             {errors.map((message, key) => (
               <div key={key}>

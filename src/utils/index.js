@@ -12,7 +12,7 @@ import { formatDate } from './format-date';
  * @returns {string} an expanded string of digits
  */
 export function ariaReadoutNumbers(digits) {
-  return Array.from(digits || '').join(' ');
+  return [...(digits || '')].join(' ');
 }
 
 export const calculateDateRange = (minDate, maxDate, dateLastIndexed) => {
@@ -20,12 +20,13 @@ export const calculateDateRange = (minDate, maxDate, dateLastIndexed) => {
   // round off the date so the partial times don't mess up calculations
   const today = dateLastIndexed ? dayjs(dateLastIndexed) : startOfToday();
   const end = dayjs(maxDate).startOf('day');
-  const start = dayjs(minDate).startOf('day');
 
   // make sure end date is the same as today's date
   if (end.diff(today, 'days') !== 0) {
     return '';
   }
+
+  const start = dayjs(minDate).startOf('day');
 
   // is the start date the same as the oldest document?
   if (dayjs(minDate).isSame(DATE_RANGE_MIN, 'day')) {
@@ -72,9 +73,11 @@ export const capitalize = (string) => {
 export const clamp = (number, boundOne, boundTwo) => {
   if (!boundTwo) {
     return Math.max(number, boundOne) === boundOne ? boundOne : number;
-  } else if (Math.min(number, boundOne) === number) {
+  }
+  if (Math.min(number, boundOne) === number) {
     return boundOne;
-  } else if (Math.max(number, boundTwo) === number) {
+  }
+  if (Math.max(number, boundTwo) === number) {
     return boundTwo;
   }
   return number;
@@ -120,7 +123,12 @@ export const coalesce = (object, field, alternateValue) => {
     return alternateValue;
   }
 
-  return field in object && object[field] ? object[field] : alternateValue;
+  if (!Object.hasOwn(object, field)) {
+    return alternateValue;
+  }
+
+  const value = object[field];
+  return value || alternateValue;
 };
 
 /**
@@ -130,18 +138,18 @@ export const coalesce = (object, field, alternateValue) => {
  * @returns {number} a hashing of the string
  */
 export function hashCode(someString) {
-  const str = String(someString);
+  const str = someString;
   let hash = 0;
-  let index, chr;
   if (str.length === 0) {
     return hash;
   }
+  let index, chr;
   for (index = 0; index < str.length; index++) {
-    chr = str.charCodeAt(index);
+    chr = str.codePointAt(index);
     hash = (hash << 5) - hash + chr;
 
     // Convert to 32bit integer
-    hash |= 0;
+    hash = Math.trunc(hash);
   }
   return hash;
 }
@@ -164,13 +172,12 @@ export const isTrue = (argArray) => argArray.some((element) => !!element);
  * @returns {string} sanitized string eat-at-joe-s
  */
 export const sanitizeHtmlId = (str) =>
-  str.replace(/\s+|\W/g, '-').toLowerCase();
+  str.replaceAll(/\s+|\W/g, '-').toLowerCase();
 
 export const slugify = (first, second) => first + SLUG_SEPARATOR + second;
 
 export const insertParentFilter = (filterArray, missingFilter, fieldName) => {
-  const filter = filterArray.find((item) => item.key === missingFilter);
-  if (!filter) {
+  if (filterArray.every((item) => item.key !== missingFilter)) {
     filterArray.push({
       key: missingFilter,
       doc_count: 0,
@@ -188,13 +195,17 @@ export const insertChildFilter = (filterArray, missingFilter, fieldName) => {
     (item) => item.key === missingFilter.split(SLUG_SEPARATOR)[0],
   );
   const subAggField = `sub_${fieldName}.raw`;
+  if (!Object.hasOwn(filter, subAggField)) {
+    return;
+  }
+  const subAgg = filter[subAggField];
   if (
-    filter[subAggField] &&
-    !filter[subAggField].buckets.find(
-      (bucket) => bucket.key === missingFilter.split(SLUG_SEPARATOR)[1],
+    subAgg &&
+    subAgg.buckets.every(
+      (bucket) => bucket.key !== missingFilter.split(SLUG_SEPARATOR)[1],
     )
   ) {
-    filter[subAggField].buckets.push({
+    subAgg.buckets.push({
       key: missingFilter.split(SLUG_SEPARATOR)[1],
       doc_count: 0,
     });
@@ -215,8 +226,8 @@ export const insertChildFilter = (filterArray, missingFilter, fieldName) => {
 export const sortOptions = (options, filters, fieldName) => {
   const selectedFilters = filters || [];
   const subAggFieldName = `sub_${fieldName}.raw`;
-  const retVal = (structuredClone(options) || []).slice();
-  return retVal.sort((first, second) => {
+  const retVal = [...(structuredClone(options) || [])];
+  return retVal.toSorted((first, second) => {
     // sort by parent items first
     const isFirstItemSelected = selectedFilters.includes(first.key);
     const isSecondItemSelected = selectedFilters.includes(second.key);
@@ -225,19 +236,29 @@ export const sortOptions = (options, filters, fieldName) => {
       return isFirstItemSelected ? -1 : 1;
     }
 
-    const isFirstItemChildSelected =
-      first && first[subAggFieldName]
-        ? first[subAggFieldName].buckets.filter((bucket) =>
+    const isFirstItemChildSelected = (() => {
+      if (!first || !Object.hasOwn(first, subAggFieldName)) {
+        return false;
+      }
+      const subAgg = first[subAggFieldName];
+      return subAgg
+        ? subAgg.buckets.some((bucket) =>
             selectedFilters.includes(first.key + SLUG_SEPARATOR + bucket.key),
-          ).length > 0
+          )
         : false;
+    })();
 
-    const isSecondItemChildSelected =
-      second && second[subAggFieldName]
-        ? second[subAggFieldName].buckets.filter((bucket) =>
+    const isSecondItemChildSelected = (() => {
+      if (!second || !Object.hasOwn(second, subAggFieldName)) {
+        return false;
+      }
+      const subAgg = second[subAggFieldName];
+      return subAgg
+        ? subAgg.buckets.some((bucket) =>
             selectedFilters.includes(second.key + SLUG_SEPARATOR + bucket.key),
-          ).length > 0
+          )
         : false;
+    })();
     // then try sorting if parent item has any child selected
     if (isFirstItemChildSelected !== isSecondItemChildSelected) {
       return isFirstItemChildSelected ? -1 : 1;
@@ -261,14 +282,14 @@ export const sortSelThenCount = (options, selectedFilters, fieldName) => {
   const retVal = sortOptions(options, selectedFilters, fieldName);
   // insert any missing filters from Product / Issue
   if (selectedFilters.length > 0) {
-    selectedFilters.forEach((item) => {
-      if (item.indexOf(SLUG_SEPARATOR) !== -1) {
+    for (const item of selectedFilters) {
+      if (item.includes(SLUG_SEPARATOR)) {
         insertParentFilter(retVal, item.split(SLUG_SEPARATOR)[0], fieldName);
         insertChildFilter(retVal, item, fieldName);
       } else {
         insertParentFilter(retVal, item, fieldName);
       }
-    });
+    }
   }
   return retVal;
 };
@@ -293,7 +314,8 @@ export function shortFormat(date) {
 export function shortIsoFormat(date) {
   if (typeof date === 'string') {
     return date.slice(0, 10);
-  } else if (typeof date === 'object' && date !== null) {
+  }
+  if (typeof date === 'object' && date !== null) {
     return dayjs(date).toISOString().slice(0, 10);
   }
   return '';
@@ -301,16 +323,26 @@ export function shortIsoFormat(date) {
 
 /**
  * This value gets set in the querySlice reducer listening to RTKQuery getMeta hook
- *
+ */
+const maxDateState = { value: null };
+
+/**
+ * @param {string} date - midnight today (or last indexed day), local
+ */
+export function setMaxDate(date) {
+  maxDateState.value = date;
+}
+
+/**
  * @returns {string} midnight today, local
  */
 export function startOfToday() {
-  if (!window.MAX_DATE) {
+  if (!maxDateState.value) {
     // eslint-disable-next-line no-console
     console.error('waiting for API response, setting MAX_DATE to today');
-    window.MAX_DATE = formatDate(dayjs().startOf('day'));
+    maxDateState.value = formatDate(dayjs().startOf('day'));
   }
-  return window.MAX_DATE;
+  return maxDateState.value;
 }
 
 // ----------------------------------------------------------------------------
@@ -328,15 +360,13 @@ export function startOfToday() {
  */
 export function debounce(func, wait, immediate) {
   let timeout;
-  return function () {
-    const context = this,
-      args = arguments;
+  return function (...args) {
     clearTimeout(timeout);
-    timeout = setTimeout(function () {
+    timeout = setTimeout(() => {
       timeout = null;
-      if (!immediate) func.apply(context, args);
+      if (!immediate) func(...args);
     }, wait);
-    if (immediate && !timeout) func.apply(context, args);
+    if (immediate && !timeout) func(...args);
   };
 }
 
@@ -376,8 +406,8 @@ export function processErrorMessage(err) {
  */
 export function formatPercentage(num) {
   // we have to do this so it is a float and not a string
-  const val = parseFloat(parseFloat(num * 100).toFixed(2));
-  return isNaN(val) ? 0.0 : val;
+  const val = Number((num * 100).toFixed(2));
+  return Number.isNaN(val) ? 0 : val;
 }
 
 /**
@@ -404,15 +434,12 @@ export const getSubKeyName = (bucket) => {
  * @param {object} arrayParams - the array of strings that we will check against
  */
 export const processUrlArrayParams = (params, state, arrayParams) => {
-  arrayParams.forEach((field) => {
-    if (typeof params[field] !== 'undefined') {
-      if (typeof params[field] === 'string') {
-        state[field] = [params[field]];
-      } else {
-        state[field] = params[field];
-      }
+  for (const field of arrayParams) {
+    if (params[field] !== undefined) {
+      state[field] =
+        typeof params[field] === 'string' ? [params[field]] : params[field];
     }
-  });
+  }
 
   if (params.has_narrative) {
     state.has_narrative = !!params.has_narrative;
@@ -429,13 +456,12 @@ export const processUrlArrayParams = (params, state, arrayParams) => {
  * @returns {Set<string>} returns a set of uniques Debt, Debt*Foo
  */
 export const getAllFilters = (filterKey, subitems) => {
-  const values = new Set();
+  const values = new Set([filterKey]);
   // Add the parent
-  values.add(filterKey);
   // Add the shown subitems
-  subitems.forEach((sub) => {
+  for (const sub of subitems) {
     values.add(slugify(filterKey, sub.key));
-  });
+  }
   return values;
 };
 
@@ -472,17 +498,17 @@ export const selectedClass = (
  * @returns {object} the processed object
  */
 export function removeNullProperties(object) {
-  const myObject = Object.keys(object).reduce((acc, key) => {
+  const myObject = {};
+  for (const [key, value] of Object.entries(object)) {
     if (
-      object[key] !== null &&
-      object[key] !== undefined &&
-      object[key] !== '' &&
-      !Number.isNaN(object[key])
+      value !== null &&
+      value !== undefined &&
+      value !== '' &&
+      !Number.isNaN(value)
     ) {
-      acc[key] = object[key];
+      myObject[key] = value;
     }
-    return acc;
-  }, {});
+  }
 
   for (const key in myObject) {
     if (Array.isArray(myObject[key]) && myObject[key].length === 0) {

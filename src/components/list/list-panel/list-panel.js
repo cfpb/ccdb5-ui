@@ -28,6 +28,14 @@ const ERROR = 'ERROR';
 const NO_RESULTS = 'NO_RESULTS';
 const RESULTS = 'RESULTS';
 
+const _renderError = () => {
+  return <ErrorBlock text="There was a problem executing your search" />;
+};
+
+const _renderNoResults = () => {
+  return <Heading type="2">No results were found for your search</Heading>;
+};
+
 export const ListPanel = () => {
   const dispatch = useDispatch();
   const { data, isLoading, isFetching, error } = useGetList();
@@ -62,14 +70,6 @@ export const ListPanel = () => {
       return RESULTS;
     }
     return NO_RESULTS;
-  };
-
-  const _renderError = () => {
-    return <ErrorBlock text="There was a problem executing your search" />;
-  };
-
-  const _renderNoResults = () => {
-    return <Heading type="2">No results were found for your search</Heading>;
   };
 
   const _renderResults = () => {

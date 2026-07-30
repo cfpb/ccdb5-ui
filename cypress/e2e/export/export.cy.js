@@ -21,7 +21,7 @@ describe('Complaint export', () => {
     cy.get(exportButton).click();
     cy.get(appRoot).then(($root) => {
       const overlayInRoot = $root.find(modalOverlay);
-      if (overlayInRoot.length) {
+      if (overlayInRoot.length > 0) {
         cy.wrap(overlayInRoot).should('be.visible');
         cy.wrap($root)
           .find(modalBody)

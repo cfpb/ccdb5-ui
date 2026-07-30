@@ -31,8 +31,7 @@ export const getColorScheme = (lens, rowNames) => {
     ),
   ];
 
-  for (let idx = 0; idx < uniqueNames.length; idx++) {
-    const name = uniqueNames[idx];
+  for (const [idx, name] of uniqueNames.entries()) {
     const index = clamp(idx, 0, 10);
     colScheme[name] = colorScheme[index];
   }
@@ -118,12 +117,16 @@ export function trendsReceived(state, data) {
  * @param {object} results - object we are processing and filling out
  */
 export function processAggregations(keys, state, aggregations, results) {
-  keys.forEach((key) => {
+  for (const key of keys) {
     /* istanbul ignore else */
-    if (aggregations[key]) {
-      results[key] = processBucket(state, aggregations[key][key].buckets);
+    if (!Object.hasOwn(aggregations, key)) {
+      continue;
     }
-  });
+    const aggregation = aggregations[key];
+    if (aggregation) {
+      results[key] = processBucket(state, aggregation[key].buckets);
+    }
+  }
 }
 
 /**
@@ -139,15 +142,14 @@ export function processBucket(state, agg) {
   const tabLabels =
     state.lens === 'Company' ? 'product' : 'sub-product and issue';
 
-  for (let index = 0; index < agg.length; index++) {
-    processTrendPeriod(agg[index]);
+  for (const item of agg) {
+    processTrendPeriod(item);
 
-    const item = agg[index];
     const subKeyName = getSubKeyName(item);
 
     item.isParent = true;
     const subItem = item[subKeyName];
-    item.hasChildren = Boolean(subItem && subItem.buckets.length);
+    item.hasChildren = Boolean(subItem && subItem.buckets.length > 0);
 
     // https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_omit
     // Create a parent row.
@@ -157,7 +159,7 @@ export function processBucket(state, agg) {
     list.push(tempItem);
 
     /* istanbul ignore else */
-    if (subItem && subItem.buckets && subItem.buckets.length) {
+    if (subItem && subItem.buckets && subItem.buckets.length > 0) {
       const expandableBuckets = subItem.buckets;
       // if there's buckets we need to add a separator for rendering
       const labelText = `Visualize ${tabLabels} trends for ${item.key} >`;
@@ -179,7 +181,7 @@ export function processBucket(state, agg) {
   const nameMap = [];
 
   // return flattened list
-  return [].concat(...list).map((obj) => getD3Names(obj, nameMap));
+  return list.flat().map((obj) => getD3Names(obj, nameMap));
 }
 
 /**
@@ -205,26 +207,24 @@ function processAreaData(state, aggregations) {
   );
 
   // overall buckets
-  aggregations.dateRangeBuckets.dateRangeBuckets.buckets.forEach((obj) => {
-    if (!compBuckets.find((val) => obj.key_as_string === val.date)) {
+  for (const obj of aggregations.dateRangeBuckets.dateRangeBuckets.buckets) {
+    if (compBuckets.every((val) => obj.key_as_string !== val.date)) {
       compBuckets.push({
         name: mainName,
         value: 0,
         date: obj.key_as_string,
       });
     }
-  });
+  }
 
   // reference buckets to backfill zero values
   const refBuckets = Object.assign({}, compBuckets);
   const trendResults = aggregations[filter][filter].buckets.slice(0, 5);
 
-  for (let index = 0; index < trendResults.length; index++) {
-    const result = trendResults[index];
+  for (const result of trendResults) {
     // only take first 10 of the buckets for processing
-    const reverseBuckets = result.trend_period.buckets.reverse();
-    for (let idx = 0; idx < reverseBuckets.length; idx++) {
-      const bucket = reverseBuckets[idx];
+    const reverseBuckets = result.trend_period.buckets.toReversed();
+    for (const bucket of reverseBuckets) {
       compBuckets.push({
         name: result.key,
         value: bucket.doc_count,
@@ -239,7 +239,7 @@ function processAreaData(state, aggregations) {
       );
 
       /* istanbul ignore else */
-      if (pos > -1) {
+      if (pos !== -1) {
         // subtract the value from total, so we calculate the "Other" bin
         compBuckets[pos].value -= bucket.doc_count;
       }
@@ -248,12 +248,12 @@ function processAreaData(state, aggregations) {
     // we're missing a bucket, so fill it in.
     const referenceBuckets = Object.values(refBuckets);
     if (result.trend_period.buckets.length !== referenceBuckets.length) {
-      for (let index = 0; index < referenceBuckets.length; index++) {
-        const obj = referenceBuckets[index];
-        const datePoint = compBuckets
-          .filter((bckt) => bckt.name === result.key)
-          .find((bckt) => isDateEqual(bckt.date, obj.date));
-        if (!datePoint) {
+      for (const obj of referenceBuckets) {
+        if (
+          compBuckets
+            .filter((bckt) => bckt.name === result.key)
+            .every((bckt) => !isDateEqual(bckt.date, obj.date))
+        ) {
           compBuckets.push({
             name: result.key,
             value: 0,
@@ -294,14 +294,14 @@ function processLineData(lens, aggregations, focus, subLens) {
     });
 
     // backfill empties
-    rangeBuckets.forEach((obj) => {
-      if (!dataByTopic[0].dates.find((val) => obj.key_as_string === val.date)) {
+    for (const obj of rangeBuckets) {
+      if (dataByTopic[0].dates.every((val) => obj.key_as_string !== val.date)) {
         dataByTopic[0].dates.push({
           date: obj.key_as_string,
           value: 0,
         });
       }
-    });
+    }
 
     // sort dates so it doesn't break line chart
     dataByTopic[0].dates.sort(
@@ -313,11 +313,11 @@ function processLineData(lens, aggregations, focus, subLens) {
     // handle Focus Case
     const lensKey = focus ? subLens.replace('_', '-') : lens.toLowerCase();
     const aggBuckets = aggregations[lensKey][lensKey].buckets;
-    for (let index = 0; index < aggBuckets.length; index++) {
-      const name = aggBuckets[index].key;
+    for (const aggBucket of aggBuckets) {
+      const name = aggBucket.key;
       const dateBuckets = updateDateBuckets(
         name,
-        aggBuckets[index].trend_period.buckets,
+        aggBucket.trend_period.buckets,
         rangeBuckets,
       );
       dataByTopic.push({
@@ -341,11 +341,14 @@ function processLineData(lens, aggregations, focus, subLens) {
  */
 export function processTrendPeriod(bucket) {
   const subKeyName = getSubKeyName(bucket);
-  if (bucket[subKeyName]) {
-    const subaggBuckets = bucket[subKeyName].buckets;
-    for (let index = 0; index < subaggBuckets.length; index++) {
-      subaggBuckets[index].parent = bucket.key;
-      processTrendPeriod(subaggBuckets[index]);
+  if (Object.hasOwn(bucket, subKeyName)) {
+    const nested = bucket[subKeyName];
+    if (nested) {
+      const subaggBuckets = nested.buckets;
+      for (const subaggBucket of subaggBuckets) {
+        subaggBucket.parent = bucket.key;
+        processTrendPeriod(subaggBucket);
+      }
     }
   }
 }
@@ -375,18 +378,22 @@ export const trendsSlice = createSlice({
         state.subLens = '';
         const lens = enforceValues(action.payload, 'lens');
         switch (lens) {
-          case 'Company':
+          case 'Company': {
             state.subLens = 'product';
             break;
-          case 'Overview':
+          }
+          case 'Overview': {
             state.subLens = 'product';
             state.chartType = 'line';
             break;
-          case 'Product':
+          }
+          case 'Product': {
             state.subLens = 'sub_product';
             break;
-          default:
+          }
+          default: {
             break;
+          }
         }
 
         state.focus = '';
@@ -485,8 +492,12 @@ export const trendsSlice = createSlice({
         // Handle flag filters
         const filters = ['chartType', 'focus', 'lens', 'subLens'];
         for (const val of filters) {
-          if (params[val]) {
-            state[val] = enforceValues(params[val], val);
+          if (!Object.hasOwn(params, val)) {
+            continue;
+          }
+          const paramValue = params[val];
+          if (paramValue) {
+            state[val] = enforceValues(paramValue, val);
           }
         }
         validateTrendsReducer(state);

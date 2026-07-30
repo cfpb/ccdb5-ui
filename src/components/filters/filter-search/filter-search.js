@@ -15,7 +15,7 @@ export const FilterSearch = ({ fieldName }) => {
   const ref = useRef(null);
   const dispatch = useDispatch();
 
-  const fieldNameNew = fieldName.replace(/_/g, ' ');
+  const fieldNameNew = fieldName.replaceAll('_', ' ');
   const { data, error } = useGetAggregations();
   const aggResults = error || !data ? [] : data[fieldName] || [];
   const subaggName = `sub_${fieldName}.raw`.toLowerCase();
@@ -23,24 +23,27 @@ export const FilterSearch = ({ fieldName }) => {
 
   const [inputText, setInputText] = useState('');
 
-  aggResults.forEach((option) => {
-    if (buckets.findIndex((item) => item.key === option.key) === -1) {
-      const parentAgg = { ...option };
-      parentAgg.isParent = true;
-      parentAgg.label = option.key;
-      parentAgg.normalized = normalize(option.key);
-      parentAgg.position = 0;
-      parentAgg.top = {
-        key: option.key,
+  for (const option of aggResults) {
+    if (buckets.every((item) => item.key !== option.key)) {
+      const parentAgg = {
+        ...option,
+        isParent: true,
         label: option.key,
         normalized: normalize(option.key),
         position: 0,
+        top: {
+          key: option.key,
+          label: option.key,
+          normalized: normalize(option.key),
+          position: 0,
+        },
       };
       buckets.push(parentAgg);
     }
 
-    if (option[subaggName] && option[subaggName].buckets) {
-      option[subaggName].buckets.forEach((bucket) => {
+    if (Object.hasOwn(option, subaggName) && option[subaggName]?.buckets) {
+      const subBuckets = option[subaggName].buckets;
+      for (const bucket of subBuckets) {
         const item = {
           key: option.key + SLUG_SEPARATOR + bucket.key,
           label: bucket.key,
@@ -54,9 +57,9 @@ export const FilterSearch = ({ fieldName }) => {
           },
         };
         buckets.push(item);
-      });
+      }
     }
-  });
+  }
 
   const [dropdownOptions, setDropdownOptions] = useState(buckets);
 
@@ -69,9 +72,7 @@ export const FilterSearch = ({ fieldName }) => {
     setInputText(value);
     const rawValue = normalize(value);
 
-    if (!rawValue) {
-      setDropdownOptions(buckets);
-    } else {
+    if (rawValue) {
       const options = buckets.map((opt) => {
         return {
           ...opt,
@@ -86,6 +87,8 @@ export const FilterSearch = ({ fieldName }) => {
       });
 
       setDropdownOptions(options);
+    } else {
+      setDropdownOptions(buckets);
     }
   };
 
@@ -124,13 +127,13 @@ export const FilterSearch = ({ fieldName }) => {
             renderMenuItemChildren={(option) => (
               <li className="typeahead-option typeahead-option--multi">
                 <HighlightingOption key={option.value} {...option.top} />
-                {!option.isParent ? (
+                {option.isParent ? null : (
                   <div className="typeahead-option__sub">
                     {option.value ? (
                       <HighlightingOption key={option.value} {...option} />
                     ) : null}
                   </div>
-                ) : null}
+                )}
               </li>
             )}
           />

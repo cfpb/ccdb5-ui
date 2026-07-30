@@ -22,7 +22,8 @@ const lensMaps = {
 const displayProductTab = (lens, focus, subProducts) => {
   if (!focus) {
     return true;
-  } else if (subProducts && subProducts.length) {
+  }
+  if (subProducts && subProducts.length > 0) {
     return true;
   }
   return false;
@@ -34,19 +35,20 @@ export const LensTabs = () => {
   const lens = useSelector(selectTrendsLens);
   const subLens = useSelector(selectTrendsSubLens);
   const { data } = useGetTrends();
-  const subProducts = data?.results['sub-product'];
 
   if (lens === 'Overview') {
     return null;
   }
+
+  const subProducts = data?.results['sub-product'];
   const hasProductTab = displayProductTab(lens, focus, subProducts);
-  const onTab = (lens, tab) => {
+  const onTab = (lensName, tab) => {
     const labelMap = {
       sub_product: 'Sub-products',
       issue: 'Issues',
       product: 'Products',
     };
-    sendAnalyticsEvent('Button', lens + ':' + labelMap[tab]);
+    sendAnalyticsEvent('Button', lensName + ':' + labelMap[tab]);
 
     dispatch(dataSubLensChanged(tab.toLowerCase()));
   };
@@ -54,7 +56,7 @@ export const LensTabs = () => {
     tab = tab.toLowerCase();
     const classes = ['tab', tab];
     const regex = new RegExp(subLens.toLowerCase(), 'g');
-    if (tab.replace('-', '_').match(regex)) {
+    if (regex.test(tab.replace('-', '_'))) {
       classes.push('active');
     }
     return classes.join(' ');

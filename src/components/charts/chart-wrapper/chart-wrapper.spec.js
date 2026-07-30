@@ -10,7 +10,7 @@ describe('ChartWrapper', () => {
     renderComponent({ hasKey: false, isEmpty: false, domId: 'some-id' });
     const text = screen.getByText('Date received by the CFPB');
     expect(text).toBeInTheDocument();
-    const items = document.getElementsByClassName('ext-tooltip');
+    const items = document.querySelectorAll('.ext-tooltip');
     expect(items.length).toBe(0);
   });
 
@@ -18,7 +18,7 @@ describe('ChartWrapper', () => {
     renderComponent({ hasKey: true, isEmpty: false, domId: 'some-id' });
     const text = screen.getByText('Date received by the CFPB');
     expect(text).toBeInTheDocument();
-    const items = document.getElementsByClassName('ext-tooltip');
+    const items = document.querySelectorAll('.ext-tooltip');
     expect(items.length).toBe(1);
   });
 });

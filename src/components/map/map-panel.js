@@ -48,7 +48,7 @@ export const MapPanel = () => {
 
   const productRows = productData?.data || [];
   const isPlural =
-    productRows.filter((obj) => obj.isParent).length > 1 || false;
+    (productRows.filter((obj) => obj.isParent).length > 1);
   const prodText = isPlural ? 'Products' : 'Product';
   const MAP_ROWCHART_TITLE =
     prodText +

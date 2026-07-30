@@ -20,25 +20,19 @@ const appliedFilters = ({ fieldName, item, aggs, filters }) => {
   const subItems = aggs
     .find((agg) => agg.key === parentFilter)
     ['sub_' + fieldName + '.raw'].buckets.map((agg) => agg.key)
-    .sort();
+    .toSorted((left, right) => left.localeCompare(right));
 
   const parentKey = parentFilter + SLUG_SEPARATOR;
   const selectedFilters = filters
-    .filter((filter) => filter.indexOf(parentKey) > -1)
+    .filter((filter) => filter.includes(parentKey))
     .map((filter) => filter.replace(parentKey, ''));
   selectedFilters.push(childFilter);
 
-  selectedFilters.sort();
+  selectedFilters.sort((left, right) => left.localeCompare(right));
 
-  if (arrayEquals(selectedFilters, subItems)) {
-    // remove subitems, add parent filter
-    return filters
-      .filter((filter) => filter.indexOf(parentKey) === -1)
-      .concat(parentFilter);
-  } else {
-    // just add the single filter and apply filters
-    return filters.concat(item.key);
-  }
+  return arrayEquals(selectedFilters, subItems)
+    ? [...filters.filter((filter) => !filter.includes(parentKey)), parentFilter]
+    : [...filters, item.key];
 };
 
 export const AggregationItem = ({ fieldName, item }) => {
@@ -46,11 +40,12 @@ export const AggregationItem = ({ fieldName, item }) => {
   const filtersState = useSelector(selectFiltersRoot);
   const dispatch = useDispatch();
   const aggs = coalesce(aggsState, fieldName, []);
-  const filters = coalesce(filtersState, fieldName, []);
 
   if (!isSuccess || !aggs || error) {
     return null;
   }
+
+  const filters = coalesce(filtersState, fieldName, []);
 
   const isActive =
     filters.includes(item.key) ||
@@ -61,7 +56,7 @@ export const AggregationItem = ({ fieldName, item }) => {
   const id = sanitizeHtmlId(fieldName + '-' + item.key);
 
   const addFilter = () => {
-    const isChildItem = item.key.indexOf(SLUG_SEPARATOR) > -1;
+    const isChildItem = item.key.includes(SLUG_SEPARATOR);
     // cases where its issue / product
     if (isChildItem && filterPatch.includes(fieldName)) {
       const filtersToApply = appliedFilters({ fieldName, item, aggs, filters });

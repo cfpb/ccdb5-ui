@@ -135,7 +135,8 @@ describe('ListPanel', () => {
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
         });
-      } else if (params.get('size') === '25') {
+      }
+      if (params.get('size') === '25') {
         return Promise.resolve({
           body: JSON.stringify(listResponse),
         });

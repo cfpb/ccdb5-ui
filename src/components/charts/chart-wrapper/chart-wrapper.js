@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Paragraph } from '@cfpb/design-system-react';
 
 export const ChartWrapper = ({ domId, hasKey }) => (
-  <section className={`${hasKey ? 'ext-tooltip' : ''}`}>
+  <section className={hasKey ? 'ext-tooltip' : ''}>
     <div className="chart-wrapper">
       <Paragraph className="y-axis-label">Complaints</Paragraph>
       <div id={domId} />

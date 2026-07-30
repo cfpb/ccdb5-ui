@@ -482,6 +482,6 @@ export const API_PLACEHOLDER = '@@API';
 
 // provide relative link when not local development
 export const LINK_DATA_USE =
-  window.location.origin.indexOf('localhost') > -1
+  location.origin.includes('localhost')
     ? 'https://www.consumerfinance.gov/complaint/data-use/'
     : '/complaint/data-use/';

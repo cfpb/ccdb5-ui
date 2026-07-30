@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
 export const HighlightingOption = ({ label, position, value }) => {
-  if (position < 0 || !value) {
+  if (!value || position < 0) {
     return <span>{label}</span>;
   }
 
-  const start = label.substring(0, position);
+  const start = label.slice(0, Math.max(0, position));
   const match = label.slice(position, position + value.length);
-  const end = label.substring(position + value.length);
+  const end = label.slice(Math.max(0, position + value.length));
   return (
     <span>
       {start}

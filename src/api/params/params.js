@@ -56,7 +56,7 @@ export function extractBasicParams(filterState, queryState) {
 export function extractReducerAttributes(reducer, attributes) {
   const results = {};
 
-  attributes.forEach((attribute) => {
+  for (const attribute of attributes) {
     const value = reducer[attribute];
     /* istanbul ignore else */
     if (Array.isArray(value)) {
@@ -66,7 +66,7 @@ export function extractReducerAttributes(reducer, attributes) {
     } else if (value) {
       results[attribute] = value;
     }
-  });
+  }
 
   return results;
 }
@@ -91,9 +91,9 @@ export function extractQueryParams(queryState) {
     // edge case for doc complaint override in
     // actions/complaints.js
     frm:
-      query.from !== undefined
-        ? query.from
-        : clamp(query.page - 1, 0) * query.size,
+      query.from === undefined
+        ? clamp(query.page - 1, 0) * query.size
+        : query.from,
     page: query.page,
     size: query.size,
     sort: query.sort,

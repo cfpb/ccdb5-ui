@@ -36,8 +36,8 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   );
 
   // Does the key contain the separator?
-  const activeChildren = keyFilters.filter(
-    (key) => key.indexOf(SLUG_SEPARATOR) !== -1,
+  const activeChildren = keyFilters.filter((key) =>
+    key.includes(SLUG_SEPARATOR),
   );
 
   const activeParent = keyFilters.filter((key) => key === item.key);
@@ -58,6 +58,11 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   }));
 
   const buckets = sortOptions(unsorted, allFilters, fieldName);
+
+  if (buckets.length === 0) {
+    return <AggregationItem item={item} key={item.key} fieldName={fieldName} />;
+  }
+
   const liStyle = 'parent m-form-field m-form-field--checkbox';
   const id = sanitizeHtmlId(`${fieldName} ${item.key}`);
 
@@ -65,24 +70,20 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
     const subItemFilters = getAllFilters(item.key, subitems);
 
     // Add the active filters (that might be hidden)
-    activeChildren.forEach((child) => subItemFilters.add(child));
+    for (const child of activeChildren) subItemFilters.add(child);
 
     if (checkedState === CHECKED) {
       dispatch(multipleFiltersRemoved(fieldName, [...subItemFilters]));
     } else {
       // remove all of the child filters
       const replacementFilters = allFilters.filter(
-        (filter) => filter.indexOf(item.key + SLUG_SEPARATOR) === -1,
+        (filter) => !filter.includes(item.key + SLUG_SEPARATOR),
       );
       // add self/ parent filter
       replacementFilters.push(item.key);
       dispatch(filtersReplaced(fieldName, [...replacementFilters]));
     }
   };
-
-  if (buckets.length === 0) {
-    return <AggregationItem item={item} key={item.key} fieldName={fieldName} />;
-  }
 
   return (
     <>

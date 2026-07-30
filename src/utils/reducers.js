@@ -47,7 +47,7 @@ export const enforceValues = (value, field) => {
       values: [types.MODE_TRENDS, types.MODE_LIST, types.MODE_MAP],
     },
   };
-  if (valMap[field]) {
+  if (Object.hasOwn(valMap, field)) {
     const validValues = valMap[field];
     if (validValues.values.includes(value)) {
       return value;
@@ -75,7 +75,10 @@ export const validateTrendsReducer = (state) => {
     Product: ['sub_product', 'issue'],
   };
 
-  if (validLens[state.lens] && !validLens[state.lens].includes(state.subLens)) {
+  if (
+    Object.hasOwn(validLens, state.lens) &&
+    !validLens[state.lens].includes(state.subLens)
+  ) {
     state.subLens = getSubLens(state.lens);
   }
 };
