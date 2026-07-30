@@ -50,7 +50,7 @@ describe('Filter Panel', () => {
 
     waitForLoading();
     cy.log('can trigger a pre-selected date range');
-    cy.get('button.map').click();
+    cy.findByRole('tab', { name: /Map/i }).click();
     waitForLoading();
     cy.get('.date-ranges .a-btn.range-3y').contains('3y').click();
     // this will fail when the year hits 2030
@@ -171,7 +171,7 @@ describe('Filter Panel', () => {
 
     cy.url().should('not.include', '&product=Mortgage%E2%80%A2FHA%20mortgage');
     cy.url().should('include', 'product=Mortgage');
-    cy.get('button.list').click();
+    cy.findByRole('tab', { name: /List/i }).click();
     cy.log('shows more results');
     cy.get('.list-panel .card-container').should('have.length', 25);
     cy.get('#select-size').select('10 results');
