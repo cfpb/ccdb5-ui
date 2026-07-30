@@ -27,7 +27,7 @@ jobs:
           yarn install --immutable --immutable-cache
 
       - name: Compile Sass (sanity check)
-        run: ./node_modules/.bin/sass --no-source-map --load-path=node_modules --load-path=src src/css/App.scss /tmp/app.css
+        run: ./node_modules/.bin/sass --no-source-map --load-path=node_modules --load-path=src src/css/app.scss /tmp/app.css
 
       - name: Install Cypress binary
         if: steps.cypress-cache.outputs.cache-hit != 'true'
