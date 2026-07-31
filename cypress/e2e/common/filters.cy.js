@@ -52,10 +52,10 @@ describe('Filter Panel', () => {
     cy.log('can trigger a pre-selected date range');
     cy.findByRole('tab', { name: /Map/i }).click();
     waitForLoading();
-    cy.get('.date-ranges .a-btn.range-3y').contains('3y').click();
+    cy.findByRole('button', { name: '3 years' }).click();
     // this will fail when the year hits 2030
     cy.url().should('include', `date_received_max=202`);
-    cy.get('.date-ranges .a-btn.range-6m').contains('6m').click();
+    cy.findByRole('button', { name: '6 months' }).click();
     cy.url().should('include', `date_received_max=202`);
     cy.log('can expand/collapse/apply filter group');
     // default date Filter pills
