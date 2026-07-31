@@ -33,13 +33,13 @@ describe('Filter Panel', () => {
 
     cy.url().should('include', 'date_received_min=2015-09-11');
 
-    cy.log('apply a through date');
+    cy.log('apply a to date');
 
-    cy.get('#date_received-through').clear();
+    cy.get('#date_received-to').clear();
     waitForLoading();
-    cy.get('#date_received-through').type('2020-10-31');
-    cy.get('#date_received-through').focus();
-    cy.get('#date_received-through').blur();
+    cy.get('#date_received-to').type('2020-10-31');
+    cy.get('#date_received-to').focus();
+    cy.get('#date_received-to').blur();
 
     cy.url().should('include', 'date_received_max=2020-10-31');
     waitForLoading();
