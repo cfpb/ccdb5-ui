@@ -31,7 +31,8 @@ export const FederalState = () => {
     };
   });
   const [dropdownOptions, setDropdownOptions] = useState(starterOptions);
-  const desc = 'The state in the mailing address provided by the consumer';
+  const desc =
+    'Enter the state in the mailing address provided by the consumer.';
 
   const onInputChange = (value) => {
     const num = normalize(value);
@@ -62,7 +63,7 @@ export const FederalState = () => {
         handleInputChange={onInputChange}
         hasClearButton={true}
         options={dropdownOptions}
-        placeholder="Enter state name or abbreviation"
+        placeholder=""
       />
       <StickyOptions
         fieldName={FIELD_NAME}

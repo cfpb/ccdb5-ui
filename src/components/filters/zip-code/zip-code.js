@@ -17,13 +17,13 @@ export const ZipCode = () => {
   return (
     <CollapsibleFilter
       title="ZIP code"
-      desc="The mailing ZIP code provided by the consumer"
+      desc="Enter the mailing ZIP code provided by the consumer."
       className="aggregation"
     >
       <AsyncTypeahead
         fieldName={FIELD_NAME}
         label="Start typing to begin listing zip codes"
-        placeholder="Enter ZIP code"
+        placeholder=""
         ariaLabel="Start typing to begin listing zip codes"
         htmlId={FIELD_NAME + 'typeahead'}
         hasClearButton={true}

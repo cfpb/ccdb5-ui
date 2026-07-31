@@ -47,18 +47,12 @@ export const FilterPanel = () => {
           <DateFilter />
           <hr />
           <NestedFilter
-            desc={
-              'The type of product and sub-product the consumer identified ' +
-              'in the complaint'
-            }
+            desc="Enter the product or sub-product the consumer identified in the complaint."
             fieldName="product"
           />
           <hr />
           <NestedFilter
-            desc={
-              'The type of issue and sub-issue the consumer identified ' +
-              'in the complaint'
-            }
+            desc="Enter the issue and sub-issue the consumer identified in the complaint."
             fieldName="issue"
           />
           <hr />

@@ -97,7 +97,7 @@ export const NestedFilter = ({ desc, fieldName }) => {
 
   return (
     <CollapsibleFilter
-      title={capitalize(fieldName) + ' / sub-' + fieldName}
+      title={capitalize(fieldName) + ' and sub-' + fieldName}
       desc={desc}
       className={'aggregation ' + fieldName}
     >

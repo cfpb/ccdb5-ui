@@ -24,7 +24,8 @@ export const Company = () => {
     opt.disabled = Boolean(isFocusPage && opt.key !== focus);
   }
 
-  const desc = 'The complaint is about this company.';
+  const desc =
+    'Enter the company name that the consumer listed in their complaint.';
 
   return (
     <CollapsibleFilter
@@ -36,7 +37,7 @@ export const Company = () => {
         fieldName={FIELD_NAME}
         id="filter-company-typeahead"
         label="Start typing to begin listing companies"
-        placeholder="Enter company name"
+        placeholder=""
         ariaLabel="Company Search"
         htmlId={FIELD_NAME + '-typeahead'}
       />
