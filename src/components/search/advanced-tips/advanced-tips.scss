@@ -8,17 +8,20 @@
 
   .tip {
     padding: 15px 0;
+
     input {
       box-sizing: border-box;
       color: var(--gray);
       display: inline-block;
       margin-right: 1%;
     }
+
     .example-input {
       box-sizing: border-box;
       color: var(--gray);
       width: 100%;
     }
+
     .tip-description {
       padding-top: 10px;
 
@@ -26,8 +29,5 @@
         color: var(--black);
       }
     }
-  }
-  .footer {
-    border-top: dashed 2px var(--gray-70);
   }
 }

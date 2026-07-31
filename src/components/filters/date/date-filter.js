@@ -22,15 +22,9 @@ dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
 dayjs.extend(dayjsUtc);
 
-const WARN_SERIES_BREAK =
-  'CFPB updated product and issue options in April 2017 and August 2023.';
-
-const LEARN_SERIES_BREAK =
-  'https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes';
-
 export const DateFilter = () => {
   const fieldName = 'date_received';
-  const title = 'Date CFPB received the complaint';
+  const title = 'Date received';
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateThrough = useSelector(selectQueryDateReceivedMax);
   const formattedFromDate = dayjs(dateFrom).isValid()
@@ -160,19 +154,6 @@ export const DateFilter = () => {
       desc=""
     >
       <div>
-        <p className="u-mt15">
-          {' '}
-          {WARN_SERIES_BREAK}{' '}
-          <a
-            href={LEARN_SERIES_BREAK}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Learn more about Product and
-                  Issue changes (opens in new window)"
-          >
-            Learn more
-          </a>
-        </p>
         <ul className="date-inputs">
           <li>
             <label
