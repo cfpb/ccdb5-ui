@@ -37,7 +37,7 @@ describe('Document View', () => {
 
       cy.get('select#select-sort option:selected').should(
         'have.text',
-        'Relevance',
+        'Most relevant',
       );
 
       cy.contains('.a-tag-filter', 'Has narrative').should('be.visible');
@@ -55,7 +55,7 @@ describe('Document View', () => {
 
       cy.get('select#select-sort option:selected').should(
         'have.text',
-        'Relevance',
+        'Most relevant',
       );
 
       cy.contains('.a-tag-filter', 'Has narrative').should('be.visible');
