@@ -24,7 +24,7 @@ dayjs.extend(dayjsUtc);
 
 export const DateFilter = () => {
   const fieldName = 'date_received';
-  const title = 'Date received';
+  const title = 'Date the CFPB received the complaint';
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateThrough = useSelector(selectQueryDateReceivedMax);
   const formattedFromDate = dayjs(dateFrom).isValid()
