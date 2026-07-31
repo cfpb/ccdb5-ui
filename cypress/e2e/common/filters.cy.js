@@ -191,8 +191,12 @@ describe('Filter Panel', () => {
     cy.log('open again');
     cy.get('.state .o-expandable__cues').click();
     cy.log('searches a typeahead filter');
-    cy.findByPlaceholderText('Enter state name or abbreviation').clear();
-    cy.findByPlaceholderText('Enter state name or abbreviation').type('texas');
+    cy.findByRole('combobox', {
+      name: 'Enter the state in the mailing address provided by the consumer.',
+    }).clear();
+    cy.findByRole('combobox', {
+      name: 'Enter the state in the mailing address provided by the consumer.',
+    }).type('texas');
 
     cy.get('.state .typeahead-selector').should('exist');
 
