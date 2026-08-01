@@ -8,7 +8,32 @@
     margin-bottom: math.div($grid-gutter-width, 2);
   }
 
-  > .a-form-alert {
+  > .download-alert {
     margin-top: $grid-gutter-width;
+    animation: download-alert-fade-in 200ms ease-out;
+
+    &.download-alert--fade-out {
+      animation: download-alert-fade-out 300ms ease-out forwards;
+    }
+  }
+}
+
+@keyframes download-alert-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes download-alert-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }

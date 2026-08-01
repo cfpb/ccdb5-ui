@@ -116,7 +116,7 @@ describe('DownloadComplaintData', () => {
       screen.getByRole('link', { name: /Download all complaints/ }),
     ).toBeInTheDocument();
 
-    aggregationsSpy.mockReturnValue({ data: { total: 50_000 } });
+    // Still over limit — alert should fade away when filters change.
     act(() => {
       store.dispatch(filterAdded('product', 'Credit card'));
     });

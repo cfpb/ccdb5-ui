@@ -1,5 +1,5 @@
 import './download-complaint-data.scss';
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   AlertFieldLevel,
@@ -25,6 +25,8 @@ export const FILTER_DOWNLOAD_LIMIT_MESSAGE =
   'Your filtered results exceed download limits. Refine your search terms and filters to reduce the number of complaints.';
 export const FILTER_DOWNLOAD_EMPTY_MESSAGE =
   'You must add search terms or apply filters to create and download a filtered results dataset.';
+
+const ALERT_FADE_MS = 300;
 
 const hasAppliedFilters = (filtersState, queryState) => {
   const hasFilterValue = Object.values(filtersState).some((value) =>
@@ -52,15 +54,53 @@ export const DownloadComplaintData = () => {
   const queryState = useSelector(selectQueryRoot);
   const filtersState = useSelector(selectFiltersRoot);
   const [filteredDownloadError, setFilteredDownloadError] = useState('');
+  const [isAlertFadingOut, setIsAlertFadingOut] = useState(false);
+  const fadeTimerRef = useRef(null);
+  const filteredDownloadErrorRef = useRef('');
+  const hasMountedSearchState = useRef(false);
   const { data, error } = useGetAggregations();
   const filteredCount = error ? 0 : data?.total || 0;
-  const isFilteredDownloadValid =
-    hasAppliedFilters(filtersState, queryState) &&
-    filteredCount <= FILTER_DOWNLOAD_MAX;
 
-  if (filteredDownloadError && isFilteredDownloadValid) {
-    setFilteredDownloadError('');
-  }
+  filteredDownloadErrorRef.current = filteredDownloadError;
+
+  const dismissErrorWithFade = useCallback(() => {
+    if (!filteredDownloadErrorRef.current || fadeTimerRef.current) {
+      return;
+    }
+    setIsAlertFadingOut(true);
+    fadeTimerRef.current = window.setTimeout(() => {
+      setFilteredDownloadError('');
+      setIsAlertFadingOut(false);
+      fadeTimerRef.current = null;
+    }, ALERT_FADE_MS);
+  }, []);
+
+  // Dismiss the alert when filters or query change (anything that refetches results).
+  useEffect(() => {
+    if (!hasMountedSearchState.current) {
+      hasMountedSearchState.current = true;
+      return;
+    }
+    dismissErrorWithFade();
+  }, [filtersState, queryState, dismissErrorWithFade]);
+
+  useEffect(
+    () => () => {
+      if (fadeTimerRef.current) {
+        window.clearTimeout(fadeTimerRef.current);
+      }
+    },
+    [],
+  );
+
+  const showFilteredDownloadError = (message) => {
+    if (fadeTimerRef.current) {
+      window.clearTimeout(fadeTimerRef.current);
+      fadeTimerRef.current = null;
+    }
+    setIsAlertFadingOut(false);
+    setFilteredDownloadError(message);
+  };
 
   const allComplaintsUri = useMemo(
     () => getFullUrl(buildAllResultsUri('csv')),
@@ -112,21 +152,29 @@ export const DownloadComplaintData = () => {
           onClick={(event) => {
             if (!hasAppliedFilters(filtersState, queryState)) {
               event.preventDefault();
-              setFilteredDownloadError(FILTER_DOWNLOAD_EMPTY_MESSAGE);
+              showFilteredDownloadError(FILTER_DOWNLOAD_EMPTY_MESSAGE);
               return;
             }
             if (filteredCount > FILTER_DOWNLOAD_MAX) {
               event.preventDefault();
-              setFilteredDownloadError(FILTER_DOWNLOAD_LIMIT_MESSAGE);
+              showFilteredDownloadError(FILTER_DOWNLOAD_LIMIT_MESSAGE);
               return;
             }
-            setFilteredDownloadError('');
+            showFilteredDownloadError('');
             sendAnalyticsEvent('Export Some Data', tab);
           }}
         />
       </ButtonGroup>
       {filteredDownloadError ? (
-        <AlertFieldLevel message={filteredDownloadError} status="error" />
+        <div
+          className={
+            isAlertFadingOut
+              ? 'download-alert download-alert--fade-out'
+              : 'download-alert'
+          }
+        >
+          <AlertFieldLevel message={filteredDownloadError} status="error" />
+        </div>
       ) : null}
     </WellContainer>
   );
