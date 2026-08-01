@@ -15,12 +15,4 @@
       padding: $gutter-normal;
     }
   }
-
-  .m-pagination {
-    .a-btn[disabled],
-    .m-pagination__label,
-    .m-pagination__btn-submit {
-      color: var(--gray);
-    }
-  }
 }

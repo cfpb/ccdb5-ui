@@ -8,12 +8,6 @@ li.aggregation-branch {
     list-style-type: none;
 
     .toggle {
-      &.a-label::before {
-        box-sizing: border-box;
-        width: 20px;
-        height: 20px;
-      }
-
       &.indeterminate::before {
         border: solid 2px var(--gray-dark);
         background: url('indeterminate.png') no-repeat scroll center center transparent;

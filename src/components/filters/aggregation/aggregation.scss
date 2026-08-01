@@ -16,12 +16,6 @@
 
       align-items: baseline;
 
-      .a-label::before {
-        box-sizing: border-box;
-        width: 20px;
-        height: 20px;
-      }
-
       .bucket-key {
         max-width: calc(100% - 65px); // $max-count-width + $bucket-indent
         vertical-align: top;
