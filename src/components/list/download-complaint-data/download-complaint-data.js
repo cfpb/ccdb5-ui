@@ -61,14 +61,16 @@ export const DownloadComplaintData = () => {
   const { data, error } = useGetAggregations();
   const filteredCount = error ? 0 : data?.total || 0;
 
-  filteredDownloadErrorRef.current = filteredDownloadError;
+  useEffect(() => {
+    filteredDownloadErrorRef.current = filteredDownloadError;
+  }, [filteredDownloadError]);
 
   const dismissErrorWithFade = useCallback(() => {
     if (!filteredDownloadErrorRef.current || fadeTimerRef.current) {
       return;
     }
     setIsAlertFadingOut(true);
-    fadeTimerRef.current = window.setTimeout(() => {
+    fadeTimerRef.current = setTimeout(() => {
       setFilteredDownloadError('');
       setIsAlertFadingOut(false);
       fadeTimerRef.current = null;
@@ -87,7 +89,7 @@ export const DownloadComplaintData = () => {
   useEffect(
     () => () => {
       if (fadeTimerRef.current) {
-        window.clearTimeout(fadeTimerRef.current);
+        clearTimeout(fadeTimerRef.current);
       }
     },
     [],
@@ -95,7 +97,7 @@ export const DownloadComplaintData = () => {
 
   const showFilteredDownloadError = (message) => {
     if (fadeTimerRef.current) {
-      window.clearTimeout(fadeTimerRef.current);
+      clearTimeout(fadeTimerRef.current);
       fadeTimerRef.current = null;
     }
     setIsAlertFadingOut(false);
