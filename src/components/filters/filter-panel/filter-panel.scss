@@ -2,14 +2,7 @@
 @use 'css/base' as *;
 
 .filter-panel {
-  padding: $gutter-normal;
-  border: 1px solid var(--gray-40);
-  background: var(--gray-5);
-
-  @media screen and (min-width: $bp-med-min) {
-    padding: $grid-gutter-width;
-  }
-
+  // Surface chrome comes from DS `.o-well`.
   @media screen and (max-width: $bp-xs-max) {
     border-right: none;
   }

@@ -47,6 +47,7 @@
     box-sizing: border-box;
 
     // Keep the field select aligned with the search input in the row layout.
+    // SelectSingle always renders a-label--heading; hide until DSR supports labelClassName.
     .a-label--heading {
       position: absolute;
       width: 1px;
