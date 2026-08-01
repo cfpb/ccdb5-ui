@@ -46,10 +46,6 @@
     flex: 0 0 12rem;
     box-sizing: border-box;
 
-    .m-form-field {
-      margin-bottom: 0;
-    }
-
     // Keep the field select aligned with the search input in the row layout.
     .a-label--heading {
       position: absolute;
@@ -63,8 +59,7 @@
       border: 0;
     }
 
-    .a-select,
-    select {
+    .a-select {
       width: 100%;
       height: 100%;
     }
@@ -74,11 +69,5 @@
     position: static;
     width: auto;
     height: auto;
-  }
-
-  // Search button sits flush against the text input.
-  .o-search-input .a-btn {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
   }
 }

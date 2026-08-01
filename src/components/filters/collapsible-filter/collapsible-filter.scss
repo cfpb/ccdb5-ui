@@ -1,7 +1,6 @@
 @use 'css/base' as *;
 
 .o-expandable {
-  margin-bottom: 0;
   .o-expandable__label {
     max-width: calc(100% - 55px);
     box-sizing: border-box;

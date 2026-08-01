@@ -5,10 +5,6 @@
   input {
     box-sizing: border-box;
     width: 100%;
-
-    &:focus {
-      border: solid 2px var(--pacific);
-    }
   }
 
   &-selector {
@@ -42,10 +38,6 @@
       padding-left: 1.78571429em !important;
       padding-bottom: 0.28em !important;
     }
-  }
-
-  .a-btn.a-btn--link {
-    color: var(--gray-80);
   }
 
   .rbt-menu.dropdown-menu.show {
@@ -110,27 +102,5 @@
     &-label {
       z-index: 1;
     }
-  }
-}
-
-.input-contains-label__before {
-  position: absolute;
-  left: 0.85714286em;
-  top: 0.5em;
-  cursor: pointer;
-  font-size: 0.875em;
-
-  ~ input[type='text'] {
-    padding-left: 1.78571429em;
-    padding-bottom: 0.28em;
-  }
-
-  &--search .cf-icon-svg {
-    position: relative;
-    top: 2px;
-  }
-
-  .cf-icon-svg {
-    z-index: 9;
   }
 }
