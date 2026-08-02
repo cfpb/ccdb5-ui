@@ -19,7 +19,6 @@ export const NarrativesButtons = () => {
       <Paragraph>Read</Paragraph>
       <div className="m-btn-group">
         <Button
-          id="btn-add-narratives"
           label="Only complaints with narratives"
           className={selectedClass(true, isNarrativesButtonDisabled)}
           disabled={isNarrativesButtonDisabled}
@@ -29,7 +28,6 @@ export const NarrativesButtons = () => {
         />
 
         <Button
-          id="btn-remove-narratives"
           label="All complaints"
           className={selectedClass(false, !!isNarrativesButtonDisabled)}
           disabled={!isNarrativesButtonDisabled}

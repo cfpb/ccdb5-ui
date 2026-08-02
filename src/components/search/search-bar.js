@@ -100,7 +100,6 @@ export const SearchBar = () => {
             <div className="cf-select flex-fixed">
               <select
                 aria-label="Choose which field will be searched"
-                id="searchField"
                 onChange={onSelectSearchField}
                 value={searchField}
               >
@@ -117,7 +116,7 @@ export const SearchBar = () => {
               {searchField === 'company' ? (
                 <AsyncTypeahead
                   ariaLabel="Enter your search term(s)"
-                  htmlId="searchText"
+                  htmlId="search-text"
                   defaultValue={searchText}
                   handleChange={onSelection}
                   handleClear={onTypeaheadClear}
@@ -136,7 +135,7 @@ export const SearchBar = () => {
                   }}
                   handleClear={onClearInput}
                   handlePressEnter={onPressEnter}
-                  htmlId="searchText"
+                  htmlId="search-text"
                   value={displayedValue}
                   ariaLabel="Enter the term you want to search for"
                   placeholder="Enter your search term(s)"

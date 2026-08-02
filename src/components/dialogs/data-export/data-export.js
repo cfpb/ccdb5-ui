@@ -103,7 +103,7 @@ export const DataExport = () => {
               <input
                 checked={format === FORMAT_CSV}
                 className="a-radio"
-                id="format_csv"
+                id="format-csv"
                 onChange={() => {
                   setCopied(false);
                   setFormat(FORMAT_CSV);
@@ -111,7 +111,7 @@ export const DataExport = () => {
                 type="radio"
                 value="csv"
               />
-              <label className="a-label" htmlFor="format_csv">
+              <label className="a-label" htmlFor="format-csv">
                 CSV
               </label>
             </div>
@@ -119,7 +119,7 @@ export const DataExport = () => {
               <input
                 checked={format === FORMAT_JSON}
                 className="a-radio"
-                id="format_json"
+                id="format-json"
                 onChange={() => {
                   setCopied(false);
                   setFormat(FORMAT_JSON);
@@ -127,7 +127,7 @@ export const DataExport = () => {
                 type="radio"
                 value="json"
               />
-              <label className="a-label" htmlFor="format_json">
+              <label className="a-label" htmlFor="format-json">
                 JSON
               </label>
             </div>
@@ -144,7 +144,7 @@ export const DataExport = () => {
                   checked={dataset === DATASET_FILTERED}
                   disabled={someComplaintsCount > FILTER_MAX}
                   className="a-radio"
-                  id="dataset_filtered"
+                  id="dataset-filtered"
                   onChange={() => {
                     setCopied(false);
                     setDataset(DATASET_FILTERED);
@@ -152,7 +152,7 @@ export const DataExport = () => {
                   type="radio"
                   value="filtered"
                 />
-                <label className="a-label" htmlFor="dataset_filtered">
+                <label className="a-label" htmlFor="dataset-filtered">
                   {'Filtered dataset (' +
                     someComplaintsCount.toLocaleString() +
                     ' complaints)'}
@@ -166,7 +166,7 @@ export const DataExport = () => {
                 <input
                   checked={dataset === DATASET_FULL}
                   className="a-radio"
-                  id="dataset_full"
+                  id="dataset-full"
                   onChange={() => {
                     setCopied(false);
                     setDataset(DATASET_FULL);
@@ -174,7 +174,7 @@ export const DataExport = () => {
                   type="radio"
                   value="full"
                 />
-                <label className="a-label" htmlFor="dataset_full">
+                <label className="a-label" htmlFor="dataset-full">
                   {'Full dataset (' +
                     allComplaintsCount.toLocaleString() +
                     ' complaints)'}

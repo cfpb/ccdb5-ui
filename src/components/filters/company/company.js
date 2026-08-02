@@ -34,11 +34,9 @@ export const Company = () => {
     >
       <AsyncTypeahead
         fieldName={FIELD_NAME}
-        id="filter-company-typeahead"
-        label="Start typing to begin listing companies"
         placeholder="Enter company name"
         ariaLabel="Company Search"
-        htmlId={FIELD_NAME + '-typeahead'}
+        htmlId="company-typeahead"
       />
       <StickyOptions
         fieldName={FIELD_NAME}

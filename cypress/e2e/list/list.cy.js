@@ -117,9 +117,9 @@ describe('List View', () => {
     pagination().findByRole('button', { name: 'Next' }).click();
     pagination().findByText('Page 2').should('exist');
     // id is the label association target; two "From" fields exist on the page
-    cy.get('#date_received-from').clear();
-    cy.get('#date_received-from').type('2018-09-23');
-    cy.get('#date_received-from').blur();
+    cy.get('#date-received-from').clear();
+    cy.get('#date-received-from').type('2018-09-23');
+    cy.get('#date-received-from').blur();
     pagination().findByText('Page 1').should('exist');
 
     cy.log('resets after select fields');

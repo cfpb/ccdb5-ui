@@ -47,42 +47,42 @@ describe('Filter Panel', () => {
     cy.log('is expanded');
 
     // ids are the label association targets; two "From"/"Through" fields exist
-    cy.get('#date_received-from').should('be.visible');
+    cy.get('#date-received-from').should('be.visible');
 
     cy.log('collapse it');
     dateFilterButton('Collapse').click();
 
-    cy.get('#date_received-from').should('not.exist');
+    cy.get('#date-received-from').should('not.exist');
 
     cy.log('open it');
     dateFilterButton('Expand').click();
     cy.log('apply dates');
-    cy.get('#date_received-from').should('be.visible');
-    cy.get('#date_received-from').clear();
+    cy.get('#date-received-from').should('be.visible');
+    cy.get('#date-received-from').clear();
     waitForLoading();
 
     // electron / chrome headed version
-    cy.get('#date_received-from').type('2015-09-11');
-    cy.get('#date_received-from').focus();
-    cy.get('#date_received-from').blur();
+    cy.get('#date-received-from').type('2015-09-11');
+    cy.get('#date-received-from').focus();
+    cy.get('#date-received-from').blur();
     waitForLoading();
 
     cy.url().should('include', 'date_received_min=2015-09-11');
 
     cy.log('apply a through date');
 
-    cy.get('#date_received-through').clear();
+    cy.get('#date-received-through').clear();
     waitForLoading();
-    cy.get('#date_received-through').type('2020-10-31');
-    cy.get('#date_received-through').focus();
-    cy.get('#date_received-through').blur();
+    cy.get('#date-received-through').type('2020-10-31');
+    cy.get('#date-received-through').focus();
+    cy.get('#date-received-through').blur();
 
     cy.url().should('include', 'date_received_max=2020-10-31');
     waitForLoading();
     // check error handling and default values
-    cy.get('#date_received-from').type('2000-09-11');
-    cy.get('#date_received-from').focus();
-    cy.get('#date_received-from').blur();
+    cy.get('#date-received-from').type('2000-09-11');
+    cy.get('#date-received-from').focus();
+    cy.get('#date-received-from').blur();
 
     waitForLoading();
     cy.log('can trigger a pre-selected date range');

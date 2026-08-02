@@ -260,7 +260,7 @@ export const RowChart = ({
     <div className="row-chart-section" data-tour="row-chart-section">
       <Heading type="3">{title}</Heading>
       <Paragraph>{helperText}</Paragraph>
-      <div id={'row-chart-' + id} data-testid={'row-chart-' + id} />
+      <div id={'row-chart-' + id} />
     </div>
   ) : null;
 };
