@@ -45,7 +45,7 @@ describe('DownloadComplaintData', () => {
       store,
     });
 
-    return store;
+    return { store };
   };
 
   beforeEach(() => {
@@ -81,9 +81,18 @@ describe('DownloadComplaintData', () => {
     const filteredLink = screen.getByRole('link', {
       name: /Download filtered results/,
     });
-    expect(filteredLink.getAttribute('href')).toContain('format=csv');
-    expect(filteredLink.getAttribute('href')).not.toContain('frm=');
-    expect(filteredLink.getAttribute('href')).not.toContain('search_after');
+    expect(filteredLink).toHaveAttribute(
+      'href',
+      expect.stringContaining('format=csv'),
+    );
+    expect(filteredLink).toHaveAttribute(
+      'href',
+      expect.not.stringContaining('frm='),
+    );
+    expect(filteredLink).toHaveAttribute(
+      'href',
+      expect.not.stringContaining('search_after'),
+    );
 
     await user.click(allLink);
     expect(analyticsSpy).toHaveBeenCalledWith('Export All Data', 'List:csv');
@@ -98,7 +107,7 @@ describe('DownloadComplaintData', () => {
       .mockReturnValue({ data: { total: 200_000 } });
     const user = userEvent.setup({ delay: null });
 
-    const store = renderComponent({ has_narrative: true });
+    const { store } = renderComponent({ has_narrative: true });
 
     const filteredLink = await screen.findByRole('link', {
       name: /Download filtered results/,
@@ -109,9 +118,7 @@ describe('DownloadComplaintData', () => {
     ).not.toBeInTheDocument();
 
     await user.click(filteredLink);
-    expect(
-      screen.getByText(/exceed download limits/).parentElement,
-    ).toHaveClass('a-form-alert', 'a-form-alert--error');
+    expect(screen.getByText(/exceed download limits/)).toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: /Download all complaints/ }),
     ).toBeInTheDocument();
@@ -133,7 +140,7 @@ describe('DownloadComplaintData', () => {
     fetchMock.mockResponseOnce(JSON.stringify(withHitTotal(50_000)));
     const user = userEvent.setup({ delay: null });
 
-    const store = renderComponent();
+    const { store } = renderComponent();
 
     const filteredLink = await screen.findByRole('link', {
       name: /Download filtered results/,

@@ -21,7 +21,7 @@ export const ZipCode = () => {
         label={desc}
         placeholder=""
         ariaLabel={desc}
-        htmlId={FIELD_NAME + 'typeahead'}
+        htmlId="zip-code-typeahead"
         hasClearButton={true}
       />
       <StickyOptions

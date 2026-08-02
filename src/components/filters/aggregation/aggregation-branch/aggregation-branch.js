@@ -2,7 +2,7 @@ import './aggregation-branch.scss';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button } from '@cfpb/design-system-react';
+import { Button, Icon } from '@cfpb/design-system-react';
 import {
   coalesce,
   getAllFilters,
@@ -66,6 +66,10 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   const liStyle = 'parent m-form-field m-form-field--checkbox';
   const id = sanitizeHtmlId(`${fieldName} ${item.key}`);
 
+  const toggleOpen = () => {
+    setOpen(!isOpen);
+  };
+
   const toggleParent = () => {
     const subItemFilters = getAllFilters(item.key, subitems);
 
@@ -106,15 +110,22 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
           <span className="u-visually-hidden">{item.key}</span>
         </label>
         <Button
-          label={item.key}
-          iconRight={isOpen ? 'up' : 'down'}
           isLink
-          className="flex-all"
-          onClick={() => setOpen(!isOpen)}
-        />
-        <span className="flex-fixed parent-count">
-          {item.doc_count.toLocaleString()}
-        </span>
+          className="aggregation-branch__toggle"
+          aria-label={item.key}
+          aria-expanded={isOpen}
+          onClick={toggleOpen}
+        >
+          <span className="aggregation-branch__label">{item.key}</span>
+          <span className="aggregation-branch__count">
+            {item.doc_count.toLocaleString()}
+          </span>
+          <Icon
+            name={isOpen ? 'up' : 'down'}
+            isPresentational
+            className="aggregation-branch__caret"
+          />
+        </Button>
       </li>
       {isOpen ? (
         <ul className="children">

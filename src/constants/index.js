@@ -10,11 +10,6 @@ export const DATE_VALIDATION_FORMAT = 'M/D/YYYY';
 export const maxDate = formatDate(new Date());
 export const minDate = formatDate(DATE_RANGE_MIN);
 
-// Modal Dialogs
-export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT';
-export const MODAL_TYPE_EXPORT_CONFIRMATION = 'MODAL_TYPE_EXPORT_CONFIRMATION';
-export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT';
-
 // view modes
 export const MODE_MAP = 'Map';
 export const MODE_LIST = 'List';

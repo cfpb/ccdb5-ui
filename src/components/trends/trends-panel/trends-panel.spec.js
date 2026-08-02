@@ -259,7 +259,7 @@ describe('component::TrendsPanel', () => {
       isPrintMode: false,
       hasAdvancedSearchTips: false,
       hasFilters: true,
-      modalTypeShown: false,
+      isMoreAboutModalOpen: false,
       showTour: false,
       tab: MODE_TRENDS,
       width: 1508,

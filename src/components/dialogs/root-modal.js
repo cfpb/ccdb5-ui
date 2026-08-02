@@ -1,44 +1,36 @@
 import './root-modal.scss';
-import * as types from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { ExportConfirmation } from './data-export/export-confirmation';
 import { MoreAbout } from './more-about/more-about';
-import { useMemo } from 'react';
 import ReactModal from 'react-modal';
-import { selectViewModalTypeShown } from '../../reducers/view/selectors';
-import { modalHidden } from '../../reducers/view/view-slice';
+import { selectViewIsMoreAboutModalOpen } from '../../reducers/view/selectors';
+import { moreAboutModalHidden } from '../../reducers/view/view-slice';
 import { getAppElement, getModalPortalParent } from '../../utils/dom';
 
 export const RootModal = () => {
-  const modalType = useSelector(selectViewModalTypeShown);
+  const isOpen = useSelector(selectViewIsMoreAboutModalOpen);
   const dispatch = useDispatch();
+
+  if (!isOpen) {
+    return null;
+  }
+
   const appElement = getAppElement();
   const portalParent = getModalPortalParent();
-  const SpecificModal = useMemo(() => {
-    const modals = {
-      [types.MODAL_TYPE_EXPORT_CONFIRMATION]: ExportConfirmation,
-      [types.MODAL_TYPE_MORE_ABOUT]: MoreAbout,
-    };
-    return modals[modalType];
-  }, [modalType]);
+  const closeModal = () => {
+    dispatch(moreAboutModalHidden());
+  };
 
-  return SpecificModal ? (
+  return (
     <ReactModal
       {...(appElement ? { appElement } : {})}
-      isOpen={true}
+      isOpen
       contentLabel="CFPB Modal Dialog"
       className="modal-body"
       overlayClassName="modal-overlay"
       parentSelector={() => portalParent}
-      onRequestClose={() => {
-        dispatch(modalHidden());
-      }}
+      onRequestClose={closeModal}
     >
-      <SpecificModal
-        onClose={() => {
-          dispatch(modalHidden());
-        }}
-      />
+      <MoreAbout onClose={closeModal} />
     </ReactModal>
-  ) : null;
+  );
 };

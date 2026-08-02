@@ -104,9 +104,8 @@ describe('Search Bar', () => {
       waitForLoading();
 
       cy.url().should('include', 'searchText=mortgage');
-      cy.findByRole('heading', { name: /Showing .* complaints/ }).should(
-        'be.visible',
-      );
+      cy.get('#search-summary').should('contain.text', 'Showing');
+      cy.get('#search-summary').should('contain.text', 'complaints');
     });
   });
 });

@@ -9,7 +9,7 @@ const backToSearch = () =>
   cy.findByRole('link', { name: 'Back to search results' });
 
 const sortSelect = () =>
-  cy.findByLabelText('Choose the order in which the results are displayed');
+  cy.findByLabelText('Sort by');
 
 const hasNarrativeCheckbox = () =>
   cy

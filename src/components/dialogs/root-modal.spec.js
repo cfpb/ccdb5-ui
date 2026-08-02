@@ -1,4 +1,3 @@
-import * as types from '../../constants';
 import * as viewActions from '../../reducers/view/view-slice';
 import { RootModal } from './root-modal';
 import {
@@ -7,60 +6,25 @@ import {
   testRender as render,
 } from '../../test-utils/test-utils';
 import Modal from 'react-modal';
-import { waitFor } from '@testing-library/react';
 
 describe('RootModal', () => {
-  it('does not render modals initially', () => {
+  it('does not render when closed', () => {
     const { container } = render(<RootModal />);
     Modal.setAppElement(container);
 
     expect(
       screen.queryByText('Things you should know before you use this database'),
     ).not.toBeInTheDocument();
-    expect(screen.queryByText('Export complaints')).not.toBeInTheDocument();
-  });
-
-  it('does not render the removed export dialog', () => {
-    const { container } = render(<RootModal />, {
-      preloadedState: {
-        view: {
-          modalTypeShown: types.MODAL_TYPE_DATA_EXPORT,
-        },
-      },
-    });
-    Modal.setAppElement(container);
-    expect(screen.queryByText('Export complaints')).not.toBeInTheDocument();
-  });
-
-  it('renders Export Confirmation dialog', async () => {
-    const closeSpy = jest
-      .spyOn(viewActions, 'modalHidden')
-      .mockImplementation(() => jest.fn());
-    const { container } = render(<RootModal />, {
-      preloadedState: {
-        view: {
-          modalTypeShown: types.MODAL_TYPE_EXPORT_CONFIRMATION,
-        },
-      },
-    });
-
-    Modal.setAppElement(container);
-    expect(screen.getByText('Export complaints')).toBeInTheDocument();
-    // react-modal listens for Escape on the document; fireEvent matches that path
-    fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' });
-    await waitFor(() => {
-      expect(closeSpy).toHaveBeenCalled();
-    });
   });
 
   it('renders MoreAbout dialog', () => {
     const closeSpy = jest
-      .spyOn(viewActions, 'modalHidden')
+      .spyOn(viewActions, 'moreAboutModalHidden')
       .mockImplementation(() => jest.fn());
     const { container } = render(<RootModal />, {
       preloadedState: {
         view: {
-          modalTypeShown: types.MODAL_TYPE_MORE_ABOUT,
+          isMoreAboutModalOpen: true,
         },
       },
     });

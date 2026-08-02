@@ -39,7 +39,7 @@ export const Company = () => {
         label={desc}
         placeholder=""
         ariaLabel="Company Search"
-        htmlId={FIELD_NAME + '-typeahead'}
+        htmlId="company-typeahead"
       />
       <StickyOptions
         fieldName={FIELD_NAME}

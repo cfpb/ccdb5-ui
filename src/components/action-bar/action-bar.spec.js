@@ -31,13 +31,11 @@ describe('ActionBar', () => {
 
     renderComponent({ tab: 'Map' });
 
-    const summary = document.querySelector('#search-summary');
-    expect(summary).toBeInTheDocument();
-    expect(summary).not.toHaveClass('m-notification--success');
     expect(screen.getByText('Loading complaint counts…')).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getByLabelText('loading icon')).toBeInTheDocument();
     });
+    expect(screen.queryByLabelText('success icon')).not.toBeInTheDocument();
 
     resolve({
       body: JSON.stringify(aggResponse),
@@ -48,10 +46,7 @@ describe('ActionBar', () => {
       'Showing 4,303,365 matches out of 6,638,372 total complaints',
     );
     await waitFor(() => {
-      expect(document.querySelector('#search-summary')).toHaveClass(
-        'm-notification--success',
-      );
+      expect(screen.getByLabelText('success icon')).toBeInTheDocument();
     });
-    expect(screen.getByLabelText('success icon')).toBeInTheDocument();
   });
 });

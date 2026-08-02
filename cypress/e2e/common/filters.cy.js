@@ -4,12 +4,12 @@ import { waitForLoading } from '../utils';
 
 const dateFilterButton = (name) =>
   cy.findByRole('button', {
-    name: new RegExp(`${name} Date CFPB received the complaint filter`),
+    name: new RegExp(`${name} The date the CFPB received the complaint filter`),
   });
 
 const productFilterButton = (name) =>
   cy.findByRole('button', {
-    name: new RegExp(`${name} Product / sub-product filter`),
+    name: new RegExp(`${name} Product and sub-product filter`),
   });
 
 const timelyFilterButton = (name) =>
@@ -32,62 +32,62 @@ const stateTypeahead = () =>
   });
 
 const sizeSelect = () =>
-  cy.findByLabelText('Select the number of results to display at a time');
+  cy.findByLabelText('Show per page');
 
 const complaintLinks = () =>
   cy.findAllByRole('link', { name: /^Complaint / });
 
 const filterPills = () =>
-  cy.findByRole('heading', { name: 'Filters applied:' }).closest('section');
+  cy.findByText('Filters applied:').closest('section');
 
 describe('Filter Panel', () => {
   it('allows the app to filter complaints', () => {
     cy.visit('?tab=List');
     waitForLoading();
     cy.log('it has filter panel');
-    cy.findByRole('heading', { name: 'Filter results by...' }).should(
+    cy.findByRole('heading', { name: 'Filter results by' }).should(
       'be.visible',
     );
     waitForLoading();
     cy.log('is expanded');
 
     // ids are the label association targets; two "From"/"To" fields exist
-    cy.get('#date_received-from').should('be.visible');
+    cy.get('#date-received-from').should('be.visible');
 
     cy.log('collapse it');
     dateFilterButton('Collapse').click();
 
-    cy.get('#date_received-from').should('not.exist');
+    cy.get('#date-received-from').should('not.exist');
 
     cy.log('open it');
     dateFilterButton('Expand').click();
     cy.log('apply dates');
-    cy.get('#date_received-from').should('be.visible');
-    cy.get('#date_received-from').clear();
+    cy.get('#date-received-from').should('be.visible');
+    cy.get('#date-received-from').clear();
     waitForLoading();
 
     // electron / chrome headed version
-    cy.get('#date_received-from').type('2015-09-11');
-    cy.get('#date_received-from').focus();
-    cy.get('#date_received-from').blur();
+    cy.get('#date-received-from').type('2015-09-11');
+    cy.get('#date-received-from').focus();
+    cy.get('#date-received-from').blur();
     waitForLoading();
 
     cy.url().should('include', 'date_received_min=2015-09-11');
 
-    cy.log('apply a to date');
+    cy.log('apply a through date');
 
-    cy.get('#date_received-to').clear();
+    cy.get('#date-received-through').clear();
     waitForLoading();
-    cy.get('#date_received-to').type('2020-10-31');
-    cy.get('#date_received-to').focus();
-    cy.get('#date_received-to').blur();
+    cy.get('#date-received-through').type('2020-10-31');
+    cy.get('#date-received-through').focus();
+    cy.get('#date-received-through').blur();
 
     cy.url().should('include', 'date_received_max=2020-10-31');
     waitForLoading();
     // check error handling and default values
-    cy.get('#date_received-from').type('2000-09-11');
-    cy.get('#date_received-from').focus();
-    cy.get('#date_received-from').blur();
+    cy.get('#date-received-from').type('2000-09-11');
+    cy.get('#date-received-from').focus();
+    cy.get('#date-received-from').blur();
 
     waitForLoading();
     cy.log('can trigger a pre-selected date range');
@@ -100,7 +100,7 @@ describe('Filter Panel', () => {
     cy.url().should('include', `date_received_max=202`);
     cy.log('can expand/collapse/apply filter group');
     // default date Filter pills
-    cy.findAllByRole('button', { name: /Date Received:/ }).should(
+    cy.findAllByRole('button', { name: /Date received:/ }).should(
       'have.length',
       1,
     );
@@ -138,10 +138,10 @@ describe('Filter Panel', () => {
     });
 
     // Filter clear button
-    cy.findByRole('button', { name: 'Clear all filters' }).should('exist');
-    cy.findByRole('button', { name: 'Clear all filters' }).click();
+    cy.findByRole('button', { name: 'Clear filters' }).should('exist');
+    cy.findByRole('button', { name: 'Clear filters' }).click();
 
-    cy.findByRole('button', { name: /Date Received:/ }).should('not.exist');
+    cy.findByRole('button', { name: /Date received:/ }).should('not.exist');
     cy.findByRole('button', { name: 'Timely: Yes' }).should('not.exist');
 
     // Product/Sub-product
@@ -169,9 +169,9 @@ describe('Filter Panel', () => {
 
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
     // Open sub-filter
-    cy.findByRole('button', { name: 'Mortgage' }).click();
+    cy.findByRole('button', { name: /^Mortgage/ }).click();
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('exist');
-    cy.findByRole('button', { name: 'Mortgage' }).click();
+    cy.findByRole('button', { name: /^Mortgage/ }).click();
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
 
     cy.log('toggles a filter by clicking checkbox input');
@@ -192,7 +192,7 @@ describe('Filter Panel', () => {
     cy.log('applies sub-filter by clicking');
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
     // Open sub-filter
-    cy.findByRole('button', { name: 'Mortgage' }).click();
+    cy.findByRole('button', { name: /^Mortgage/ }).click();
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('exist');
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).click({
       force: true,

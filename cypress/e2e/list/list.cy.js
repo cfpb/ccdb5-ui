@@ -5,10 +5,10 @@ const complaintLinks = () => cy.findAllByRole('link', { name: /^Complaint / });
 const pagination = () => cy.findByRole('navigation', { name: 'Pagination' });
 
 const sizeSelect = () =>
-  cy.findByLabelText('Select the number of results to display at a time');
+  cy.findByLabelText('Show per page');
 
 const sortSelect = () =>
-  cy.findByLabelText('Choose the order in which the results are displayed');
+  cy.findByLabelText('Sort by');
 
 const searchField = () =>
   cy.findByLabelText('Choose which field will be searched');
@@ -105,7 +105,7 @@ describe('List View', () => {
     cy.log('resets after applying filter');
     waitForLoading();
     cy.findByRole('button', {
-      name: 'Collapse Product / sub-product filter',
+      name: 'Collapse Product and sub-product filter',
     })
       .closest('section')
       .within(() => {
@@ -117,9 +117,9 @@ describe('List View', () => {
     pagination().findByRole('button', { name: 'Next' }).click();
     pagination().findByText('Page 2').should('exist');
     // id is the label association target; two "From" fields exist on the page
-    cy.get('#date_received-from').clear();
-    cy.get('#date_received-from').type('2018-09-23');
-    cy.get('#date_received-from').blur();
+    cy.get('#date-received-from').clear();
+    cy.get('#date-received-from').type('2018-09-23');
+    cy.get('#date-received-from').blur();
     pagination().findByText('Page 1').should('exist');
 
     cy.log('resets after select fields');
