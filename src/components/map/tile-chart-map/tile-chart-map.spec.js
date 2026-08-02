@@ -55,15 +55,15 @@ describe('TileChartMap', () => {
   it('renders empty set without crashing', () => {
     fetchMock.mockResponse(JSON.stringify(mapResults));
     renderComponent({}, {});
-    expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
-    expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
+    expect(document.getElementById('tile-chart-map')).toBeInTheDocument();
+    expect(document.getElementById('tile-chart-map')).not.toHaveClass('print');
   });
 
   it('renders print mode', () => {
     fetchMock.mockResponse(JSON.stringify(mapResults));
     renderComponent({}, { isPrintMode: true });
-    expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
-    expect(screen.getByTestId('tile-chart-map')).toHaveClass('print');
+    expect(document.getElementById('tile-chart-map')).toBeInTheDocument();
+    expect(document.getElementById('tile-chart-map')).toHaveClass('print');
   });
 
   it('renders map with complaint counts', async () => {
@@ -83,8 +83,8 @@ describe('TileChartMap', () => {
 
     renderComponent({}, newView);
     await screen.findByText('FL');
-    expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
-    expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
+    expect(document.getElementById('tile-chart-map')).toBeInTheDocument();
+    expect(document.getElementById('tile-chart-map')).not.toHaveClass('print');
     expect(screen.getByText('FL')).toBeInTheDocument();
     expect(screen.getByText('580K')).toBeInTheDocument();
     expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
@@ -120,8 +120,8 @@ describe('TileChartMap', () => {
     };
 
     renderComponent(newFilters, newView);
-    expect(screen.getByTestId('tile-chart-map')).toBeInTheDocument();
-    expect(screen.getByTestId('tile-chart-map')).not.toHaveClass('print');
+    expect(document.getElementById('tile-chart-map')).toBeInTheDocument();
+    expect(document.getElementById('tile-chart-map')).not.toHaveClass('print');
     await screen.findByLabelText('FL, value: 580,351.');
     expect(screen.getByLabelText('FL, value: 580,351.')).toBeInTheDocument();
     const { point } = getTileMapPoint('FL');

@@ -33,7 +33,7 @@ describe('AsyncTypeahead', () => {
     render(
       <AsyncTypeahead
         ariaLabel="Enter the term you want to search for"
-        htmlId="searchText"
+        htmlId="search-text"
         defaultValue={defaultValue}
         handleChange={handleChangeMock}
         handleClear={handleClear}

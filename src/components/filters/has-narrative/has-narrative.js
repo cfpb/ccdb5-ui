@@ -33,14 +33,14 @@ export const HasNarrative = () => {
           className="a-checkbox"
           checked={phase !== NOTHING}
           disabled={phase === SEARCHING}
-          id="filterHasNarrative"
+          id="filter-has-narrative"
           onChange={() => {
             dispatch(toggleFlagFilter(FIELD_NAME));
           }}
           type="checkbox"
           value={FIELD_NAME}
         />
-        <label className="a-label" htmlFor="filterHasNarrative">
+        <label className="a-label" htmlFor="filter-has-narrative">
           Yes
         </label>
       </div>

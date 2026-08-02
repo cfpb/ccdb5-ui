@@ -108,7 +108,6 @@ export const TileChartMap = () => {
       id="tile-chart-map"
       className={`cfpb-chart ${isPrintMode ? 'print' : ''}`}
       data-chart-type="tile_map"
-      data-testid="tile-chart-map"
     />
   );
 };

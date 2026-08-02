@@ -1,10 +1,12 @@
 // Run `npx @eslint/config-inspector` to inspect the config.
 // Aligned with DSR: ESLint 10 + typescript-eslint + unicorn recommended.
+// JS-only app: use non-type-checked TS presets until files migrate to TypeScript.
 
 import globals from 'globals';
 import js from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
 import jestPlugin from 'eslint-plugin-jest';
+import jestDomPlugin from 'eslint-plugin-jest-dom';
 import jsdoc from 'eslint-plugin-jsdoc';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
@@ -28,14 +30,13 @@ export default tseslint.config(
   },
 
   js.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
+  ...tseslint.configs.recommended,
+  ...tseslint.configs.stylistic,
   importPlugin.flatConfigs.recommended,
   jsdoc.configs['flat/recommended'],
   jsxA11y.flatConfigs.recommended,
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat['jsx-runtime'],
-  pluginCypress.configs.recommended,
   // Match DSR: unicorn recommended (includes unicorn/filename-case → kebabCase)
   unicorn.configs.recommended,
   // Prettier always last (same as DSR)
@@ -45,7 +46,6 @@ export default tseslint.config(
     languageOptions: {
       ecmaVersion: 2023,
       parserOptions: {
-        projectService: true,
         tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true,
@@ -60,7 +60,6 @@ export default tseslint.config(
     },
     plugins: {
       jest: jestPlugin,
-      'testing-library': testingLibraryPlugin,
       'react-hooks': reactHooksPlugin,
     },
     settings: {
@@ -137,6 +136,8 @@ export default tseslint.config(
           ignoreRestSiblings: false,
         },
       ],
+      // Allow empty stubs / no-op handlers common in React event wiring
+      '@typescript-eslint/no-empty-function': 'off',
       'no-var': ['error'],
       'prefer-const': ['error'],
       radix: ['error'],
@@ -148,42 +149,51 @@ export default tseslint.config(
       'react/no-unstable-nested-components': ['error'],
       'react/self-closing-comp': ['error'],
       'react/boolean-prop-naming': ['error', { validateNested: true }],
-      'react/default-props-match-prop-types': [
-        'error',
-        { allowRequiredDefaults: true },
-      ],
       'react/jsx-curly-brace-presence': ['error'],
-      'react/jsx-uses-react': 'off',
-      'react/react-in-jsx-scope': 'off',
       ...reactHooksPlugin.configs.recommended.rules,
     },
   },
 
-  // Untyped JS/JSX: keep type-checked pipeline, silence unsafe-* until files migrate to TS
+  // Unit tests: Testing Library + jest-dom
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{spec,test}.{js,jsx,ts,tsx}'],
+    plugins: {
+      'testing-library': testingLibraryPlugin,
+      'jest-dom': jestDomPlugin,
+    },
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/no-unsafe-return': 'off',
-      '@typescript-eslint/no-unsafe-argument': 'off',
-      '@typescript-eslint/no-unsafe-enum-comparison': 'off',
-      '@typescript-eslint/restrict-template-expressions': 'off',
-      '@typescript-eslint/restrict-plus-operands': 'off',
-      '@typescript-eslint/no-floating-promises': 'off',
-      '@typescript-eslint/no-misused-promises': 'off',
-      '@typescript-eslint/require-await': 'off',
-      '@typescript-eslint/await-thenable': 'off',
-      '@typescript-eslint/unbound-method': 'off',
-      '@typescript-eslint/prefer-nullish-coalescing': 'off',
-      '@typescript-eslint/prefer-optional-chain': 'off',
-      '@typescript-eslint/consistent-type-definitions': 'off',
-      '@typescript-eslint/prefer-regexp-exec': 'off',
-      '@typescript-eslint/no-require-imports': 'off',
-      '@typescript-eslint/no-var-requires': 'off',
-      '@typescript-eslint/no-empty-function': 'off',
+      ...testingLibraryPlugin.configs['flat/react'].rules,
+      ...jestDomPlugin.configs['flat/recommended'].rules,
+      // jsdom does not implement Element#getHTML(); keep innerHTML in unit tests.
+      'unicorn/prefer-dom-node-html-methods': 'off',
+      // Specs routinely assign mocks onto globals / prototypes
+      'unicorn/no-global-object-property-assignment': 'off',
+      // Nested helpers inside describe/it are normal Jest style
+      'unicorn/consistent-function-scoping': 'off',
+      'unicorn/no-top-level-assignment-in-function': 'off',
+      // getElementById is fine when asserting the production mount id
+      'unicorn/prefer-query-selector': 'off',
+    },
+  },
+
+  // Tour specs intentionally assert document/shadow DOM query patching
+  {
+    files: ['**/tour/**/*.{spec,test}.{js,jsx,ts,tsx}'],
+    rules: {
+      'testing-library/no-node-access': 'off',
+    },
+  },
+
+  // Cypress e2e only (not applied to src)
+  {
+    ...pluginCypress.configs.recommended,
+    files: ['cypress/**/*.{js,ts}'],
+  },
+  {
+    files: ['cypress/**/*.{js,ts}'],
+    rules: {
+      'jest/expect-expect': 'off',
+      'jest/valid-expect': 'off',
     },
   },
 
@@ -198,19 +208,6 @@ export default tseslint.config(
     rules: {
       'unicorn/numeric-separators-style': 'off',
       'unicorn/no-zero-fractions': 'off',
-    },
-  },
-
-  // jsdom does not implement Element#getHTML(); keep innerHTML in unit tests.
-  {
-    files: ['**/*.{spec,test}.{js,jsx,ts,tsx}'],
-    rules: {
-      'unicorn/prefer-dom-node-html-methods': 'off',
-      // Specs routinely assign mocks onto globals / prototypes
-      'unicorn/no-global-object-property-assignment': 'off',
-      // Nested helpers inside describe/it are normal Jest style
-      'unicorn/consistent-function-scoping': 'off',
-      'unicorn/no-top-level-assignment-in-function': 'off',
     },
   },
 
@@ -232,20 +229,5 @@ export default tseslint.config(
     rules: {
       'unicorn/no-this-outside-of-class': 'off',
     },
-  },
-
-  // Overrides for Cypress files
-  {
-    files: ['cypress/**/*.{js,ts}'],
-    rules: {
-      'jest/expect-expect': 'off',
-      'jest/valid-expect': 'off',
-    },
-  },
-
-  // Config files: no type-aware project needed
-  {
-    files: ['**/*.{mjs,cjs}', 'jest.config.js', 'jest.setup.js'],
-    extends: [tseslint.configs.disableTypeChecked],
   },
 );

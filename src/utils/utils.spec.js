@@ -8,6 +8,7 @@ import {
   getFullUrl,
   hashCode,
   processErrorMessage,
+  sanitizeHtmlId,
   sendAnalyticsEvent,
   shortIsoFormat,
   sortSelThenCount,
@@ -45,6 +46,19 @@ describe('module::utils', () => {
     it('handles undefined', () => {
       const actual = ariaReadoutNumbers();
       expect(actual).toBe('');
+    });
+  });
+
+  describe('sanitizeHtmlId', () => {
+    it('converts to kebab-case', () => {
+      expect(sanitizeHtmlId("Eat at Joe's")).toBe('eat-at-joe-s');
+      expect(sanitizeHtmlId('date_received-from')).toBe('date-received-from');
+      expect(sanitizeHtmlId('filter-searchproduct')).toBe(
+        'filter-searchproduct',
+      );
+      expect(sanitizeHtmlId('filter-search-zip_code')).toBe(
+        'filter-search-zip-code',
+      );
     });
   });
 

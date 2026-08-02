@@ -37,11 +37,11 @@ describe('SearchBar', () => {
     const newViewState = { hasAdvancedSearchTips: false };
 
     renderComponent(newQueryState, newViewState);
-    user.click(screen.getByRole('button', { name: /Show search tips/ }));
+    await user.click(screen.getByRole('button', { name: /Show search tips/ }));
     expect(
       await screen.findByRole('button', { name: /Hide search tips/ }),
     ).toBeInTheDocument();
-    user.click(screen.getByRole('button', { name: /Hide search tips/ }));
+    await user.click(screen.getByRole('button', { name: /Hide search tips/ }));
     expect(
       await screen.findByRole('button', { name: /Show search tips/ }),
     ).toBeInTheDocument();

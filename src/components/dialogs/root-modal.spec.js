@@ -6,7 +6,6 @@ import {
   screen,
   testRender as render,
 } from '../../test-utils/test-utils';
-import userEvent from '@testing-library/user-event';
 import Modal from 'react-modal';
 import { waitFor } from '@testing-library/react';
 
@@ -47,7 +46,8 @@ describe('RootModal', () => {
 
     Modal.setAppElement(container);
     expect(screen.getByText('Export complaints')).toBeInTheDocument();
-    userEvent.keyboard('{Escape}');
+    // react-modal listens for Escape on the document; fireEvent matches that path
+    fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' });
     await waitFor(() => {
       expect(closeSpy).toHaveBeenCalled();
     });

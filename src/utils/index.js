@@ -172,7 +172,10 @@ export const isTrue = (argArray) => argArray.some((element) => !!element);
  * @returns {string} sanitized string eat-at-joe-s
  */
 export const sanitizeHtmlId = (str) =>
-  str.replaceAll(/\s+|\W/g, '-').toLowerCase();
+  str
+    .toLowerCase()
+    .replaceAll(/[^a-z0-9]+/g, '-')
+    .replaceAll(/^-+|-+$/g, '');
 
 export const slugify = (first, second) => first + SLUG_SEPARATOR + second;
 

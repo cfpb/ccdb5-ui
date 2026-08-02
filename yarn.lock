@@ -1437,7 +1437,7 @@ __metadata:
     "@babel/preset-react": "npm:^7.29.7"
     "@cfpb/browserslist-config": "npm:^0.0.7"
     "@cfpb/cfpb-design-system": "npm:^5.8.1"
-    "@cfpb/design-system-react": "git+https://github.com/cfpb/design-system-react.git#889b479ec4ea74023d2c9b7f5e46ebcff92a1ba7"
+    "@cfpb/design-system-react": "git+https://github.com/cfpb/design-system-react.git#5f6adf4b397f9901ea0209b33d034d9a7d7bdc76"
     "@eslint/js": "npm:^10.0.1"
     "@fontsource-variable/source-sans-3": "npm:5.3.0"
     "@reduxjs/toolkit": "npm:^2.12.0"
@@ -1449,7 +1449,6 @@ __metadata:
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:^6.9.1"
     "@testing-library/react": "npm:^16.3.2"
-    "@testing-library/react-hooks": "npm:^8.0.1"
     "@testing-library/user-event": "npm:^14.6.1"
     "@types/jest": "npm:^30.0.0"
     "@types/node": "npm:^26.1.1"
@@ -1524,9 +1523,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cfpb/design-system-react@git+https://github.com/cfpb/design-system-react.git#889b479ec4ea74023d2c9b7f5e46ebcff92a1ba7":
+"@cfpb/design-system-react@git+https://github.com/cfpb/design-system-react.git#5f6adf4b397f9901ea0209b33d034d9a7d7bdc76":
   version: 2.0.1
-  resolution: "@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#commit=889b479ec4ea74023d2c9b7f5e46ebcff92a1ba7"
+  resolution: "@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#commit=5f6adf4b397f9901ea0209b33d034d9a7d7bdc76"
   dependencies:
     react-select: "npm:^5.10.2"
   peerDependencies:
@@ -1534,7 +1533,7 @@ __metadata:
     lit: ^3.3.3
     react: ^19.2.8
     react-dom: ^19.2.8
-  checksum: 10c0/be68d4ff3697ca726680c2773050e8588a5f547bb302a409d14663e6df5723dd719198d25e6afbb3140c3c4c33f8dc5a512ac1b349b13ce949de3b98efcce2d2
+  checksum: 10c0/effc86a930436e664a9f1e8fcdb6c4573dd6d04395a80ab49de2e02c99166a61831b54a1539a32391b2495881e16adbaf5562f3f946322a099a1021c5c1dcba3
   languageName: node
   linkType: hard
 
@@ -3647,28 +3646,6 @@ __metadata:
     picocolors: "npm:^1.1.1"
     redent: "npm:^3.0.0"
   checksum: 10c0/4291ebd2f0f38d14cefac142c56c337941775a5807e2a3d6f1a14c2fbd6be76a18e498ed189e95bedc97d9e8cf1738049bc76c85b5bc5e23fae7c9e10f7b3a12
-  languageName: node
-  linkType: hard
-
-"@testing-library/react-hooks@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "@testing-library/react-hooks@npm:8.0.1"
-  dependencies:
-    "@babel/runtime": "npm:^7.12.5"
-    react-error-boundary: "npm:^3.1.0"
-  peerDependencies:
-    "@types/react": ^16.9.0 || ^17.0.0
-    react: ^16.9.0 || ^17.0.0
-    react-dom: ^16.9.0 || ^17.0.0
-    react-test-renderer: ^16.9.0 || ^17.0.0
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-    react-dom:
-      optional: true
-    react-test-renderer:
-      optional: true
-  checksum: 10c0/83bef2d4c437b84143213b5275ef00ef14e5bcd344f9ded12b162d253dc3c799138ead4428026b9c725e5a38dbebf611f2898aa43f3e43432bcaccbd7bf413e5
   languageName: node
   linkType: hard
 
@@ -11466,17 +11443,6 @@ __metadata:
   peerDependencies:
     react: ^19.2.8
   checksum: 10c0/41ba2247b76f687fcfe5bbc99f514d6b851d8c8041c2f5ded36ed05bd7fdc5208cacbac9de51e3e6633e77f96f44cec9f0d4a5a55184dba4e00738f224439134
-  languageName: node
-  linkType: hard
-
-"react-error-boundary@npm:^3.1.0":
-  version: 3.1.4
-  resolution: "react-error-boundary@npm:3.1.4"
-  dependencies:
-    "@babel/runtime": "npm:^7.12.5"
-  peerDependencies:
-    react: ">=16.13.1"
-  checksum: 10c0/f977ca61823e43de2381d53dd7aa8b4d79ff6a984c9afdc88dc44f9973b99de7fd382d2f0f91f2688e24bb987c0185bf45d0b004f22afaaab0f990a830253bfb
   languageName: node
   linkType: hard
 
