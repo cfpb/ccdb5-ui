@@ -89,7 +89,6 @@ export const TrendDepthToggle = () => {
             label="Show more"
             iconLeft="plus"
             isLink
-            id="trend-depth-button"
             onClick={() => {
               dispatch(depthChanged(diff + 5));
             }}
@@ -103,7 +102,6 @@ export const TrendDepthToggle = () => {
           label="Show less"
           iconLeft="minus"
           isLink
-          id="trend-depth-button"
           onClick={() => {
             dispatch(depthReset());
           }}

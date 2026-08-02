@@ -16,7 +16,7 @@ import dayjsIsBetween from 'dayjs/plugin/isBetween';
 import dayjsUtc from 'dayjs/plugin/utc';
 import { formatDateModel, formatDisplayDate } from '../../../utils/format-date';
 import { Icon } from '@cfpb/design-system-react';
-import { isTrue } from '../../../utils';
+import { isTrue, sanitizeHtmlId } from '../../../utils';
 
 dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
@@ -177,14 +177,14 @@ export const DateFilter = () => {
           <li>
             <label
               className="a-label a-label__heading"
-              htmlFor={`${fieldName}-from`}
+              htmlFor={sanitizeHtmlId(`${fieldName}-from`)}
             >
               From
             </label>
             <div className="o-search-input">
               <div className="o-search-input__input">
                 <input
-                  id={`${fieldName}-from`}
+                  id={sanitizeHtmlId(`${fieldName}-from`)}
                   className={inputFromClassName}
                   onBlur={handleDateChange}
                   onChange={(evt) => {
@@ -204,14 +204,14 @@ export const DateFilter = () => {
           <li>
             <label
               className="a-label a-label__heading"
-              htmlFor={`${fieldName}-through`}
+              htmlFor={sanitizeHtmlId(`${fieldName}-through`)}
             >
               Through
             </label>
             <div className="o-search-input">
               <div className="o-search-input__input">
                 <input
-                  id={`${fieldName}-through`}
+                  id={sanitizeHtmlId(`${fieldName}-through`)}
                   className={inputThroughClassName}
                   onBlur={handleDateChange}
                   onChange={(evt) => {

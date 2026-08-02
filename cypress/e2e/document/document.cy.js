@@ -2,6 +2,23 @@
 
 import { waitForLoading } from '../utils';
 
+const firstComplaintLink = () =>
+  cy.findAllByRole('link', { name: /^Complaint / }).first();
+
+const backToSearch = () =>
+  cy.findByRole('link', { name: 'Back to search results' });
+
+const sortSelect = () =>
+  cy.findByLabelText('Choose the order in which the results are displayed');
+
+const hasNarrativeCheckbox = () =>
+  cy
+    .findByRole('heading', {
+      name: 'Only show complaints with narratives?',
+    })
+    .closest('section')
+    .findByRole('checkbox', { name: 'Yes' });
+
 describe('Document View', () => {
   describe('error handling', () => {
     it('handles bogus id', () => {
@@ -18,12 +35,12 @@ describe('Document View', () => {
       waitForLoading();
     });
     it('navigates to document detail', () => {
-      cy.get('.cards-panel .card-container a').first().click();
+      firstComplaintLink().click();
 
       cy.url().should('contain', '/detail');
 
       cy.log('go back to search');
-      cy.get('.back-to-search a').contains('Back to search results').click();
+      backToSearch().click();
 
       cy.url().should('not.contain', '/detail');
     });
@@ -35,32 +52,26 @@ describe('Document View', () => {
         '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List',
       );
 
-      cy.get('select#select-sort option:selected').should(
-        'have.text',
-        'Relevance',
-      );
+      sortSelect().find('option:selected').should('have.text', 'Relevance');
 
-      cy.contains('.a-tag-filter', 'Has narrative').should('be.visible');
+      cy.findByRole('button', { name: /Has narrative/ }).should('be.visible');
 
-      cy.get('#filterHasNarrative').should('be.checked');
-      cy.get('.cards-panel .card-container a').first().click();
+      hasNarrativeCheckbox().should('be.checked');
+      firstComplaintLink().click();
 
       waitForLoading();
 
       cy.url().should('contain', '/detail');
 
-      cy.get('.back-to-search a').contains('Back to search results').click();
+      backToSearch().click();
 
       waitForLoading();
 
-      cy.get('select#select-sort option:selected').should(
-        'have.text',
-        'Relevance',
-      );
+      sortSelect().find('option:selected').should('have.text', 'Relevance');
 
-      cy.contains('.a-tag-filter', 'Has narrative').should('be.visible');
+      cy.findByRole('button', { name: /Has narrative/ }).should('be.visible');
 
-      cy.get('#filterHasNarrative').should('be.checked');
+      hasNarrativeCheckbox().should('be.checked');
     });
   });
 });

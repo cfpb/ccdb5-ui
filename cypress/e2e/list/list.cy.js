@@ -1,112 +1,138 @@
 import { waitForLoading } from '../utils';
 
-describe('List View', () => {
-  const cardContainers = '.cards-panel .card-container';
-  const currentPage = '.m-pagination__label';
-  const nextButton = '.m-pagination .m-pagination__btn-next';
-  const prevButton = '.m-pagination .m-pagination__btn-prev';
-  const addNarrativesButton = '#btn-add-narratives';
-  const removeNarrativesButton = '#btn-remove-narratives';
-  const filterHasNarrative = '#filterHasNarrative';
+const complaintLinks = () => cy.findAllByRole('link', { name: /^Complaint / });
 
+const pagination = () => cy.findByRole('navigation', { name: 'Pagination' });
+
+const sizeSelect = () =>
+  cy.findByLabelText('Select the number of results to display at a time');
+
+const sortSelect = () =>
+  cy.findByLabelText('Choose the order in which the results are displayed');
+
+const searchField = () =>
+  cy.findByLabelText('Choose which field will be searched');
+
+const narrativesOnlyButton = () =>
+  cy.findByRole('button', { name: 'Only complaints with narratives' });
+
+const allComplaintsButton = () =>
+  cy.findByRole('button', { name: 'All complaints' });
+
+const hasNarrativeCheckbox = () =>
+  cy
+    .findByRole('heading', {
+      name: 'Only show complaints with narratives?',
+    })
+    .closest('section')
+    .findByRole('checkbox', { name: 'Yes' });
+
+describe('List View', () => {
   it('shows complaints, pagination, sorts and filters', () => {
     cy.visit('?size=10&searchText=debt%20recovery&tab=List');
     waitForLoading();
-    cy.get('.cards-panel').should('be.visible');
-    cy.get(cardContainers).should('have.length', 10);
+    complaintLinks().should('have.length', 10);
     cy.url().should('contain', 'size=10');
-    cy.get(nextButton).click();
+    pagination().findByRole('button', { name: 'Next' }).click();
 
     waitForLoading();
     cy.url().should('contain', 'page=2');
 
     cy.log('reset the pager after sort');
-    cy.get('#select-size').select('25 results');
-    cy.get('#select-size').select('10 results');
+    sizeSelect().select('25 results');
+    sizeSelect().select('10 results');
 
     waitForLoading();
 
-    cy.get(cardContainers).should('have.length', 10);
+    complaintLinks().should('have.length', 10);
     cy.url().should('contain', 'size=10');
     cy.url().should('contain', 'page=1');
     cy.log('changes the sort order');
     cy.url().should('contain', 'sort=created_date_desc');
-    cy.get(nextButton).click();
+    pagination().findByRole('button', { name: 'Next' }).click();
     waitForLoading();
 
     cy.url().should('contain', 'page=2');
 
-    cy.get('#select-sort').select('relevance_desc');
+    sortSelect().select('relevance_desc');
     waitForLoading();
     cy.url().should('contain', 'sort=relevance_desc');
     cy.url().should('contain', 'page=1');
 
     cy.log('should filter the results to narrative-only results and back');
     // Initially all is checked.
-    cy.get(removeNarrativesButton).should('have.class', 'selected');
-    cy.get(filterHasNarrative).should('not.be.checked');
+    allComplaintsButton().should('have.class', 'selected');
+    hasNarrativeCheckbox().should('not.be.checked');
 
     // Click the narrative-only button.
-    cy.get(addNarrativesButton).click();
-    cy.get(addNarrativesButton).should('have.class', 'selected');
+    narrativesOnlyButton().click();
+    narrativesOnlyButton().should('have.class', 'selected');
 
-    cy.get(filterHasNarrative).should('be.checked');
+    hasNarrativeCheckbox().should('be.checked');
 
     // Click the narrative-only button again. There should be no change.
-    cy.get(addNarrativesButton).click({ force: true });
-    cy.get(addNarrativesButton).should('have.class', 'selected');
+    narrativesOnlyButton().click({ force: true });
+    narrativesOnlyButton().should('have.class', 'selected');
 
-    cy.get(filterHasNarrative).should('be.checked');
+    hasNarrativeCheckbox().should('be.checked');
 
     // Click the all results button. The narratives should be removed.
-    cy.get(removeNarrativesButton).click();
-    cy.get(removeNarrativesButton).should('have.class', 'selected');
+    allComplaintsButton().click();
+    allComplaintsButton().should('have.class', 'selected');
 
-    cy.get(filterHasNarrative).should('not.be.checked');
+    hasNarrativeCheckbox().should('not.be.checked');
 
     cy.log('tests pagination');
     cy.log('it exists');
-    cy.get('.m-pagination').should('be.visible');
+    pagination().should('be.visible');
 
     cy.log('has a disabled prev button');
-    cy.get(prevButton).should('be.disabled');
-    cy.get(nextButton).should('not.be.disabled');
+    pagination().findByRole('button', { name: 'Previous' }).should('be.disabled');
+    pagination()
+      .findByRole('button', { name: 'Next' })
+      .should('not.be.disabled');
 
     cy.log('goes to the next page');
-    cy.get(nextButton).click();
+    pagination().findByRole('button', { name: 'Next' }).click();
     cy.url().should('include', 'page=2');
-    cy.get(cardContainers).should('have.length', 10);
-    cy.get(prevButton)
+    complaintLinks().should('have.length', 10);
+    pagination()
+      .findByRole('button', { name: 'Previous' })
       .should('be.visible')
-      .should('not.have.class', 'a-btn__disabled');
-    cy.get(currentPage).should('have.text', 'Page 2');
+      .should('not.be.disabled');
+    pagination().findByText('Page 2').should('exist');
 
     cy.log('resets after applying filter');
     waitForLoading();
-    cy.get('.aggregation-branch label.a-label:first').click();
-    cy.get(currentPage).should('have.text', 'Page 1');
+    cy.findByRole('button', {
+      name: 'Collapse Product / sub-product filter',
+    })
+      .closest('section')
+      .within(() => {
+        cy.findAllByRole('checkbox').first().click({ force: true });
+      });
+    pagination().findByText('Page 1').should('exist');
 
     cy.log('pagination resets after applying date filter');
-    cy.get(nextButton).click();
-    cy.get(currentPage).should('have.text', 'Page 2');
-    cy.get('#date_received-from').clear();
-    cy.get('#date_received-from').type('2018-09-23');
-    cy.get('#date_received-from').blur();
-    cy.get(currentPage).should('have.text', 'Page 1');
+    pagination().findByRole('button', { name: 'Next' }).click();
+    pagination().findByText('Page 2').should('exist');
+    // id is the label association target; two "From" fields exist on the page
+    cy.get('#date-received-from').clear();
+    cy.get('#date-received-from').type('2018-09-23');
+    cy.get('#date-received-from').blur();
+    pagination().findByText('Page 1').should('exist');
 
     cy.log('resets after select fields');
     const fields = ['Company name', 'Narratives', 'All data'];
     cy.log('it exists');
-    cy.get('.m-pagination').should('be.visible');
-    cy.get(nextButton).click();
-    cy.get(currentPage).should('have.text', 'Page 2');
+    pagination().should('be.visible');
+    pagination().findByRole('button', { name: 'Next' }).click();
+    pagination().findByText('Page 2').should('exist');
 
     for (const field of fields) {
       cy.log(`reset paging when search field changes to ${field}`);
-      cy.get('#searchField')
-        .should('be.visible')
-        .select(field, { force: true });
-      cy.get(currentPage).should('have.text', 'Page 1');
+      searchField().should('be.visible').select(field, { force: true });
+      pagination().findByText('Page 1').should('exist');
     }
   });
 });

@@ -2,202 +2,247 @@
 
 import { waitForLoading } from '../utils';
 
+const dateFilterButton = (name) =>
+  cy.findByRole('button', {
+    name: new RegExp(`${name} Date CFPB received the complaint filter`),
+  });
+
+const productFilterButton = (name) =>
+  cy.findByRole('button', {
+    name: new RegExp(`${name} Product / sub-product filter`),
+  });
+
+const timelyFilterButton = (name) =>
+  cy.findByRole('button', {
+    name: new RegExp(
+      String.raw`${name} Did company provide a timely response\? filter`,
+    ),
+  });
+
+const timelySection = () => timelyFilterButton('Collapse').closest('section');
+
+const stateFilterButton = (name) =>
+  cy.findByRole('button', {
+    name: new RegExp(`${name} State filter`),
+  });
+
+const sizeSelect = () =>
+  cy.findByLabelText('Select the number of results to display at a time');
+
+const complaintLinks = () =>
+  cy.findAllByRole('link', { name: /^Complaint / });
+
+const filterPills = () =>
+  cy.findByRole('heading', { name: 'Filters applied:' }).closest('section');
+
 describe('Filter Panel', () => {
   it('allows the app to filter complaints', () => {
     cy.visit('?tab=List');
     waitForLoading();
     cy.log('it has filter panel');
-    cy.get('.filter-panel').should('be.visible');
+    cy.findByRole('heading', { name: 'Filter results by...' }).should(
+      'be.visible',
+    );
     waitForLoading();
     cy.log('is expanded');
 
-    cy.get('#date_received-from').should('be.visible');
+    // ids are the label association targets; two "From"/"Through" fields exist
+    cy.get('#date-received-from').should('be.visible');
 
     cy.log('collapse it');
-    cy.get('.date-filter > button.o-expandable__header:first').click();
+    dateFilterButton('Collapse').click();
 
-    cy.get('#date-received-agg #start_date').should('not.exist');
+    cy.get('#date-received-from').should('not.exist');
 
     cy.log('open it');
-    cy.get('.date-filter > button.o-expandable__header:first').click();
+    dateFilterButton('Expand').click();
     cy.log('apply dates');
-    cy.get('#date_received-from').should('be.visible');
-    cy.get('#date_received-from').clear();
+    cy.get('#date-received-from').should('be.visible');
+    cy.get('#date-received-from').clear();
     waitForLoading();
 
     // electron / chrome headed version
-    cy.get('#date_received-from').type('2015-09-11');
-    cy.get('#date_received-from').focus();
-    cy.get('#date_received-from').blur();
+    cy.get('#date-received-from').type('2015-09-11');
+    cy.get('#date-received-from').focus();
+    cy.get('#date-received-from').blur();
     waitForLoading();
 
     cy.url().should('include', 'date_received_min=2015-09-11');
 
     cy.log('apply a through date');
 
-    cy.get('#date_received-through').clear();
+    cy.get('#date-received-through').clear();
     waitForLoading();
-    cy.get('#date_received-through').type('2020-10-31');
-    cy.get('#date_received-through').focus();
-    cy.get('#date_received-through').blur();
+    cy.get('#date-received-through').type('2020-10-31');
+    cy.get('#date-received-through').focus();
+    cy.get('#date-received-through').blur();
 
     cy.url().should('include', 'date_received_max=2020-10-31');
     waitForLoading();
     // check error handling and default values
-    cy.get('#date_received-from').type('2000-09-11');
-    cy.get('#date_received-from').focus();
-    cy.get('#date_received-from').blur();
+    cy.get('#date-received-from').type('2000-09-11');
+    cy.get('#date-received-from').focus();
+    cy.get('#date-received-from').blur();
 
     waitForLoading();
     cy.log('can trigger a pre-selected date range');
     cy.findByRole('tab', { name: /Map/i }).click();
     waitForLoading();
-    cy.get('.date-ranges .a-btn.range-3y').contains('3y').click();
+    cy.findByRole('button', { name: '3 years' }).click();
     // this will fail when the year hits 2030
     cy.url().should('include', `date_received_max=202`);
-    cy.get('.date-ranges .a-btn.range-6m').contains('6m').click();
+    cy.findByRole('button', { name: '6 months' }).click();
     cy.url().should('include', `date_received_max=202`);
     cy.log('can expand/collapse/apply filter group');
     // default date Filter pills
-    cy.get('.pill-panel .a-tag-filter').should('have.length', 1);
+    cy.findAllByRole('button', { name: /Date Received:/ }).should(
+      'have.length',
+      1,
+    );
     waitForLoading();
 
     cy.log('close simple filter, as it is open by default');
 
     // Close it
-    cy.get('.timely > .o-expandable__header').should('be.visible');
-    cy.get('.timely button.o-expandable__header').click();
-    cy.get(
-      '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
-    ).should('not.exist');
+    timelyFilterButton('Collapse').should('be.visible').click();
+    cy.findByRole('button', {
+      name: /Expand Did company provide a timely response\? filter/,
+    })
+      .closest('section')
+      .within(() => {
+        cy.findByRole('checkbox', { name: 'Yes' }).should('not.exist');
+      });
 
     cy.log('open it again');
-    cy.get('.timely > .o-expandable__header').click();
+    timelyFilterButton('Expand').click();
     waitForLoading();
-    cy.get(
-      '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
-    ).should('be.visible');
+    timelySection().within(() => {
+      cy.findByRole('checkbox', { name: 'Yes' }).should('be.visible');
+    });
 
     cy.log('apply filter');
 
-    cy.get(
-      '.timely > .o-expandable__content > ul > :nth-child(1) > .a-label',
-    ).click();
+    timelySection().within(() => {
+      cy.findByRole('checkbox', { name: 'Yes' }).click({ force: true });
+    });
 
     cy.url().should('include', 'timely=Yes');
     // Filter pill
-    cy.get('.pill-panel .a-tag-filter').contains('Timely: Yes').should('exist');
+    filterPills().within(() => {
+      cy.findByRole('button', { name: 'Timely: Yes' }).should('exist');
+    });
 
     // Filter clear button
-    cy.get('li.pill-panel__clear button').should('exist');
-    cy.get('li.pill-panel__clear button').click();
+    cy.findByRole('button', { name: 'Clear all filters' }).should('exist');
+    cy.findByRole('button', { name: 'Clear all filters' }).click();
 
-    cy.get('.pill-panel .a-tag-filter').should('not.exist');
+    cy.findByRole('button', { name: /Date Received:/ }).should('not.exist');
+    cy.findByRole('button', { name: 'Timely: Yes' }).should('not.exist');
 
     // Product/Sub-product
     cy.log('can collapse/expand a complex filter');
-    cy.get('.filter-panel .product .aggregation-branch').should(
-      'have.length.gt',
-      1,
-    );
+    productFilterButton('Collapse')
+      .closest('section')
+      .within(() => {
+        cy.findAllByRole('checkbox').should('have.length.gt', 1);
+      });
 
     // close it
-    cy.get('.filter-panel .product .o-expandable__cue-close').click();
-    cy.get('.filter-panel .product .aggregation-branch').should(
-      'have.length',
-      0,
-    );
+    productFilterButton('Collapse').click();
+    cy.findByRole('checkbox', { name: 'Mortgage' }).should('not.exist');
 
     // open it
-    cy.get('.filter-panel .product .o-expandable__cue-open').click();
+    productFilterButton('Expand').click();
 
-    cy.get('.filter-panel .product .aggregation-branch').should(
-      'have.length.gt',
-      1,
-    );
+    productFilterButton('Collapse')
+      .closest('section')
+      .within(() => {
+        cy.findAllByRole('checkbox').should('have.length.gt', 1);
+      });
 
     cy.log('can expand sub-filters');
 
-    cy.get('.filter-panel .product .children').should('not.exist');
+    cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
     // Open sub-filter
-    cy.get(
-      '.filter-panel .product .aggregation-branch:first .a-btn--link',
-    ).click();
-    cy.get('.filter-panel .product .children').should('exist');
-    cy.get(
-      '.filter-panel .product .aggregation-branch:first .a-btn--link',
-    ).click();
-    cy.get('.filter-panel .product .children').should('not.exist');
+    cy.findByRole('button', { name: 'Mortgage' }).click();
+    cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('exist');
+    cy.findByRole('button', { name: 'Mortgage' }).click();
+    cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
 
     cy.log('toggles a filter by clicking checkbox input');
     cy.log('add filter');
-    cy.get('input#product-mortgage').click({ force: true });
+    cy.findByRole('checkbox', { name: 'Mortgage' }).click({ force: true });
     waitForLoading();
 
-    cy.get('.pill-panel .a-tag-filter').contains('Mortgage').should('exist');
+    filterPills().within(() => {
+      cy.findByRole('button', { name: 'Mortgage' }).should('exist');
+    });
     cy.url().should('include', 'product=Mortgage');
     cy.log('remove filter');
-    cy.get('input#product-mortgage').click({ force: true });
+    cy.findByRole('checkbox', { name: 'Mortgage' }).click({ force: true });
     waitForLoading();
 
     cy.url().should('not.include', 'product=Mortgage');
 
     cy.log('applies sub-filter by clicking');
-    cy.get('.filter-panel .product .children').should('not.exist');
+    cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
     // Open sub-filter
-    cy.get(
-      '.filter-panel .product .aggregation-branch.mortgage button',
-    ).click();
-    cy.get(
-      '.filter-panel .product .aggregation-branch.mortgage+.children',
-    ).should('exist');
-    cy.get('.filter-panel .product input#product-mortgage-fha-mortgage').click({
+    cy.findByRole('button', { name: 'Mortgage' }).click();
+    cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('exist');
+    cy.findByRole('checkbox', { name: /FHA mortgage/i }).click({
       force: true,
     });
 
     cy.url().should('include', '&product=Mortgage%E2%80%A2FHA%20mortgage');
 
-    cy.get('.pill-panel .a-tag-filter')
-      .contains('FHA mortgage')
-      .should('exist');
+    filterPills().within(() => {
+      cy.findByRole('button', { name: /FHA mortgage/ }).should('exist');
+    });
 
     cy.log('remove sub-filter when applying parent filter');
-    cy.get('input#product-mortgage').click({ force: true });
+    cy.findByRole('checkbox', { name: 'Mortgage' }).click({ force: true });
     waitForLoading();
 
-    cy.get('.pill-panel .a-tag-filter')
-      .contains('FHA mortgage')
-      .should('not.exist');
+    filterPills().within(() => {
+      cy.findByRole('button', { name: /FHA mortgage/ }).should('not.exist');
+      cy.findByRole('button', { name: 'Mortgage' }).should('exist');
+    });
 
     cy.url().should('not.include', '&product=Mortgage%E2%80%A2FHA%20mortgage');
     cy.url().should('include', 'product=Mortgage');
     cy.findByRole('tab', { name: /List/i }).click();
     cy.log('shows more results');
-    cy.get('.list-panel .card-container').should('have.length', 25);
-    cy.get('#select-size').select('10 results');
+    complaintLinks().should('have.length', 25);
+    sizeSelect().select('10 results');
     waitForLoading();
-    cy.get('.list-panel .card-container').should('have.length', 10);
+    complaintLinks().should('have.length', 10);
 
     cy.log('Typeahead Filters');
     // state
     cy.log('can collapse/expand and search a filter');
-    cy.get('.state input').should('be.visible');
+    cy.findByPlaceholderText('Enter state name or abbreviation').should(
+      'be.visible',
+    );
 
     cy.log('close it');
-    cy.get('.state .o-expandable__cues').click();
+    stateFilterButton('Collapse').click();
 
-    cy.get('.state input').should('not.exist');
+    cy.findByPlaceholderText('Enter state name or abbreviation').should(
+      'not.exist',
+    );
 
     cy.log('open again');
-    cy.get('.state .o-expandable__cues').click();
+    stateFilterButton('Expand').click();
     cy.log('searches a typeahead filter');
     cy.findByPlaceholderText('Enter state name or abbreviation').clear();
-    cy.findByPlaceholderText('Enter state name or abbreviation').type('texas');
+    cy.findByPlaceholderText('Enter state name or abbreviation').type(
+      'texas',
+    );
 
-    cy.get('.state .typeahead-selector').should('exist');
+    cy.findByRole('option', { name: /Texas/ }).click();
 
-    cy.get('.state .typeahead-selector li').contains('Texas').click();
-
-    cy.get('.pill-panel .a-tag-filter').contains('TX').should('exist');
+    filterPills().within(() => {
+      cy.findByRole('button', { name: /TX/ }).should('exist');
+    });
   });
 });

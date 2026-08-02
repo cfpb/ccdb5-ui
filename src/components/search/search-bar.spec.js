@@ -37,13 +37,13 @@ describe('SearchBar', () => {
     const newViewState = { hasAdvancedSearchTips: false };
 
     renderComponent(newQueryState, newViewState);
-    user.click(
+    await user.click(
       screen.getByRole('button', { name: /Show advanced search tips/ }),
     );
     expect(
       await screen.findByRole('button', { name: /Hide advanced search tips/ }),
     ).toBeInTheDocument();
-    user.click(
+    await user.click(
       screen.getByRole('button', { name: /Hide advanced search tips/ }),
     );
     expect(
@@ -135,7 +135,9 @@ describe('SearchBar', () => {
     const input = screen.getByPlaceholderText('Enter your search term(s)');
     await user.type(input, 'appl');
     expect(input).toHaveValue('appl');
-    user.click(await screen.findByRole('button', { name: /clear search/ }));
+    await user.click(
+      await screen.findByRole('button', { name: /clear search/ }),
+    );
     await waitFor(() => expect(searchTextChangedSpy).toHaveBeenCalledWith(''));
   });
 });

@@ -6,7 +6,7 @@ import { filterAdded } from '../../../actions';
 import PropTypes from 'prop-types';
 import { useGetAggregations } from '../../../api/hooks/use-get-aggregations';
 import { SLUG_SEPARATOR } from '../../../constants';
-import { normalize } from '../../../utils';
+import { normalize, sanitizeHtmlId } from '../../../utils';
 import { ClearButton } from '../../typeahead/clear-button/clear-button';
 import { HighlightingOption } from '../../typeahead/highlighting-option/highlighting-option';
 import { Icon } from '@cfpb/design-system-react';
@@ -104,12 +104,12 @@ export const FilterSearch = ({ fieldName }) => {
           <label
             aria-label={'Search ' + fieldName}
             className="o-search-input__input-label"
-            htmlFor={'filter-search' + fieldName}
+            htmlFor={sanitizeHtmlId(`filter-search-${fieldName}`)}
           >
             <Icon name="search" isPresentational />
           </label>
           <Typeahead
-            id={'filter-search' + fieldName}
+            id={sanitizeHtmlId(`filter-search-${fieldName}`)}
             maxResults={5}
             minLength={2}
             className="typeahead-selector"

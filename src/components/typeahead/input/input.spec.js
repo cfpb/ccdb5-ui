@@ -12,7 +12,7 @@ describe('Input', () => {
     render(
       <Input
         ariaLabel="Enter the term you want to search for"
-        htmlId="searchText"
+        htmlId="search-text"
         handleChange={handleChangeMock}
         placeholder="Enter your search term(s)"
         value=""

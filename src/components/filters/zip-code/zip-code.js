@@ -22,10 +22,9 @@ export const ZipCode = () => {
     >
       <AsyncTypeahead
         fieldName={FIELD_NAME}
-        label="Start typing to begin listing zip codes"
         placeholder="Enter ZIP code"
         ariaLabel="Start typing to begin listing zip codes"
-        htmlId={FIELD_NAME + 'typeahead'}
+        htmlId="zip-code-typeahead"
         hasClearButton={true}
       />
       <StickyOptions
