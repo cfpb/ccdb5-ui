@@ -2,23 +2,24 @@
 
 import { waitForLoading } from '../utils';
 
-describe('Search Bar', () => {
-  const searchBar = '.search-bar';
-  const searchFieldDropDown = '#searchField';
-  const typeAheadRequest =
-    '**/data-research/consumer-complaints/search/' +
-    'api/v1/_suggest_company/**';
+const searchField = () =>
+  cy.findByLabelText('Choose which field will be searched');
 
+const typeAheadRequest =
+  '**/data-research/consumer-complaints/search/' +
+  'api/v1/_suggest_company/**';
+
+describe('Search Bar', () => {
   describe('Typeaheads', () => {
     it('has a search bar', () => {
       cy.visit('?tab=List');
       waitForLoading();
-      cy.get(searchBar).should('be.visible');
-      cy.get(searchFieldDropDown).select('company');
+      cy.findByRole('search').should('be.visible');
+      searchField().select('company');
       waitForLoading();
-      cy.get(searchFieldDropDown).select('complaint_what_happened');
+      searchField().select('complaint_what_happened');
       waitForLoading();
-      cy.get(searchBar).should('be.visible');
+      cy.findByRole('search').should('be.visible');
 
       cy.log('has no typeahead functionality in All Data');
       cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
@@ -29,7 +30,7 @@ describe('Search Bar', () => {
       cy.findByText('No matches found.').should('not.exist');
 
       cy.log('has no typeahead functionality in Narratives');
-      cy.get(searchFieldDropDown).select('complaint_what_happened');
+      searchField().select('complaint_what_happened');
       waitForLoading();
       cy.findByPlaceholderText('Enter your search term(s)').clear();
       cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
@@ -45,7 +46,7 @@ describe('Search Bar', () => {
           'Discover Bank',
         ],
       }).as('typeahead');
-      cy.get(searchFieldDropDown).select('company');
+      searchField().select('company');
       waitForLoading();
       cy.findByPlaceholderText('Enter your search term(s)').clear();
       cy.findByPlaceholderText('Enter your search term(s)').type('bank', {
