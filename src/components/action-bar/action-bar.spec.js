@@ -1,5 +1,7 @@
 import { ActionBar } from './action-bar';
 import { viewState } from '../../reducers/view/view-slice';
+import { queryState } from '../../reducers/query/query-slice';
+import { trendsState } from '../../reducers/trends/trends-slice';
 import { merge } from '../../test-utils/function-helpers';
 import { screen, testRender as render } from '../../test-utils/test-utils';
 import { waitFor } from '@testing-library/react';
@@ -8,11 +10,14 @@ import { aggResponse } from '../list/list-panel/fixture';
 
 describe('ActionBar', () => {
   const renderComponent = (newViewState) => {
+    const newQueryState = { dateLastIndexed: '2020-05-05' };
+    merge(newQueryState, queryState);
     merge(newViewState, viewState);
 
     const data = {
-      query: { dateLastIndexed: '2020-05-05' },
+      query: newQueryState,
       routes: { queryString: '?sdafds' },
+      trends: trendsState,
       view: newViewState,
     };
 

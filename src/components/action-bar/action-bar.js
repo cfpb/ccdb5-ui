@@ -2,6 +2,7 @@ import './action-bar.scss';
 import { Alert } from '@cfpb/design-system-react';
 import { StaleDataWarnings } from '../warnings/stale-data-warnings';
 import { useGetAggregations } from '../../api/hooks/use-get-aggregations';
+import { usePageLoading } from '../../api/hooks/use-page-loading';
 
 /**
  * @param {number} total - Matching complaint count
@@ -22,8 +23,8 @@ const buildSummaryMessage = (total, docCount) => {
 };
 
 export const ActionBar = () => {
-  const { data, error, isLoading, isFetching } = useGetAggregations();
-  const isPending = isLoading || isFetching;
+  const { data, error } = useGetAggregations();
+  const isPending = usePageLoading();
   const docCount = error ? 0 : data?.doc_count || 0;
   const total = error ? 0 : data?.total || 0;
 

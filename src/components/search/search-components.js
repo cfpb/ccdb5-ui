@@ -16,12 +16,15 @@ import {
 import { SearchPanel } from './search-panel';
 import { ActionBar } from '../action-bar/action-bar';
 import { PillPanel } from './pill-panel';
+import { Loading } from '../loading/loading';
+import { usePageLoading } from '../../api/hooks/use-page-loading';
 
 export const SearchComponents = () => {
   useUpdateLocation();
   useWindowSize();
 
   const isPrintMode = useSelector(selectViewIsPrintMode);
+  const isPageLoading = usePageLoading();
   const dispatch = useDispatch();
 
   useEvent('afterprint', () => {
@@ -58,6 +61,7 @@ export const SearchComponents = () => {
       </div>
       <Tour />
       <RootModal />
+      <Loading isLoading={isPageLoading} />
     </main>
   );
 };
