@@ -148,9 +148,7 @@ describe('component::AggregationBranch', () => {
     it('should show children list items when the count is clicked', async () => {
       renderComponent(props);
 
-      await user.click(
-        screen.getByText(props.item.doc_count.toLocaleString()),
-      );
+      await user.click(screen.getByText(props.item.doc_count.toLocaleString()));
 
       expect(screen.getByRole('list')).toBeInTheDocument();
     });

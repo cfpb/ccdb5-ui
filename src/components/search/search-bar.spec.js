@@ -141,7 +141,7 @@ describe('SearchBar', () => {
     });
     await user.type(input, 'appl');
     expect(input).toHaveValue('appl');
-    user.click(await screen.findByRole('button', { name: /clear search/ }));
+    await user.click(await screen.findByRole('button', { name: /clear search/ }));
     await waitFor(() => expect(searchTextChangedSpy).toHaveBeenCalledWith(''));
   });
 });

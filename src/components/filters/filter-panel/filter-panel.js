@@ -32,7 +32,7 @@ export const FilterPanel = () => {
   return (
     <>
       {!!hasFilters && (
-          <section className="filter-panel o-well">
+        <section className="filter-panel o-well">
           {!!hasButton && (
             <div className="filter-button">
               <Button

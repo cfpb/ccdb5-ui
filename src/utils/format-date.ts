@@ -15,7 +15,9 @@ export const formatDate = (uglyDate: DateInput): DateInput => {
 };
 
 export const formatDisplayDate = (dateString: DateInput): string => {
-  return dayjs(new Date(dateString as string | Date)).utc().format('M/D/YYYY');
+  return dayjs(new Date(dateString as string | Date))
+    .utc()
+    .format('M/D/YYYY');
 };
 
 export const formatNaturalDate = (dateString: DateInput): string => {

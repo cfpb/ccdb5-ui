@@ -13,7 +13,7 @@ export const ZipCode = () => {
   const aggsZipCode = error ? [] : aggsData?.zip_code || [];
   // Zip code aggregations coming from API
   const stickyOptions = structuredClone(aggsZipCode);
-  const desc = "Enter the mailing ZIP code provided by the consumer."
+  const desc = 'Enter the mailing ZIP code provided by the consumer.';
   return (
     <CollapsibleFilter title="ZIP code" desc={desc} className="aggregation">
       <AsyncTypeahead
