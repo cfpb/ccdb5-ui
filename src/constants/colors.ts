@@ -23,4 +23,4 @@ export const DataLens = Object.freeze({
   8: '#b4267a',
   9: '#dc9cbf',
   10: '#a2a3a4',
-});
+} as const);

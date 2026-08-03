@@ -29,6 +29,7 @@
     "prepare": "husky",
     "release": "yarn run build && release-it --npm.skipChecks",
     "test": "TZ=UTC jest --coverage --watchAll=false",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "start": "rsbuild dev",
     "build": "./scripts/build.sh",
     "preview": "rsbuild preview"
@@ -62,6 +63,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
     "@babel/preset-react": "^7.29.7",
+    "@babel/preset-typescript": "^7.28.5",
     "@cfpb/browserslist-config": "^0.0.7",
     "@eslint/js": "^10.0.1",
     "@rsbuild/core": "^2.1.8",
