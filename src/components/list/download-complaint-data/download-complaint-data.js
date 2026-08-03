@@ -25,7 +25,7 @@ export const FILTER_DOWNLOAD_LIMIT_MESSAGE =
   'Your filtered results exceed download limits. Refine your search terms and filters to reduce the number of complaints.';
 export const FILTER_DOWNLOAD_EMPTY_MESSAGE =
   'You must add search terms or apply filters to create and download a filtered results dataset.';
-export const DOWNLOAD_STARTED_MESSAGE = 'Your data file is downloading…';
+export const DOWNLOAD_STARTED_MESSAGE = 'Your data file is downloading';
 
 const ALERT_FADE_MS = 300;
 const SUCCESS_AUTO_DISMISS_MS = 5000;
