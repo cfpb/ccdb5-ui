@@ -41,7 +41,7 @@ describe('component::DateRanges', () => {
 
     renderComponent({ dateRange: 'All' }, { tab: 'Trends' });
 
-    expect(screen.getByText('Date range')).toBeInTheDocument();
+    expect(screen.getByText('Select date range')).toBeInTheDocument();
 
     for (const range of ranges) {
       const button = screen.getByRole('button', { name: range });

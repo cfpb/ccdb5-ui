@@ -15,7 +15,7 @@ const buildSummaryMessage = (total, docCount) => {
   return (
     'Showing ' +
     total.toLocaleString() +
-    ' matches out of ' +
+    ' matching results out of ' +
     docCount.toLocaleString() +
     ' total complaints'
   );

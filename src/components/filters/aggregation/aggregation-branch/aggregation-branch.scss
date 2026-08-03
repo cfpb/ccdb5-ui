@@ -53,8 +53,8 @@ li.aggregation-branch {
     .aggregation-branch__count {
       flex: 0 0 $max-count-width;
       margin-left: $gutter-minimum;
-      color: var(--gray-dark);
-      font-size: 14px;
+      margin-bottom: 0;
+      color: var(--gray);
       text-align: right;
       text-decoration: none;
       white-space: nowrap;

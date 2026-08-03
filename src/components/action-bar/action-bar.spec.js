@@ -43,7 +43,7 @@ describe('ActionBar', () => {
     });
 
     await screen.findByText(
-      'Showing 4,303,365 matches out of 6,638,372 total complaints',
+      'Showing 4,303,365 matching results out of 6,638,372 total complaints',
     );
     await waitFor(() => {
       expect(screen.getByLabelText('success icon')).toBeInTheDocument();

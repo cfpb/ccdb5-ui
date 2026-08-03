@@ -103,7 +103,7 @@ export const AggregationItem = ({ fieldName, item }) => {
       <label className="a-label flex-all bucket-key" htmlFor={id}>
         {value}
       </label>
-      <span className="flex-fixed bucket-count">
+      <span className="h5 flex-fixed bucket-count">
         {item.doc_count.toLocaleString()}
       </span>
     </li>

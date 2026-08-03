@@ -117,7 +117,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
           onClick={toggleOpen}
         >
           <span className="aggregation-branch__label">{item.key}</span>
-          <span className="aggregation-branch__count">
+          <span className="h5 aggregation-branch__count">
             {item.doc_count.toLocaleString()}
           </span>
           <Icon

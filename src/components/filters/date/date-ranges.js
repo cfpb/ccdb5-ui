@@ -27,7 +27,7 @@ export const DateRanges = () => {
   return (
     <section className="date-ranges">
       <label className="a-label a-label--heading" htmlFor="date-range">
-        Date range
+        Select date range
       </label>
       <ButtonGroup id="date-range">
         {Object.entries(dateRanges).map(([range, label]) => (

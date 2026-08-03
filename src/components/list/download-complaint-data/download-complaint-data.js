@@ -6,6 +6,7 @@ import {
   ButtonGroup,
   Heading,
   Link,
+  Paragraph,
   WellContainer,
 } from '@cfpb/design-system-react';
 import dayjs from 'dayjs';
@@ -24,8 +25,8 @@ export const FILTER_DOWNLOAD_MAX = 1e5;
 export const FILTER_DOWNLOAD_LIMIT_MESSAGE =
   'Your filtered results exceed download limits. Refine your search terms and filters to reduce the number of complaints.';
 export const FILTER_DOWNLOAD_EMPTY_MESSAGE =
-  'You must add search terms or apply filters to create and download a filtered results dataset.';
-export const DOWNLOAD_STARTED_MESSAGE = 'Your data file is downloading';
+  'You must add search terms or apply filters to download filtered results.';
+export const DOWNLOAD_STARTED_MESSAGE = 'Your data file is downloading.';
 
 const ALERT_FADE_MS = 300;
 const SUCCESS_AUTO_DISMISS_MS = 5000;
@@ -148,12 +149,11 @@ export const DownloadComplaintData = () => {
       className="download-complaint-data"
       data-tour="download-complaint-data"
     >
-      <Heading type="4">Download complaint data</Heading>
-      <p>
-        Download all complaint data or download a subset of the data by
-        filtering the full dataset and downloading your results. For filtered
-        results, downloads are limited to 100,000 complaints.
-      </p>
+      <Heading type="3">Download complaint data</Heading>
+      <Paragraph>
+        Download all complaint data (CSV ZIP) or download your filtered results
+        (CSV). Filtered results downloads are limited to 100,000 complaints.
+      </Paragraph>
       <ButtonGroup>
         <Link
           isButton
