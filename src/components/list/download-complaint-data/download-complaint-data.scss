@@ -4,6 +4,10 @@
 .download-complaint-data {
   margin: 0;
 
+  @media screen and (max-width: $bp-xs-max) {
+    margin: $grid-gutter-width 0;
+  }
+
   p {
     margin-bottom: math.div($grid-gutter-width, 2);
   }

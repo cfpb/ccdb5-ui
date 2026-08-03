@@ -11,14 +11,21 @@
     margin-top: $gutter-normal;
   }
 
-  .o-expandable__header,
-  .o-expandable__content {
+  .o-expandable__header {
     padding-right: 0;
     padding-left: 0;
   }
 
-  hr {
+  .o-expandable__content {
+    padding: 0 0 $gutter-normal;
 
+    &::before {
+      padding-top: $gutter-normal;
+    }
+  }
+
+  hr {
+    margin: 0;
     color: var(--gray-40);
   }
 }

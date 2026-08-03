@@ -38,7 +38,8 @@
   box-sizing: border-box;
   grid-template-columns: 11rem 11rem max-content;
   margin: 0;
-  padding: $grid-gutter-width $gutter-normal;
+  // Horizontal gutters come from the page/column — don't double-inset.
+  padding: $grid-gutter-width 0;
 
   .refine-select {
     width: 11rem;
@@ -46,7 +47,7 @@
 
   @media screen and (max-width: $bp-xs-max) {
     grid-template-columns: 1fr;
-    padding: $gutter-normal;
+    padding: $gutter-normal 0;
 
     .refine-select {
       width: 100%;
@@ -62,6 +63,28 @@
 
     .a-btn {
       white-space: nowrap;
+    }
+  }
+
+  // Below ~lg, View buttons no longer fit beside the selects — stack them
+  // on a second row and let the selects fill the row width.
+  @media screen and (max-width: $bp-lg-max) {
+    grid-template-columns: 1fr 1fr;
+
+    .refine-select {
+      width: 100%;
+    }
+
+    .narratives-buttons {
+      grid-column: 1 / -1;
+
+      .m-btn-group {
+        flex-wrap: wrap;
+      }
+
+      .a-btn {
+        white-space: normal;
+      }
     }
   }
 

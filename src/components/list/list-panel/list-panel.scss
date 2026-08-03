@@ -11,8 +11,9 @@
     padding: $grid-gutter-width;
     margin: 0;
 
-    @media screen and (max-width: $bp-xs-max) {
-      padding: $gutter-normal;
+    // Match the column edge (download well / refine bar), not an extra inset.
+    @media screen and (max-width: 800px) {
+      padding: $grid-gutter-width 0;
     }
   }
 }
