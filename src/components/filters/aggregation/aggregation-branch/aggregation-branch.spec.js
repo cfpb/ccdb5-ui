@@ -48,10 +48,11 @@ describe('component::AggregationBranch', () => {
     it('renders as list item button with unchecked state when one or more subitems are present', () => {
       renderComponent(props);
 
-      expect(screen.getByRole('checkbox')).not.toBeChecked();
-      expect(screen.getByLabelText(props.item.key)).toBeInTheDocument();
       expect(
-        screen.getByRole('button', { name: new RegExp(props.item.key) }),
+        screen.getByRole('checkbox', { name: props.item.key }),
+      ).not.toBeChecked();
+      expect(
+        screen.getByRole('button', { name: props.item.key }),
       ).toBeInTheDocument();
       expect(screen.getByText(props.item.doc_count)).toBeInTheDocument();
       expect(screen.queryByRole('list')).not.toBeInTheDocument();
@@ -139,9 +140,7 @@ describe('component::AggregationBranch', () => {
     it('should show children list items on button click', async () => {
       renderComponent(props);
 
-      await user.click(
-        screen.getByRole('button', { name: new RegExp(props.item.key) }),
-      );
+      await user.click(screen.getByRole('button', { name: props.item.key }));
 
       expect(screen.getByRole('list')).toBeInTheDocument();
     });
