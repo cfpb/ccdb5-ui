@@ -29,7 +29,6 @@ export const FILTER_DOWNLOAD_EMPTY_MESSAGE =
 export const DOWNLOAD_STARTED_MESSAGE = 'Your data file is downloading.';
 
 const ALERT_FADE_MS = 300;
-const SUCCESS_AUTO_DISMISS_MS = 5000;
 
 const hasAppliedFilters = (filtersState, queryState) => {
   const hasFilterValue = Object.values(filtersState).some((value) =>
@@ -59,7 +58,6 @@ export const DownloadComplaintData = () => {
   const [alert, setAlert] = useState(null);
   const [isAlertFadingOut, setIsAlertFadingOut] = useState(false);
   const fadeTimerRef = useRef(null);
-  const autoDismissTimerRef = useRef(null);
   const alertRef = useRef(null);
   const hasMountedSearchState = useRef(false);
   const { data, error } = useGetAggregations();
@@ -69,24 +67,16 @@ export const DownloadComplaintData = () => {
     alertRef.current = alert;
   }, [alert]);
 
-  const clearAlertTimers = useCallback(() => {
+  const clearFadeTimer = useCallback(() => {
     if (fadeTimerRef.current) {
       clearTimeout(fadeTimerRef.current);
       fadeTimerRef.current = null;
-    }
-    if (autoDismissTimerRef.current) {
-      clearTimeout(autoDismissTimerRef.current);
-      autoDismissTimerRef.current = null;
     }
   }, []);
 
   const dismissAlertWithFade = useCallback(() => {
     if (!alertRef.current || fadeTimerRef.current) {
       return;
-    }
-    if (autoDismissTimerRef.current) {
-      clearTimeout(autoDismissTimerRef.current);
-      autoDismissTimerRef.current = null;
     }
     setIsAlertFadingOut(true);
     fadeTimerRef.current = setTimeout(() => {
@@ -98,17 +88,11 @@ export const DownloadComplaintData = () => {
 
   const showAlert = useCallback(
     (status, message) => {
-      clearAlertTimers();
+      clearFadeTimer();
       setIsAlertFadingOut(false);
       setAlert({ status, message });
-
-      if (status === 'success') {
-        autoDismissTimerRef.current = setTimeout(() => {
-          dismissAlertWithFade();
-        }, SUCCESS_AUTO_DISMISS_MS);
-      }
     },
-    [clearAlertTimers, dismissAlertWithFade],
+    [clearFadeTimer],
   );
 
   // Dismiss the alert when filters or query change (anything that refetches results).
@@ -122,9 +106,9 @@ export const DownloadComplaintData = () => {
 
   useEffect(
     () => () => {
-      clearAlertTimers();
+      clearFadeTimer();
     },
-    [clearAlertTimers],
+    [clearFadeTimer],
   );
 
   const allComplaintsUri = useMemo(

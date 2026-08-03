@@ -1,6 +1,10 @@
 @use 'css/base' as *;
 
 .date-filter {
+  .date-ranges {
+    margin-bottom: $gutter-normal;
+  }
+
   ul.date-inputs {
     margin: 0;
 
