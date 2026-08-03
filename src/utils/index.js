@@ -131,29 +131,6 @@ export const coalesce = (object, field, alternateValue) => {
   return value || alternateValue;
 };
 
-/**
- * Creates a hash from a string
- *
- * @param {string} someString - the string to hash
- * @returns {number} a hashing of the string
- */
-export function hashCode(someString) {
-  const str = someString;
-  let hash = 0;
-  if (str.length === 0) {
-    return hash;
-  }
-  let index, chr;
-  for (index = 0; index < str.length; index++) {
-    chr = str.codePointAt(index);
-    hash = (hash << 5) - hash + chr;
-
-    // Convert to 32bit integer
-    hash = Math.trunc(hash);
-  }
-  return hash;
-}
-
 export const normalize = (str) => str.toLowerCase();
 
 /**
@@ -386,31 +363,6 @@ export function getFullUrl(uri) {
   const parser = document.createElement('a');
   parser.href = uri;
   return parser.href;
-}
-
-/**
- * processes error messages so we can see them in redux
- *
- * @param {Error} err - the error object from api
- * @returns {{name: string, message: string}} processed error object we can see
- */
-export function processErrorMessage(err) {
-  return {
-    name: err.name,
-    message: err.message,
-  };
-}
-
-/**
- * Takes in a number and outputs to percentage
- *
- * @param {number} num - value we convert .9999
- * @returns {number} 99.99
- */
-export function formatPercentage(num) {
-  // we have to do this so it is a float and not a string
-  const val = Number((num * 100).toFixed(2));
-  return Number.isNaN(val) ? 0 : val;
 }
 
 /**

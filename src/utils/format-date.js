@@ -1,10 +1,8 @@
 // ----------------------------------------------------------------------------
 // Exports
 import dayjs from 'dayjs';
-import dayjsLocalizedFormat from 'dayjs/plugin/localizedFormat';
 import dayjsUtc from 'dayjs/plugin/utc';
 
-dayjs.extend(dayjsLocalizedFormat);
 dayjs.extend(dayjsUtc);
 
 /**
@@ -51,16 +49,6 @@ export const adjustDate = (dateIn) =>
 export const formatDateModel = (dateIn) =>
   dayjs(new Date(dateIn)).utc().add(5.5, 'hours').format('YYYY-MM-DD');
 
-export const formatDateIso = (dateIn) => dayjs(dateIn).toISOString();
-/**
- * Function to format/convert a string to format we want for the model
- *
- * @param {(string | object)} dateIn - the input string to convert
- * @returns {string} the cleaned up string in Jul 4, 2010
- */
-export const formatDateLocaleShort = (dateIn) =>
-  dayjs(new Date(dateIn)).utc().add(5.5, 'hours').format('ll');
-
 /**
  * function to convert and compare 2 strings as dates
  *
@@ -70,18 +58,3 @@ export const formatDateLocaleShort = (dateIn) =>
  */
 export const isDateEqual = (date1, date2) =>
   dayjs(new Date(date1)).isSame(new Date(date2), 'day');
-
-/**
- * function to convert and compare 2 strings as dates
- *
- * @param {string} date1 - input date string to compare MM/DD/YYYY or YYYY-MM-DD
- * @param {string} date2 - input date string to compare MM/DD/YYYY or YYYY-MM-DD
- * @returns {number} the return of the compared converted values
- */
-export const compareDates = (date1, date2) => {
-  if (isDateEqual(date1, date2)) {
-    return 0;
-  }
-
-  return new Date(date1) < new Date(date2) ? -1 : 1;
-};

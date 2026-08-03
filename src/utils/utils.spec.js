@@ -4,10 +4,7 @@ import {
   clamp,
   coalesce,
   debounce,
-  formatPercentage,
   getFullUrl,
-  hashCode,
-  processErrorMessage,
   sanitizeHtmlId,
   sendAnalyticsEvent,
   shortIsoFormat,
@@ -128,15 +125,6 @@ describe('module::utils', () => {
     });
   });
 
-  describe('hashCode', () => {
-    it('hashes strings', () => {
-      let actual = hashCode('');
-      expect(actual).toEqual(0);
-      actual = hashCode('foobar');
-      expect(actual).toEqual(-1_268_878_963);
-    });
-  });
-
   describe('calculateDateInterval', () => {
     let start, end;
     beforeEach(() => {
@@ -172,17 +160,6 @@ describe('module::utils', () => {
       start = new Date(dayjs(end).subtract(6, 'months').calendar());
       const actual = calculateDateRange(start, end);
       expect(actual).toBe('6m');
-    });
-  });
-
-  describe('formatPercentage', () => {
-    it('handles regular values', () => {
-      const actual = formatPercentage(0.5);
-      expect(actual).toEqual(50);
-    });
-    it('handles NaN values', () => {
-      const actual = formatPercentage(NaN);
-      expect(actual).toEqual(0);
     });
   });
 
@@ -328,19 +305,6 @@ describe('module::utils', () => {
       const actual = sortSelThenCount(options, filters, 'product');
       expect(actual[0].key).toEqual('Virtual currency');
       expect(actual[1].key).toEqual('Debt or credit management');
-    });
-  });
-
-  describe('processErrorMessage', () => {
-    it('parses out an error', () => {
-      const actual = processErrorMessage({
-        name: 'foo',
-        message: 'bar',
-      });
-      expect(actual).toEqual({
-        name: 'foo',
-        message: 'bar',
-      });
     });
   });
 
