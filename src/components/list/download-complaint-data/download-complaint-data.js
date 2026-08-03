@@ -25,8 +25,10 @@ export const FILTER_DOWNLOAD_LIMIT_MESSAGE =
   'Your filtered results exceed download limits. Refine your search terms and filters to reduce the number of complaints.';
 export const FILTER_DOWNLOAD_EMPTY_MESSAGE =
   'You must add search terms or apply filters to create and download a filtered results dataset.';
+export const DOWNLOAD_STARTED_MESSAGE = 'Your data file is downloading…';
 
 const ALERT_FADE_MS = 300;
+const SUCCESS_AUTO_DISMISS_MS = 5000;
 
 const hasAppliedFilters = (filtersState, queryState) => {
   const hasFilterValue = Object.values(filtersState).some((value) =>
@@ -53,29 +55,60 @@ export const DownloadComplaintData = () => {
   const tab = useSelector(selectViewTab);
   const queryState = useSelector(selectQueryRoot);
   const filtersState = useSelector(selectFiltersRoot);
-  const [filteredDownloadError, setFilteredDownloadError] = useState('');
+  const [alert, setAlert] = useState(null);
   const [isAlertFadingOut, setIsAlertFadingOut] = useState(false);
   const fadeTimerRef = useRef(null);
-  const filteredDownloadErrorRef = useRef('');
+  const autoDismissTimerRef = useRef(null);
+  const alertRef = useRef(null);
   const hasMountedSearchState = useRef(false);
   const { data, error } = useGetAggregations();
   const filteredCount = error ? 0 : data?.total || 0;
 
   useEffect(() => {
-    filteredDownloadErrorRef.current = filteredDownloadError;
-  }, [filteredDownloadError]);
+    alertRef.current = alert;
+  }, [alert]);
 
-  const dismissErrorWithFade = useCallback(() => {
-    if (!filteredDownloadErrorRef.current || fadeTimerRef.current) {
+  const clearAlertTimers = useCallback(() => {
+    if (fadeTimerRef.current) {
+      clearTimeout(fadeTimerRef.current);
+      fadeTimerRef.current = null;
+    }
+    if (autoDismissTimerRef.current) {
+      clearTimeout(autoDismissTimerRef.current);
+      autoDismissTimerRef.current = null;
+    }
+  }, []);
+
+  const dismissAlertWithFade = useCallback(() => {
+    if (!alertRef.current || fadeTimerRef.current) {
       return;
+    }
+    if (autoDismissTimerRef.current) {
+      clearTimeout(autoDismissTimerRef.current);
+      autoDismissTimerRef.current = null;
     }
     setIsAlertFadingOut(true);
     fadeTimerRef.current = setTimeout(() => {
-      setFilteredDownloadError('');
+      setAlert(null);
       setIsAlertFadingOut(false);
       fadeTimerRef.current = null;
     }, ALERT_FADE_MS);
   }, []);
+
+  const showAlert = useCallback(
+    (status, message) => {
+      clearAlertTimers();
+      setIsAlertFadingOut(false);
+      setAlert({ status, message });
+
+      if (status === 'success') {
+        autoDismissTimerRef.current = setTimeout(() => {
+          dismissAlertWithFade();
+        }, SUCCESS_AUTO_DISMISS_MS);
+      }
+    },
+    [clearAlertTimers, dismissAlertWithFade],
+  );
 
   // Dismiss the alert when filters or query change (anything that refetches results).
   useEffect(() => {
@@ -83,26 +116,15 @@ export const DownloadComplaintData = () => {
       hasMountedSearchState.current = true;
       return;
     }
-    dismissErrorWithFade();
-  }, [filtersState, queryState, dismissErrorWithFade]);
+    dismissAlertWithFade();
+  }, [filtersState, queryState, dismissAlertWithFade]);
 
   useEffect(
     () => () => {
-      if (fadeTimerRef.current) {
-        clearTimeout(fadeTimerRef.current);
-      }
+      clearAlertTimers();
     },
-    [],
+    [clearAlertTimers],
   );
-
-  const showFilteredDownloadError = (message) => {
-    if (fadeTimerRef.current) {
-      clearTimeout(fadeTimerRef.current);
-      fadeTimerRef.current = null;
-    }
-    setIsAlertFadingOut(false);
-    setFilteredDownloadError(message);
-  };
 
   const allComplaintsUri = useMemo(
     () => getFullUrl(buildAllResultsUri('csv')),
@@ -142,6 +164,7 @@ export const DownloadComplaintData = () => {
           data-gtm_ignore="true"
           onClick={() => {
             sendAnalyticsEvent('Export All Data', tab + ':csv');
+            showAlert('success', DOWNLOAD_STARTED_MESSAGE);
           }}
         />
         <Link
@@ -154,20 +177,20 @@ export const DownloadComplaintData = () => {
           onClick={(event) => {
             if (!hasAppliedFilters(filtersState, queryState)) {
               event.preventDefault();
-              showFilteredDownloadError(FILTER_DOWNLOAD_EMPTY_MESSAGE);
+              showAlert('error', FILTER_DOWNLOAD_EMPTY_MESSAGE);
               return;
             }
             if (filteredCount > FILTER_DOWNLOAD_MAX) {
               event.preventDefault();
-              showFilteredDownloadError(FILTER_DOWNLOAD_LIMIT_MESSAGE);
+              showAlert('error', FILTER_DOWNLOAD_LIMIT_MESSAGE);
               return;
             }
-            showFilteredDownloadError('');
             sendAnalyticsEvent('Export Some Data', tab);
+            showAlert('success', DOWNLOAD_STARTED_MESSAGE);
           }}
         />
       </ButtonGroup>
-      {filteredDownloadError ? (
+      {alert ? (
         <div
           className={
             isAlertFadingOut
@@ -175,7 +198,7 @@ export const DownloadComplaintData = () => {
               : 'download-alert'
           }
         >
-          <AlertFieldLevel message={filteredDownloadError} status="error" />
+          <AlertFieldLevel message={alert.message} status={alert.status} />
         </div>
       ) : null}
     </WellContainer>

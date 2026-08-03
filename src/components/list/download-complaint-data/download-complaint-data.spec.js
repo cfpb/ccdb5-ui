@@ -96,9 +96,15 @@ describe('DownloadComplaintData', () => {
 
     await user.click(allLink);
     expect(analyticsSpy).toHaveBeenCalledWith('Export All Data', 'List:csv');
+    expect(
+      screen.getByText('Your data file is downloading…'),
+    ).toBeInTheDocument();
 
     await user.click(filteredLink);
     expect(analyticsSpy).toHaveBeenCalledWith('Export Some Data', 'List');
+    expect(
+      screen.getByText('Your data file is downloading…'),
+    ).toBeInTheDocument();
   });
 
   it('shows an error after an over-limit filtered download is attempted', async () => {
@@ -119,6 +125,9 @@ describe('DownloadComplaintData', () => {
 
     await user.click(filteredLink);
     expect(screen.getByText(/exceed download limits/)).toBeInTheDocument();
+    expect(
+      screen.queryByText('Your data file is downloading…'),
+    ).not.toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: /Download all complaints/ }),
     ).toBeInTheDocument();
