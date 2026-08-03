@@ -1,6 +1,7 @@
 @use 'css/base' as *;
 
 .pill-panel {
+  margin-bottom: $grid-gutter-width;
   padding-right: $gutter-narrow;
 
   .pill-panel__list {
@@ -31,8 +32,6 @@
   }
 
   @media screen and (max-width: $bp-xs-max) {
-    margin-top: 70px;
-
     .pill-panel__clear {
       display: block;
     }

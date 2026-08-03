@@ -1,7 +1,6 @@
 import { MODE_LIST, MODE_MAP } from '../../constants';
 import { useSelector } from 'react-redux';
 import { TabPanel } from '@cfpb/design-system-react';
-import { ActionBar } from '../action-bar/action-bar';
 import { ListPanel } from '../list/list-panel/list-panel';
 import { MapPanel } from '../map/map-panel';
 import { PrintInfo } from '../print/print-info';
@@ -35,7 +34,6 @@ export const ResultsPanel = () => {
   return (
     <div className={'content__main ' + tab.toLowerCase()}>
       <PrintInfo />
-      <ActionBar />
       <TabbedNavigation />
       <TabPanel id={getViewTabId(tab)}>{currentPanel}</TabPanel>
       <PrintInfoFooter />

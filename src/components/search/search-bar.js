@@ -95,66 +95,64 @@ export const SearchBar = () => {
   };
 
   return (
-    <div>
-      <div className="search-bar" role="search">
-        <form action="" onSubmit={handleSubmit}>
-          <div className="search-bar__controls">
-            <div className="search-field-select">
-              <SelectSingle
-                id="searchField"
-                label="Choose which field will be searched"
-                options={options}
-                value={searchField}
-                onChange={onSelectSearchField}
+    <div className="search-bar" role="search">
+      <form action="" onSubmit={handleSubmit}>
+        <div className="search-bar__controls">
+          <div className="search-field-select">
+            <SelectSingle
+              id="searchField"
+              label="Choose which field will be searched"
+              options={options}
+              value={searchField}
+              onChange={onSelectSearchField}
+            />
+          </div>
+          <div className="search-bar__input">
+            {searchField === 'company' ? (
+              <AsyncTypeahead
+                ariaLabel="Enter your search term(s)"
+                htmlId="searchText"
+                defaultValue={searchText}
+                handleChange={onSelection}
+                handleClear={onTypeaheadClear}
+                handlePressEnter={onPressEnter}
+                handleSelectionOverride={onSelection}
+                hasClearButton={true}
+                hasSearchButton={true}
+                placeholder=""
+                fieldName="company"
               />
-            </div>
-            <div className="search-bar__input">
-              {searchField === 'company' ? (
-                <AsyncTypeahead
-                  ariaLabel="Enter your search term(s)"
-                  htmlId="searchText"
-                  defaultValue={searchText}
-                  handleChange={onSelection}
-                  handleClear={onTypeaheadClear}
-                  handlePressEnter={onPressEnter}
-                  handleSelectionOverride={onSelection}
-                  hasClearButton={true}
-                  hasSearchButton={true}
-                  placeholder=""
-                  fieldName="company"
-                />
-              ) : (
-                <Input
-                  handleChange={(event) => {
-                    setInputValue(event.target.value);
-                    setIsDirty(true);
-                  }}
-                  handleClear={onClearInput}
-                  handlePressEnter={onPressEnter}
-                  htmlId="searchText"
-                  value={displayedValue}
-                  ariaLabel="Enter the term you want to search for"
-                  placeholder=""
-                />
-              )}
-            </div>
-            <Link
-              className="u-visually-hidden"
-              to="#search-summary"
-              label="Skip to Results"
-            />
+            ) : (
+              <Input
+                handleChange={(event) => {
+                  setInputValue(event.target.value);
+                  setIsDirty(true);
+                }}
+                handleClear={onClearInput}
+                handlePressEnter={onPressEnter}
+                htmlId="searchText"
+                value={displayedValue}
+                ariaLabel="Enter the term you want to search for"
+                placeholder=""
+              />
+            )}
           </div>
-          <div className="search-bar__tips">
-            <Button
-              label={
-                hasAdvancedSearchTips ? 'Hide search tips' : 'Show search tips'
-              }
-              isLink
-              iconLeft={hasAdvancedSearchTips ? 'minus' : 'plus'}
-              onClick={onAdvancedClicked}
-            />
-          </div>
-        </form>
+          <Link
+            className="u-visually-hidden"
+            to="#search-summary"
+            label="Skip to Results"
+          />
+        </div>
+      </form>
+      <div className="search-bar__tips">
+        <Button
+          label={
+            hasAdvancedSearchTips ? 'Hide search tips' : 'Show search tips'
+          }
+          isLink
+          iconLeft={hasAdvancedSearchTips ? 'minus' : 'plus'}
+          onClick={onAdvancedClicked}
+        />
       </div>
       {hasAdvancedSearchTips ? <AdvancedTips /> : null}
     </div>

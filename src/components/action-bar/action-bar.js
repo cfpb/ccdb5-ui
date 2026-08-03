@@ -33,7 +33,7 @@ export const ActionBar = () => {
       : buildSummaryMessage(total, docCount);
 
   return (
-    <>
+    <div className="search-status">
       <Alert
         id="search-summary"
         className="action-bar"
@@ -41,6 +41,6 @@ export const ActionBar = () => {
         message={message}
       />
       <StaleDataWarnings />
-    </>
+    </div>
   );
 };

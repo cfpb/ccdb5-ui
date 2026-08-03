@@ -14,6 +14,8 @@ import {
   updatePrintModeOn,
 } from '../../reducers/view/view-slice';
 import { SearchPanel } from './search-panel';
+import { ActionBar } from '../action-bar/action-bar';
+import { PillPanel } from './pill-panel';
 
 export const SearchComponents = () => {
   useUpdateLocation();
@@ -49,6 +51,8 @@ export const SearchComponents = () => {
       <Hero />
       <div className="content__wrapper">
         <SearchPanel />
+        <ActionBar />
+        <PillPanel />
         <RefinePanel />
         <ResultsPanel />
       </div>

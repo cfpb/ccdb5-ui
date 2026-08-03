@@ -2,8 +2,6 @@
 @use 'css/base' as *;
 
 .search-bar {
-  margin-bottom: $gutter-normal;
-
   &__controls {
     display: flex;
     flex-wrap: wrap;
