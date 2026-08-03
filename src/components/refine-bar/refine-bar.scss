@@ -66,9 +66,9 @@
     }
   }
 
-  // Below ~lg, View buttons no longer fit beside the selects — stack them
+  // Below 1200px, View buttons no longer fit beside the selects — stack them
   // on a second row and let the selects fill the row width.
-  @media screen and (max-width: $bp-lg-max) {
+  @media screen and (max-width: 1200px) {
     grid-template-columns: 1fr 1fr;
 
     .refine-select {
