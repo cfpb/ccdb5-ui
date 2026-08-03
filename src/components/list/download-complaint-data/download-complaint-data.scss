@@ -2,7 +2,7 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 
 .download-complaint-data {
-  margin: 0 0 $grid-gutter-width;
+  margin: 0;
 
   p {
     margin-bottom: math.div($grid-gutter-width, 2);
