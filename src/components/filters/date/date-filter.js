@@ -154,7 +154,6 @@ export const DateFilter = () => {
       desc=""
     >
       <div>
-        <DateRanges />
         <ul className="date-inputs">
           <li>
             <label
@@ -211,6 +210,7 @@ export const DateFilter = () => {
             </div>
           </li>
         </ul>
+        <DateRanges />
         {errors ? (
           <div className="a-form-alert a-form-alert--error" role="alert">
             <span aria-hidden="true">
