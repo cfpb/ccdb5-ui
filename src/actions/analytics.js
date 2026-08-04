@@ -28,11 +28,13 @@ const Analytics = {
    */
   init: function () {
     // detect if Google tag manager is loaded
-    if (Object.prototype.hasOwnProperty.call(window, 'google_tag_manager')) {
+    if (
+      Object.prototype.hasOwnProperty.call(globalThis, 'google_tag_manager')
+    ) {
       Analytics.tagManagerIsLoaded = true;
     } else {
       let _tagManager;
-      Object.defineProperty(window, 'google_tag_manager', {
+      Object.defineProperty(globalThis, 'google_tag_manager', {
         enumerable: true,
         configurable: true,
         get: function () {
@@ -56,7 +58,7 @@ const Analytics = {
   sendEvent: function (dataLayerOptions) {
     const callback = dataLayerOptions.eventCallback;
     if (Analytics.tagManagerIsLoaded) {
-      window.dataLayer.push(dataLayerOptions);
+      globalThis.dataLayer.push(dataLayerOptions);
     } else if (callback && typeof callback === 'function') {
       callback();
     }

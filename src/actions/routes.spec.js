@@ -1,5 +1,5 @@
 import * as sut from './index';
-import { initialState, setupStore } from '../testUtils/setupStore';
+import { initialState, setupStore } from '../test-utils/setup-store';
 
 describe('routes', () => {
   describe('changeRoute', () => {

@@ -1,5 +1,5 @@
 // Internal triggers
-import { formatDate } from '../utils/formatDate';
+import { formatDate } from '../utils/format-date';
 
 export const DATE_RANGE_MIN = '2011-12-01';
 
@@ -481,7 +481,6 @@ export const STATE_DATA = {
 export const API_PLACEHOLDER = '@@API';
 
 // provide relative link when not local development
-export const LINK_DATA_USE =
-  window.location.origin.indexOf('localhost') > -1
-    ? 'https://www.consumerfinance.gov/complaint/data-use/'
-    : '/complaint/data-use/';
+export const LINK_DATA_USE = location.origin.includes('localhost')
+  ? 'https://www.consumerfinance.gov/complaint/data-use/'
+  : '/complaint/data-use/';

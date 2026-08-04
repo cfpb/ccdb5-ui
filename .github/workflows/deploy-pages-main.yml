@@ -1,0 +1,51 @@
+name: Deploy main to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-main
+  cancel-in-progress: true
+
+jobs:
+  deploy-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: |
+          corepack enable
+          yarn install --immutable
+
+      - name: Build
+        env:
+          # Site root: https://cfpb.github.io/ccdb5-ui/
+          BASE_PATH: /ccdb5-ui/
+          # github.io cannot proxy /data-research; hit production CCDB API.
+          CCDB_API_BASE: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/
+        run: yarn build
+
+      - name: Disable Jekyll
+        run: touch dist/.nojekyll
+
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4.8.0
+        with:
+          branch: gh-pages
+          folder: dist
+          # Replace root site files but keep PR preview umbrella intact.
+          clean: true
+          clean-exclude: |
+            pr-previews

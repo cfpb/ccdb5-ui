@@ -1,0 +1,49 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { NARRATIVE_SEARCH_FIELD } from '../../../constants';
+import { toggleFlagFilter } from '../../../reducers/filters/filters-slice';
+import { selectFiltersHasNarrative } from '../../../reducers/filters/selectors';
+import { selectQuerySearchField } from '../../../reducers/query/selectors';
+import { Heading } from '@cfpb/design-system-react';
+
+const FIELD_NAME = 'has_narrative';
+
+const SEARCHING = 'SEARCHING';
+const FILTERING = 'FILTERING';
+const NOTHING = 'NOTHING';
+
+// ----------------------------------------------------------------------------
+// The Class
+
+export const HasNarrative = () => {
+  const dispatch = useDispatch();
+  const isChecked = useSelector(selectFiltersHasNarrative);
+  const searchField = useSelector(selectQuerySearchField);
+  let phase = NOTHING;
+  if (searchField === NARRATIVE_SEARCH_FIELD) {
+    phase = SEARCHING;
+  } else if (isChecked) {
+    phase = FILTERING;
+  }
+
+  return (
+    <section className="single-checkbox">
+      <Heading type="4">Only show complaints with narratives?</Heading>
+      <div className="m-form-field m-form-field--checkbox">
+        <input
+          className="a-checkbox"
+          checked={phase !== NOTHING}
+          disabled={phase === SEARCHING}
+          id="filter-has-narrative"
+          onChange={() => {
+            dispatch(toggleFlagFilter(FIELD_NAME));
+          }}
+          type="checkbox"
+          value={FIELD_NAME}
+        />
+        <label className="a-label" htmlFor="filter-has-narrative">
+          Yes
+        </label>
+      </div>
+    </section>
+  );
+};

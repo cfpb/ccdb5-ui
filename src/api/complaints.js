@@ -3,7 +3,7 @@ import { API_PLACEHOLDER } from '../constants';
 import {
   processAggregations,
   trendsReceived,
-} from '../reducers/trends/trendsSlice';
+} from '../reducers/trends/trends-slice';
 import { processStateAggregations } from '../utils/map';
 import queryString from 'query-string';
 
@@ -34,14 +34,14 @@ export const complaintsApi = createApi({
         respObject.isDataStale = response._meta.is_data_stale;
         respObject.total = response.hits.total.value;
 
-        keys.forEach((key) => {
+        for (const key of keys) {
           respObject[key] = aggs[key][key].buckets;
-        });
+        }
         return respObject;
       },
     }),
     getDocument: builder.query({
-      query: (id) => `${id}`,
+      query: (id) => id,
       transformResponse: (response) => response.hits.hits[0]._source,
     }),
     getList: builder.query({
@@ -54,9 +54,9 @@ export const complaintsApi = createApi({
           const item = { ...hit._source };
 
           if (hit.highlight) {
-            Object.keys(hit.highlight).forEach((field) => {
-              item[field] = hit.highlight[field][0];
-            });
+            for (const [field, value] of Object.entries(hit.highlight)) {
+              item[field] = value[0];
+            }
           }
 
           return item;

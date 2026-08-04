@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src",
+    "cypress",
+    "eslint.config.mjs",
+    "jest.config.js",
+    "jest.setup.js",
+    "rsbuild.config.mts"
+  ],
+  "exclude": ["node_modules", "dist", "coverage"]
+}

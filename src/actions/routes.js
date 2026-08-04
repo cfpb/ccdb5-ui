@@ -1,7 +1,6 @@
-import { routeChanged } from '../reducers/routes/routesSlice';
+import { routeChanged } from '../reducers/routes/routes-slice';
 import dayjs from 'dayjs';
-
-const isEqual = require('react-fast-compare');
+import isEqual from 'react-fast-compare';
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -17,17 +16,17 @@ export function normalizeRouteParams(params) {
   const remove = ['search_after'];
   const numbers = ['size', 'page', 'trend_depth'];
 
-  remove.forEach((value) => {
+  for (const value of remove) {
     if (Object.prototype.hasOwnProperty.call(processed, value)) {
       delete processed[value];
     }
-  });
+  }
 
-  numbers.forEach((number) => {
+  for (const number of numbers) {
     if (Object.prototype.hasOwnProperty.call(processed, number)) {
-      processed[number] = parseInt(processed[number], 10);
+      processed[number] = Number(processed[number]);
     }
-  });
+  }
 
   return processed;
 }
@@ -41,7 +40,7 @@ export function normalizeRouteParams(params) {
  *
  * @param {string} path - the new path being used
  * @param {object} params - the query string
- * @returns {(next: import('../types/reduxTypes').ReduxTypes.Next) => (action: import('../types/reduxTypes').ReduxTypes.PlainAction | import('../types/reduxTypes').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
+ * @returns {(next: import('../types/redux-types').ReduxTypes.Next) => (action: import('../types/redux-types').ReduxTypes.PlainAction | import('../types/redux-types').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
  */
 export function changeRoute(path, params) {
   return function (dispatch, getState) {
@@ -51,10 +50,10 @@ export function changeRoute(path, params) {
       dayjs(params.date_received_max).isValid() &&
       dayjs(params.date_received_min).isValid();
     const { routes } = store;
-    const sameRoute =
+    const isSameRoute =
       routes.path === path && isEqual(routes.params, normalized);
 
-    if (!sameRoute && isValid) {
+    if (!isSameRoute && isValid) {
       dispatch(routeChanged(path, normalized));
     }
   };

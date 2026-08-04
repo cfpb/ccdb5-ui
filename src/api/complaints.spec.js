@@ -12,12 +12,12 @@ import {
   aggResponse,
   listAPIResponse,
   listResponse,
-} from '../components/List/ListPanel/fixture';
-import { geoAPIResponse, geoResponse } from '../components/Map/fixture';
+} from '../components/list/list-panel/fixture';
+import { geoAPIResponse, geoResponse } from '../components/map/fixture';
 import {
   trendsAPIResponse,
   trendsResponse,
-} from '../components/Trends/fixture';
+} from '../components/trends/fixture';
 
 import fetchMock from 'jest-fetch-mock';
 import { aggResponseTransformed, documentResponse } from './fixture';
@@ -111,7 +111,7 @@ describe('getDocument', () => {
   });
   it('renders hook transforms data', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(documentResponse));
-    const { result } = renderHook(() => useGetDocumentQuery(12334), {
+    const { result } = renderHook(() => useGetDocumentQuery(12_334), {
       wrapper: Wrapper,
     });
     expect(result.current).toMatchObject({

@@ -1,0 +1,135 @@
+import { Tour } from './tour';
+import { screen, testRender as render } from '../../test-utils/test-utils';
+import * as viewActions from '../../reducers/view/view-slice';
+import { viewState } from '../../reducers/view/view-slice';
+import { merge } from '../../test-utils/function-helpers';
+import userEvent from '@testing-library/user-event';
+import { MODE_TRENDS } from '../../constants';
+import fetchMock from 'jest-fetch-mock';
+import { aggResponse } from '../map/fixture';
+import { trendsOverviewResponse } from '../trends/trends-panel/fixture';
+import { trendsState } from '../../reducers/trends/trends-slice';
+import { queryState } from '../../reducers/query/query-slice';
+import { BP_SM_SPLIT_WIDE_MIN } from '../../constants/breakpoints';
+
+const mockFetchResponses = () => {
+  fetchMock.mockResponse((req) => {
+    if (req.url.includes('API/trends?')) {
+      return Promise.resolve({
+        body: JSON.stringify(trendsOverviewResponse),
+      });
+    }
+    if (req.url.includes('API?')) {
+      return Promise.resolve({
+        body: JSON.stringify(aggResponse),
+      });
+    }
+    return Promise.resolve({ body: '{}' });
+  });
+};
+
+const renderComponent = (newViewModelState) => {
+  const newQueryState = { dateLastIndexed: '2021-01-01' };
+  merge(newQueryState, queryState);
+  merge(newViewModelState, viewState);
+
+  const data = {
+    query: newQueryState,
+    routes: { queryString: '?sadfdsf=fdsds' },
+    trends: trendsState,
+    view: newViewModelState,
+  };
+  return render(<Tour />, { preloadedState: data });
+};
+
+fetchMock.enableMocks();
+
+describe('Tour loading behavior', () => {
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  const user = userEvent.setup({ delay: null });
+
+  test("Tour doesn't load if page still loading", async () => {
+    renderComponent({ showTour: false });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  test("Tour doesn't load unless tourShown state is true", async () => {
+    renderComponent({ showTour: false });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    renderComponent({ showTour: true });
+    expect(await screen.findByRole('dialog')).toBeInTheDocument();
+  });
+
+  test('Tour launches by clicking button', async () => {
+    const tourShownSpy = jest
+      .spyOn(viewActions, 'tourShown')
+      .mockImplementation(() => jest.fn());
+
+    mockFetchResponses();
+
+    renderComponent({ tab: MODE_TRENDS, showTour: false });
+    await screen.findByRole('button', { name: /Take a tour/ });
+    expect(screen.getByRole('button', { name: /Take a tour/ })).toBeVisible();
+    await user.click(screen.getByRole('button', { name: /Take a tour/ }));
+    expect(tourShownSpy).toHaveBeenCalled();
+  });
+
+  test('hides the tour when intro.js exits', async () => {
+    const tourHiddenSpy = jest
+      .spyOn(viewActions, 'tourHidden')
+      .mockImplementation(() => jest.fn());
+
+    mockFetchResponses();
+
+    renderComponent({
+      tab: MODE_TRENDS,
+      showTour: true,
+      width: 1200,
+    });
+    await screen.findByRole('dialog');
+
+    const skipButton = document.querySelector('.introjs-skipbutton');
+    expect(skipButton).not.toBeNull();
+    await user.click(skipButton);
+
+    expect(tourHiddenSpy).toHaveBeenCalled();
+  });
+
+  test('prompts before exiting an in-progress tour', async () => {
+    mockFetchResponses();
+    globalThis.confirm = jest.fn(() => false);
+
+    renderComponent({
+      tab: MODE_TRENDS,
+      showTour: true,
+      width: 1200,
+    });
+    await screen.findByRole('dialog');
+
+    const skipButton = document.querySelector('.introjs-skipbutton');
+    expect(skipButton).not.toBeNull();
+    await user.click(skipButton);
+
+    expect(confirm).toHaveBeenCalledWith(
+      'Are you sure you want to exit the tour?',
+    );
+  });
+
+  test('builds mobile-specific steps on narrow viewports', async () => {
+    mockFetchResponses();
+
+    renderComponent({
+      tab: MODE_TRENDS,
+      showTour: true,
+      width: BP_SM_SPLIT_WIDE_MIN - 1,
+    });
+
+    expect(await screen.findByRole('dialog')).toBeInTheDocument();
+  });
+});
