@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
 import { selectViewTab } from '../../reducers/view/selectors';
 import { tabChanged } from '../../reducers/view/view-slice';
+import './tabbed-navigation.scss';
 
 export const VIEW_TABS = [
   { id: 'trends', mode: MODE_TRENDS, label: 'Trends', iconLeft: 'chart' },

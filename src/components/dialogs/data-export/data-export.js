@@ -116,9 +116,9 @@ export const DataExport = () => {
           complaints.
         </div>
         <div className="group">
-          <div className="group-title">
+          <Heading type="4" className="group-title">
             Select the dataset you’d like to download
-          </div>
+          </Heading>
           <div>
             <div className="m-form-field m-form-field--radio m-form-field--lg-target">
               <input

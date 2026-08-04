@@ -12,7 +12,6 @@ li.aggregation-branch {
         box-sizing: border-box;
         width: 20px;
         height: 20px;
-        text-indent: 0;
       }
 
       &.indeterminate::before {
@@ -36,10 +35,6 @@ li.aggregation-branch {
       .cf-icon-svg {
         padding-left: $gutter-minimum;
       }
-    }
-
-    .a-btn--link {
-      border: 0;
     }
 
     .parent-count {
