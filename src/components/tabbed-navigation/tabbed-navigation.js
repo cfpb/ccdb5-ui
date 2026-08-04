@@ -1,4 +1,3 @@
-import './tabbed-navigation.scss';
 import { Tab, TabList } from '@cfpb/design-system-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
