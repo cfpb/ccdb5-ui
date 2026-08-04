@@ -15,7 +15,7 @@ const productFilterButton = (name) =>
 const timelyFilterButton = (name) =>
   cy.findByRole('button', {
     name: new RegExp(
-      String.raw`${name} Did company provide a timely response\? filter`,
+      String.raw`${name} Did the company provide a timely response\? filter`,
     ),
   });
 
@@ -28,7 +28,7 @@ const stateFilterButton = (name) =>
 
 const stateTypeahead = () =>
   cy.findByRole('combobox', {
-    name: 'Enter the state in the mailing address provided by the consumer.',
+    name: 'The state in the mailing address provided by the consumer.',
   });
 
 const sizeSelect = () =>
@@ -111,7 +111,7 @@ describe('Filter Panel', () => {
     // Close it
     timelyFilterButton('Collapse').should('be.visible').click();
     cy.findByRole('button', {
-      name: /Expand Did company provide a timely response\? filter/,
+      name: /Expand Did the company provide a timely response\? filter/,
     })
       .closest('section')
       .within(() => {

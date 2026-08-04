@@ -2,7 +2,7 @@ import './aggregation-branch.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button, Heading, Icon } from '@cfpb/design-system-react';
+import { Heading, Icon } from '@cfpb/design-system-react';
 import {
   coalesce,
   getAllFilters,
@@ -117,8 +117,8 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
         >
           <span className="u-visually-hidden">{item.key}</span>
         </label>
-        <Button
-          isLink
+        <button
+          type="button"
           className="aggregation-branch__toggle"
           aria-label={item.key}
           aria-expanded={isOpen}
@@ -133,7 +133,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
             isPresentational
             className="aggregation-branch__caret"
           />
-        </Button>
+        </button>
       </li>
       {isOpen ? (
         <ul className="children">

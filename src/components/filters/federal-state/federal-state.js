@@ -31,8 +31,7 @@ export const FederalState = () => {
     };
   });
   const [dropdownOptions, setDropdownOptions] = useState(starterOptions);
-  const desc =
-    'Enter the state in the mailing address provided by the consumer.';
+  const desc = 'The state in the mailing address provided by the consumer.';
 
   const onInputChange = (value) => {
     const num = normalize(value);

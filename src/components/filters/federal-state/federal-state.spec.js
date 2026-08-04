@@ -54,7 +54,7 @@ describe('FederalState', () => {
     // test presence of zero count filters
     await screen.findByLabelText('TX');
     const input = screen.getByRole('combobox', {
-      name: 'Enter the state in the mailing address provided by the consumer.',
+      name: 'The state in the mailing address provided by the consumer.',
     });
     await user.type(input, 'Ma');
     const option = await screen.findByRole('option', {
@@ -70,7 +70,7 @@ describe('FederalState', () => {
   test('No matches found appears if user types non-existing option', async () => {
     render(<FederalState />);
     const input = screen.getByRole('combobox', {
-      name: 'Enter the state in the mailing address provided by the consumer.',
+      name: 'The state in the mailing address provided by the consumer.',
     });
     await user.type(input, 'Apples');
 
@@ -80,7 +80,7 @@ describe('FederalState', () => {
   test('Option list disappears when user removes text', async () => {
     render(<FederalState />);
     const input = screen.getByRole('combobox', {
-      name: 'Enter the state in the mailing address provided by the consumer.',
+      name: 'The state in the mailing address provided by the consumer.',
     });
     await user.type(input, 'Ma');
     const option = await screen.findByRole('option', {

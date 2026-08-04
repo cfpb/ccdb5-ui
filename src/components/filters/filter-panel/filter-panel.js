@@ -21,13 +21,9 @@ export const FilterPanel = () => {
   const hasFilters = useSelector(selectViewHasFilters);
   const hasButton = width < 750;
   const descPublicResponse =
-    "The company's optional public-facing " +
-    "response to a consumer's complaint. Companies can choose to " +
-    'select a response from a pre-set list of options that will be ' +
-    'posted on the public database.';
+    "The company's optional public-facing response to a consumer's complaint.";
   const descTags =
-    'Data that supports easier searching and sorting of ' +
-    'complaints submitted by or on behalf of consumers';
+    'Data that supports easier searching and sorting of complaints submitted by or on behalf of consumers.';
 
   return (
     <>
@@ -47,12 +43,12 @@ export const FilterPanel = () => {
           <DateFilter />
           <hr />
           <NestedFilter
-            desc="Enter the product or sub-product the consumer identified in the complaint."
+            desc="The product or sub-product the consumer identified in the complaint."
             fieldName="product"
           />
           <hr />
           <NestedFilter
-            desc="Enter the issue and sub-issue the consumer identified in the complaint."
+            desc="The issue and sub-issue the consumer identified in the complaint."
             fieldName="issue"
           />
           <hr />
@@ -63,15 +59,14 @@ export const FilterPanel = () => {
           <Company />
           <hr />
           <SimpleFilter
-            title="Did company provide a timely response?"
-            desc="Whether the company gave a timely response"
+            title="Did the company provide a timely response?"
+            desc=""
             fieldName="timely"
           />
           <hr />
           <SimpleFilter
             title="Company response to consumer"
-            desc="This is how the company responded. For example,
-                'Closed with explanation'."
+            desc="This is how the company responded to the complaint."
             fieldName="company_response"
           />
           <hr />

@@ -18,6 +18,7 @@
 
       .bucket-key {
         max-width: calc(100% - 65px); // $max-count-width + $bucket-indent
+        color: var(--black);
         vertical-align: top;
       }
 

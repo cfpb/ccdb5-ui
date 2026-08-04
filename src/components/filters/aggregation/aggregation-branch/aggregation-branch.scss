@@ -29,7 +29,12 @@ li.aggregation-branch {
       flex: 1 1 auto;
       align-items: flex-start;
       min-width: 0;
+      padding: 0;
+      border: 0;
       margin-left: 0;
+      background: transparent;
+      color: var(--black);
+      cursor: pointer;
       font-size: 16px;
       font-weight: normal;
       text-align: left;
@@ -37,7 +42,13 @@ li.aggregation-branch {
 
       &:hover,
       &:focus {
+        color: var(--black);
         text-decoration: none;
+
+        .aggregation-branch__label {
+          color: var(--black);
+          text-decoration: none;
+        }
 
         .aggregation-branch__caret {
           color: var(--link-text-hover);
@@ -48,10 +59,9 @@ li.aggregation-branch {
     .aggregation-branch__label {
       flex: 1 1 auto;
       min-width: 0;
+      color: var(--black);
       text-align: left;
-      text-decoration-line: underline;
-      text-decoration-thickness: 1px;
-      text-decoration-style: dotted;
+      text-decoration: none;
     }
 
     .aggregation-branch__count {

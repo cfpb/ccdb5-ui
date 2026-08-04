@@ -24,8 +24,7 @@ export const Company = () => {
     opt.disabled = Boolean(isFocusPage && opt.key !== focus);
   }
 
-  const desc =
-    'Enter the company name that the consumer listed in their complaint.';
+  const desc = 'The company name that the consumer listed in their complaint.';
 
   return (
     <CollapsibleFilter

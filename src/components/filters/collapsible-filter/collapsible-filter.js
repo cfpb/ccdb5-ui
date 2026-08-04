@@ -6,7 +6,7 @@ import { useState } from 'react';
 export const CollapsibleFilter = ({
   className = '',
   title,
-  desc,
+  desc = '',
   children,
 }) => {
   const [isOpen, setOpen] = useState(true);
@@ -37,7 +37,7 @@ export const CollapsibleFilter = ({
       </button>
       {isOpen ? (
         <div className="o-expandable__content">
-          <p>{desc}</p>
+          {desc ? <p>{desc}</p> : null}
           {children}
         </div>
       ) : null}
@@ -48,6 +48,6 @@ export const CollapsibleFilter = ({
 CollapsibleFilter.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string.isRequired,
-  desc: PropTypes.string.isRequired,
+  desc: PropTypes.string,
   children: PropTypes.node.isRequired,
 };

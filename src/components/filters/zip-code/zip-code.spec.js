@@ -63,7 +63,7 @@ describe('ZipCode', () => {
     await screen.findByLabelText('90210');
     expect(screen.getByRole('checkbox', { name: '90210' })).toBeInTheDocument();
     const input = screen.getByRole('combobox', {
-      name: 'Enter the mailing ZIP code provided by the consumer.',
+      name: 'The mailing ZIP code provided by the consumer.',
     });
     await user.type(input, '22');
     const option = await screen.findByRole('option', {

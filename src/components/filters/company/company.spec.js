@@ -52,7 +52,7 @@ describe('component::Company', () => {
     await screen.findByRole('checkbox', { name: 'Monocle Popper Inc' });
     expect(
       screen.getByText(
-        'Enter the company name that the consumer listed in their complaint.',
+        'The company name that the consumer listed in their complaint.',
       ),
     ).toBeInTheDocument();
     const input = screen.getByRole('combobox', { name: 'Company Search' });
