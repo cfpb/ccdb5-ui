@@ -10,7 +10,6 @@
 
     .export-url-copied {
       border: solid 1px var(--green);
-      border-left: 0;
 
       background-color: var(--green-20);
       color: var(--black);
@@ -41,19 +40,14 @@
         }
       }
 
-      .other-formats {
-        margin-top: $gutter-normal * 1.5;
-      }
-
-      .required-helper {
-        color: var(--gray);
+      .export-filter-alert {
+        margin-top: $gutter-normal;
+        margin-bottom: $gutter-normal;
       }
     }
 
-    .timeliness-warning {
-      margin-bottom: $gutter-normal * 1.5;
-
-      font-size: smaller;
+    .heres-the-url {
+      margin-bottom: $gutter-normal;
     }
   }
 }

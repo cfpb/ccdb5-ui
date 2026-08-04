@@ -9,11 +9,10 @@ export const ExportConfirmation = () => {
     <section className="export-modal">
       <div className="header layout-row">
         <Heading type="3" className="flex-all">
-          Export complaints
+          Download complaint data
         </Heading>
         <Button
           label="Close"
-          iconRight="error-round"
           isLink
           data-gtm_ignore="true"
           onClick={() => {

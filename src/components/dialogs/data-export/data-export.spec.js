@@ -18,6 +18,16 @@ import {
 import { waitFor } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../../list/list-panel/fixture';
+import {
+  FILTER_DOWNLOAD_EMPTY_MESSAGE,
+  FILTER_DOWNLOAD_LIMIT_MESSAGE,
+} from './data-export-utils';
+import * as aggregationHooks from '../../../api/hooks/use-get-aggregations';
+
+const withHitTotal = (total, docCount = total) => ({
+  total,
+  doc_count: docCount,
+});
 
 describe('DataExport', () => {
   const originalClipboard = { ...navigator.clipboard };
@@ -54,32 +64,27 @@ describe('DataExport', () => {
       .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     renderComponent({}, {}, { tab: MODE_TRENDS });
-    expect(screen.getByText('Export complaints')).toBeInTheDocument();
-
-    // hide dataset buttons when no filters selected
+    expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     expect(
-      screen.queryByText(/Select which complaints you'd like to export/),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.getByText(
-        'Link to your complaint search results for future reference',
-      ),
+      screen.getByText(/Select the dataset you’d like to download/),
     ).toBeInTheDocument();
     expect(
-      screen.queryByText(/Select a format for the exported file/),
-    ).not.toBeInTheDocument();
+      screen.getByText('Save a link to your filtered results'),
+    ).toBeInTheDocument();
     expect(screen.queryByRole('radio', { name: /JSON/i })).not.toBeInTheDocument();
+    expect(
+      screen.getByText(FILTER_DOWNLOAD_EMPTY_MESSAGE),
+    ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('button', { name: /Start export/ }),
+      screen.getByRole('button', { name: /Download data/ }),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
-    const buttonCopy = screen.getByRole('button', { name: /Copy/ });
+    const buttonCopy = screen.getByRole('button', { name: /Copy link/ });
     expect(buttonCopy).toBeInTheDocument();
-    expect(buttonCopy).toHaveClass('a-btn__secondary');
     fireEvent.click(buttonCopy);
     await waitFor(() => {
-      expect(buttonCopy).toHaveClass('export-url-copied');
+      expect(screen.getByRole('button', { name: /Copied/ })).toBeInTheDocument();
     });
 
     expect(screen.getByRole('button', { name: /Close/i })).toBeInTheDocument();
@@ -92,13 +97,34 @@ describe('DataExport', () => {
       .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     renderComponent({}, {}, { tab: MODE_LIST });
-    expect(screen.getByText('Export complaints')).toBeInTheDocument();
+    expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
     expect(modalHiddenSpy).toHaveBeenCalled();
   });
 
-  it('exports All complaints as CSV', async () => {
+  it('defaults to all complaint data and shows empty-filter alert', () => {
+    renderComponent({}, {}, { tab: MODE_LIST });
+
+    const radioFiltered = screen.getByRole('radio', {
+      name: /Filtered results/i,
+    });
+    const radioFull = screen.getByRole('radio', {
+      name: /All complaint data/i,
+    });
+
+    expect(radioFiltered).toBeDisabled();
+    expect(radioFiltered).not.toBeChecked();
+    expect(radioFull).toBeChecked();
+    expect(
+      screen.getByText(FILTER_DOWNLOAD_EMPTY_MESSAGE),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(FILTER_DOWNLOAD_LIMIT_MESSAGE),
+    ).not.toBeInTheDocument();
+  });
+
+  it('downloads all complaint data as CSV', async () => {
     const modalShownSpy = jest
       .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
@@ -106,14 +132,8 @@ describe('DataExport', () => {
       .spyOn(utils, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
     renderComponent({}, {}, { tab: MODE_LIST });
-    expect(screen.getByText('Export complaints')).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: /Start export/ }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole('textbox')).toHaveValue(
-      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
-    );
-    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
+
+    fireEvent.click(screen.getByRole('button', { name: /Download data/ }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
       'List:csv',
@@ -121,7 +141,10 @@ describe('DataExport', () => {
     expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
-  it('exports some complaints', async () => {
+  it('defaults to filtered results when under the download limit', async () => {
+    const aggregationsSpy = jest
+      .spyOn(aggregationHooks, 'useGetAggregations')
+      .mockReturnValue({ data: withHitTotal(50_000, 6_000_000) });
     const modalShownSpy = jest
       .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
@@ -129,117 +152,94 @@ describe('DataExport', () => {
       .spyOn(utils, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
 
-    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     renderComponent(
-      { doc_count: 999, total: 10_000 },
+      { issue: ['foo'], product: ['bar', 'baz'], state: ['TX', 'CA'] },
       {
         date_received_max: '2020-05-05',
         date_received_min: '2017-05-05',
-        issue: ['foo'],
-        product: ['bar', 'baz'],
-        state: ['TX', 'CA'],
+        searchText: 'debt',
       },
       { tab: MODE_LIST },
     );
-    await screen.findByText(/Select which complaints you’d like to export/);
-    expect(
-      screen.getByText(/Select which complaints you’d like to export/),
-    ).toBeInTheDocument();
+
     const radioFiltered = screen.getByRole('radio', {
-      name: /Filtered dataset/i,
+      name: /Filtered results \(50,000 complaints\)/i,
     });
-    expect(radioFiltered).toBeInTheDocument();
+    expect(radioFiltered).toBeEnabled();
     expect(radioFiltered).toBeChecked();
-
-    const radioFull = screen.getByRole('radio', {
-      name: /Full dataset/i,
-    });
-    expect(radioFull).toBeInTheDocument();
-    expect(radioFull).not.toBeChecked();
-    fireEvent.click(radioFiltered);
-    await waitFor(() => {
-      expect(radioFiltered).toBeChecked();
-    });
-
-    expect(screen.getByRole('textbox')).toHaveValue(
-      'http://localhost/@@API?date_received_max=2020-05-05' +
-        '&date_received_min=2017-05-05&field=all&format=csv&issue=foo' +
-        '&no_aggs=true&product=bar&product=baz&size=4303365&state=TX&state=CA',
-    );
-
     expect(
-      screen.getByRole('button', { name: /Start export/ }),
-    ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
+      screen.queryByText(FILTER_DOWNLOAD_EMPTY_MESSAGE),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(FILTER_DOWNLOAD_LIMIT_MESSAGE),
+    ).not.toBeInTheDocument();
 
+    fireEvent.click(screen.getByRole('button', { name: /Download data/ }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith('Export Some Data', 'List');
     expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
+
+    aggregationsSpy.mockRestore();
   });
 
-  it('keeps full dataset exports on CSV with no format options', async () => {
+  it('disables filtered results and shows limit alert when over 100,000', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
-    renderComponent({}, {}, {});
-    await screen.findByText(/Select which complaints you’d like to export/);
-
-    expect(
-      screen.queryByText(/Select a format for the exported file/),
-    ).not.toBeInTheDocument();
-    expect(screen.queryByRole('radio', { name: /JSON/i })).not.toBeInTheDocument();
-
-    expect(screen.getByRole('textbox')).toHaveValue(
-      'http://localhost/@@API?field=all&format=csv&no_aggs=true&size=4303365',
+    renderComponent(
+      { has_narrative: true },
+      { searchText: 'debt' },
+      { tab: MODE_LIST },
     );
 
-    const radioFull = screen.getByRole('radio', {
-      name: /Full dataset/i,
-    });
-    fireEvent.click(radioFull);
+    await screen.findByText(FILTER_DOWNLOAD_LIMIT_MESSAGE);
 
+    const radioFiltered = screen.getByRole('radio', {
+      name: /Filtered results/i,
+    });
+    const radioFull = screen.getByRole('radio', {
+      name: /All complaint data/i,
+    });
+
+    expect(radioFiltered).toBeDisabled();
+    expect(radioFull).toBeChecked();
+    expect(
+      screen.getByText(/limited to 100,000 complaints or fewer/),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/large, zipped CSV file every complaint/),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(FILTER_DOWNLOAD_EMPTY_MESSAGE),
+    ).not.toBeInTheDocument();
+  });
+
+  it('switches dataset selections when filtered is available', async () => {
+    const aggregationsSpy = jest
+      .spyOn(aggregationHooks, 'useGetAggregations')
+      .mockReturnValue({ data: withHitTotal(50_000, 6_000_000) });
+
+    renderComponent({ has_narrative: true }, { searchText: 'foo' }, {});
+
+    const radioFiltered = screen.getByRole('radio', {
+      name: /Filtered results/i,
+    });
+    const radioFull = screen.getByRole('radio', {
+      name: /All complaint data/i,
+    });
+    expect(radioFiltered).toBeChecked();
+    expect(radioFull).not.toBeChecked();
+
+    fireEvent.click(radioFull);
     await waitFor(() => {
       expect(radioFull).toBeChecked();
     });
-
-    expect(
-      screen.queryByText(/Select a format for the exported file/),
-    ).not.toBeInTheDocument();
-    expect(screen.queryByRole('radio', { name: /JSON/i })).not.toBeInTheDocument();
-    expect(screen.getByRole('textbox')).toHaveValue(
-      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
-    );
-  });
-
-  it('switches dataset selections', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
-    renderComponent({}, {}, {});
-    await screen.findByText(/Select which complaints you’d like to export/);
-    expect(
-      screen.getByText(/Select which complaints you’d like to export/),
-    ).toBeInTheDocument();
-
-    const radioFiltered = screen.getByRole('radio', {
-      name: /Filtered dataset/i,
-    });
-    expect(radioFiltered).toBeInTheDocument();
-    expect(radioFiltered).toBeChecked();
-
-    const radioFull = screen.getByRole('radio', {
-      name: /Full dataset/i,
-    });
-    expect(radioFull).toBeInTheDocument();
-    expect(radioFull).not.toBeChecked();
-    fireEvent.click(radioFull);
     await waitFor(() => {
       expect(radioFiltered).not.toBeChecked();
     });
-    await waitFor(() => {
-      expect(radioFull).toBeChecked();
-    });
+
     fireEvent.click(radioFiltered);
     await waitFor(() => {
       expect(radioFiltered).toBeChecked();
     });
-    await waitFor(() => {
-      expect(radioFull).not.toBeChecked();
-    });
+
+    aggregationsSpy.mockRestore();
   });
 });
