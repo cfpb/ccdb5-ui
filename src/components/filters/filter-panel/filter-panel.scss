@@ -11,16 +11,30 @@
     margin-top: $gutter-normal;
   }
 
+  // Vertical rhythm against <hr>s: 15px above titles, 30px below content
+  // (e.g. under "+ Show N more" and the Has Narrative checkbox).
   .o-expandable__header {
-    padding-right: 0;
-    padding-left: 0;
+    padding: $gutter-normal 0;
   }
 
   .o-expandable__content {
-    padding: 0 0 $gutter-normal;
+    padding: 0 0 $grid-gutter-width;
 
     &::before {
       padding-top: $gutter-normal;
+    }
+  }
+
+  // Non-expandable filters (e.g. Has Narrative) match that bottom spacing.
+  > section:not(.o-expandable) {
+    padding: $gutter-normal 0 $grid-gutter-width;
+
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
     }
   }
 
