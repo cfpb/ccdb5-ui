@@ -14,10 +14,7 @@ import { TOUR_SELECTORS } from './constants/tour-selector-constants';
 import { TourButton } from './tour-button';
 import { TourSteps } from './tour-steps';
 import { tourHidden } from '../../reducers/view/view-slice';
-import { useGetAggregations } from '../../api/hooks/use-get-aggregations';
-import { useGetMap } from '../../api/hooks/use-get-map';
-import { useGetList } from '../../api/hooks/use-get-list';
-import { useGetTrends } from '../../api/hooks/use-get-trends';
+import { usePageLoading } from '../../api/hooks/use-page-loading';
 import { isTrue } from '../../utils';
 import { querySelector } from '../../utils/dom';
 
@@ -81,31 +78,13 @@ const waitForDateFilter = () =>
 
 export const Tour = () => {
   const dispatch = useDispatch();
-  const { isLoading: aggsLoading, isFetching: aggsFetching } =
-    useGetAggregations();
-  const { isLoading: mapLoading, isFetching: mapFetching } = useGetMap();
-  const { isLoading: resultsLoading, isFetching: resultsFetching } =
-    useGetList();
-  const { isLoading: trendsLoading, isFetching: trendsFetching } =
-    useGetTrends();
-
+  const isPageLoading = usePageLoading();
   const showTour = useSelector(selectViewShowTour);
   const tab = useSelector(selectViewTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
   const stepRef = useRef();
-  // ORing all of these to prevent complexity warning
-  const isLoading = isTrue([
-    aggsLoading,
-    aggsFetching,
-    isPrintMode,
-    mapLoading,
-    mapFetching,
-    resultsLoading,
-    resultsFetching,
-    trendsLoading,
-    trendsFetching,
-  ]);
+  const isLoading = isTrue([isPageLoading, isPrintMode]);
 
   const isMobileTour = viewWidth < BP_SM_SPLIT_WIDE_MIN;
 

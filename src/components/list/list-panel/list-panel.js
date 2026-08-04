@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ErrorBlock } from '../../warnings/error';
 import { FilterPanel } from '../../filters/filter-panel/filter-panel';
 import { FilterPanelToggle } from '../../filters/filter-panel/filter-panel-toggle';
-import { Loading } from '../../loading/loading';
 import { NarrativesButtons } from '../../refine-bar/narratives-buttons';
 import { Pagination } from '../pagination/pagination';
 import { useMemo } from 'react';
@@ -113,7 +112,6 @@ export const ListPanel = () => {
       </div>
       {renderMap[phase]()}
       <Pagination />
-      <Loading isLoading={isLoading || isFetching} />
     </section>
   );
 };

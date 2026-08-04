@@ -14,12 +14,15 @@ import {
   updatePrintModeOn,
 } from '../../reducers/view/view-slice';
 import { SearchPanel } from './search-panel';
+import { Loading } from '../loading/loading';
+import { usePageLoading } from '../../api/hooks/use-page-loading';
 
 export const SearchComponents = () => {
   useUpdateLocation();
   useWindowSize();
 
   const isPrintMode = useSelector(selectViewIsPrintMode);
+  const isPageLoading = usePageLoading();
   const dispatch = useDispatch();
 
   useEvent('afterprint', () => {
@@ -54,6 +57,7 @@ export const SearchComponents = () => {
       </div>
       <Tour />
       <RootModal />
+      <Loading isLoading={isPageLoading} />
     </main>
   );
 };
