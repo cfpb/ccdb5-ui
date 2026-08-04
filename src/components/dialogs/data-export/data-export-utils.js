@@ -7,13 +7,12 @@ const DATA_HOST = 'https://files.consumerfinance.gov';
 // Useful methods
 
 /**
- * Builds the URI for exporting all results
+ * Builds the URI for exporting all results as a CSV zip
  *
- * @param {string} format - CSV or JSON
- * @returns {string} the URI for the specific type of format
+ * @returns {string} the URI for the full CSV dataset zip
  */
-export function buildAllResultsUri(format) {
-  return DATA_HOST + '/ccdb/complaints.' + format + '.zip';
+export function buildAllResultsUri() {
+  return DATA_HOST + '/ccdb/complaints.csv.zip';
 }
 
 /**

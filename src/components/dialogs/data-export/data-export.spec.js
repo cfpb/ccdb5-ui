@@ -65,6 +65,10 @@ describe('DataExport', () => {
         'Link to your complaint search results for future reference',
       ),
     ).toBeInTheDocument();
+    expect(
+      screen.queryByText(/Select a format for the exported file/),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('radio', { name: /JSON/i })).not.toBeInTheDocument();
 
     expect(
       screen.getByRole('button', { name: /Start export/ }),
@@ -94,7 +98,7 @@ describe('DataExport', () => {
     expect(modalHiddenSpy).toHaveBeenCalled();
   });
 
-  it('exports All complaints', async () => {
+  it('exports All complaints as CSV', async () => {
     const modalShownSpy = jest
       .spyOn(viewActions, 'modalShown')
       .mockImplementation(() => jest.fn());
@@ -113,47 +117,6 @@ describe('DataExport', () => {
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
       'List:csv',
-    );
-    expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
-  });
-
-  it('exports All complaints as json', async () => {
-    const modalShownSpy = jest
-      .spyOn(viewActions, 'modalShown')
-      .mockImplementation(() => jest.fn());
-    const sendAnalyticsSpy = jest
-      .spyOn(utils, 'sendAnalyticsEvent')
-      .mockImplementation(() => jest.fn());
-    renderComponent({}, {}, { tab: MODE_LIST });
-    expect(screen.getByText('Export complaints')).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: /Start export/ }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole('textbox')).toHaveValue(
-      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
-    );
-
-    const radioJson = screen.getByRole('radio', {
-      name: /JSON/i,
-    });
-    expect(radioJson).not.toBeChecked();
-
-    fireEvent.click(radioJson);
-
-    await waitFor(() => {
-      expect(radioJson).toBeChecked();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByRole('textbox')).toHaveValue(
-        'https://files.consumerfinance.gov/ccdb/complaints.json.zip',
-      );
-    });
-
-    fireEvent.click(screen.getByRole('button', { name: 'Start export' }));
-    expect(sendAnalyticsSpy).toHaveBeenCalledWith(
-      'Export All Data',
-      'List:json',
     );
     expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
@@ -213,18 +176,14 @@ describe('DataExport', () => {
     expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
-  it('hides format options for filtered exports', async () => {
+  it('keeps full dataset exports on CSV with no format options', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     renderComponent({}, {}, {});
     await screen.findByText(/Select which complaints you’d like to export/);
-    expect(
-      screen.getByText(/Select which complaints you’d like to export/),
-    ).toBeInTheDocument();
 
     expect(
       screen.queryByText(/Select a format for the exported file/),
     ).not.toBeInTheDocument();
-    expect(screen.queryByRole('radio', { name: /CSV/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('radio', { name: /JSON/i })).not.toBeInTheDocument();
 
     expect(screen.getByRole('textbox')).toHaveValue(
@@ -241,43 +200,12 @@ describe('DataExport', () => {
     });
 
     expect(
-      screen.getByText(/Select a format for the exported file/),
-    ).toBeInTheDocument();
-
-    const radioJson = screen.getByRole('radio', {
-      name: /JSON/i,
-    });
-    expect(radioJson).not.toBeChecked();
-
-    fireEvent.click(radioJson);
-
-    await waitFor(() => {
-      expect(radioJson).toBeChecked();
-    });
-    await waitFor(() => {
-      expect(screen.getByRole('textbox')).toHaveValue(
-        'https://files.consumerfinance.gov/ccdb/complaints.json.zip',
-      );
-    });
-
-    const radioFiltered = screen.getByRole('radio', {
-      name: /Filtered dataset/i,
-    });
-    fireEvent.click(radioFiltered);
-
-    await waitFor(() => {
-      expect(radioFiltered).toBeChecked();
-    });
-    await waitFor(() => {
-      expect(
-        screen.queryByText(/Select a format for the exported file/),
-      ).not.toBeInTheDocument();
-    });
-    await waitFor(() => {
-      expect(screen.getByRole('textbox')).toHaveValue(
-        'http://localhost/@@API?field=all&format=csv&no_aggs=true&size=4303365',
-      );
-    });
+      screen.queryByText(/Select a format for the exported file/),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('radio', { name: /JSON/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('textbox')).toHaveValue(
+      'https://files.consumerfinance.gov/ccdb/complaints.csv.zip',
+    );
   });
 
   it('switches dataset selections', async () => {

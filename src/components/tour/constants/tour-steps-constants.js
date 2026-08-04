@@ -102,7 +102,7 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_10.selector,
       intro:
-        'You can export filtered results as CSV, or the full dataset as CSV or JSON, by selecting “Export data”.',
+        'You can export complaint data as CSV by selecting “Export data”.',
     },
     {
       element: GEO.STEP_11.selector,
@@ -197,7 +197,7 @@ export const TOUR_STEPS = {
     {
       element: LIST.STEP_10.selector,
       intro:
-        'You can export filtered results as CSV, or the full dataset as CSV or JSON, by selecting “Export data”.',
+        'You can export complaint data as CSV by selecting “Export data”.',
     },
     {
       element: LIST.STEP_11.selector,
@@ -310,7 +310,7 @@ export const TOUR_STEPS = {
     {
       element: TRENDS.STEP_10.selector,
       intro:
-        'You can export filtered results as CSV, or the full dataset as CSV or JSON, by selecting “Export data”.',
+        'You can export complaint data as CSV by selecting “Export data”.',
     },
     {
       element: TRENDS.STEP_11.selector,

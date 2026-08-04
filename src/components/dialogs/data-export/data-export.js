@@ -12,9 +12,6 @@ import { selectFiltersRoot } from '../../../reducers/filters/selectors';
 import { useGetAggregations } from '../../../api/hooks/use-get-aggregations';
 import { getElementById } from '../../../utils/dom';
 
-const FORMAT_CSV = 'csv';
-const FORMAT_JSON = 'json';
-
 const DATASET_FILTERED = 'filtered';
 const DATASET_FULL = 'full';
 const FILTER_MAX = 1e5;
@@ -33,15 +30,10 @@ export const DataExport = () => {
   const [dataset, setDataset] = useState(
     someComplaintsCount > FILTER_MAX ? DATASET_FULL : DATASET_FILTERED,
   );
-  // can only be csv or json
-  const [format, setFormat] = useState(FORMAT_CSV);
 
   const [copied, setCopied] = useState(false);
 
   const exportDataset = isFullDatasetOnly ? DATASET_FULL : dataset;
-  // Filtered exports are CSV-only; format options (CSV/JSON) are for the full dataset zip.
-  const showFormatOptions = exportDataset === DATASET_FULL;
-  const exportFormat = showFormatOptions ? format : FORMAT_CSV;
 
   const exportUri = useMemo(() => {
     const mergedState = {
@@ -50,20 +42,14 @@ export const DataExport = () => {
     };
     const url =
       exportDataset === DATASET_FULL
-        ? buildAllResultsUri(exportFormat)
+        ? buildAllResultsUri()
         : buildSomeResultsUri(someComplaintsCount, mergedState);
     return getFullUrl(url);
-  }, [
-    exportDataset,
-    exportFormat,
-    someComplaintsCount,
-    filtersState,
-    queryState,
-  ]);
+  }, [exportDataset, someComplaintsCount, filtersState, queryState]);
 
   const handleExportClicked = () => {
     if (exportDataset === DATASET_FULL) {
-      sendAnalyticsEvent('Export All Data', tab + ':' + exportFormat);
+      sendAnalyticsEvent('Export All Data', tab + ':csv');
     } else {
       sendAnalyticsEvent('Export Some Data', tab);
     }
@@ -75,9 +61,6 @@ export const DataExport = () => {
   const selectDataset = (nextDataset) => {
     setCopied(false);
     setDataset(nextDataset);
-    if (nextDataset === DATASET_FILTERED) {
-      setFormat(FORMAT_CSV);
-    }
   };
 
   const copyToClipboard = (ev) => {
@@ -91,10 +74,8 @@ export const DataExport = () => {
     setCopied(true);
   };
 
-  const instructions = showFormatOptions
-    ? isFullDatasetOnly
-      ? 'To download a copy of this dataset, choose the file format below.'
-      : 'To download a copy of this dataset, choose the file format and which complaints you want to export below.'
+  const instructions = isFullDatasetOnly
+    ? 'To download a copy of this dataset, start the export below.'
     : 'To download a copy of this dataset, choose which complaints you want to export below.';
 
   return (
@@ -115,47 +96,6 @@ export const DataExport = () => {
       </div>
       <div className="body">
         <div className="instructions">{instructions}</div>
-        {showFormatOptions ? (
-          <div className="group">
-            <div className="group-title">
-              Select a format for the exported file
-            </div>
-            <div>
-              <div className="m-form-field m-form-field--radio m-form-field--lg-target">
-                <input
-                  checked={exportFormat === FORMAT_CSV}
-                  className="a-radio"
-                  id="format-csv"
-                  onChange={() => {
-                    setCopied(false);
-                    setFormat(FORMAT_CSV);
-                  }}
-                  type="radio"
-                  value="csv"
-                />
-                <label className="a-label" htmlFor="format-csv">
-                  CSV
-                </label>
-              </div>
-              <div className="m-form-field m-form-field--radio m-form-field--lg-target">
-                <input
-                  checked={exportFormat === FORMAT_JSON}
-                  className="a-radio"
-                  id="format-json"
-                  onChange={() => {
-                    setCopied(false);
-                    setFormat(FORMAT_JSON);
-                  }}
-                  type="radio"
-                  value="json"
-                />
-                <label className="a-label" htmlFor="format-json">
-                  JSON
-                </label>
-              </div>
-            </div>
-          </div>
-        ) : null}
         {isFullDatasetOnly ? null : (
           <div className="group">
             <div className="group-title">
@@ -200,7 +140,7 @@ export const DataExport = () => {
                     allComplaintsCount.toLocaleString() +
                     ' complaints)'}
                   <br />
-                  (large, zipped file of every complaint)
+                  (large, zipped CSV file of every complaint)
                 </label>
               </div>
             </div>
