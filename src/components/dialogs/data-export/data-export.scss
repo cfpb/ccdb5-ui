@@ -41,8 +41,14 @@
         margin: 0 0 $gutter-normal;
       }
 
-      // Join the URL field and Copy link control: square off the button's
-      // left corners so it sits flush against the input.
+      // Join the URL field and Copy link control into one control.
+      .a-text-input {
+        // Drop the shared edge so only the secondary button's blue border shows.
+        border-right: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
       .a-btn {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
