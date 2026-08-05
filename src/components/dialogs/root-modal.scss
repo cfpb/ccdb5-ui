@@ -36,10 +36,20 @@
   outline: none;
 
   .header {
+    position: relative;
     padding: $grid-gutter-width;
+    // Leave room for the absolutely positioned Close control.
+    padding-right: 4.5rem;
     padding-bottom: 0;
 
     align-items: flex-start;
+
+    // Close sits 15px from the top and right edges of the modal.
+    .a-btn--link {
+      position: absolute;
+      top: $gutter-normal;
+      right: $gutter-normal;
+    }
 
     .cf-icon-svg {
       padding-left: $gutter-minimum;

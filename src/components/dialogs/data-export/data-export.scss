@@ -51,6 +51,13 @@
       h4 {
         margin: 0 0 $gutter-normal;
       }
+
+      // Join the URL field and Copy link control: square off the button's
+      // left corners so it sits flush against the input.
+      .a-btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
     }
   }
 }

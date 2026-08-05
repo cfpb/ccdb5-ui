@@ -156,7 +156,7 @@ export const DataExport = () => {
                   allComplaintsCount.toLocaleString() +
                   ' complaints)'}
                 <br />
-                (large, zipped CSV file every complaint)
+                (large, zipped CSV file of every complaint)
               </label>
             </div>
           </div>

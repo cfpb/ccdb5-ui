@@ -204,7 +204,7 @@ describe('DataExport', () => {
       screen.getByText(/limited to 100,000 complaints or fewer/),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/large, zipped CSV file every complaint/),
+      screen.getByText(/large, zipped CSV file of every complaint/),
     ).toBeInTheDocument();
     expect(
       screen.queryByText(FILTER_DOWNLOAD_EMPTY_MESSAGE),
