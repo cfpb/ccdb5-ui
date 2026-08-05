@@ -66,7 +66,7 @@ describe('DataExport', () => {
     renderComponent({}, {}, { tab: MODE_TRENDS });
     expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     expect(
-      screen.getByText(/Select the dataset you’d like to download/),
+      screen.getByText(/Select the data you would like to download/),
     ).toBeInTheDocument();
     expect(
       screen.getByText('Save a link to your filtered results'),

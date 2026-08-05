@@ -117,7 +117,7 @@ export const DataExport = () => {
         </div>
         <div className="group">
           <Heading type="4" className="group-title">
-            Select the dataset you’d like to download
+            Select the data you would like to download
           </Heading>
           <div>
             <div className="m-form-field m-form-field--radio m-form-field--lg-target">

@@ -20,18 +20,22 @@
     }
 
     .instructions {
-      margin-bottom: $gutter-normal;
+      margin-bottom: $grid-gutter-width;
     }
 
     .group {
-      margin-bottom: $gutter-normal;
+      margin-bottom: $grid-gutter-width;
 
       .group-title {
-        margin: $gutter-normal 0;
+        margin: 0 0 $gutter-normal;
       }
 
       .m-form-field {
         margin-bottom: $gutter-normal;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
 
         .multiline-label {
           display: inline-block;
@@ -40,12 +44,13 @@
 
       .export-filter-alert {
         margin-top: $gutter-normal;
-        margin-bottom: $gutter-normal;
       }
     }
 
     .heres-the-url {
-      margin-bottom: $gutter-normal;
+      h4 {
+        margin: 0 0 $gutter-normal;
+      }
     }
   }
 }
