@@ -19,6 +19,17 @@
     margin-top: $gutter-normal;
   }
 
+  // Drop DS expandable side padding so filter controls use the panel width.
+  .o-expandable__header {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .o-expandable__content {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
   hr {
     margin: 0;
     color: var(--gray-40);
