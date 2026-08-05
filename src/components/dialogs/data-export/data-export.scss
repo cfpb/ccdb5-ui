@@ -8,17 +8,6 @@
       padding-right: $gutter-minimum;
     }
 
-    .export-url-copied {
-      border: solid 1px var(--green);
-
-      background-color: var(--green-20);
-      color: var(--black);
-
-      .cf-icon-svg {
-        fill: var(--green);
-      }
-    }
-
     .instructions {
       margin-bottom: $grid-gutter-width;
     }

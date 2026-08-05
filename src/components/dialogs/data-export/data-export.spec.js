@@ -84,7 +84,7 @@ describe('DataExport', () => {
     expect(buttonCopy).toBeInTheDocument();
     fireEvent.click(buttonCopy);
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: /Copied/ })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Link copied/ })).toBeInTheDocument();
     });
 
     expect(screen.getByRole('button', { name: /Close/i })).toBeInTheDocument();

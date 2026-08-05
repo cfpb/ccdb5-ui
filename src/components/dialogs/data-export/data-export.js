@@ -181,10 +181,9 @@ export const DataExport = () => {
               readOnly
             />
             <Button
-              label={copied ? 'Copied' : 'Copy link'}
+              label={copied ? 'Link copied' : 'Copy link'}
               iconRight={copied ? 'approved' : 'link'}
               appearance="secondary"
-              className={copied ? 'export-url-copied' : undefined}
               disabled={!resultsLink}
               onClick={copyToClipboard}
             />
