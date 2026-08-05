@@ -39,6 +39,15 @@ export const Hero = () => {
             label="Technical documentation"
           />
         </li>
+        <li className="m-list__item">
+          <Link
+            to="https://cfpb.github.io/api/ccdb/release-notes.html"
+            iconRight="external-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            label="Release notes"
+          />
+        </li>
       </ul>
     </header>
   );
