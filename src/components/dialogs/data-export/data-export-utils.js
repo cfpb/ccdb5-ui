@@ -7,10 +7,10 @@ const DATA_HOST = 'https://files.consumerfinance.gov';
 export const FILTER_DOWNLOAD_MAX = 1e5;
 
 export const FILTER_DOWNLOAD_LIMIT_MESSAGE =
-  'Your filtered results exceed download limits. Refine your search terms and filters to reduce the number of complaints.';
+  'Filtered option is unavailable as filtered results exceed download limit. Refine your search terms and filters to reduce the number of complaints.';
 
 export const FILTER_DOWNLOAD_EMPTY_MESSAGE =
-  'You must add search terms or apply filters to download filtered results.';
+  'Filtered option is unavailable. You must add search terms or apply filters to download filtered results.';
 
 /**
  * Whether the user has applied search text, non-default dates, or any filters.

@@ -18,11 +18,12 @@ import {
 import { waitFor } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../../list/list-panel/fixture';
-import {
-  FILTER_DOWNLOAD_EMPTY_MESSAGE,
-  FILTER_DOWNLOAD_LIMIT_MESSAGE,
-} from './data-export-utils';
 import * as aggregationHooks from '../../../api/hooks/use-get-aggregations';
+
+const FILTER_DOWNLOAD_EMPTY_MESSAGE =
+  'Filtered option is unavailable. You must add search terms or apply filters to download filtered results.';
+const FILTER_DOWNLOAD_LIMIT_MESSAGE =
+  'Filtered option is unavailable as filtered results exceed download limit. Refine your search terms and filters to reduce the number of complaints.';
 
 const withHitTotal = (total, docCount = total) => ({
   total,
