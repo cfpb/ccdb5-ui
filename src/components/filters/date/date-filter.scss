@@ -10,6 +10,11 @@
   ul.date-inputs {
     margin: 0;
 
+    // Aggregation list rules add borders between <li>s; From/To should not.
+    > li + li {
+      border-top: none;
+    }
+
     li {
       display: inline-block;
       width: calc(50% - 8px); // Half $gutter-normal
