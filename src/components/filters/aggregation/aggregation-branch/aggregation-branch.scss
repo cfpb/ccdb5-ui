@@ -2,21 +2,17 @@
 
 li.aggregation-branch {
   &.parent {
-    position: relative;
-
-    align-items: baseline;
+    display: flex;
+    align-items: flex-start;
     list-style-type: none;
 
     .toggle {
-      &.a-label::before {
-        box-sizing: border-box;
-        width: 20px;
-        height: 20px;
-      }
+      flex: none;
 
       &.indeterminate::before {
         border: solid 2px var(--gray-dark);
-        background: url('indeterminate.png') no-repeat scroll center center transparent;
+        background: url('indeterminate.png') no-repeat scroll center center
+          transparent;
       }
 
       .a-checkbox:checked + &.a-label::before {
@@ -24,28 +20,52 @@ li.aggregation-branch {
       }
     }
 
-    button {
-      max-width: calc(100% - 95px); // $max-count-width + $bucket-indent
+    .aggregation-branch__toggle {
+      display: flex;
+      flex: 1 1 auto;
+      align-items: flex-start;
+      min-width: 0;
+      margin-left: 0;
       font-size: 16px;
       font-weight: normal;
       text-align: left;
-      vertical-align: top;
-      display: inline-block;
+      text-decoration: none;
 
-      .cf-icon-svg {
-        padding-left: $gutter-minimum;
+      &:hover,
+      &:focus {
+        text-decoration: none;
+
+        .aggregation-branch__caret {
+          color: var(--link-text-hover);
+        }
       }
     }
 
-    .parent-count {
-      position: absolute;
-      top: 0;
-      right: 0;
-
-      color: var(--gray-dark);
-      font-size: 14px;
+    .aggregation-branch__label {
+      flex: 1 1 auto;
+      min-width: 0;
+      text-align: left;
+      text-decoration-line: underline;
+      text-decoration-thickness: 1px;
+      text-decoration-style: dotted;
     }
 
+    .aggregation-branch__count {
+      flex: 0 0 $max-count-width;
+      margin-left: $gutter-minimum;
+      margin-bottom: 0;
+      color: var(--gray);
+      text-align: right;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .aggregation-branch__caret {
+      flex: 0 0 1em;
+      margin-left: $gutter-minimum;
+      color: var(--link-text);
+      fill: currentColor;
+    }
   }
 
   + ul.children {
