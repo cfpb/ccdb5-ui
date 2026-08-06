@@ -38,7 +38,6 @@ import { RowChart } from '../../charts/row-chart/row-chart';
 import { StackedAreaChart } from '../../charts/stacked-area-chart/stacked-area-chart';
 import { ExternalTooltip } from '../external-tooltip/external-tooltip';
 import { TrendDepthToggle } from '../trend-depth-toggle/trend-depth-toggle';
-import { Loading } from '../../loading/loading';
 import { LensTabs } from '../lens-tabs/lens-tabs';
 import { selectFiltersCompany } from '../../../reducers/filters/selectors';
 import { dataLensChanged } from '../../../reducers/trends/trends-slice';
@@ -318,7 +317,6 @@ export const TrendsPanel = () => {
       ) : null}
       {total > 0 && phaseMap()}
       <TrendDepthToggle />
-      <Loading isLoading={isLoading || isFetching} />
     </section>
   );
 };

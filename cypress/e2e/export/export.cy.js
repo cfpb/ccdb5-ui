@@ -3,7 +3,7 @@ import { waitForLoading } from '../utils';
 const pagination = () => cy.findByRole('navigation', { name: 'Pagination' });
 
 describe('Complaint export', () => {
-  it('sends user to an export link without pagination params', () => {
+  it('opens download modal for filtered results under the limit', () => {
     cy.visit('?size=10&searchText=debt%20recovery&tab=List');
     waitForLoading();
     pagination().findByRole('button', { name: 'Next' }).click();
@@ -14,16 +14,26 @@ describe('Complaint export', () => {
     cy.findByRole('dialog', { name: 'CFPB Modal Dialog' }).should(
       'be.visible',
     );
-    cy.findByRole('heading', { name: 'Export complaints' }).should(
+    cy.findByRole('heading', { name: 'Download complaint data' }).should(
       'be.visible',
     );
-    cy.findByRole('radio', { name: /Filtered dataset/ }).click({
-      force: true,
-    });
-
     cy.findByRole('dialog', { name: 'CFPB Modal Dialog' })
-      .findByRole('textbox')
-      .should('not.include.value', 'frm=')
-      .and('not.include.value', 'search_after=');
+      .findByRole('radio', { name: /JSON/i })
+      .should('not.exist');
+    cy.findByText(/Select a format for the exported file/).should('not.exist');
+
+    cy.findByRole('radio', { name: /Filtered results/ })
+      .should('be.enabled')
+      .and('be.checked');
+    cy.findByText(
+      /You must add search terms or apply filters to download filtered results/,
+    ).should('not.exist');
+    cy.findByText(/exceed download limits/).should('not.exist');
+
+    cy.findByRole('button', { name: /Download data/ }).should('be.visible');
+    cy.findByRole('button', { name: /Copy link/ }).should('be.visible');
+    cy.findByRole('heading', {
+      name: 'Save a link to your filtered results',
+    }).should('be.visible');
   });
 });

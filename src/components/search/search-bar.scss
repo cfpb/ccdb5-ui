@@ -46,11 +46,6 @@
     height: auto;
   }
 
-  button.a-btn.flex-fixed {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-
   .typeahead-portal {
     height: $grid-gutter-width;
     min-width: 12em;

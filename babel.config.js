@@ -7,6 +7,7 @@ module.exports = {
         runtime: 'automatic',
       },
     ],
+    '@babel/preset-typescript',
   ],
   plugins: [
     '@babel/plugin-transform-modules-commonjs',

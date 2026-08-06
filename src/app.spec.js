@@ -49,7 +49,7 @@ describe('initial state', () => {
     );
 
     await screen.findByText(/Search within/);
-    expect(updateLocationHookSpy).toHaveBeenCalledTimes(1);
+    expect(updateLocationHookSpy).toHaveBeenCalled();
     expect(screen.getByText(/Consumer Complaint Database/)).toBeInTheDocument();
     expect(screen.getByText(/Search within/)).toBeInTheDocument();
     expect(

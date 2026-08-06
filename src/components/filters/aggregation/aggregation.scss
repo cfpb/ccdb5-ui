@@ -16,14 +16,6 @@
 
       align-items: baseline;
 
-      .a-label::before {
-        box-sizing: border-box;
-        width: 20px;
-        height: 20px;
-
-        text-indent: 0;
-      }
-
       .bucket-key {
         max-width: calc(100% - 65px); // $max-count-width + $bucket-indent
         vertical-align: top;
@@ -33,9 +25,8 @@
         position: absolute;
         top: 0;
         right: 0;
-
-        color: var(--gray-dark);
-        font-size: 14px;
+        margin-bottom: 0;
+        color: var(--gray);
       }
     }
   }

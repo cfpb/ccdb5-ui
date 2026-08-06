@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { Heading } from '@cfpb/design-system-react';
 import { filterPatch, SLUG_SEPARATOR } from '../../../../constants';
 import { coalesce, sanitizeHtmlId } from '../../../../utils';
 import { arrayEquals } from '../../../../utils/compare';
@@ -103,9 +104,9 @@ export const AggregationItem = ({ fieldName, item }) => {
       <label className="a-label flex-all bucket-key" htmlFor={id}>
         {value}
       </label>
-      <span className="flex-fixed bucket-count">
+      <Heading type="5" className="flex-fixed bucket-count">
         {item.doc_count.toLocaleString()}
-      </span>
+      </Heading>
     </li>
   );
 };

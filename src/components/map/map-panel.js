@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { ErrorBlock } from '../warnings/error';
 import { FilterPanel } from '../filters/filter-panel/filter-panel';
 import { FilterPanelToggle } from '../filters/filter-panel/filter-panel-toggle';
-import { Loading } from '../loading/loading';
 import { MapToolbar } from './map-toolbar';
 import { processRows } from '../../utils/chart';
 import { useMemo } from 'react';
@@ -25,7 +24,7 @@ import { useGetMap } from '../../api/hooks/use-get-map';
 
 export const MapPanel = () => {
   const { data, error } = useGetAggregations();
-  const { data: results, isLoading, isFetching, error: hasError } = useGetMap();
+  const { data: results, error: hasError } = useGetMap();
   const total = error ? 0 : data?.total || 0;
   const maxDate = useSelector(selectQueryDateReceivedMax);
   const minDate = useSelector(selectQueryDateReceivedMin);
@@ -80,7 +79,6 @@ export const MapPanel = () => {
           <MapStateNavigation />
         </>
       )}
-      <Loading isLoading={isLoading || isFetching} />
     </section>
   );
 };

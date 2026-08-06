@@ -17,7 +17,9 @@ describe('RootModal', () => {
     expect(
       screen.queryByText('Things you should know before you use this database'),
     ).not.toBeInTheDocument();
-    expect(screen.queryByText('Export complaints')).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Download complaint data'),
+    ).not.toBeInTheDocument();
   });
 
   it('renders Export dialog', () => {
@@ -32,7 +34,7 @@ describe('RootModal', () => {
       },
     });
     Modal.setAppElement(container);
-    expect(screen.getByText('Export complaints')).toBeInTheDocument();
+    expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /Close/ }));
     expect(closeSpy).toHaveBeenCalled();
   });
@@ -50,7 +52,7 @@ describe('RootModal', () => {
     });
 
     Modal.setAppElement(container);
-    expect(screen.getByText('Export complaints')).toBeInTheDocument();
+    expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     // react-modal listens for Escape on the document; fireEvent matches that path
     fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' });
     await waitFor(() => {

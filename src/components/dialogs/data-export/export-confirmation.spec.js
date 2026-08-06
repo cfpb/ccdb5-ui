@@ -15,7 +15,7 @@ describe('ExportConfirmation', () => {
       .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
     renderComponent();
-    expect(screen.getByText('Export complaints')).toBeInTheDocument();
+    expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Close/ })).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: /Close/ }));
     expect(hideModalSpy).toHaveBeenCalled();

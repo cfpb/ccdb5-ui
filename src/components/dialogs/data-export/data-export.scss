@@ -8,52 +8,51 @@
       padding-right: $gutter-minimum;
     }
 
-    .export-url-copied {
-      border: solid 1px var(--green);
-      border-left: 0;
-
-      background-color: var(--green-20);
-      color: var(--black);
-
-      .cf-icon-svg {
-        fill: var(--green);
-      }
-    }
-
     .instructions {
-      margin-bottom: $gutter-normal;
+      margin-bottom: $grid-gutter-width;
     }
 
     .group {
-      margin-bottom: $gutter-normal;
+      margin-bottom: $grid-gutter-width;
 
       .group-title {
-        margin: $gutter-normal 0;
-        font-size: $size-iv;
-        font-weight: bold;
+        margin: 0 0 $gutter-normal;
       }
 
       .m-form-field {
         margin-bottom: $gutter-normal;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
 
         .multiline-label {
           display: inline-block;
         }
       }
 
-      .other-formats {
-        margin-top: $gutter-normal * 1.5;
-      }
-
-      .required-helper {
-        color: var(--gray);
+      .export-filter-alert {
+        margin-top: $gutter-normal;
       }
     }
 
-    .timeliness-warning {
-      margin-bottom: $gutter-normal * 1.5;
+    .heres-the-url {
+      h4 {
+        margin: 0 0 $gutter-normal;
+      }
 
-      font-size: smaller;
+      // Join the URL field and Copy link control into one control.
+      .a-text-input {
+        // Drop the shared edge so only the secondary button's blue border shows.
+        border-right: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .a-btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 // jest.config.js
 module.exports = {
   collectCoverageFrom: [
-    '**/*.{js,jsx}',
+    '**/*.{js,jsx,ts,tsx}',
     '!<rootDir>/node_modules/',
     '!<rootDir>/cypress/**/**',
     '!<rootDir>/coverage/**',

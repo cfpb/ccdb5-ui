@@ -29,13 +29,14 @@
     "prepare": "husky",
     "release": "yarn run build && release-it --npm.skipChecks",
     "test": "TZ=UTC jest --coverage --watchAll=false",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "start": "rsbuild dev",
     "build": "./scripts/build.sh",
     "preview": "rsbuild preview"
   },
   "dependencies": {
     "@cfpb/cfpb-design-system": "^5.8.2",
-    "@cfpb/design-system-react": "git+https://github.com/cfpb/design-system-react.git#889b479ec4ea74023d2c9b7f5e46ebcff92a1ba7",
+    "@cfpb/design-system-react": "^2.0.2",
     "@fontsource-variable/source-sans-3": "5.3.0",
     "@reduxjs/toolkit": "^2.12.0",
     "britecharts": "git+https://github.com/cfpb/cfpb-britecharts.git#v2.6",
@@ -62,6 +63,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
     "@babel/preset-react": "^7.29.7",
+    "@babel/preset-typescript": "^7.28.5",
     "@cfpb/browserslist-config": "^0.0.7",
     "@eslint/js": "^10.0.1",
     "@rsbuild/core": "^2.1.9",
