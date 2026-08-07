@@ -46,7 +46,7 @@ describe('MapPanel', () => {
     expect(
       screen.getAllByRole('button', { name: /Close filters/ }),
     ).toHaveLength(2);
-    expect(screen.getByText('Filter results by...')).toBeInTheDocument();
+    expect(screen.getByText('Filter results by')).toBeInTheDocument();
   });
 
   it('renders error', async () => {

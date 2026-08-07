@@ -4,18 +4,18 @@ import { waitForLoading } from '../utils';
 
 const dateFilterButton = (name) =>
   cy.findByRole('button', {
-    name: new RegExp(`${name} Date CFPB received the complaint filter`),
+    name: new RegExp(`${name} The date the CFPB received the complaint filter`),
   });
 
 const productFilterButton = (name) =>
   cy.findByRole('button', {
-    name: new RegExp(`${name} Product / sub-product filter`),
+    name: new RegExp(`${name} Product and sub-product filter`),
   });
 
 const timelyFilterButton = (name) =>
   cy.findByRole('button', {
     name: new RegExp(
-      String.raw`${name} Did company provide a timely response\? filter`,
+      String.raw`${name} Did the company provide a timely response\? filter`,
     ),
   });
 
@@ -26,27 +26,32 @@ const stateFilterButton = (name) =>
     name: new RegExp(`${name} State filter`),
   });
 
+const stateTypeahead = () =>
+  cy.findByRole('combobox', {
+    name: 'The state in the mailing address provided by the consumer.',
+  });
+
 const sizeSelect = () =>
-  cy.findByLabelText('Select the number of results to display at a time');
+  cy.findByLabelText('Show per page');
 
 const complaintLinks = () =>
   cy.findAllByRole('link', { name: /^Complaint / });
 
 const filterPills = () =>
-  cy.findByRole('heading', { name: 'Filters applied:' }).closest('section');
+  cy.findByText('Filters applied:').closest('section');
 
 describe('Filter Panel', () => {
   it('allows the app to filter complaints', () => {
     cy.visit('?tab=List');
     waitForLoading();
     cy.log('it has filter panel');
-    cy.findByRole('heading', { name: 'Filter results by...' }).should(
+    cy.findByRole('heading', { name: 'Filter results by' }).should(
       'be.visible',
     );
     waitForLoading();
     cy.log('is expanded');
 
-    // ids are the label association targets; two "From"/"Through" fields exist
+    // ids are the label association targets; two "From"/"To" fields exist
     cy.get('#date-received-from').should('be.visible');
 
     cy.log('collapse it');
@@ -95,7 +100,7 @@ describe('Filter Panel', () => {
     cy.url().should('include', `date_received_max=202`);
     cy.log('can expand/collapse/apply filter group');
     // default date Filter pills
-    cy.findAllByRole('button', { name: /Date Received:/ }).should(
+    cy.findAllByRole('button', { name: /Date received:/ }).should(
       'have.length',
       1,
     );
@@ -106,7 +111,7 @@ describe('Filter Panel', () => {
     // Close it
     timelyFilterButton('Collapse').should('be.visible').click();
     cy.findByRole('button', {
-      name: /Expand Did company provide a timely response\? filter/,
+      name: /Expand Did the company provide a timely response\? filter/,
     })
       .closest('section')
       .within(() => {
@@ -133,10 +138,10 @@ describe('Filter Panel', () => {
     });
 
     // Filter clear button
-    cy.findByRole('button', { name: 'Clear all filters' }).should('exist');
-    cy.findByRole('button', { name: 'Clear all filters' }).click();
+    cy.findByRole('button', { name: 'Clear filters' }).should('exist');
+    cy.findByRole('button', { name: 'Clear filters' }).click();
 
-    cy.findByRole('button', { name: /Date Received:/ }).should('not.exist');
+    cy.findByRole('button', { name: /Date received:/ }).should('not.exist');
     cy.findByRole('button', { name: 'Timely: Yes' }).should('not.exist');
 
     // Product/Sub-product
@@ -164,9 +169,9 @@ describe('Filter Panel', () => {
 
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
     // Open sub-filter
-    cy.findByRole('button', { name: 'Mortgage' }).click();
+    cy.findByRole('button', { name: /^Mortgage/ }).click();
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('exist');
-    cy.findByRole('button', { name: 'Mortgage' }).click();
+    cy.findByRole('button', { name: /^Mortgage/ }).click();
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
 
     cy.log('toggles a filter by clicking checkbox input');
@@ -187,7 +192,7 @@ describe('Filter Panel', () => {
     cy.log('applies sub-filter by clicking');
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
     // Open sub-filter
-    cy.findByRole('button', { name: 'Mortgage' }).click();
+    cy.findByRole('button', { name: /^Mortgage/ }).click();
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('exist');
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).click({
       force: true,
@@ -220,24 +225,18 @@ describe('Filter Panel', () => {
     cy.log('Typeahead Filters');
     // state
     cy.log('can collapse/expand and search a filter');
-    cy.findByPlaceholderText('Enter state name or abbreviation').should(
-      'be.visible',
-    );
+    stateTypeahead().should('be.visible');
 
     cy.log('close it');
     stateFilterButton('Collapse').click();
 
-    cy.findByPlaceholderText('Enter state name or abbreviation').should(
-      'not.exist',
-    );
+    stateTypeahead().should('not.exist');
 
     cy.log('open again');
     stateFilterButton('Expand').click();
     cy.log('searches a typeahead filter');
-    cy.findByPlaceholderText('Enter state name or abbreviation').clear();
-    cy.findByPlaceholderText('Enter state name or abbreviation').type(
-      'texas',
-    );
+    stateTypeahead().clear();
+    stateTypeahead().type('texas');
 
     cy.findByRole('option', { name: /Texas/ }).click();
 

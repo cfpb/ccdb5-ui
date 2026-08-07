@@ -9,7 +9,7 @@ const backToSearch = () =>
   cy.findByRole('link', { name: 'Back to search results' });
 
 const sortSelect = () =>
-  cy.findByLabelText('Choose the order in which the results are displayed');
+  cy.findByLabelText('Sort by');
 
 const hasNarrativeCheckbox = () =>
   cy
@@ -52,7 +52,7 @@ describe('Document View', () => {
         '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List',
       );
 
-      sortSelect().find('option:selected').should('have.text', 'Relevance');
+      sortSelect().find('option:selected').should('have.text', 'Most relevant');
 
       cy.findByRole('button', { name: /Has narrative/ }).should('be.visible');
 
@@ -67,7 +67,7 @@ describe('Document View', () => {
 
       waitForLoading();
 
-      sortSelect().find('option:selected').should('have.text', 'Relevance');
+      sortSelect().find('option:selected').should('have.text', 'Most relevant');
 
       cy.findByRole('button', { name: /Has narrative/ }).should('be.visible');
 

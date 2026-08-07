@@ -26,7 +26,7 @@ export const HasNarrative = () => {
   }
 
   return (
-    <section className="single-checkbox">
+    <section className="has-narrative">
       <Heading type="4">Only show complaints with narratives?</Heading>
       <div className="m-form-field m-form-field--checkbox">
         <input

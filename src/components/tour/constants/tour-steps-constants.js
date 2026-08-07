@@ -56,7 +56,7 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_3.selector,
       intro:
-        'You can change how to view complaint data by selecting the three views we have available — Trends, List, and Map.' +
+        'You can change how to view complaint data by selecting the three views we have available — List, Trends, and Map.' +
         '<br /><br />' +
         'You are currently on the Map view, which displays complaints by state.' +
         '<br /><br />' +
@@ -68,12 +68,12 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_4.selector,
       intro:
-        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear all filters” under the Search bar.',
+        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear filters” under the Search bar.',
     },
     {
       element: GEO.STEP_5.selector,
       intro:
-        'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.',
+        'You can adjust the date range of the complaint data showed using the “Date received” filter. <br /> The default date range is three years from today’s date.',
     },
     {
       element: GEO.STEP_6.selector,
@@ -92,7 +92,7 @@ export const TOUR_STEPS = {
       intro:
         'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
         '<br /> <br />' +
-        'Click “Show advanced search tips” to see some advanced ways to refine your word search.',
+        'Click “Show search tips” to see some advanced ways to refine your word search.',
     },
     {
       element: GEO.STEP_9.selector,
@@ -102,25 +102,21 @@ export const TOUR_STEPS = {
     {
       element: GEO.STEP_10.selector,
       intro:
-        'You can download complaint data as CSV by selecting “Export data”.',
+        'You can download filtered results as CSV, or the full dataset as a CSV zip, from the Download complaint data section on the List view.',
     },
     {
-      element: GEO.STEP_11.selector,
-      intro: 'Select “Print” to generate a pdf of the current page.',
-    },
-    {
-      element: GEO.STEP_13.selector,
+      element: GEO.STEP_12.selector,
       intro:
         'Hover over a tile on the map to view complaint information specific to that state. You can filter to see data specific to a state by selecting the state or using the filter panel.',
     },
     {
-      element: GEO.STEP_14.selector,
+      element: GEO.STEP_13.selector,
       intro:
         'View complaint volume by product in the bar chart. Use the blue arrow by each product to view breakdowns by sub-products.' +
         '<br /><br />Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:',
     },
     {
-      element: GEO.STEP_15.selector,
+      element: GEO.STEP_14.selector,
       intro:
         'To learn how to use Trends and List views, select the view and then start the tour.',
     },
@@ -152,7 +148,7 @@ export const TOUR_STEPS = {
     {
       element: LIST.STEP_3.selector,
       intro:
-        'You can change how to view complaint data by selecting the three views we have available — Trends, List, and Map.' +
+        'You can change how to view complaint data by selecting the three views we have available — List, Trends, and Map.' +
         '<br /><br />' +
         'You are currently on the List view, which shows individual complaints.' +
         '<br /><br />' +
@@ -163,12 +159,12 @@ export const TOUR_STEPS = {
     {
       element: LIST.STEP_4.selector,
       intro:
-        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear all filters” under the Search bar.',
+        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear filters” under the Search bar.',
     },
     {
       element: LIST.STEP_5.selector,
       intro:
-        'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.',
+        'You can adjust the date range of the complaint data showed using the “Date received” filter. <br /> The default date range is three years from today’s date.',
     },
     {
       element: LIST.STEP_6.selector,
@@ -187,7 +183,7 @@ export const TOUR_STEPS = {
       intro:
         'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
         '<br /> <br />' +
-        'Click “Show advanced search tips” to see some advanced ways to refine your word search.',
+        'Click “Show search tips” to see some advanced ways to refine your word search.',
     },
     {
       element: LIST.STEP_9.selector,
@@ -197,42 +193,38 @@ export const TOUR_STEPS = {
     {
       element: LIST.STEP_10.selector,
       intro:
-        'You can download complaint data as CSV by selecting “Export data”.',
+        'You can download filtered results as CSV, or the full dataset as a CSV zip, from the Download complaint data section.',
     },
     {
       element: LIST.STEP_11.selector,
-      intro: 'Select “Print” to generate a pdf of the current page.',
-    },
-    {
-      element: LIST.STEP_12.selector,
       intro: 'Select the number of complaints to view per page here.',
     },
     {
-      element: LIST.STEP_13.selector,
+      element: LIST.STEP_12.selector,
       intro:
-        'Sort complaints in the list view by “Newest to oldest,” “Oldest to newest,” “Relevance,” and “Relevance (asc).”' +
+        'Sort complaints in the list view by “Newest to oldest,” “Oldest to newest,” “Most relevant,” and “Least relevant.”' +
         '<br /><br />' +
         'Relevancy are based on any applied search terms.',
     },
     {
-      element: LIST.STEP_14.selector,
+      element: LIST.STEP_13.selector,
       intro:
         'You can see all complaints or focus on those with consumer complaint narratives.' +
         '<br /><br />' +
         'We publish the consumer’s narrative description of what happened from their complaint if the consumer opts to share it publicly and after taking steps to remove personal information.',
     },
     {
-      element: LIST.STEP_15.selector,
+      element: LIST.STEP_14.selector,
       intro:
         'These are your search results. As you apply filters and search terms, your results will display here. This view shows a preview of the complaint.',
     },
     {
-      element: LIST.STEP_16.selector,
+      element: LIST.STEP_15.selector,
       intro:
         'Click the blue ID number to see more details about a particular complaint.',
     },
     {
-      element: LIST.STEP_17.selector,
+      element: LIST.STEP_16.selector,
       intro:
         'To learn how to use Map and Trend views, select the view and then start the tour.',
     },
@@ -264,7 +256,7 @@ export const TOUR_STEPS = {
     {
       element: TRENDS.STEP_3.selector,
       intro:
-        'You can change how to view complaint data by selecting the three views we have available—Trends, List, and Map.' +
+        'You can change how to view complaint data by selecting the three views we have available—List, Trends, and Map.' +
         '<br /><br />' +
         'You are currently on the Trends view, which visualizes complaint data using a trend line with product and issue breakdowns.' +
         '<br /><br />' +
@@ -276,12 +268,12 @@ export const TOUR_STEPS = {
     {
       element: TRENDS.STEP_4.selector,
       intro:
-        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear all filters” under the Search bar.',
+        'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear filters” under the Search bar.',
     },
     {
       element: TRENDS.STEP_5.selector,
       intro:
-        'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.',
+        'You can adjust the date range of the complaint data showed using the “Date received” filter. <br /> The default date range is three years from today’s date.',
     },
     {
       element: TRENDS.STEP_6.selector,
@@ -300,7 +292,7 @@ export const TOUR_STEPS = {
       intro:
         'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
         '<br /> <br />' +
-        'Click “Show advanced search tips” to see some advanced ways to refine your word search.',
+        'Click “Show search tips” to see some advanced ways to refine your word search.',
     },
     {
       element: TRENDS.STEP_9.selector,
@@ -310,30 +302,26 @@ export const TOUR_STEPS = {
     {
       element: TRENDS.STEP_10.selector,
       intro:
-        'You can download complaint data as CSV by selecting “Export data”.',
+        'You can download filtered results as CSV, or the full dataset as a CSV zip, from the Download complaint data section on the List view.',
     },
     {
       element: TRENDS.STEP_11.selector,
-      intro: 'Select “Print” to generate a pdf of the current page.',
-    },
-    {
-      element: TRENDS.STEP_12.selector,
       intro:
         'Select the dropdown to aggregate the data by product or by the company to which the CFPB sent the complaint for response.',
     },
     {
-      element: TRENDS.STEP_13.selector,
+      element: TRENDS.STEP_12.selector,
       intro:
         'Select this dropdown to change the time interval displayed on the trend line.',
     },
     {
-      element: TRENDS.STEP_14.selector,
+      element: TRENDS.STEP_13.selector,
       intro:
         'View complaint volume by product in the bar chart. Use the blue arrow by each product to view breakdowns by sub-products.' +
         '<br /><br />Once the product is expanded, select the “Visualize” link as shown below, to view trends on sub-products and issues:',
     },
     {
-      element: TRENDS.STEP_15.selector,
+      element: TRENDS.STEP_14.selector,
       intro:
         'To learn how to use List and Map views, select the view and then start the tour.',
       position: 'top',

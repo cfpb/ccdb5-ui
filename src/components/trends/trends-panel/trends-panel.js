@@ -30,7 +30,6 @@ import { Warning } from '../../warnings/warning';
 import { FilterPanel } from '../../filters/filter-panel/filter-panel';
 import { FilterPanelToggle } from '../../filters/filter-panel/filter-panel-toggle';
 import { Select } from '../../refine-bar/select';
-import { Separator } from '../../refine-bar/separator';
 import { ChartToggles } from '../../refine-bar/chart-toggles';
 import { FocusHeader } from '../focus-header/focus-header';
 import { LineChart } from '../../charts/line-chart/line-chart';
@@ -222,30 +221,22 @@ export const TrendsPanel = () => {
       ) : null}
       {hasMobileFilters ? <FilterPanel /> : null}
       <FilterPanelToggle />
-      <div className="layout-row refine-bar">
+      <div className="refine-bar refine-bar--trends">
         <Select
-          label="Aggregate complaints by"
-          title="Aggregate by"
+          label="Aggregate by"
           values={lenses}
           id="lens"
           value={lens}
           handleChange={onLens}
         />
-        <Separator />
         <Select
-          label="Choose the Date interval"
-          title="Date interval"
+          label="Date interval"
           values={intervals}
           id="interval"
           value={dateInterval}
           handleChange={onInterval}
         />
-        {hasOverview
-          ? null
-          : [
-              <Separator key="separator" />,
-              <ChartToggles key="chart-toggles" />,
-            ]}
+        {hasOverview ? null : <ChartToggles key="chart-toggles" />}
       </div>
       {error ? (
         <ErrorBlock text="There was a problem executing your search" />

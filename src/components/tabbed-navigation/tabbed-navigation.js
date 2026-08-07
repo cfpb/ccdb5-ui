@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MODE_LIST, MODE_MAP, MODE_TRENDS } from '../../constants';
 import { selectViewTab } from '../../reducers/view/selectors';
 import { tabChanged } from '../../reducers/view/view-slice';
-import './tabbed-navigation.scss';
 
 export const VIEW_TABS = [
-  { id: 'trends', mode: MODE_TRENDS, label: 'Trends', iconLeft: 'chart' },
   { id: 'list', mode: MODE_LIST, label: 'List', iconLeft: 'list' },
+  { id: 'trends', mode: MODE_TRENDS, label: 'Trends', iconLeft: 'chart' },
   { id: 'map', mode: MODE_MAP, label: 'Map', iconLeft: 'map' },
 ];
 
@@ -16,7 +15,7 @@ export const VIEW_TABS = [
  * @returns {string} Tab id used by DSR Tab / TabPanel
  */
 export const getViewTabId = (mode) =>
-  VIEW_TABS.find((item) => item.mode === mode)?.id ?? 'trends';
+  VIEW_TABS.find((item) => item.mode === mode)?.id ?? 'list';
 
 export const TabbedNavigation = () => {
   const dispatch = useDispatch();

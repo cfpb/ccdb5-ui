@@ -22,25 +22,31 @@ describe('NarrativesButtons', () => {
   it('should render default state', async () => {
     renderComponent({ foo: 'bar' });
 
-    expect(screen.getByText('Read')).toBeInTheDocument();
+    expect(screen.getByText('View')).toBeInTheDocument();
+    expect(screen.getByText('View')).toHaveClass('a-label', 'a-label--heading');
     const btnAllComplaints = screen.getByRole('button', {
       name: 'All complaints',
     });
     const btnNarratives = screen.getByRole('button', {
-      name: 'Only complaints with narratives',
+      name: 'Complaints with narratives',
     });
     expect(btnAllComplaints).toBeInTheDocument();
-    expect(btnAllComplaints).toBeDisabled();
-    expect(btnAllComplaints).toHaveClass('selected');
-    // do nothing
+    expect(btnAllComplaints).toHaveAttribute('aria-pressed', 'true');
+    expect(btnAllComplaints).toHaveClass('a-btn--secondary', 'active');
+    expect(btnNarratives).toHaveClass('a-btn--secondary');
+    expect(btnNarratives).not.toHaveClass('active');
+    expect(btnNarratives).toHaveAttribute('aria-pressed', 'false');
+
+    // Already selected — no change
     await user.click(btnAllComplaints);
-    expect(btnAllComplaints).toBeDisabled();
-    expect(btnNarratives).toBeEnabled();
+    expect(btnAllComplaints).toHaveAttribute('aria-pressed', 'true');
+    expect(btnAllComplaints).toHaveClass('a-btn--secondary', 'active');
 
     await user.click(btnNarratives);
-    expect(btnNarratives).toHaveClass('a-btn selected');
-    expect(btnAllComplaints).toBeEnabled();
-    expect(btnNarratives).toBeDisabled();
-    expect(btnNarratives).toBeDisabled();
+    expect(btnNarratives).toHaveClass('a-btn--secondary', 'active');
+    expect(btnNarratives).toHaveAttribute('aria-pressed', 'true');
+    expect(btnAllComplaints).toHaveClass('a-btn--secondary');
+    expect(btnAllComplaints).not.toHaveClass('active');
+    expect(btnAllComplaints).toHaveAttribute('aria-pressed', 'false');
   });
 });

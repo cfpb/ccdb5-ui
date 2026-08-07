@@ -66,10 +66,11 @@ export const isGreaterThanYear = (from, to) => {
  * @returns {Array} array of date intervals
  */
 export const getIntervals = (from, to) =>
-  types.dateIntervals.map((interval) => ({
-    name: interval,
-    disabled: isGreaterThanYear(from, to) && interval === 'Day',
-  }));
+  types.dateIntervals
+    .filter((interval) => !(interval === 'Day' && isGreaterThanYear(from, to)))
+    .map((interval) => ({
+      name: interval,
+    }));
 
 /**
  * trigger this after a user clicks a focus.  we scroll to the select box

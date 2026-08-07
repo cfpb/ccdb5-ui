@@ -21,16 +21,16 @@ describe('component: TabbedNavigation', () => {
   describe('initial state', () => {
     it('renders without crashing', async () => {
       renderComponent({});
-      expect(screen.getByRole('tab', { name: /Trends/ })).toBeInTheDocument();
-      expect(screen.getByRole('tab', { name: /Trends/ })).toHaveAttribute(
+      expect(screen.getByRole('tab', { name: /List/ })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /List/ })).toHaveAttribute(
         'aria-selected',
         'true',
       );
-      expect(screen.getByRole('tab', { name: /List/ })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /Trends/ })).toBeInTheDocument();
       expect(screen.getByRole('tab', { name: /Map/ })).toBeInTheDocument();
 
-      await user.click(screen.getByRole('tab', { name: /List/ }));
-      expect(screen.getByRole('tab', { name: /List/ })).toHaveAttribute(
+      await user.click(screen.getByRole('tab', { name: /Trends/ }));
+      expect(screen.getByRole('tab', { name: /Trends/ })).toHaveAttribute(
         'aria-selected',
         'true',
       );
@@ -41,8 +41,8 @@ describe('component: TabbedNavigation', () => {
         'true',
       );
 
-      await user.click(screen.getByRole('tab', { name: /Trends/ }));
-      expect(screen.getByRole('tab', { name: /Trends/ })).toHaveAttribute(
+      await user.click(screen.getByRole('tab', { name: /List/ }));
+      expect(screen.getByRole('tab', { name: /List/ })).toHaveAttribute(
         'aria-selected',
         'true',
       );

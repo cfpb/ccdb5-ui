@@ -6,8 +6,7 @@ import { isTrue } from '../../utils';
 
 /**
  * True when aggregations or the active view's data query is loading/refetching.
- * Keeps the page overlay and related UI in sync so users cannot interact
- * (for example Export data) while counts are still resolving.
+ * Keeps the page overlay and search-summary alert in sync.
  *
  * @returns {boolean} Whether the page should show a loading state
  */

@@ -1,77 +1,102 @@
 @use 'sass:math';
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
-@use 'select' as *;
 
 .refine-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: $gutter-normal;
+  align-items: start;
+  width: 100%;
+  margin: math.div($grid-gutter-width, 3) 0;
+
   section {
-    margin: math.div($grid-gutter-width, 3) 0 math.div($grid-gutter-width, 3) math.div($grid-gutter-width, 2);
+    margin: 0;
+    min-width: 0;
 
-    p {
-      font-size: $size-vi;
-      font-weight: 600;
-      color: var(--gray);
-    }
-
-    button {
-      &.selected {
-        background-color: var(--pacific-60);
-        font-weight: 600;
-      }
-
-      &:not(.selected) {
-        background-color: var(--pacific-20);
-      }
-    }
-
-    &:not(.filter-panel-toggle) {
-      button {
-        color: var(--black);
-      }
-    }
-
-    &.cf-select {
-      border: none;
-
-      select {
-        background-color: var(--white);
-        color: var(--black);
-        border: 1px solid var(--gray-40);
-      }
-
-      &::after {
-        background-color: var(--white);
-        transform: translate(-5px, 0);
+    &.refine-select {
+      .a-select {
+        width: 100%;
       }
     }
   }
 
-  .separator {
-    @media screen and (min-width: $bp-med-min) {
-      display: none;
-    }
-
-    @media screen and (min-width: $bp-sm-min) and (max-width: $bp-sm-max) {
-      display: none;
-    }
-
-    @media screen and (max-width: $bp-xs-max) {
-      display: none;
-    }
-  }
-
-  // Per Capita and Narratives buttons in the refine bar.
+  // Per Capita buttons in the refine bar.
   button {
     // Only used to hide "population" on per capita refine buttons.
     @media screen and (max-width: $bp-xs-max),
-    screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
+      screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
       > span {
         display: none;
       }
     }
+  }
+}
 
-    &.disabled.a-btn__disabled {
-      background-color: var(--gray-10);
+.refine-bar--list,
+.refine-bar--trends {
+  box-sizing: border-box;
+  grid-template-columns: 11rem 11rem max-content;
+  margin: 0;
+  // Horizontal gutters come from the page/column — don't double-inset.
+  padding: $grid-gutter-width 0;
+
+  .refine-select {
+    width: 11rem;
+  }
+
+  @media screen and (max-width: $bp-xs-max) {
+    grid-template-columns: 1fr;
+    padding: $gutter-normal 0;
+
+    .refine-select {
+      width: 100%;
+    }
+  }
+}
+
+.refine-bar--list {
+  .narratives-buttons {
+    .m-btn-group {
+      flex-wrap: nowrap;
+    }
+
+    .a-btn {
+      white-space: nowrap;
+    }
+  }
+
+  // Below 1200px, View buttons no longer fit beside the selects — stack them
+  // on a second row and let the selects fill the row width.
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr;
+
+    .refine-select {
+      width: 100%;
+    }
+
+    .narratives-buttons {
+      grid-column: 1 / -1;
+
+      .m-btn-group {
+        flex-wrap: wrap;
+      }
+
+      .a-btn {
+        white-space: normal;
+      }
+    }
+  }
+
+  @media screen and (max-width: $bp-xs-max) {
+    .narratives-buttons {
+      .m-btn-group {
+        flex-wrap: wrap;
+      }
+
+      .a-btn {
+        white-space: normal;
+      }
     }
   }
 }

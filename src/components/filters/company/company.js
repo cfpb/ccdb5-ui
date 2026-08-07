@@ -24,7 +24,7 @@ export const Company = () => {
     opt.disabled = Boolean(isFocusPage && opt.key !== focus);
   }
 
-  const desc = 'The complaint is about this company.';
+  const desc = 'The company name that the consumer listed in their complaint.';
 
   return (
     <CollapsibleFilter
@@ -34,7 +34,9 @@ export const Company = () => {
     >
       <AsyncTypeahead
         fieldName={FIELD_NAME}
-        placeholder="Enter company name"
+        id="filter-company-typeahead"
+        label={desc}
+        placeholder=""
         ariaLabel="Company Search"
         htmlId="company-typeahead"
       />

@@ -50,7 +50,7 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
       </Heading>
       <div className="card">
         <div className="card-left layout-column">
-          <Heading type="4">Date CFPB received the complaint</Heading>
+          <Heading type="4">Date received</Heading>
           <span>{formatDisplayDate(data.date_received)}</span>
 
           <Heading type="4" className="u-mt15">

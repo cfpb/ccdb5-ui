@@ -25,7 +25,7 @@ describe('RefinePanel', () => {
   it('renders in desktop view', () => {
     renderComponent({ tab: MODE_TRENDS }, { width: 1000 });
     expect(
-      screen.getByRole('heading', { name: 'Filter results by...' }),
+      screen.getByRole('heading', { name: 'Filter results by' }),
     ).toBeInTheDocument();
 
     expect(screen.getByRole('heading', { name: 'State' })).toBeInTheDocument();

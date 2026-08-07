@@ -32,17 +32,22 @@ describe('ChartToggles', () => {
 
   it('renders default state', async () => {
     renderComponent({});
-    expect(screen.getByText('Chart type')).toBeInTheDocument();
-    const buttonLineChart = screen.getByLabelText('Toggle line chart');
+    expect(screen.getByText('Select chart type')).toHaveClass(
+      'a-label',
+      'a-label--heading',
+    );
+    const buttonLineChart = screen.getByRole('button', { name: 'Line chart' });
     expect(buttonLineChart).toBeInTheDocument();
-    expect(buttonLineChart).toBeDisabled();
-    expect(buttonLineChart).toHaveClass('selected');
+    expect(buttonLineChart).toHaveClass('active');
+    expect(buttonLineChart).toHaveAttribute('aria-pressed', 'true');
     await user.click(buttonLineChart);
     expect(changeChartTypeSpy).toHaveBeenCalledTimes(0);
 
-    const buttonAreaChart = screen.getByLabelText('Toggle area chart');
+    const buttonAreaChart = screen.getByRole('button', {
+      name: 'Area chart',
+    });
     expect(buttonAreaChart).toBeInTheDocument();
-    expect(buttonAreaChart).toBeEnabled();
+    expect(buttonAreaChart).toHaveAttribute('aria-pressed', 'false');
 
     await user.click(buttonAreaChart);
     expect(changeChartTypeSpy).toHaveBeenCalledTimes(1);
@@ -50,17 +55,19 @@ describe('ChartToggles', () => {
 
   it('renders area chartType state without crashing', async () => {
     renderComponent({ chartType: 'area' });
-    expect(screen.getByText('Chart type')).toBeInTheDocument();
-    const buttonAreaChart = screen.getByLabelText('Toggle area chart');
+    expect(screen.getByText('Select chart type')).toBeInTheDocument();
+    const buttonAreaChart = screen.getByRole('button', {
+      name: 'Area chart',
+    });
     expect(buttonAreaChart).toBeInTheDocument();
-    expect(buttonAreaChart).toBeDisabled();
-    expect(buttonAreaChart).toHaveClass('selected');
+    expect(buttonAreaChart).toHaveClass('active');
+    expect(buttonAreaChart).toHaveAttribute('aria-pressed', 'true');
     await user.click(buttonAreaChart);
     expect(changeChartTypeSpy).toHaveBeenCalledTimes(0);
 
-    const buttonLineChart = screen.getByLabelText('Toggle line chart');
+    const buttonLineChart = screen.getByRole('button', { name: 'Line chart' });
     expect(buttonLineChart).toBeInTheDocument();
-    expect(buttonLineChart).toBeEnabled();
+    expect(buttonLineChart).toHaveAttribute('aria-pressed', 'false');
 
     await user.click(buttonLineChart);
     expect(changeChartTypeSpy).toHaveBeenCalledTimes(1);

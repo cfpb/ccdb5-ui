@@ -7,10 +7,10 @@ import {
   searchFieldChanged,
   searchTextChanged,
 } from '../../reducers/query/query-slice';
-import { Button, Heading, Link } from '@cfpb/design-system-react';
+import { Button, Link, SelectSingle } from '@cfpb/design-system-react';
 import { AdvancedTips } from './advanced-tips/advanced-tips';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   selectQuerySearchField,
   selectQuerySearchText,
@@ -19,11 +19,11 @@ import { selectViewHasAdvancedSearchTips } from '../../reducers/view/selectors';
 import { AsyncTypeahead } from '../typeahead/async-typeahead/async-typeahead';
 import { Input } from '../typeahead/input/input';
 
-const searchFields = {
-  all: 'All data',
-  company: 'Company name',
-  complaint_what_happened: 'Narratives',
-};
+const searchFieldOptions = [
+  { value: 'all', label: 'All data' },
+  { value: 'company', label: 'Company name' },
+  { value: 'complaint_what_happened', label: 'Narratives' },
+];
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
@@ -37,6 +37,7 @@ export const SearchBar = () => {
   const [shouldCallClear, setShouldCallClear] = useState(true);
 
   const displayedValue = isDirty ? inputValue : searchText;
+  const options = useMemo(() => searchFieldOptions, []);
 
   const onSearchTipToggle = (isOn) => {
     if (isOn) {
@@ -52,8 +53,11 @@ export const SearchBar = () => {
     setIsDirty(false);
   };
 
-  const onSelectSearchField = (event) => {
-    dispatch(searchFieldChanged(event.target.value));
+  const onSelectSearchField = (selected) => {
+    if (!selected?.value) {
+      return;
+    }
+    dispatch(searchFieldChanged(selected.value));
   };
 
   const onAdvancedClicked = (event) => {
@@ -89,78 +93,66 @@ export const SearchBar = () => {
     setInputValue(event.target.value);
     setIsDirty(false);
   };
-  return (
-    <div>
-      <div className="search-bar u-mb25" role="search">
-        <form action="" onSubmit={handleSubmit}>
-          <Heading type="3" className="h4">
-            Search within
-          </Heading>
-          <div className="layout-row">
-            <div className="cf-select flex-fixed">
-              <select
-                aria-label="Choose which field will be searched"
-                onChange={onSelectSearchField}
-                value={searchField}
-              >
-                <optgroup label="Search Within">
-                  {Object.entries(searchFields).map(([key, value]) => (
-                    <option key={key} value={key}>
-                      {value}
-                    </option>
-                  ))}
-                </optgroup>
-              </select>
-            </div>
-            <div className="flex-all typeahead-portal">
-              {searchField === 'company' ? (
-                <AsyncTypeahead
-                  ariaLabel="Enter your search term(s)"
-                  htmlId="search-text"
-                  defaultValue={searchText}
-                  handleChange={onSelection}
-                  handleClear={onTypeaheadClear}
-                  handlePressEnter={onPressEnter}
-                  handleSelectionOverride={onSelection}
-                  hasClearButton={true}
-                  hasSearchButton={true}
-                  placeholder="Enter your search term(s)"
-                  fieldName="company"
-                />
-              ) : (
-                <Input
-                  handleChange={(event) => {
-                    setInputValue(event.target.value);
-                    setIsDirty(true);
-                  }}
-                  handleClear={onClearInput}
-                  handlePressEnter={onPressEnter}
-                  htmlId="search-text"
-                  value={displayedValue}
-                  ariaLabel="Enter the term you want to search for"
-                  placeholder="Enter your search term(s)"
-                />
-              )}
-            </div>
-            <Link
-              className="u-visually-hidden"
-              to="#search-summary"
-              label="Skip to Results"
-            />
 
-            <div className="advanced-container flex-fixed">
-              <Button
-                label={
-                  hasAdvancedSearchTips
-                    ? 'Hide advanced search tips'
-                    : 'Show advanced search tips'
-                }
-                isLink
-                onClick={onAdvancedClicked}
-              />
-            </div>
+  return (
+    <div className="search-bar" role="search">
+      <form action="" onSubmit={handleSubmit}>
+        <div className="search-bar__controls">
+          <div className="search-field-select">
+            <SelectSingle
+              id="searchField"
+              label="Choose which field will be searched"
+              options={options}
+              value={searchField}
+              onChange={onSelectSearchField}
+            />
           </div>
-        </form>
+          <div className="search-bar__input">
+            {searchField === 'company' ? (
+              <AsyncTypeahead
+                ariaLabel="Enter your search term(s)"
+                htmlId="searchText"
+                defaultValue={searchText}
+                handleChange={onSelection}
+                handleClear={onTypeaheadClear}
+                handlePressEnter={onPressEnter}
+                handleSelectionOverride={onSelection}
+                hasClearButton={true}
+                hasSearchButton={true}
+                placeholder=""
+                fieldName="company"
+              />
+            ) : (
+              <Input
+                handleChange={(event) => {
+                  setInputValue(event.target.value);
+                  setIsDirty(true);
+                }}
+                handleClear={onClearInput}
+                handlePressEnter={onPressEnter}
+                htmlId="searchText"
+                value={displayedValue}
+                ariaLabel="Enter the term you want to search for"
+                placeholder=""
+              />
+            )}
+          </div>
+          <Link
+            className="u-visually-hidden"
+            to="#search-summary"
+            label="Skip to Results"
+          />
+        </div>
+      </form>
+      <div className="search-bar__tips">
+        <Button
+          label={
+            hasAdvancedSearchTips ? 'Hide search tips' : 'Show search tips'
+          }
+          isLink
+          iconLeft={hasAdvancedSearchTips ? 'minus' : 'plus'}
+          onClick={onAdvancedClicked}
+        />
       </div>
       {hasAdvancedSearchTips ? <AdvancedTips /> : null}
     </div>

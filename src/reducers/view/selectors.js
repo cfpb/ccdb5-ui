@@ -7,4 +7,5 @@ export const selectViewIsPrintMode = (state) => state.view.isPrintMode;
 export const selectViewShowTour = (state) => state.view.showTour;
 export const selectViewTab = (state) => state.view.tab;
 export const selectViewWidth = (state) => state.view.width;
-export const selectViewModalTypeShown = (state) => state.view.modalTypeShown;
+export const selectViewIsMoreAboutModalOpen = (state) =>
+  state.view.isMoreAboutModalOpen;

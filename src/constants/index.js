@@ -10,11 +10,6 @@ export const DATE_VALIDATION_FORMAT = 'M/D/YYYY';
 export const maxDate = formatDate(new Date());
 export const minDate = formatDate(DATE_RANGE_MIN);
 
-// Modal Dialogs
-export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT';
-export const MODAL_TYPE_EXPORT_CONFIRMATION = 'MODAL_TYPE_EXPORT_CONFIRMATION';
-export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT';
-
 // view modes
 export const MODE_MAP = 'Map';
 export const MODE_LIST = 'List';
@@ -71,8 +66,8 @@ sizes['100'] = '100 results';
 export const sorts = {
   created_date_desc: 'Newest to oldest',
   created_date_asc: 'Oldest to newest',
-  relevance_desc: 'Relevance',
-  relevance_asc: 'Relevance (asc)',
+  relevance_desc: 'Most relevant',
+  relevance_asc: 'Least relevant',
 };
 
 export const SLUG_SEPARATOR = '•';

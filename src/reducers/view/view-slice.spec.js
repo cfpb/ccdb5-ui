@@ -1,7 +1,7 @@
 import target, {
   hideAdvancedSearchTips,
-  modalHidden,
-  modalShown,
+  moreAboutModalHidden,
+  moreAboutModalShown,
   rowCollapsed,
   rowExpanded,
   showAdvancedSearchTips,
@@ -27,20 +27,23 @@ describe('reducer:View', () => {
     });
   });
 
-  describe('Modal Actions', () => {
-    it('shows a modal', () => {
-      expect(target(viewState, modalShown('foo'))).toEqual({
+  describe('More About Modal Actions', () => {
+    it('shows the more about modal', () => {
+      expect(target(viewState, moreAboutModalShown())).toEqual({
         ...viewState,
-        modalTypeShown: 'foo',
+        isMoreAboutModalOpen: true,
       });
     });
 
-    it('hides a modal', () => {
+    it('hides the more about modal', () => {
       expect(
-        target({ ...viewState, modalTypeShown: 'foobar' }, modalHidden()),
+        target(
+          { ...viewState, isMoreAboutModalOpen: true },
+          moreAboutModalHidden(),
+        ),
       ).toEqual({
         ...viewState,
-        modalTypeShown: false,
+        isMoreAboutModalOpen: false,
       });
     });
   });
@@ -171,9 +174,9 @@ describe('reducer:View', () => {
         hasAdvancedSearchTips: false,
         hasFilters: true,
         isPrintMode: true,
-        modalTypeShown: false,
+        isMoreAboutModalOpen: false,
         showTour: false,
-        tab: types.MODE_TRENDS,
+        tab: types.MODE_LIST,
         width: 0,
       });
     });
@@ -206,7 +209,7 @@ describe('reducer:View', () => {
       tab = 'foo';
       expect(target(state, tabChanged(tab))).toEqual({
         ...state,
-        tab: 'Trends',
+        tab: 'List',
       });
     });
 

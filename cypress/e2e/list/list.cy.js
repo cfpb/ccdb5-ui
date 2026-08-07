@@ -5,16 +5,16 @@ const complaintLinks = () => cy.findAllByRole('link', { name: /^Complaint / });
 const pagination = () => cy.findByRole('navigation', { name: 'Pagination' });
 
 const sizeSelect = () =>
-  cy.findByLabelText('Select the number of results to display at a time');
+  cy.findByLabelText('Show per page');
 
 const sortSelect = () =>
-  cy.findByLabelText('Choose the order in which the results are displayed');
+  cy.findByLabelText('Sort by');
 
 const searchField = () =>
   cy.findByLabelText('Choose which field will be searched');
 
 const narrativesOnlyButton = () =>
-  cy.findByRole('button', { name: 'Only complaints with narratives' });
+  cy.findByRole('button', { name: 'Complaints with narratives' });
 
 const allComplaintsButton = () =>
   cy.findByRole('button', { name: 'All complaints' });
@@ -61,24 +61,24 @@ describe('List View', () => {
 
     cy.log('should filter the results to narrative-only results and back');
     // Initially all is checked.
-    allComplaintsButton().should('have.class', 'selected');
+    allComplaintsButton().should('have.class', 'active');
     hasNarrativeCheckbox().should('not.be.checked');
 
     // Click the narrative-only button.
     narrativesOnlyButton().click();
-    narrativesOnlyButton().should('have.class', 'selected');
+    narrativesOnlyButton().should('have.class', 'active');
 
     hasNarrativeCheckbox().should('be.checked');
 
     // Click the narrative-only button again. There should be no change.
     narrativesOnlyButton().click({ force: true });
-    narrativesOnlyButton().should('have.class', 'selected');
+    narrativesOnlyButton().should('have.class', 'active');
 
     hasNarrativeCheckbox().should('be.checked');
 
     // Click the all results button. The narratives should be removed.
     allComplaintsButton().click();
-    allComplaintsButton().should('have.class', 'selected');
+    allComplaintsButton().should('have.class', 'active');
 
     hasNarrativeCheckbox().should('not.be.checked');
 
@@ -105,7 +105,7 @@ describe('List View', () => {
     cy.log('resets after applying filter');
     waitForLoading();
     cy.findByRole('button', {
-      name: 'Collapse Product / sub-product filter',
+      name: 'Collapse Product and sub-product filter',
     })
       .closest('section')
       .within(() => {

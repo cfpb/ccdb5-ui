@@ -12,7 +12,6 @@ import { Pagination } from '../pagination/pagination';
 import { useMemo } from 'react';
 import { Select } from '../../refine-bar/select';
 import { sendAnalyticsEvent } from '../../../utils';
-import { Separator } from '../../refine-bar/separator';
 import { selectViewWidth } from '../../../reducers/view/selectors';
 import {
   selectQuerySize,
@@ -20,6 +19,7 @@ import {
 } from '../../../reducers/query/selectors';
 import { useGetList } from '../../../api/hooks/use-get-list';
 import { Heading } from '@cfpb/design-system-react';
+import { DownloadComplaintData } from '../download-complaint-data/download-complaint-data';
 
 const ERROR = 'ERROR';
 const NO_RESULTS = 'NO_RESULTS';
@@ -90,19 +90,16 @@ export const ListPanel = () => {
     <section className="list-panel">
       {!!hasMobileFilters && <FilterPanel />}
       <FilterPanelToggle />
-      <div className="layout-row refine-bar">
-        <Separator />
+      <div className="refine-bar refine-bar--list">
         <Select
-          label="Select the number of results to display at a time"
-          title="Show"
+          label="Show per page"
           values={sizes}
           id="size"
           value={size}
           handleChange={onSize}
         />
         <Select
-          label="Choose the order in which the results are displayed"
-          title="Sort"
+          label="Sort by"
           values={sorts}
           id="sort"
           value={sort}
@@ -110,6 +107,7 @@ export const ListPanel = () => {
         />
         <NarrativesButtons />
       </div>
+      <DownloadComplaintData />
       {renderMap[phase]()}
       <Pagination />
     </section>

@@ -4,7 +4,7 @@ import {
   screen,
   testRender as render,
 } from '../../../test-utils/test-utils';
-import { LINK_DATA_USE, MODAL_TYPE_MORE_ABOUT } from '../../../constants';
+import { LINK_DATA_USE } from '../../../constants';
 import * as viewActions from '../../../reducers/view/view-slice';
 
 describe('Hero', () => {
@@ -14,7 +14,7 @@ describe('Hero', () => {
 
   test('rendering', () => {
     const showDialogSpy = jest
-      .spyOn(viewActions, 'modalShown')
+      .spyOn(viewActions, 'moreAboutModalShown')
       .mockImplementation(() => jest.fn());
 
     renderComponent();
@@ -24,7 +24,7 @@ describe('Hero', () => {
     expect(linkDialog).toBeInTheDocument();
 
     fireEvent.click(linkDialog);
-    expect(showDialogSpy).toHaveBeenCalledWith(MODAL_TYPE_MORE_ABOUT);
+    expect(showDialogSpy).toHaveBeenCalled();
 
     const linkDataUse = screen.getByRole('link', {
       name: 'How we use complaint data',

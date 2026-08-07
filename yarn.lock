@@ -1467,8 +1467,8 @@ __metadata:
     "@babel/preset-react": "npm:^7.29.7"
     "@babel/preset-typescript": "npm:^7.28.5"
     "@cfpb/browserslist-config": "npm:^0.0.7"
-    "@cfpb/cfpb-design-system": "npm:^5.8.2"
-    "@cfpb/design-system-react": "npm:^2.0.2"
+    "@cfpb/cfpb-design-system": "npm:^5.8.1"
+    "@cfpb/design-system-react": "git+https://github.com/cfpb/design-system-react.git#5f6adf4b397f9901ea0209b33d034d9a7d7bdc76"
     "@eslint/js": "npm:^10.0.1"
     "@fontsource-variable/source-sans-3": "npm:5.3.0"
     "@reduxjs/toolkit": "npm:^2.12.0"
@@ -1543,7 +1543,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cfpb/cfpb-design-system@npm:^5.8.2":
+"@cfpb/cfpb-design-system@npm:^5.8.1":
   version: 5.8.2
   resolution: "@cfpb/cfpb-design-system@npm:5.8.2"
   dependencies:
@@ -1554,9 +1554,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cfpb/design-system-react@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@cfpb/design-system-react@npm:2.0.2"
+"@cfpb/design-system-react@git+https://github.com/cfpb/design-system-react.git#5f6adf4b397f9901ea0209b33d034d9a7d7bdc76":
+  version: 2.0.1
+  resolution: "@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#commit=5f6adf4b397f9901ea0209b33d034d9a7d7bdc76"
   dependencies:
     react-select: "npm:^5.10.2"
   peerDependencies:
@@ -1564,7 +1564,7 @@ __metadata:
     lit: ^3.3.3
     react: ^19.2.8
     react-dom: ^19.2.8
-  checksum: 10c0/ebe781a9d4ed09ddc528f76b5a54521c70d321fe2cef0ceb36759e5882a952bdac6b2af0767291548952c22ab18064dfb202b2f275f9d5709eb9d38fb209206d
+  checksum: 10c0/effc86a930436e664a9f1e8fcdb6c4573dd6d04395a80ab49de2e02c99166a61831b54a1539a32391b2495881e16adbaf5562f3f946322a099a1021c5c1dcba3
   languageName: node
   linkType: hard
 
@@ -3879,7 +3879,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^19.2.4":
+"@types/react-dom@npm:^19.2.3":
   version: 19.2.4
   resolution: "@types/react-dom@npm:19.2.4"
   peerDependencies:
@@ -3897,7 +3897,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:>=16.9.11, @types/react@npm:^19.2.18":
+"@types/react@npm:>=16.9.11, @types/react@npm:^19.2.17":
   version: 19.2.18
   resolution: "@types/react@npm:19.2.18"
   dependencies:
@@ -5053,11 +5053,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.10.44":
-  version: 2.11.12
-  resolution: "baseline-browser-mapping@npm:2.11.12"
+  version: 2.11.11
+  resolution: "baseline-browser-mapping@npm:2.11.11"
   bin:
     baseline-browser-mapping: dist/cli.cjs
-  checksum: 10c0/1f4b38379784aba3681b06c304e361c9f03ed6c51205a50c9dd3b5ea87b0e203e6f580384e778374999b000e1b0a0d7351552983aab024d9c4b81b91879c8287
+  checksum: 10c0/b3eb91b83541a95ea0aa23d34aecefff382cb6b989e88f3411ee1931968cbd4852b874020c788345a082b4090b9643d929e20542438a9c4dac95b74e9632fdb4
   languageName: node
   linkType: hard
 
@@ -6593,9 +6593,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.393":
-  version: 1.5.401
-  resolution: "electron-to-chromium@npm:1.5.401"
-  checksum: 10c0/96dc4e94b9cae49dc36541bc9fdd51ae605b02a09b0e224da648af9fdd7985e841dbec35137098c35f90199f57a311a0e13f76bc765404ed237b8aa4a8c3a5f4
+  version: 1.5.399
+  resolution: "electron-to-chromium@npm:1.5.399"
+  checksum: 10c0/5b2ab966e0748d00a2bc2dfd7eee203fe872ce2ca4478eea94f1ceda629172770378128cd6d20be4af8c21874ef250163cd47735e01f38f1182f4312d8c7e78b
   languageName: node
   linkType: hard
 
@@ -7009,7 +7009,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest-dom@npm:^5.10.1":
+"eslint-plugin-jest-dom@npm:^5.5.0":
   version: 5.10.1
   resolution: "eslint-plugin-jest-dom@npm:5.10.1"
   dependencies:
@@ -8039,7 +8039,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:^17.7.0, globals@npm:^17.8.0, globals@npm:^17.9.0":
+"globals@npm:^17.7.0, globals@npm:^17.8.0":
   version: 17.9.0
   resolution: "globals@npm:17.9.0"
   checksum: 10c0/776116bffb916e462d548c26a44c9a5d8f4e551935a883991e9f5d68cbcb21b63e4c688e36bbc564f97d3025e304d8b2bb0a611ecf944825aeee164898dcfbdd
@@ -9854,7 +9854,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^17.3.0":
+"lint-staged@npm:^17.2.0":
   version: 17.3.0
   resolution: "lint-staged@npm:17.3.0"
   dependencies:

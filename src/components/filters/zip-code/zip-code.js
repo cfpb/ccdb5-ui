@@ -13,17 +13,14 @@ export const ZipCode = () => {
   const aggsZipCode = error ? [] : aggsData?.zip_code || [];
   // Zip code aggregations coming from API
   const stickyOptions = structuredClone(aggsZipCode);
-
+  const desc = 'The mailing ZIP code provided by the consumer.';
   return (
-    <CollapsibleFilter
-      title="ZIP code"
-      desc="The mailing ZIP code provided by the consumer"
-      className="aggregation"
-    >
+    <CollapsibleFilter title="ZIP code" desc={desc} className="aggregation">
       <AsyncTypeahead
         fieldName={FIELD_NAME}
-        placeholder="Enter ZIP code"
-        ariaLabel="Start typing to begin listing zip codes"
+        label={desc}
+        placeholder=""
+        ariaLabel={desc}
         htmlId="zip-code-typeahead"
         hasClearButton={true}
       />

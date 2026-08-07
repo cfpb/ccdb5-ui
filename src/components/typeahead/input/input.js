@@ -32,7 +32,7 @@ export const Input = ({
           onKeyDown={handlePressEnter}
           className={'a-text-input a-text-input--full ' + className}
           placeholder={placeholder}
-          title={placeholder}
+          title={placeholder || ariaLabel}
           autoComplete="off"
           maxLength="75"
         />
