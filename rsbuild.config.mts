@@ -22,6 +22,10 @@ export default defineConfig({
   },
   output: {
     assetPrefix: basePath,
+    // Keep GitHub Pages .nojekyll when cleaning dist before build.
+    cleanDistPath: {
+      keep: [/dist\/\.nojekyll$/],
+    },
     distPath: {
       js: '',
       css: '',
