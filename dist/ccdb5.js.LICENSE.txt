@@ -32,10 +32,6 @@
  * Date: Mon, 14 Aug 2023 19:47:14 GMT
  */
 
-/*! For license information please see britecharts.min.js.LICENSE.txt */
-
-/*! For license information please see line.min.js.LICENSE.txt */
-
 /**
  * @license React
  * react-dom-client.production.js

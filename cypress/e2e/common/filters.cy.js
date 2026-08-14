@@ -29,8 +29,7 @@ const stateFilterButton = (name) =>
 const sizeSelect = () =>
   cy.findByLabelText('Select the number of results to display at a time');
 
-const complaintLinks = () =>
-  cy.findAllByRole('link', { name: /^Complaint / });
+const complaintLinks = () => cy.findAllByRole('link', { name: /^Complaint / });
 
 const filterPills = () =>
   cy.findByRole('heading', { name: 'Filters applied:' }).closest('section');
@@ -84,9 +83,6 @@ describe('Filter Panel', () => {
     cy.get('#date-received-from').focus();
     cy.get('#date-received-from').blur();
 
-    waitForLoading();
-    cy.log('can trigger a pre-selected date range');
-    cy.findByRole('tab', { name: /Map/i }).click();
     waitForLoading();
     cy.findByRole('button', { name: '3 years' }).click();
     // this will fail when the year hits 2030
@@ -210,7 +206,6 @@ describe('Filter Panel', () => {
 
     cy.url().should('not.include', '&product=Mortgage%E2%80%A2FHA%20mortgage');
     cy.url().should('include', 'product=Mortgage');
-    cy.findByRole('tab', { name: /List/i }).click();
     cy.log('shows more results');
     complaintLinks().should('have.length', 25);
     sizeSelect().select('10 results');
@@ -235,9 +230,7 @@ describe('Filter Panel', () => {
     stateFilterButton('Expand').click();
     cy.log('searches a typeahead filter');
     cy.findByPlaceholderText('Enter state name or abbreviation').clear();
-    cy.findByPlaceholderText('Enter state name or abbreviation').type(
-      'texas',
-    );
+    cy.findByPlaceholderText('Enter state name or abbreviation').type('texas');
 
     cy.findByRole('option', { name: /Texas/ }).click();
 

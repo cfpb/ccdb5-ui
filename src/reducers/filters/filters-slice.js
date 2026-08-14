@@ -43,9 +43,7 @@ export const filtersSlice = createSlice({
     filterAdded: {
       reducer: (state, action) => {
         const { filterName, filterValue } = action.payload;
-        if (filterName === 'has_narrative') {
-          state.has_narrative = true;
-        } else if (Object.hasOwn(state, filterName)) {
+        if (Object.hasOwn(state, filterName)) {
           const idx = state[filterName].indexOf(filterValue);
           if (idx === -1) {
             state[filterName].push(filterValue);
@@ -63,9 +61,7 @@ export const filtersSlice = createSlice({
     filterRemoved: {
       reducer: (state, action) => {
         const { filterName, filterValue } = action.payload;
-        if (filterName === 'has_narrative') {
-          delete state.has_narrative;
-        } else if (Object.hasOwn(state, filterName)) {
+        if (Object.hasOwn(state, filterName)) {
           const idx = state[filterName].indexOf(filterValue);
           if (idx !== -1) {
             state[filterName].splice(idx, 1);
@@ -80,13 +76,8 @@ export const filtersSlice = createSlice({
     },
     // allFiltersRemoved
     filtersCleared: {
-      reducer: (state, action) => {
+      reducer: (state) => {
         const allFilters = [...types.knownFilters, ...types.flagFilters];
-        if (types.NARRATIVE_SEARCH_FIELD === action.payload) {
-          // keep has_narrative intact if we're coming from Narratives search
-          const idx = allFilters.indexOf('has_narrative');
-          allFilters.splice(idx, 1);
-        }
         for (const knownFilter of allFilters) {
           if (Object.hasOwn(state, knownFilter)) {
             state[knownFilter] = [];

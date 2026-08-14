@@ -32,7 +32,7 @@ export const enforceValues = (value, field) => {
     },
     searchField: {
       defaultVal: 'all',
-      values: ['all', 'company', 'complaint_what_happened'],
+      values: ['all', 'company'],
     },
     size: {
       defaultVal: 25,
@@ -43,8 +43,8 @@ export const enforceValues = (value, field) => {
       values: Object.keys(types.sorts),
     },
     tab: {
-      defaultVal: types.MODE_TRENDS,
-      values: [types.MODE_TRENDS, types.MODE_LIST, types.MODE_MAP],
+      defaultVal: types.MODE_LIST,
+      values: [types.MODE_LIST],
     },
   };
   if (Object.hasOwn(valMap, field)) {

@@ -39,8 +39,7 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
     return <Heading type="1">There was a problem retrieving {id}</Heading>;
   }
 
-  // Process the narrative
-  const narrative = data.complaint_what_happened || '';
+  const narrative = '';
   const h1ReadOut = ariaReadoutNumbers(id);
 
   return (

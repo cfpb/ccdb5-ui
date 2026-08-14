@@ -7,5 +7,4 @@ export const selectFiltersCompanyReceivedMin = (state) =>
 export const selectFiltersIssue = (state) => state.filters.issue;
 export const selectFiltersProduct = (state) => state.filters.product;
 export const selectFiltersState = (state) => state.filters.state;
-export const selectFiltersHasNarrative = (state) => state.filters.has_narrative;
 export const selectFiltersZipCode = (state) => state.filters.zip_code;

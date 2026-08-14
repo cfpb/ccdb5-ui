@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
-import { Button, Heading, Link, Paragraph } from '@cfpb/design-system-react';
+import { Button, Heading, Paragraph } from '@cfpb/design-system-react';
 
 export const MoreAbout = ({ onClose }) => {
-  const urlScrubbing =
-    'https://files.consumerfinance.gov/f/documents/' +
-    '201503_cfpb_Narrative-Scrubbing-Standard.pdf';
-
   return (
     <section className="more-about-modal">
       <div className="header">
@@ -28,20 +24,6 @@ export const MoreAbout = ({ onClose }) => {
           consumers’ experiences with a financial product or company.
           Company-specific information should be considered in the context of
           that company’s size and/or market share.
-        </Paragraph>
-        <Paragraph>
-          This database only includes a consumer’s description of what happened
-          in their own words if the consumer agrees to share it and after we
-          take steps to&nbsp;
-          <Link
-            to={urlScrubbing}
-            target="_blank"
-            rel="noopener noreferrer"
-            label="remove personal information"
-          />
-          .&nbsp; One consumer’s experience is not necessarily representative of
-          all consumers’ experiences and narratives are not verified before
-          publication.
         </Paragraph>
         <Paragraph>This database generally updates daily.</Paragraph>
       </div>

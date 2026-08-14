@@ -1,10 +1,7 @@
 import './pill-panel.scss';
 import { DATE_RANGE_MIN, knownFilters } from '../../constants';
 import { Button, Heading } from '@cfpb/design-system-react';
-import {
-  selectFiltersHasNarrative,
-  selectFiltersRoot,
-} from '../../reducers/filters/selectors';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
 import {
   selectQueryDateLastIndexed,
   selectQueryDateReceivedMax,
@@ -53,20 +50,12 @@ const buildDatePill = (dateReceivedMin, dateReceivedMax, dateLastIndexed) => {
 export const PillPanel = () => {
   const dispatch = useDispatch();
   const filterState = useSelector(selectFiltersRoot);
-  const hasNarrative = useSelector(selectFiltersHasNarrative);
   const dateLastIndexed = useSelector(selectQueryDateLastIndexed);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
   const searchField = useSelector(selectQuerySearchField);
 
   const filters = buildKnownFilterPills(filterState);
-
-  if (hasNarrative) {
-    filters.push({
-      fieldName: 'has_narrative',
-      value: 'Has narrative',
-    });
-  }
 
   const datePill = buildDatePill(
     dateReceivedMin,

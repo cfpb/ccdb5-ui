@@ -5,7 +5,6 @@ import target, {
   rowCollapsed,
   rowExpanded,
   showAdvancedSearchTips,
-  tabChanged,
   tourHidden,
   tourShown,
   updateFilterVisibility,
@@ -173,7 +172,7 @@ describe('reducer:View', () => {
         isPrintMode: true,
         modalTypeShown: false,
         showTour: false,
-        tab: types.MODE_TRENDS,
+        tab: types.MODE_LIST,
         width: 0,
       });
     });
@@ -190,32 +189,6 @@ describe('reducer:View', () => {
       const params = { expandedRows: ['hello', 'ma'] };
       const actual = target(state, actions.routeChanged('/', params));
       expect(actual.expandedRows).toEqual(['hello', 'ma']);
-    });
-  });
-
-  describe('Tabs', () => {
-    let tab, state;
-    beforeEach(() => {
-      state = {
-        ...viewState,
-        tab: 'bar',
-      };
-    });
-
-    it('handles TAB_CHANGED actions - default', () => {
-      tab = 'foo';
-      expect(target(state, tabChanged(tab))).toEqual({
-        ...state,
-        tab: 'Trends',
-      });
-    });
-
-    it('handles Trends TAB_CHANGED actions', () => {
-      tab = 'Trends';
-      expect(target(state, tabChanged(tab))).toEqual({
-        ...state,
-        tab: 'Trends',
-      });
     });
   });
 

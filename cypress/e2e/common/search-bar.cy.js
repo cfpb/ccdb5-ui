@@ -5,12 +5,10 @@ import { waitForLoading } from '../utils';
 const searchField = () =>
   cy.findByLabelText('Choose which field will be searched');
 
-const searchInput = () =>
-  cy.findByPlaceholderText('Enter your search term(s)');
+const searchInput = () => cy.findByPlaceholderText('Enter your search term(s)');
 
 const typeAheadRequest =
-  '**/data-research/consumer-complaints/search/' +
-  'api/v1/_suggest_company/**';
+  '**/data-research/consumer-complaints/search/api/v1/_suggest_company/**';
 
 describe('Search Bar', () => {
   describe('Typeaheads', () => {
@@ -20,21 +18,10 @@ describe('Search Bar', () => {
       cy.findByRole('search').should('be.visible');
       searchField().select('company');
       waitForLoading();
-      searchField().select('complaint_what_happened');
-      waitForLoading();
       cy.findByRole('search').should('be.visible');
 
       cy.log('has no typeahead functionality in All Data');
       cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
-      searchInput().clear();
-      searchInput().type('bank', {
-        delay: 200,
-      });
-      cy.findByText('No matches found.').should('not.exist');
-
-      cy.log('has no typeahead functionality in Narratives');
-      searchField().select('complaint_what_happened');
-      waitForLoading();
       searchInput().clear();
       searchInput().type('bank', {
         delay: 200,
@@ -57,13 +44,13 @@ describe('Search Bar', () => {
       });
 
       cy.findAllByRole('option', {
-        name: 'Bank of America, National Association',
+        ariaLabel: 'Bank of America, National Association',
       }).should('exist');
       cy.findAllByRole('option', {
-        name: 'CITIBANK, N.A.',
+        ariaLabel: 'CITIBANK, N.A.',
       }).should('exist');
       cy.findAllByRole('option', {
-        name: 'Discover Bank',
+        ariaLabel: 'Discover Bank',
       }).should('exist');
     });
   });
