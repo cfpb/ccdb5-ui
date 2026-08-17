@@ -71,8 +71,8 @@ export function extractQueryStringParams(state) {
 /**
  * Middleware function to synch state to url
  *
- * @param {import('../types/redux-types').ReduxTypes.Store} store - Redux store
- * @returns {(next: import('../types/redux-types').ReduxTypes.Next) => (action: import('../types/redux-types').ReduxTypes.PlainAction | import('../types/redux-types').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
+ * @param {import('../../types/redux-types').Store} store - Redux store
+ * @returns {(next: import('../../types/redux-types').Next) => (action: import('../../types/redux-types').PlainAction | import('../../types/redux-types').Thunk) => Promise<unknown>} A Redux middleware function
  */
 export default function synchUrl(store) {
   return (next) => (action) => {

@@ -1,6 +1,6 @@
 // Run `npx @eslint/config-inspector` to inspect the config.
 // Aligned with DSR: ESLint 10 + typescript-eslint + unicorn recommended.
-// JS-only app: use non-type-checked TS presets until files migrate to TypeScript.
+// Mixed JS/TS app: use non-type-checked TS presets until more files migrate.
 
 import globals from 'globals';
 import js from '@eslint/js';
@@ -91,7 +91,7 @@ export default tseslint.config(
         'error',
         {
           ignore: [
-            '\\.svg\\?react$',
+            String.raw`\.svg\?react$`,
             '^@icons',
             '^@cfpb/design-system-react',
             '^@cfpb/cfpb-design-system/',
@@ -151,6 +151,15 @@ export default tseslint.config(
       'react/boolean-prop-naming': ['error', { validateNested: true }],
       'react/jsx-curly-brace-presence': ['error'],
       ...reactHooksPlugin.configs.recommended.rules,
+    },
+  },
+
+  // TypeScript already encodes param/return types; don't require duplicate JSDoc types.
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      'jsdoc/require-param-type': 'off',
+      'jsdoc/require-returns-type': 'off',
     },
   },
 
