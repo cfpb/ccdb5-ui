@@ -1,4 +1,4 @@
-export * as Analytics from './analytics';
+export { default as Analytics } from './analytics';
 export * from './routes';
 export * from '../reducers/actions/actions-slice';
 export * from '../reducers/filters/filters-slice';

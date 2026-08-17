@@ -1,7 +1,17 @@
 import { filterPatch, SLUG_SEPARATOR, THESE_UNITED_STATES } from '../constants';
 import { slugify } from '../utils';
 
-export const formatPillPrefix = (fieldName) => {
+type AggBucket = {
+  key: string;
+  [key: string]: unknown;
+};
+
+type Agg = {
+  key: string;
+  [key: string]: unknown;
+};
+
+export const formatPillPrefix = (fieldName: string): string => {
   // update this if they want the pill prefixes in other fields.
   if (fieldName === 'timely') {
     const rep = /_/g;
@@ -11,14 +21,19 @@ export const formatPillPrefix = (fieldName) => {
   return '';
 };
 
-export const formatStateLabel = (abbr) => {
+export const formatStateLabel = (abbr: string): string => {
   const stateName = THESE_UNITED_STATES[abbr];
   return stateName ? `${stateName} (${abbr})` : abbr;
 };
 
-export const getUpdatedFilters = (filterName, filters, aggs, fieldName) => {
+export const getUpdatedFilters = (
+  filterName: string,
+  filters: string[],
+  aggs: Agg[],
+  fieldName: string,
+): string[] => {
   // early exit if its not issue or product
-  if (!filterPatch.includes(fieldName)) {
+  if (!filterPatch.includes(fieldName as (typeof filterPatch)[number])) {
     return filters;
   }
 
@@ -31,10 +46,13 @@ export const getUpdatedFilters = (filterName, filters, aggs, fieldName) => {
     .filter((filter) => filter !== parentFilter && filterName)
     .filter((filter) => filter !== filterName);
   // apply siblings
-  const sibs = [];
+  const sibs: string[] = [];
   const siblings = aggs.find((agg) => agg.key === parentFilter);
   if (hasParent && siblings) {
-    const buckets = siblings['sub_' + fieldName + '.raw'].buckets;
+    const subAgg = siblings['sub_' + fieldName + '.raw'] as
+      | { buckets: AggBucket[] }
+      | undefined;
+    const buckets = subAgg?.buckets ?? [];
     for (const bucket of buckets) {
       // don't include self
       if (bucket.key !== parts[1]) {
