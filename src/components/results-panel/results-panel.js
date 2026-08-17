@@ -1,4 +1,3 @@
-import { TabPanel } from '@cfpb/design-system-react';
 import { ActionBar } from '../action-bar/action-bar';
 import { ListPanel } from '../list/list-panel/list-panel';
 import { PrintInfo } from '../print/print-info';
@@ -9,9 +8,7 @@ export const ResultsPanel = () => {
     <div className="content__main list">
       <PrintInfo />
       <ActionBar />
-      <TabPanel id="list">
-        <ListPanel />
-      </TabPanel>
+      <ListPanel />
       <PrintInfoFooter />
     </div>
   );

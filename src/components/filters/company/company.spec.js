@@ -6,18 +6,15 @@ import { screen, testRender as render } from '../../../test-utils/test-utils';
 import userEvent from '@testing-library/user-event';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from './fixture';
-import { trendsState } from '../../../reducers/trends/trends-slice';
 
-const renderComponent = (newFiltersState, newQueryState, newTrendsState) => {
+const renderComponent = (newFiltersState, newQueryState) => {
   merge(newFiltersState, filtersState);
   merge(newQueryState, queryState);
-  merge(newTrendsState, trendsState);
 
   const data = {
     filters: newFiltersState,
     routes: { queryString: '?fdsafsfoo' },
     query: newQueryState,
-    trends: newTrendsState,
   };
 
   render(<Company />, {
@@ -48,7 +45,7 @@ describe('component::Company', () => {
           });
     });
 
-    renderComponent(filters, { dateLastIndexed: '2024-10-07' }, {});
+    renderComponent(filters, { dateLastIndexed: '2024-10-07' });
     await screen.findByRole('checkbox', { name: 'Monocle Popper Inc' });
     expect(
       screen.getByText('The complaint is about this company.'),

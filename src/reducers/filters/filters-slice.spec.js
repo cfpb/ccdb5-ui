@@ -12,7 +12,6 @@ import target, {
   stateFilterRemoved,
 } from './filters-slice';
 import { routeChanged } from '../routes/routes-slice';
-import { focusChanged, focusRemoved } from '../trends/trends-slice';
 
 describe('Filters', () => {
   describe('FILTER_CHANGED actions updates query with filter state', () => {
@@ -256,42 +255,6 @@ describe('Filters', () => {
     });
   });
 
-  describe('FOCUS actions', () => {
-    let result, state;
-    it('handles focus changed', () => {
-      state = {
-        ...filtersState,
-      };
-      result = target(state, focusChanged('Foo', 'Product', ['bar', 'baz']));
-      expect(result).toEqual({
-        ...filtersState,
-        product: ['bar', 'baz'],
-      });
-    });
-
-    it('handles company changed', () => {
-      state = {
-        ...filtersState,
-      };
-      result = target(state, focusChanged('Foo', 'Company', ['bar', 'baz']));
-      expect(result).toEqual({
-        ...filtersState,
-        company: ['Foo'],
-        product: [],
-      });
-    });
-
-    it('handles focus removed', () => {
-      state = {
-        ...filtersState,
-        product: ['bar', 'baz', 'qaz'],
-      };
-      result = target(state, focusRemoved('Product'));
-      expect(result).toEqual({
-        ...filtersState,
-      });
-    });
-  });
   describe('STATE_FILTERS', () => {
     let action, result;
     describe('STATE_FILTER_ADDED', () => {

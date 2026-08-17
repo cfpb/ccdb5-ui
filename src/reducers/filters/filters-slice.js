@@ -77,8 +77,7 @@ export const filtersSlice = createSlice({
     // allFiltersRemoved
     filtersCleared: {
       reducer: (state) => {
-        const allFilters = [...types.knownFilters, ...types.flagFilters];
-        for (const knownFilter of allFilters) {
+        for (const knownFilter of types.knownFilters) {
           if (Object.hasOwn(state, knownFilter)) {
             state[knownFilter] = [];
           }
@@ -174,46 +173,13 @@ export const filtersSlice = createSlice({
         state.state = stateFilters.filter((state) => state !== abbr);
       },
     },
-    toggleFlagFilter: {
-      reducer: (state, action) => {
-        const filterName = action.payload;
-        if (Object.hasOwn(state, filterName)) {
-          const current = state[filterName];
-          if (current) {
-            delete state[filterName];
-            return;
-          }
-        }
-        state[filterName] = true;
-      },
-    },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase('routes/routeChanged', (state, action) => {
-        const { params } = action.payload;
-        // Handle the aggregation filters
-        processUrlArrayParams(params, state, types.knownFilters);
-      })
-      .addCase('trends/focusChanged', (state, action) => {
-        const { focus, lens, filterValues } = action.payload;
-        const filterKey = lens.toLowerCase();
-        const activeFilters = [];
-
-        if (filterKey === 'company') {
-          activeFilters.push(focus);
-        } else {
-          for (const val of filterValues) {
-            activeFilters.push(val);
-          }
-        }
-        state[filterKey] = activeFilters;
-      })
-      .addCase('trends/focusRemoved', (state, action) => {
-        const lens = action.payload;
-        const filterKey = lens.toLowerCase();
-        state[filterKey] = [];
-      });
+    builder.addCase('routes/routeChanged', (state, action) => {
+      const { params } = action.payload;
+      // Handle the aggregation filters
+      processUrlArrayParams(params, state, types.knownFilters);
+    });
   },
 });
 
@@ -228,7 +194,6 @@ export const {
   stateFilterAdded,
   stateFilterCleared,
   stateFilterRemoved,
-  toggleFlagFilter,
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

@@ -88,7 +88,6 @@ export const FilterPanel = () => {
           <hr />
           <CompanyReceivedFilter />
           <hr />
-          <hr />
           <SimpleFilter
             title="How did the consumer submit the complaint to the CFPB?"
             fieldName="submitted_via"

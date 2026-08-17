@@ -43,9 +43,7 @@ export const DataExport = () => {
   const [copied, setCopied] = useState(false);
 
   const exportDataset =
-    isFilteredDisabled && dataset === DATASET_FILTERED
-      ? DATASET_FULL
-      : dataset;
+    isFilteredDisabled && dataset === DATASET_FILTERED ? DATASET_FULL : dataset;
 
   const exportUri = useMemo(() => {
     const mergedState = {
@@ -162,10 +160,7 @@ export const DataExport = () => {
           </div>
           {filterAlertMessage ? (
             <div className="export-filter-alert">
-              <AlertFieldLevel
-                message={filterAlertMessage}
-                status="error"
-              />
+              <AlertFieldLevel message={filterAlertMessage} status="error" />
             </div>
           ) : null}
         </div>

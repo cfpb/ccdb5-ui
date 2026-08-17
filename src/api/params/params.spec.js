@@ -53,73 +53,9 @@ describe('api.v2.params', () => {
     });
   });
 
-  describe('extractTrendsParams', () => {
-    beforeEach(() => {
-      fixtureStore.trends = {
-        ...fixtureStore.trends,
-        lens: 'ItemName',
-        trendDepth: 10,
-      };
-      fixtureStore.query.dateInterval = 'quantum';
-    });
-
-    it('gets trends params', () => {
-      const { filters, query, trends } = fixtureStore;
-      actual = sut.extractTrendsParams(filters, query, trends);
-      expect(actual).toEqual({
-        chartType: 'line',
-        date_received_max: '2018-01-01',
-        date_received_min: '2011-07-21',
-        field: 'all',
-        lens: 'itemname',
-        no_aggs: true,
-        trend_depth: 10,
-        trend_interval: 'quantum',
-        searchField: 'all',
-        size: 0,
-        sub_lens: 'sub_product',
-        reducerValues: {
-          focus: '',
-          lens: 'ItemName',
-          subLens: 'sub_product',
-          trendDepth: 10,
-        },
-      });
-    });
-
-    it('handles subLens and focus item', () => {
-      fixtureStore.trends.focus = 'Focus item';
-      fixtureStore.trends.subLens = 'Sub-issue';
-      const { filters, query, trends } = fixtureStore;
-      actual = sut.extractTrendsParams(filters, query, trends);
-      expect(actual).toEqual({
-        chartType: 'line',
-        date_received_max: '2018-01-01',
-        date_received_min: '2011-07-21',
-        field: 'all',
-        focus: 'Focus item',
-        lens: 'itemname',
-        no_aggs: true,
-        reducerValues: {
-          focus: 'Focus item',
-          lens: 'ItemName',
-          subLens: 'Sub-issue',
-          trendDepth: 10,
-        },
-        searchField: 'all',
-        size: 0,
-        sub_lens: 'sub_issue',
-        trend_depth: 10,
-        trend_interval: 'quantum',
-      });
-    });
-  });
-
   describe('parseParamsToQuery', () => {
     beforeEach(() => {
       fixtureStore.query.searchText = 'foo';
-      fixtureStore.trends.lens = 'Issue';
-      fixtureStore.trends.subLens = 'Sub-issue';
     });
 
     it('handles bogus searchFieldMap', () => {

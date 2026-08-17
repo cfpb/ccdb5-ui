@@ -39,7 +39,6 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
     return <Heading type="1">There was a problem retrieving {id}</Heading>;
   }
 
-  const narrative = '';
   const h1ReadOut = ariaReadoutNumbers(id);
 
   return (
@@ -86,15 +85,6 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
           </Heading>
           <Heading type="3">{data.issue}</Heading>
           <SubAggregation label="Sub-issue:" value={data.sub_issue} />
-
-          {narrative ? (
-            <>
-              <Heading type="4" className="u-mt15">
-                Consumer complaint narrative
-              </Heading>
-              <span>{narrative}</span>
-            </>
-          ) : null}
         </div>
       </div>
 

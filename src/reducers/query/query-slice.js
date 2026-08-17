@@ -9,7 +9,6 @@ import {
 } from '../../utils';
 import { enforceValues } from '../../utils/reducers';
 import dayjs from 'dayjs';
-import { isGreaterThanYear } from '../../utils/trends';
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { formatDate } from '../../utils/format-date';
 import {
@@ -20,9 +19,7 @@ import {
   filterToggled,
   multipleFiltersAdded,
   multipleFiltersRemoved,
-  toggleFlagFilter,
 } from '../filters/filters-slice';
-import { tabChanged } from '../view/view-slice';
 import queryString from 'query-string';
 import { complaintsApi } from '../../api/complaints';
 
@@ -108,29 +105,6 @@ export function toDate(value) {
 }
 
 /**
- * Makes sure that we have a valid dateInterval is selected, or moves to week
- * when the date range > 1yr
- *
- * @param {object} queryState - the current state of query reducer
- */
-export function validateDateInterval(queryState) {
-  const { date_received_min, date_received_max, dateInterval } = queryState;
-  // determine if we need to update date Interval if range > 1 yr
-  if (
-    dateInterval === 'Day' &&
-    isGreaterThanYear(date_received_min, date_received_max)
-  ) {
-    queryState.dateInterval = 'Week';
-    queryState.trendsDateWarningEnabled = true;
-  }
-
-  // > 1yr, so we can go ahead and disable the warning
-  if (!isGreaterThanYear(date_received_min, date_received_max)) {
-    queryState.trendsDateWarningEnabled = false;
-  }
-}
-
-/**
  * Get search results after specified page
  *
  * @param {object} breakPoints - breakPoints from the List API slice
@@ -199,12 +173,6 @@ export function stateToQS(state) {
       value = shortIsoFormat(value);
     }
 
-    // Process boolean flags
-    const positives = ['yes', 'true'];
-    if (types.flagFilters.includes(field)) {
-      value = positives.includes(String(value).toLowerCase());
-    }
-
     // Map the internal field names to the API field names
     if (Object.hasOwn(fieldMap, field)) {
       params[fieldMap[field]] = value;
@@ -215,44 +183,23 @@ export function stateToQS(state) {
 
   // list of API params
   // https://cfpb.github.io/api/ccdb/api/index.html#/
-  const commonParams = [
+  const filterKeys = new Set([
     'search_term',
     'field',
     ...types.dateFilters,
     ...types.knownFilters,
-    ...types.flagFilters,
-  ];
-
-  const paramMap = {
-    List: ['frm', 'search_after', 'size', 'sort', 'format', 'no_aggs'],
-    // nothing unique to states endpoint
-    Map: [],
-    Trends: [
-      'lens',
-      'focus',
-      'sub_lens',
-      'sub_lens_depth',
-      'trend_interval',
-      'trend_depth',
-    ],
-  };
-
-  const filterKeys = [...commonParams, ...(paramMap[params.tab] ?? [])];
-  // if format exists it means we're exporting, so add it to allowable params
-  if (Object.keys(params).includes('format')) {
-    const exportParams = ['size', 'format', 'no_aggs'];
-    for (const param of exportParams) {
-      /* istanbul ignore else */
-      if (!filterKeys.includes(param)) {
-        filterKeys.push(param);
-      }
-    }
-  }
+    'frm',
+    'search_after',
+    'size',
+    'sort',
+    'format',
+    'no_aggs',
+  ]);
 
   // where we only filter out the params required for each of the tabs
   const filteredParams = {};
   for (const [key, value] of Object.entries(params)) {
-    if (filterKeys.includes(key)) {
+    if (filterKeys.has(key)) {
       filteredParams[key] = value;
     }
   }
@@ -275,7 +222,6 @@ export function clearPager(state) {
 export const queryState = {
   company_received_max: '',
   company_received_min: '',
-  dateInterval: 'Month',
   dateRange: '',
   dateLastIndexed: '',
   date_received_max: '',
@@ -287,19 +233,12 @@ export const queryState = {
   searchText: '',
   size: 25,
   sort: 'created_date_desc',
-  trendsDateWarningEnabled: false,
 };
 
 export const querySlice = createSlice({
   name: 'query',
   initialState: queryState,
   reducers: {
-    dateIntervalChanged: {
-      reducer: (state, action) => {
-        state.dateInterval = enforceValues(action.payload, 'dateInterval');
-        validateDateInterval(state);
-      },
-    },
     dateRangeChanged: {
       reducer: (state, action) => {
         const dateRange = enforceValues(action.payload, 'dateRange');
@@ -314,7 +253,6 @@ export const querySlice = createSlice({
         state.dateRange = dateRange;
         state.date_received_min = res[dateRange] ?? state.date_received_min;
         state.date_received_max = maxDate;
-        validateDateInterval(state);
       },
     },
     companyReceivedDateChanged: {
@@ -368,7 +306,6 @@ export const querySlice = createSlice({
 
         state.date_received_min = minDate || state.date_received_min;
         state.date_received_max = maxDate || state.date_received_max;
-        validateDateInterval(state);
       },
       prepare: (minDate, maxDate) => {
         return {
@@ -387,11 +324,6 @@ export const querySlice = createSlice({
     searchTextChanged: {
       reducer: (state, action) => {
         state.searchText = action.payload;
-      },
-    },
-    trendsDateWarningDismissed: {
-      reducer: (state) => {
-        state.trendsDateWarningEnabled = false;
       },
     },
     prevPageShown: {
@@ -440,13 +372,7 @@ export const querySlice = createSlice({
       .addCase('routes/routeChanged', (state, action) => {
         const { params } = action.payload;
         // Set some variables from the URL
-        const keys = [
-          'dateRange',
-          'dateInterval',
-          'searchField',
-          'searchText',
-          'sort',
-        ];
+        const keys = ['dateRange', 'searchField', 'searchText', 'sort'];
         for (const item of keys) {
           if (!Object.hasOwn(params, item)) {
             continue;
@@ -505,7 +431,6 @@ export const querySlice = createSlice({
         isAnyOf(
           companyReceivedDateChanged,
           datesChanged,
-          dateIntervalChanged,
           dateRangeChanged,
           filterAdded,
           filterRemoved,
@@ -518,8 +443,6 @@ export const querySlice = createSlice({
           searchTextChanged,
           sizeChanged,
           sortChanged,
-          tabChanged,
-          toggleFlagFilter,
         ),
         (state) => {
           clearPager(state);
@@ -532,8 +455,6 @@ export const {
   companyReceivedDateChanged,
   datesChanged,
   dateRangeChanged,
-  dateIntervalChanged,
-  trendsDateWarningDismissed,
   nextPageShown,
   prevPageShown,
   searchFieldChanged,

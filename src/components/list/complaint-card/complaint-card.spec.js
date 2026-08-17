@@ -5,11 +5,9 @@ describe('ComplaintCard', () => {
   let itemFixture;
   beforeEach(() => {
     itemFixture = {
-      complaint_what_happened: '',
       date_sent_to_company: '2022-11-16T12:00:00-05:00',
       zip_code: '12345',
       tags: null,
-      has_narrative: false,
       issue: 'Incorrect information on your report',
       product:
         'Credit reporting, credit repair services, or other personal consumer reports',
@@ -48,9 +46,6 @@ describe('ComplaintCard', () => {
     expect(screen.getByRole('heading', { name: 'Issue' })).toBeInTheDocument();
     expect(screen.getByText(itemFixture.issue)).toBeInTheDocument();
     expect(screen.queryByText(/Sub-issue:/)).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('heading', { name: 'Consumer Complaint Narrative' }),
-    ).not.toBeInTheDocument();
   });
 
   test('Renders sub product', () => {

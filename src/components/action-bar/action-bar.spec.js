@@ -36,7 +36,7 @@ describe('ActionBar', () => {
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
 
     const view = {
-      tab: 'Map',
+      tab: 'List',
     };
 
     const printModeOnSpy = jest
@@ -64,7 +64,7 @@ describe('ActionBar', () => {
     const buttonPrint = screen.getByRole('button', { name: /Print/ });
     expect(buttonPrint).toBeInTheDocument();
     fireEvent.click(buttonPrint);
-    expect(gaSpy).toHaveBeenCalledWith('Print', 'tab:Map');
+    expect(gaSpy).toHaveBeenCalledWith('Print', 'tab:List');
     expect(printModeOnSpy).toHaveBeenCalledTimes(1);
   });
 });

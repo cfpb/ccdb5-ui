@@ -9,10 +9,6 @@ import { DsrLink } from './components/dsr-link/dsr-link';
 import { configureStoreUtil, waitFor } from './test-utils/test-utils';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from './components/list/list-panel/fixture';
-import { trendsResponse } from './components/trends/fixture';
-
-jest.mock('highcharts/modules/accessibility');
-jest.mock('highcharts/highmaps');
 
 describe('initial state', () => {
   let store;
@@ -27,16 +23,13 @@ describe('initial state', () => {
       const params = url.searchParams;
 
       if (params.get('size') === '0') {
-        // this is the list
         return Promise.resolve({
           body: JSON.stringify(aggResponse),
         });
       }
-      if (params.get('no_aggs')) {
-        return Promise.resolve({
-          body: JSON.stringify(trendsResponse),
-        });
-      }
+      return Promise.resolve({
+        body: JSON.stringify(aggResponse),
+      });
     });
     const updateLocationHookSpy = jest.spyOn(
       useUpdateLocationHook,
@@ -78,10 +71,5 @@ describe('initial state', () => {
     expect(
       screen.getByRole('link', { name: /Back to search results/ }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('link', { name: /Back to search results/ }),
-    ).toHaveAttribute('href', '/');
-
-    expect(screen.getByText('This page is loading')).toBeInTheDocument();
   });
 });

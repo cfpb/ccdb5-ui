@@ -3,7 +3,6 @@ import actionsReducer from '../reducers/actions/actions-slice';
 import filtersReducer from '../reducers/filters/filters-slice';
 import queryReducer from '../reducers/query/query-slice';
 import routesReducer from '../reducers/routes/routes-slice';
-import trendsReducer from '../reducers/trends/trends-slice';
 import viewModelReducer from '../reducers/view/view-slice';
 import { applyMiddleware, combineReducers } from '@reduxjs/toolkit';
 import { actionLogger } from '../middleware/action-logger/action-logger';
@@ -34,7 +33,6 @@ function setupStore(targetState, additionalMiddlewares) {
     filters: filtersReducer,
     query: queryReducer,
     routes: routesReducer,
-    trends: trendsReducer,
     view: viewModelReducer,
   });
   // this is in case we pass in only a single value

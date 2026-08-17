@@ -1,7 +1,6 @@
 import filtersReducer from '../reducers/filters/filters-slice';
 import queryReducer from '../reducers/query/query-slice';
 import routesReducer from '../reducers/routes/routes-slice';
-import trendsReducer from '../reducers/trends/trends-slice';
 import viewReducer from '../reducers/view/view-slice';
 import { configureStore } from '@reduxjs/toolkit';
 import { complaintsApi } from '../api/complaints';
@@ -15,7 +14,6 @@ export const store = configureStore({
     filters: filtersReducer,
     query: queryReducer,
     routes: routesReducer,
-    trends: trendsReducer,
     view: viewReducer,
   },
   middleware: (getDefaultMiddleware) => [

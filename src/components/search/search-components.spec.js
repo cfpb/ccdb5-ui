@@ -6,7 +6,6 @@ import { SearchComponents } from './search-components';
 import { DsrLink } from '../dsr-link/dsr-link';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../list/list-panel/fixture';
-import { trendsResponse } from '../trends/fixture';
 import { configureStoreUtil } from '../../test-utils/test-utils';
 
 describe('SearchComponents', () => {
@@ -27,11 +26,9 @@ describe('SearchComponents', () => {
           body: JSON.stringify(aggResponse),
         });
       }
-      if (params.get('no_aggs')) {
-        return Promise.resolve({
-          body: JSON.stringify(trendsResponse),
-        });
-      }
+      return Promise.resolve({
+        body: JSON.stringify(aggResponse),
+      });
     });
     render(
       <MemoryRouter initialEntries={['/']}>

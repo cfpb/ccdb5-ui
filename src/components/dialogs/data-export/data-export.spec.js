@@ -10,11 +10,7 @@ import { filtersState } from '../../../reducers/filters/filters-slice';
 import { queryState } from '../../../reducers/query/query-slice';
 import * as viewActions from '../../../reducers/view/view-slice';
 import { viewState } from '../../../reducers/view/view-slice';
-import {
-  MODAL_TYPE_EXPORT_CONFIRMATION,
-  MODE_LIST,
-  MODE_TRENDS,
-} from '../../../constants';
+import { MODAL_TYPE_EXPORT_CONFIRMATION, MODE_LIST } from '../../../constants';
 import { waitFor } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../../list/list-panel/fixture';
@@ -64,7 +60,7 @@ describe('DataExport', () => {
     const modalHiddenSpy = jest
       .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
-    renderComponent({}, {}, { tab: MODE_TRENDS });
+    renderComponent({}, {}, { tab: MODE_LIST });
     expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     expect(
       screen.getByText(/Select the data you would like to download/),
@@ -72,10 +68,10 @@ describe('DataExport', () => {
     expect(
       screen.getByText('Save a link to your filtered results'),
     ).toBeInTheDocument();
-    expect(screen.queryByRole('radio', { name: /JSON/i })).not.toBeInTheDocument();
     expect(
-      screen.getByText(FILTER_DOWNLOAD_EMPTY_MESSAGE),
-    ).toBeInTheDocument();
+      screen.queryByRole('radio', { name: /JSON/i }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText(FILTER_DOWNLOAD_EMPTY_MESSAGE)).toBeInTheDocument();
 
     expect(
       screen.getByRole('button', { name: /Download data/ }),
@@ -85,7 +81,9 @@ describe('DataExport', () => {
     expect(buttonCopy).toBeInTheDocument();
     fireEvent.click(buttonCopy);
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: /Link copied/ })).toBeInTheDocument();
+      expect(
+        screen.getByRole('button', { name: /Link copied/ }),
+      ).toBeInTheDocument();
     });
 
     expect(screen.getByRole('button', { name: /Close/i })).toBeInTheDocument();
@@ -117,9 +115,7 @@ describe('DataExport', () => {
     expect(radioFiltered).toBeDisabled();
     expect(radioFiltered).not.toBeChecked();
     expect(radioFull).toBeChecked();
-    expect(
-      screen.getByText(FILTER_DOWNLOAD_EMPTY_MESSAGE),
-    ).toBeInTheDocument();
+    expect(screen.getByText(FILTER_DOWNLOAD_EMPTY_MESSAGE)).toBeInTheDocument();
     expect(
       screen.queryByText(FILTER_DOWNLOAD_LIMIT_MESSAGE),
     ).not.toBeInTheDocument();
@@ -185,7 +181,7 @@ describe('DataExport', () => {
   it('disables filtered results and shows limit alert when over 100,000', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     renderComponent(
-      { has_narrative: true },
+      { product: ['Mortgage'] },
       { searchText: 'debt' },
       { tab: MODE_LIST },
     );
@@ -217,7 +213,7 @@ describe('DataExport', () => {
       .spyOn(aggregationHooks, 'useGetAggregations')
       .mockReturnValue({ data: withHitTotal(50_000, 6_000_000) });
 
-    renderComponent({ has_narrative: true }, { searchText: 'foo' }, {});
+    renderComponent({ product: ['Mortgage'] }, { searchText: 'foo' }, {});
 
     const radioFiltered = screen.getByRole('radio', {
       name: /Filtered results/i,
