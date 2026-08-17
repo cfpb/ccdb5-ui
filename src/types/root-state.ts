@@ -48,8 +48,13 @@ export interface RoutesState {
   queryString: string;
 }
 
+export interface ActionsState {
+  actions: unknown[];
+}
+
 export interface RootState {
   api: unknown;
+  actions?: ActionsState;
   filters: FiltersState;
   query: QueryState;
   routes: RoutesState;
