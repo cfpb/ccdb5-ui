@@ -127,7 +127,6 @@ describe('getDocument', () => {
       complaint_what_happened: 'Lorem ipsum dolor sit amet',
       date_received: '2017-03-04T12:00:00',
       date_sent_to_company: '2017-03-04T12:00:00',
-      has_narrative: true,
       issue: 'Account opening, closing, or management',
       product: 'Bank account or service',
       state: 'KY',

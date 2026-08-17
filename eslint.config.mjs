@@ -220,23 +220,12 @@ export default tseslint.config(
     },
   },
 
-  // Cypress plugins remain CJS; chart libs bind `this` in callbacks
+  // Cypress plugins remain CJS
   {
     files: ['cypress/plugins/**'],
     rules: {
       'unicorn/prefer-module': 'off',
       'unicorn/no-anonymous-default-export': 'off',
-    },
-  },
-  {
-    files: [
-      '**/tile-map/**',
-      '**/row-chart/**',
-      '**/line-chart/**',
-      '**/stacked-area-chart/**',
-    ],
-    rules: {
-      'unicorn/no-this-outside-of-class': 'off',
     },
   },
 );

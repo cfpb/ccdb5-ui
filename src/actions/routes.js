@@ -14,7 +14,7 @@ import isEqual from 'react-fast-compare';
 export function normalizeRouteParams(params) {
   const processed = { ...params };
   const remove = ['search_after'];
-  const numbers = ['size', 'page', 'trend_depth'];
+  const numbers = ['size', 'page'];
 
   for (const value of remove) {
     if (Object.prototype.hasOwnProperty.call(processed, value)) {
