@@ -26,8 +26,7 @@ const stateFilterButton = (name) =>
     name: new RegExp(`${name} State filter`),
   });
 
-const sizeSelect = () =>
-  cy.findByLabelText('Select the number of results to display at a time');
+const sizeSelect = () => cy.findByLabelText('Show per page');
 
 const complaintLinks = () => cy.findAllByRole('link', { name: /^Complaint / });
 
