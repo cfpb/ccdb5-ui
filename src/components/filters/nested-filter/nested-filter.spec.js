@@ -62,7 +62,7 @@ describe('component:NestedFilter', () => {
 
   it('renders typeahead and options', async () => {
     fetchMock.mockResponse(JSON.stringify(aggResponse));
-    renderComponent({}, {}, {});
+    renderComponent({}, {});
     const input = await screen.findByRole('combobox', {
       name: 'product Filter Menu Input',
     });
