@@ -59,19 +59,4 @@
       display: none;
     }
   }
-
-  // Per Capita and Narratives buttons in the refine bar.
-  button {
-    // Only used to hide "population" on per capita refine buttons.
-    @media screen and (max-width: $bp-xs-max),
-    screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
-      > span {
-        display: none;
-      }
-    }
-
-    &.disabled.a-btn__disabled {
-      background-color: var(--gray-10);
-    }
-  }
 }

@@ -1,7 +1,6 @@
 import target, {
   alignDateRange,
   companyReceivedDateChanged,
-  dateIntervalChanged,
   dateRangeChanged,
   datesChanged,
   nextPageShown,
@@ -11,7 +10,6 @@ import target, {
   searchTextChanged,
   sizeChanged,
   sortChanged,
-  trendsDateWarningDismissed,
 } from './query-slice';
 import * as types from '../../constants';
 import { minDate } from '../../constants';
@@ -31,7 +29,6 @@ describe('reducer:query', () => {
       expect(result).toEqual({
         company_received_max: '',
         company_received_min: '',
-        dateInterval: 'Month',
         dateLastIndexed: '',
         dateRange: '',
         date_received_max: '',
@@ -43,7 +40,6 @@ describe('reducer:query', () => {
         searchAfter: '',
         size: 25,
         sort: 'created_date_desc',
-        trendsDateWarningEnabled: false,
       });
     });
   });
@@ -237,9 +233,8 @@ describe('reducer:query', () => {
     });
 
     it('handles bogus date parameters', () => {
-      params = { dateInterval: '3y', dateRange: 'Week' };
+      params = { dateRange: 'Week' };
       actual = target(state, routeChanged('', params));
-      expect(actual.dateInterval).toBe('Month');
       expect(actual.dateRange).toBe('3y');
     });
 
@@ -395,32 +390,6 @@ describe('reducer:query', () => {
       });
     });
 
-    describe('DATE_INTERVAL_CHANGED actions', () => {
-      beforeEach(() => {
-        state = {
-          ...queryState,
-        };
-      });
-      it('extends dateInterval when Day selected', () => {
-        state.date_received_min = types.minDate;
-        state.date_received_max = startOfToday();
-        expect(target(state, dateIntervalChanged('Day'))).toEqual({
-          ...state,
-          dateInterval: 'Week',
-          trendsDateWarningEnabled: true,
-        });
-      });
-
-      it('handles other intervals', () => {
-        state.dateInterval = 'Week';
-
-        expect(target(state, dateIntervalChanged('Month'))).toEqual({
-          ...state,
-          dateInterval: 'Month',
-          trendsDateWarningEnabled: false,
-        });
-      });
-    });
     describe('DATE_RANGE_CHANGED actions', () => {
       let action, result;
       beforeEach(() => {
@@ -441,7 +410,6 @@ describe('reducer:query', () => {
         );
         expect(result).toEqual({
           ...queryState,
-          dateInterval: 'Month',
           dateLastIndexed: '2020-05-05',
           dateRange: '1y',
           date_received_max: '2020-05-05',
@@ -449,7 +417,6 @@ describe('reducer:query', () => {
           from: 0,
           page: 1,
           searchAfter: '',
-          trendsDateWarningEnabled: false,
         });
       });
 
@@ -488,19 +455,6 @@ describe('reducer:query', () => {
         date_received_max: '2020-05-05',
         date_received_min: minDate,
         page: 1,
-      });
-    });
-  });
-  describe('trendsDateWarningDismissed', () => {
-    it('dismisses warnings', () => {
-      state = {
-        ...queryState,
-        trendsDateWarningEnabled: true,
-      };
-
-      expect(target(state, trendsDateWarningDismissed())).toEqual({
-        ...state,
-        trendsDateWarningEnabled: false,
       });
     });
   });

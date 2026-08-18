@@ -2,10 +2,7 @@ import target, {
   hideAdvancedSearchTips,
   modalHidden,
   modalShown,
-  rowCollapsed,
-  rowExpanded,
   showAdvancedSearchTips,
-  tabChanged,
   tourHidden,
   tourShown,
   updateFilterVisibility,
@@ -15,8 +12,6 @@ import target, {
   viewState,
 } from './view-slice';
 import * as actions from '../../actions';
-import { dataLensChanged, focusChanged } from '../../actions';
-import * as types from '../../constants';
 
 describe('reducer:View', () => {
   let action;
@@ -65,7 +60,6 @@ describe('reducer:View', () => {
     it('shows a tour', () => {
       expect(target(viewState, tourShown())).toEqual({
         ...viewState,
-        expandedRows: [],
         hasAdvancedSearchTips: false,
         showTour: true,
       });
@@ -122,37 +116,6 @@ describe('reducer:View', () => {
     });
   });
 
-  describe('Row Chart actions', () => {
-    let result;
-
-    it('handles ROW_COLLAPSED actions', () => {
-      const payload = 'foo';
-      result = target(
-        { ...viewState, expandedRows: ['foo'] },
-        rowCollapsed(payload),
-      );
-      expect(result).toEqual({ ...viewState, expandedRows: [] });
-    });
-
-    it('handles ROW_EXPANDED actions', () => {
-      const payload = 'foo';
-      result = target(
-        { ...viewState, expandedRows: ['what'] },
-        rowExpanded(payload),
-      );
-      expect(result).toEqual({ ...viewState, expandedRows: ['what', 'foo'] });
-    });
-
-    it('handles ROW_EXPANDED dupe value', () => {
-      const payload = 'foo';
-      result = target(
-        { ...viewState, expandedRows: ['foo'] },
-        rowExpanded(payload),
-      );
-      expect(result).toEqual({ ...viewState, expandedRows: ['foo'] });
-    });
-  });
-
   describe('URL_CHANGED actions', () => {
     let state = null;
     beforeEach(() => {
@@ -167,75 +130,12 @@ describe('reducer:View', () => {
       const params = { isPrintMode: 'true' };
       const actual = target(state, actions.routeChanged('/', params));
       expect(actual).toEqual({
-        expandedRows: [],
         hasAdvancedSearchTips: false,
         hasFilters: true,
         isPrintMode: true,
         modalTypeShown: false,
         showTour: false,
-        tab: types.MODE_TRENDS,
         width: 0,
-      });
-    });
-
-    it('handles single expandedRows param', () => {
-      const actual = target(
-        state,
-        actions.routeChanged('/', { expandedRows: 'hello' }),
-      );
-      expect(actual.expandedRows).toEqual(['hello']);
-    });
-
-    it('handles multiple expandedRows param', () => {
-      const params = { expandedRows: ['hello', 'ma'] };
-      const actual = target(state, actions.routeChanged('/', params));
-      expect(actual.expandedRows).toEqual(['hello', 'ma']);
-    });
-  });
-
-  describe('Tabs', () => {
-    let tab, state;
-    beforeEach(() => {
-      state = {
-        ...viewState,
-        tab: 'bar',
-      };
-    });
-
-    it('handles TAB_CHANGED actions - default', () => {
-      tab = 'foo';
-      expect(target(state, tabChanged(tab))).toEqual({
-        ...state,
-        tab: 'Trends',
-      });
-    });
-
-    it('handles Trends TAB_CHANGED actions', () => {
-      tab = 'Trends';
-      expect(target(state, tabChanged(tab))).toEqual({
-        ...state,
-        tab: 'Trends',
-      });
-    });
-  });
-
-  describe('Trends actions', () => {
-    let state;
-    beforeEach(() => {
-      state = {
-        ...viewState,
-      };
-    });
-
-    it('handles dataLensChanged', () => {
-      state.expandedRows = ['a', 'b', 'c'];
-      expect(target(state, dataLensChanged('Product'))).toEqual(viewState);
-    });
-    it('handles focusChanged', () => {
-      state.tab = 'List';
-      expect(target(state, focusChanged('Some product'))).toEqual({
-        ...viewState,
-        tab: 'Trends',
       });
     });
   });

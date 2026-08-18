@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import { formatDisplayDate } from '../../../utils/format-date';
 import { Heading } from '@cfpb/design-system-react';
 
-const MAX_NARRATIVE = 300;
-
 const _stripPossibleHighlight = (str) => {
   const re = /(<em>)?(.*?)(<\/em>)?/gi;
   return str.replaceAll(re, '$2');
@@ -19,26 +17,6 @@ const _renderPossibleHighlight = (str) => {
 export const ComplaintCard = ({ row }) => {
   const cleanId = _stripPossibleHighlight(row.complaint_id);
   const complaintIdPath = 'detail/' + _stripPossibleHighlight(row.complaint_id);
-
-  const _renderNarrative = (narrative, url) => {
-    const hasOverflow = narrative.length > MAX_NARRATIVE;
-    narrative = narrative.slice(0, Math.max(0, MAX_NARRATIVE));
-
-    return narrative ? (
-      <div>
-        <Heading type="4" className="u-mt15">
-          Consumer Complaint Narrative
-        </Heading>
-        {_renderPossibleHighlight(narrative)}
-        {hasOverflow ? (
-          <span>
-            {' '}
-            <Link to={url}>[...]</Link>
-          </span>
-        ) : null}
-      </div>
-    ) : null;
-  };
 
   return (
     <li className="card-container">
@@ -95,7 +73,6 @@ export const ComplaintCard = ({ row }) => {
               {_renderPossibleHighlight(row.sub_issue)}
             </div>
           ) : null}
-          {_renderNarrative(row.complaint_what_happened || '', complaintIdPath)}
         </div>
       </div>
     </li>

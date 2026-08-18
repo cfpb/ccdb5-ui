@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Heading } from '@cfpb/design-system-react';
 import { DateFilter } from '../date/date-filter';
 import { FederalState } from '../federal-state/federal-state';
-import { HasNarrative } from '../has-narrative/has-narrative';
 import { SimpleFilter } from '../simple-filter/simple-filter';
 import { ZipCode } from '../zip-code/zip-code';
 import { updateFilterVisibility } from '../../../reducers/view/view-slice';
@@ -88,8 +87,6 @@ export const FilterPanel = () => {
           />
           <hr />
           <CompanyReceivedFilter />
-          <hr />
-          <HasNarrative />
           <hr />
           <SimpleFilter
             title="How did the consumer submit the complaint to the CFPB?"

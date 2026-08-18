@@ -2,7 +2,6 @@ import target, {
   filterAdded,
   filterArrayAction,
   filterRemoved,
-  filtersCleared,
   filtersReplaced,
   filtersState,
   filterToggled,
@@ -11,11 +10,8 @@ import target, {
   stateFilterAdded,
   stateFilterCleared,
   stateFilterRemoved,
-  toggleFlagFilter,
 } from './filters-slice';
-import * as types from '../../constants';
 import { routeChanged } from '../routes/routes-slice';
-import { focusChanged, focusRemoved } from '../trends/trends-slice';
 
 describe('Filters', () => {
   describe('FILTER_CHANGED actions updates query with filter state', () => {
@@ -117,30 +113,6 @@ describe('Filters', () => {
         product: ['bar', 'qaz', 'baz'],
       });
     });
-
-    describe('has_narrative', () => {
-      it('handles when present', () => {
-        filterName = 'has_narrative';
-        state = {
-          ...filtersState,
-          has_narrative: true,
-        };
-        expect(target(state, filterAdded(filterName, filterValue))).toEqual({
-          ...state,
-          has_narrative: true,
-        });
-      });
-
-      it('handles when absent', () => {
-        filterName = 'has_narrative';
-        expect(
-          target(filtersState, filterAdded(filterName, filterValue)),
-        ).toEqual({
-          ...filtersState,
-          has_narrative: true,
-        });
-      });
-    });
   });
 
   describe('FILTER_REMOVED actions', () => {
@@ -191,67 +163,6 @@ describe('Filters', () => {
       expect(target(state, filterRemoved(filterName, filterValue))).toEqual({
         ...state,
         product: ['bar', 'qaz'],
-      });
-    });
-
-    describe('has_narrative', () => {
-      it('handles when present', () => {
-        filterName = 'has_narrative';
-        state = {
-          ...filtersState,
-          has_narrative: true,
-        };
-        const newState = { ...state };
-        delete newState.has_narrative;
-        expect(target(state, filterRemoved(filterName, filterValue))).toEqual({
-          ...newState,
-        });
-      });
-
-      it('handles when present - Map', () => {
-        filterName = 'has_narrative';
-        state = {
-          ...filtersState,
-          has_narrative: true,
-        };
-        const newState = { ...state };
-        delete newState.has_narrative;
-        expect(target(state, filterRemoved(filterName, filterValue))).toEqual({
-          ...newState,
-        });
-      });
-
-      it('handles when absent', () => {
-        filterName = 'has_narrative';
-        expect(
-          target(filtersState, filterRemoved(filterName, filterValue)),
-        ).toEqual({
-          ...filtersState,
-        });
-      });
-    });
-  });
-
-  describe('FILTER_ALL_REMOVED actions', () => {
-    let state;
-    beforeEach(() => {
-      state = {
-        ...filtersState,
-        company: ['Acme'],
-        has_narrative: true,
-        timely: ['bar', 'baz', 'qaz'],
-      };
-    });
-
-    it('clears all filters in Narratives Search mode', () => {
-      const actual = target(
-        state,
-        filtersCleared(types.NARRATIVE_SEARCH_FIELD),
-      );
-
-      expect(actual).toMatchObject({
-        ...filtersState,
-        has_narrative: true,
       });
     });
   });
@@ -328,31 +239,6 @@ describe('Filters', () => {
     });
   });
 
-  describe('FILTER_FLAG_CHANGED actions', () => {
-    let filterName;
-    beforeEach(() => {
-      filterName = 'has_narrative';
-    });
-
-    it('adds narrative filter to empty state', () => {
-      expect(target(filtersState, toggleFlagFilter(filterName))).toEqual({
-        ...filtersState,
-        has_narrative: true,
-      });
-    });
-
-    it('toggles off narrative filter', () => {
-      expect(
-        target(
-          { ...filtersState, has_narrative: true },
-          toggleFlagFilter(filterName),
-        ),
-      ).toEqual({
-        ...filtersState,
-      });
-    });
-  });
-
   describe('FILTER_REPLACED actions', () => {
     let state;
     it('replaces existing filter set', () => {
@@ -369,42 +255,6 @@ describe('Filters', () => {
     });
   });
 
-  describe('FOCUS actions', () => {
-    let result, state;
-    it('handles focus changed', () => {
-      state = {
-        ...filtersState,
-      };
-      result = target(state, focusChanged('Foo', 'Product', ['bar', 'baz']));
-      expect(result).toEqual({
-        ...filtersState,
-        product: ['bar', 'baz'],
-      });
-    });
-
-    it('handles company changed', () => {
-      state = {
-        ...filtersState,
-      };
-      result = target(state, focusChanged('Foo', 'Company', ['bar', 'baz']));
-      expect(result).toEqual({
-        ...filtersState,
-        company: ['Foo'],
-        product: [],
-      });
-    });
-
-    it('handles focus removed', () => {
-      state = {
-        ...filtersState,
-        product: ['bar', 'baz', 'qaz'],
-      };
-      result = target(state, focusRemoved('Product'));
-      expect(result).toEqual({
-        ...filtersState,
-      });
-    });
-  });
   describe('STATE_FILTERS', () => {
     let action, result;
     describe('STATE_FILTER_ADDED', () => {
@@ -487,12 +337,6 @@ describe('Filters', () => {
       expect(target(state, routeChanged('/', {}))).toEqual({
         ...state,
       });
-    });
-
-    it('converts flag parameters to booleans', () => {
-      const params = { has_narrative: 'true' };
-      actual = target(state, routeChanged('/', params)).has_narrative;
-      expect(actual).toEqual(true);
     });
 
     it('handles a single filter', () => {

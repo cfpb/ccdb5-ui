@@ -7,8 +7,8 @@ import { addAction } from '../../reducers/actions/actions-slice';
  * When triggered, the function will keep checking if the bulk process is pending
  * and indicate when the process is finished
  *
- * @param {import('../types/redux-types').ReduxTypes.Store} store - Redux store
- * @returns {(next: import('../types/redux-types').ReduxTypes.Next) => (action: import('../types/redux-types').ReduxTypes.PlainAction | import('../types/redux-types').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
+ * @param {import('../../types/redux-types').Store} store - Redux store
+ * @returns {(next: import('../../types/redux-types').Next) => (action: import('../../types/redux-types').PlainAction | import('../../types/redux-types').Thunk) => Promise<unknown>} A Redux middleware function
  */
 export const actionLogger = (store) => (next) => async (action) => {
   if (typeof action === 'function') {

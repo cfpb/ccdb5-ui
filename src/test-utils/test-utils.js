@@ -8,7 +8,6 @@ import actions from '../reducers/actions/actions-slice';
 import filters from '../reducers/filters/filters-slice';
 import query from '../reducers/query/query-slice';
 import routes from '../reducers/routes/routes-slice';
-import trends from '../reducers/trends/trends-slice';
 import view from '../reducers/view/view-slice';
 import { complaintsApi } from '../api/complaints';
 import { DsrLink } from '../components/dsr-link/dsr-link';
@@ -26,7 +25,6 @@ export function configureStoreUtil(preloadedState) {
       filters,
       query,
       routes,
-      trends,
       view,
     },
     middleware: (getDefaultMiddleware) => [

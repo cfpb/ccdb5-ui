@@ -1,6 +1,4 @@
 import './css/app.scss';
-// Pattern B companion: DSR-only styles (Tabs, React overrides). Full DS CSS
-// comes from base.scss — do not also import design-system-react/index.css.
 import '@cfpb/design-system-react/dsr.css';
 import { DSRProvider } from '@cfpb/design-system-react';
 import { ReactElement } from 'react';

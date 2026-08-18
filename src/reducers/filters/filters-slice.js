@@ -43,9 +43,7 @@ export const filtersSlice = createSlice({
     filterAdded: {
       reducer: (state, action) => {
         const { filterName, filterValue } = action.payload;
-        if (filterName === 'has_narrative') {
-          state.has_narrative = true;
-        } else if (Object.hasOwn(state, filterName)) {
+        if (Object.hasOwn(state, filterName)) {
           const idx = state[filterName].indexOf(filterValue);
           if (idx === -1) {
             state[filterName].push(filterValue);
@@ -63,9 +61,7 @@ export const filtersSlice = createSlice({
     filterRemoved: {
       reducer: (state, action) => {
         const { filterName, filterValue } = action.payload;
-        if (filterName === 'has_narrative') {
-          delete state.has_narrative;
-        } else if (Object.hasOwn(state, filterName)) {
+        if (Object.hasOwn(state, filterName)) {
           const idx = state[filterName].indexOf(filterValue);
           if (idx !== -1) {
             state[filterName].splice(idx, 1);
@@ -80,14 +76,8 @@ export const filtersSlice = createSlice({
     },
     // allFiltersRemoved
     filtersCleared: {
-      reducer: (state, action) => {
-        const allFilters = [...types.knownFilters, ...types.flagFilters];
-        if (types.NARRATIVE_SEARCH_FIELD === action.payload) {
-          // keep has_narrative intact if we're coming from Narratives search
-          const idx = allFilters.indexOf('has_narrative');
-          allFilters.splice(idx, 1);
-        }
-        for (const knownFilter of allFilters) {
+      reducer: (state) => {
+        for (const knownFilter of types.knownFilters) {
           if (Object.hasOwn(state, knownFilter)) {
             state[knownFilter] = [];
           }
@@ -183,46 +173,13 @@ export const filtersSlice = createSlice({
         state.state = stateFilters.filter((state) => state !== abbr);
       },
     },
-    toggleFlagFilter: {
-      reducer: (state, action) => {
-        const filterName = action.payload;
-        if (Object.hasOwn(state, filterName)) {
-          const current = state[filterName];
-          if (current) {
-            delete state[filterName];
-            return;
-          }
-        }
-        state[filterName] = true;
-      },
-    },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase('routes/routeChanged', (state, action) => {
-        const { params } = action.payload;
-        // Handle the aggregation filters
-        processUrlArrayParams(params, state, types.knownFilters);
-      })
-      .addCase('trends/focusChanged', (state, action) => {
-        const { focus, lens, filterValues } = action.payload;
-        const filterKey = lens.toLowerCase();
-        const activeFilters = [];
-
-        if (filterKey === 'company') {
-          activeFilters.push(focus);
-        } else {
-          for (const val of filterValues) {
-            activeFilters.push(val);
-          }
-        }
-        state[filterKey] = activeFilters;
-      })
-      .addCase('trends/focusRemoved', (state, action) => {
-        const lens = action.payload;
-        const filterKey = lens.toLowerCase();
-        state[filterKey] = [];
-      });
+    builder.addCase('routes/routeChanged', (state, action) => {
+      const { params } = action.payload;
+      // Handle the aggregation filters
+      processUrlArrayParams(params, state, types.knownFilters);
+    });
   },
 });
 
@@ -237,7 +194,6 @@ export const {
   stateFilterAdded,
   stateFilterCleared,
   stateFilterRemoved,
-  toggleFlagFilter,
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

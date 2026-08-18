@@ -5,19 +5,12 @@ import {
   useGetAggregationsQuery,
   useGetDocumentQuery,
   useGetListQuery,
-  useGetMapQuery,
-  useGetTrendsQuery,
 } from './complaints';
 import {
   aggResponse,
   listAPIResponse,
   listResponse,
 } from '../components/list/list-panel/fixture';
-import { geoAPIResponse, geoResponse } from '../components/map/fixture';
-import {
-  trendsAPIResponse,
-  trendsResponse,
-} from '../components/trends/fixture';
 
 import fetchMock from 'jest-fetch-mock';
 import { aggResponseTransformed, documentResponse } from './fixture';
@@ -134,7 +127,6 @@ describe('getDocument', () => {
       complaint_what_happened: 'Lorem ipsum dolor sit amet',
       date_received: '2017-03-04T12:00:00',
       date_sent_to_company: '2017-03-04T12:00:00',
-      has_narrative: true,
       issue: 'Account opening, closing, or management',
       product: 'Bank account or service',
       state: 'KY',
@@ -185,101 +177,5 @@ describe('getList', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(result.current.data).toEqual(listAPIResponse);
-  });
-});
-
-describe('getMap', () => {
-  it('renders hook and handles error', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify({}));
-    const { result } = renderHook(() => useGetMapQuery({ foo: 'bar' }), {
-      wrapper: Wrapper,
-    });
-
-    expect(result.current).toMatchObject({
-      status: 'pending',
-      endpointName: 'getMap',
-      isLoading: true,
-      isSuccess: false,
-      isError: false,
-      isFetching: true,
-    });
-
-    await waitFor(() => expect(result.current.isSuccess).toBe(false));
-    await waitFor(() => expect(result.current.error).toBeTruthy());
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-  });
-  it('renders hook and transforms data', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(geoResponse));
-    const { result } = renderHook(() => useGetMapQuery({ foo: 'bar' }), {
-      wrapper: Wrapper,
-    });
-    expect(result.current).toMatchObject({
-      status: 'pending',
-      endpointName: 'getMap',
-      isLoading: false,
-      isSuccess: false,
-      isError: false,
-      isFetching: true,
-    });
-
-    await waitFor(() => expect(result.current.isSuccess).toBe(true));
-
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(result.current.data).toEqual(geoAPIResponse);
-  });
-});
-
-describe('getTrends', () => {
-  it('renders hook and handles error', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify({}));
-    const { result } = renderHook(() => useGetTrendsQuery({ foo: 'bar' }), {
-      wrapper: Wrapper,
-    });
-    expect(result.current).toMatchObject({
-      status: 'pending',
-      endpointName: 'getTrends',
-      isLoading: true,
-      isSuccess: false,
-      isError: false,
-      isFetching: true,
-    });
-
-    await waitFor(() => expect(result.current.isSuccess).toBe(false));
-    await waitFor(() => expect(result.current.error).toBeTruthy());
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-  });
-
-  it('renders hook and transforms data', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(trendsResponse));
-
-    const { result } = renderHook(
-      () =>
-        useGetTrendsQuery({
-          reducerValues: {
-            chartType: 'line',
-            focus: '',
-            lens: 'Product',
-            subLens: 'sub_product',
-            tooltip: false,
-            trendDepth: 5,
-          },
-        }),
-      {
-        wrapper: Wrapper,
-      },
-    );
-    expect(result.current).toMatchObject({
-      status: 'pending',
-      endpointName: 'getTrends',
-      isLoading: true,
-      isSuccess: false,
-      isError: false,
-      isFetching: true,
-    });
-
-    await waitFor(() => expect(result.current.isSuccess).toBe(true));
-
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(result.current.data).toEqual(trendsAPIResponse);
   });
 });

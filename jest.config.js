@@ -28,7 +28,7 @@ module.exports = {
     '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!(d3|d3-[^/]+|internmap|delaunator|robust-predicates|query-string|split-on-first|strict-uri-encode|decode-uri-component|filter-obj|react-leaflet|@react-leaflet/core|@cfpb/design-system-react)/)',
+    '/node_modules/(?!(query-string|split-on-first|strict-uri-encode|decode-uri-component|filter-obj|@cfpb/design-system-react)/)',
   ],
   moduleNameMapper: {
     '^react$': '<rootDir>/node_modules/react',

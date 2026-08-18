@@ -1,22 +1,20 @@
 import './action-bar.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Button, Heading } from '@cfpb/design-system-react';
 import { sendAnalyticsEvent } from '../../utils';
 import { modalShown, updatePrintModeOn } from '../../reducers/view/view-slice';
 import { StaleDataWarnings } from '../warnings/stale-data-warnings';
-import { selectViewTab } from '../../reducers/view/selectors';
 import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
 import { useGetAggregations } from '../../api/hooks/use-get-aggregations';
 
 export const ActionBar = () => {
   const dispatch = useDispatch();
-  const tab = useSelector(selectViewTab);
   const { data, error } = useGetAggregations();
   const docCount = error ? 0 : data?.doc_count || 0;
   const total = error ? 0 : data?.total || 0;
 
-  const showPrintView = (tab) => {
-    sendAnalyticsEvent('Print', 'tab:' + tab);
+  const showPrintView = () => {
+    sendAnalyticsEvent('Print', 'Print');
     dispatch(updatePrintModeOn());
   };
   return (
@@ -44,10 +42,7 @@ export const ActionBar = () => {
                 className="export-btn"
                 data-gtm_ignore="true"
                 onClick={() => {
-                  sendAnalyticsEvent(
-                    'Export',
-                    tab + ':User Opens Export Modal',
-                  );
+                  sendAnalyticsEvent('Export', 'User Opens Export Modal');
                   dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
                 }}
               />
@@ -56,9 +51,7 @@ export const ActionBar = () => {
                 isLink
                 iconLeft="print"
                 className="print-preview"
-                onClick={() => {
-                  showPrintView(tab);
-                }}
+                onClick={showPrintView}
               />
             </Heading>
           </div>

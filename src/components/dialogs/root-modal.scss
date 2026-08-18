@@ -12,13 +12,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   // 30px inset on all sides. When the modal is taller than the viewport it
   // scrolls inside this padded frame, keeping 30px left/right gutters.
   padding: $grid-gutter-width;
   box-sizing: border-box;
 
   // 60% black overlay (#000000 at 60% opacity).
-  background-color: rgb(0, 0, 0, 0.6);
+  background-color: rgb(0 0 0 / 60%);
 }
 
 .modal-body {
@@ -38,6 +39,7 @@
   .header {
     position: relative;
     padding: $grid-gutter-width;
+
     // Leave room for the absolutely positioned Close control.
     padding-right: 4.5rem;
     padding-bottom: 0;

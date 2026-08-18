@@ -14,7 +14,6 @@ import { AlertFieldLevel, Button, Heading } from '@cfpb/design-system-react';
 import { useMemo, useState } from 'react';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { selectQueryRoot } from '../../../reducers/query/selectors';
-import { selectViewTab } from '../../../reducers/view/selectors';
 import { selectFiltersRoot } from '../../../reducers/filters/selectors';
 import { useGetAggregations } from '../../../api/hooks/use-get-aggregations';
 import { getElementById } from '../../../utils/dom';
@@ -26,7 +25,6 @@ export const DataExport = () => {
   const dispatch = useDispatch();
   const queryState = useSelector(selectQueryRoot);
   const filtersState = useSelector(selectFiltersRoot);
-  const tab = useSelector(selectViewTab);
   const { data } = useGetAggregations();
   const someComplaintsCount = data?.total || 0;
   const allComplaintsCount = data?.doc_count || 0;
@@ -43,9 +41,7 @@ export const DataExport = () => {
   const [copied, setCopied] = useState(false);
 
   const exportDataset =
-    isFilteredDisabled && dataset === DATASET_FILTERED
-      ? DATASET_FULL
-      : dataset;
+    isFilteredDisabled && dataset === DATASET_FILTERED ? DATASET_FULL : dataset;
 
   const exportUri = useMemo(() => {
     const mergedState = {
@@ -69,9 +65,9 @@ export const DataExport = () => {
 
   const handleExportClicked = () => {
     if (exportDataset === DATASET_FULL) {
-      sendAnalyticsEvent('Export All Data', tab + ':csv');
+      sendAnalyticsEvent('Export All Data', 'csv');
     } else {
-      sendAnalyticsEvent('Export Some Data', tab);
+      sendAnalyticsEvent('Export Some Data', 'filtered');
     }
 
     location.assign(exportUri);
@@ -162,10 +158,7 @@ export const DataExport = () => {
           </div>
           {filterAlertMessage ? (
             <div className="export-filter-alert">
-              <AlertFieldLevel
-                message={filterAlertMessage}
-                status="error"
-              />
+              <AlertFieldLevel message={filterAlertMessage} status="error" />
             </div>
           ) : null}
         </div>

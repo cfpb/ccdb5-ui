@@ -4,21 +4,13 @@ import * as viewActions from '../../reducers/view/view-slice';
 import { viewState } from '../../reducers/view/view-slice';
 import { merge } from '../../test-utils/function-helpers';
 import userEvent from '@testing-library/user-event';
-import { MODE_TRENDS } from '../../constants';
 import fetchMock from 'jest-fetch-mock';
-import { aggResponse } from '../map/fixture';
-import { trendsOverviewResponse } from '../trends/trends-panel/fixture';
-import { trendsState } from '../../reducers/trends/trends-slice';
+import { aggResponse } from '../list/list-panel/fixture';
 import { queryState } from '../../reducers/query/query-slice';
 import { BP_SM_SPLIT_WIDE_MIN } from '../../constants/breakpoints';
 
 const mockFetchResponses = () => {
   fetchMock.mockResponse((req) => {
-    if (req.url.includes('API/trends?')) {
-      return Promise.resolve({
-        body: JSON.stringify(trendsOverviewResponse),
-      });
-    }
     if (req.url.includes('API?')) {
       return Promise.resolve({
         body: JSON.stringify(aggResponse),
@@ -36,7 +28,6 @@ const renderComponent = (newViewModelState) => {
   const data = {
     query: newQueryState,
     routes: { queryString: '?sadfdsf=fdsds' },
-    trends: trendsState,
     view: newViewModelState,
   };
   return render(<Tour />, { preloadedState: data });
@@ -73,7 +64,7 @@ describe('Tour loading behavior', () => {
 
     mockFetchResponses();
 
-    renderComponent({ tab: MODE_TRENDS, showTour: false });
+    renderComponent({ showTour: false });
     await screen.findByRole('button', { name: /Take a tour/ });
     expect(screen.getByRole('button', { name: /Take a tour/ })).toBeVisible();
     await user.click(screen.getByRole('button', { name: /Take a tour/ }));
@@ -88,7 +79,6 @@ describe('Tour loading behavior', () => {
     mockFetchResponses();
 
     renderComponent({
-      tab: MODE_TRENDS,
       showTour: true,
       width: 1200,
     });
@@ -106,7 +96,6 @@ describe('Tour loading behavior', () => {
     globalThis.confirm = jest.fn(() => false);
 
     renderComponent({
-      tab: MODE_TRENDS,
       showTour: true,
       width: 1200,
     });
@@ -125,7 +114,6 @@ describe('Tour loading behavior', () => {
     mockFetchResponses();
 
     renderComponent({
-      tab: MODE_TRENDS,
       showTour: true,
       width: BP_SM_SPLIT_WIDE_MIN - 1,
     });

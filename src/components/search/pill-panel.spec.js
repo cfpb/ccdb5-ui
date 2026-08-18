@@ -51,13 +51,4 @@ describe('component: PillPanel', () => {
       }),
     ).toBeInTheDocument();
   });
-
-  it('adds a has narrative pill', () => {
-    renderComponent({ has_narrative: true });
-    expect(
-      screen.getByRole('button', {
-        name: /Has narrative/,
-      }),
-    ).toBeInTheDocument();
-  });
 });

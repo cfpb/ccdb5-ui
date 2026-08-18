@@ -11,14 +11,6 @@ const backToSearch = () =>
 const sortSelect = () =>
   cy.findByLabelText('Choose the order in which the results are displayed');
 
-const hasNarrativeCheckbox = () =>
-  cy
-    .findByRole('heading', {
-      name: 'Only show complaints with narratives?',
-    })
-    .closest('section')
-    .findByRole('checkbox', { name: 'Yes' });
-
 describe('Document View', () => {
   describe('error handling', () => {
     it('handles bogus id', () => {
@@ -31,7 +23,7 @@ describe('Document View', () => {
 
   describe('document detail view', () => {
     beforeEach(() => {
-      cy.visit('?tab=List');
+      cy.visit('/');
       waitForLoading();
     });
     it('navigates to document detail', () => {
@@ -48,15 +40,10 @@ describe('Document View', () => {
 
   describe('preserve page state', () => {
     it('restores filters after visiting document detail', () => {
-      cy.visit(
-        '?searchText=pizza&has_narrative=true&size=10&sort=relevance_desc&tab=List',
-      );
+      cy.visit('?searchText=pizza&size=10&sort=relevance_desc');
 
       sortSelect().find('option:selected').should('have.text', 'Relevance');
 
-      cy.findByRole('button', { name: /Has narrative/ }).should('be.visible');
-
-      hasNarrativeCheckbox().should('be.checked');
       firstComplaintLink().click();
 
       waitForLoading();
@@ -68,10 +55,6 @@ describe('Document View', () => {
       waitForLoading();
 
       sortSelect().find('option:selected').should('have.text', 'Relevance');
-
-      cy.findByRole('button', { name: /Has narrative/ }).should('be.visible');
-
-      hasNarrativeCheckbox().should('be.checked');
     });
   });
 });

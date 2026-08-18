@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectViewIsPrintMode,
   selectViewShowTour,
-  selectViewTab,
   selectViewWidth,
 } from '../../reducers/view/selectors';
 import { BP_SM_SPLIT_WIDE_MIN } from '../../constants/breakpoints';
@@ -20,31 +19,13 @@ import { querySelector } from '../../utils/dom';
 
 const MOBILE_FILTER_TOGGLE_SELECTOR = TOUR_SELECTORS.MOBILE_FILTER_TOGGLE;
 
-const ROW_CHART_SECTION_SELECTOR = TOUR_SELECTORS.ROW_CHART_SECTION;
-const MAP_ROW_CHART_SECTION_SELECTOR = TOUR_SELECTORS.MAP_ROW_CHART_SECTION;
-
-const isRowChartStep = (selector) =>
-  selector === ROW_CHART_SECTION_SELECTOR ||
-  selector === MAP_ROW_CHART_SECTION_SELECTOR;
-
-const prepareRowChartStep = () => {
-  const rowChartSection =
-    querySelector(MAP_ROW_CHART_SECTION_SELECTOR) ||
-    querySelector(ROW_CHART_SECTION_SELECTOR);
-  rowChartSection?.scrollIntoView({ block: 'center' });
-  requestAnimationFrame(() => {
-    const expandable = querySelector(TOUR_SELECTORS.ROW_CHART_EXPANDABLE);
-    expandable?.click();
-  });
-};
-
 const DATE_FILTER_POLL_MS = 10;
 const DATE_FILTER_MAX_WAIT_MS = 5000;
 
-// Mobile tour inserts MOBILE_STEP_OPEN at index 3 and MOBILE_STEP_CLOSE at index 7
-// (after slice(0, 3), slice(4, 7), slice(7) of the desktop step list).
-const MOBILE_FILTER_OPEN_STEP_INDEX = 3;
-const MOBILE_FILTER_CLOSE_STEP_INDEX = 7;
+// Mobile tour inserts MOBILE_STEP_OPEN at index 2 and MOBILE_STEP_CLOSE at index 6
+// (after slice(0, 2), slice(3, 6), slice(6) of the desktop step list).
+const MOBILE_FILTER_OPEN_STEP_INDEX = 2;
+const MOBILE_FILTER_CLOSE_STEP_INDEX = 6;
 
 const MOBILE_STEP_OPEN = {
   disableInteraction: false,
@@ -80,7 +61,6 @@ export const Tour = () => {
   const dispatch = useDispatch();
   const isPageLoading = usePageLoading();
   const showTour = useSelector(selectViewShowTour);
-  const tab = useSelector(selectViewTab);
   const isPrintMode = useSelector(selectViewIsPrintMode);
   const viewWidth = useSelector(selectViewWidth);
   const stepRef = useRef();
@@ -92,14 +72,14 @@ export const Tour = () => {
     () =>
       isMobileTour
         ? [
-            ...TOUR_STEPS[tab].slice(0, 3),
+            ...TOUR_STEPS.slice(0, 2),
             MOBILE_STEP_OPEN,
-            ...TOUR_STEPS[tab].slice(4, 7),
+            ...TOUR_STEPS.slice(3, 6),
             MOBILE_STEP_CLOSE,
-            ...TOUR_STEPS[tab].slice(7),
+            ...TOUR_STEPS.slice(6),
           ]
-        : TOUR_STEPS[tab],
-    [tab, isMobileTour],
+        : TOUR_STEPS,
+    [isMobileTour],
   );
 
   const handleBeforeChange = useCallback(
@@ -111,11 +91,6 @@ export const Tour = () => {
 
       if (!Object.hasOwn(baseSteps, currentStep)) {
         return;
-      }
-
-      if (isRowChartStep(baseSteps[currentStep]?.element)) {
-        // Collapse row chart rows so the tour can expand the first row consistently.
-        prepareRowChartStep();
       }
 
       const filterListener = async () => {

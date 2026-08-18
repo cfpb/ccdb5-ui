@@ -13,8 +13,9 @@ import isEqual from 'react-fast-compare';
  */
 export function normalizeRouteParams(params) {
   const processed = { ...params };
-  const remove = ['search_after'];
-  const numbers = ['size', 'page', 'trend_depth'];
+  // Drop legacy view-mode params; List is the only results view now.
+  const remove = ['search_after', 'tab'];
+  const numbers = ['size', 'page'];
 
   for (const value of remove) {
     if (Object.prototype.hasOwnProperty.call(processed, value)) {
@@ -40,7 +41,7 @@ export function normalizeRouteParams(params) {
  *
  * @param {string} path - the new path being used
  * @param {object} params - the query string
- * @returns {(next: import('../types/redux-types').ReduxTypes.Next) => (action: import('../types/redux-types').ReduxTypes.PlainAction | import('../types/redux-types').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
+ * @returns {import('../types/redux-types').Thunk} A thunk that updates the route when the URL changed
  */
 export function changeRoute(path, params) {
   return function (dispatch, getState) {

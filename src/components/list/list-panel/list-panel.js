@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ErrorBlock } from '../../warnings/error';
 import { FilterPanel } from '../../filters/filter-panel/filter-panel';
 import { FilterPanelToggle } from '../../filters/filter-panel/filter-panel-toggle';
-import { NarrativesButtons } from '../../refine-bar/narratives-buttons';
 import { Pagination } from '../pagination/pagination';
 import { useMemo } from 'react';
 import { Select } from '../../refine-bar/select';
@@ -108,7 +107,6 @@ export const ListPanel = () => {
           value={sort}
           handleChange={onSort}
         />
-        <NarrativesButtons />
       </div>
       {renderMap[phase]()}
       <Pagination />

@@ -1,6 +1,6 @@
 // Run `npx @eslint/config-inspector` to inspect the config.
 // Aligned with DSR: ESLint 10 + typescript-eslint + unicorn recommended.
-// JS-only app: use non-type-checked TS presets until files migrate to TypeScript.
+// Mixed JS/TS app: use non-type-checked TS presets until more files migrate.
 
 import globals from 'globals';
 import js from '@eslint/js';
@@ -91,7 +91,7 @@ export default tseslint.config(
         'error',
         {
           ignore: [
-            '\\.svg\\?react$',
+            String.raw`\.svg\?react$`,
             '^@icons',
             '^@cfpb/design-system-react',
             '^@cfpb/cfpb-design-system/',
@@ -154,6 +154,15 @@ export default tseslint.config(
     },
   },
 
+  // TypeScript already encodes param/return types; don't require duplicate JSDoc types.
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      'jsdoc/require-param-type': 'off',
+      'jsdoc/require-returns-type': 'off',
+    },
+  },
+
   // Unit tests: Testing Library + jest-dom
   {
     files: ['**/*.{spec,test}.{js,jsx,ts,tsx}'],
@@ -211,23 +220,12 @@ export default tseslint.config(
     },
   },
 
-  // Cypress plugins remain CJS; chart libs bind `this` in callbacks
+  // Cypress plugins remain CJS
   {
     files: ['cypress/plugins/**'],
     rules: {
       'unicorn/prefer-module': 'off',
       'unicorn/no-anonymous-default-export': 'off',
-    },
-  },
-  {
-    files: [
-      '**/tile-map/**',
-      '**/row-chart/**',
-      '**/line-chart/**',
-      '**/stacked-area-chart/**',
-    ],
-    rules: {
-      'unicorn/no-this-outside-of-class': 'off',
     },
   },
 );

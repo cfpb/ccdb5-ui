@@ -13,23 +13,9 @@ const sortSelect = () =>
 const searchField = () =>
   cy.findByLabelText('Choose which field will be searched');
 
-const narrativesOnlyButton = () =>
-  cy.findByRole('button', { name: 'Only complaints with narratives' });
-
-const allComplaintsButton = () =>
-  cy.findByRole('button', { name: 'All complaints' });
-
-const hasNarrativeCheckbox = () =>
-  cy
-    .findByRole('heading', {
-      name: 'Only show complaints with narratives?',
-    })
-    .closest('section')
-    .findByRole('checkbox', { name: 'Yes' });
-
 describe('List View', () => {
   it('shows complaints, pagination, sorts and filters', () => {
-    cy.visit('?size=10&searchText=debt%20recovery&tab=List');
+    cy.visit('?size=10&searchText=debt%20recovery');
     waitForLoading();
     complaintLinks().should('have.length', 10);
     cy.url().should('contain', 'size=10');
@@ -59,35 +45,14 @@ describe('List View', () => {
     cy.url().should('contain', 'sort=relevance_desc');
     cy.url().should('contain', 'page=1');
 
-    cy.log('should filter the results to narrative-only results and back');
-    // Initially all is checked.
-    allComplaintsButton().should('have.class', 'selected');
-    hasNarrativeCheckbox().should('not.be.checked');
-
-    // Click the narrative-only button.
-    narrativesOnlyButton().click();
-    narrativesOnlyButton().should('have.class', 'selected');
-
-    hasNarrativeCheckbox().should('be.checked');
-
-    // Click the narrative-only button again. There should be no change.
-    narrativesOnlyButton().click({ force: true });
-    narrativesOnlyButton().should('have.class', 'selected');
-
-    hasNarrativeCheckbox().should('be.checked');
-
-    // Click the all results button. The narratives should be removed.
-    allComplaintsButton().click();
-    allComplaintsButton().should('have.class', 'selected');
-
-    hasNarrativeCheckbox().should('not.be.checked');
-
     cy.log('tests pagination');
     cy.log('it exists');
     pagination().should('be.visible');
 
     cy.log('has a disabled prev button');
-    pagination().findByRole('button', { name: 'Previous' }).should('be.disabled');
+    pagination()
+      .findByRole('button', { name: 'Previous' })
+      .should('be.disabled');
     pagination()
       .findByRole('button', { name: 'Next' })
       .should('not.be.disabled');
@@ -123,7 +88,7 @@ describe('List View', () => {
     pagination().findByText('Page 1').should('exist');
 
     cy.log('resets after select fields');
-    const fields = ['Company name', 'Narratives', 'All data'];
+    const fields = ['Company name', 'All data'];
     cy.log('it exists');
     pagination().should('be.visible');
     pagination().findByRole('button', { name: 'Next' }).click();

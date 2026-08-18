@@ -32,6 +32,7 @@ describe('routes', () => {
       const params = {
         foo: 'bar',
         search_after: '11232432',
+        tab: 'List',
       };
 
       const actual = sut.normalizeRouteParams(params);

@@ -26,10 +26,8 @@ const fixture = {
           company_public_response: 'Company acknowledges the complaint',
           company_response: 'Closed with explanation',
           complaint_id: '2371744',
-          complaint_what_happened: 'Lorem ipsum dolor sit amet',
           date_received: '2017-03-04T12:00:00',
           date_sent_to_company: '2017-03-04T12:00:00',
-          has_narrative: true,
           issue: 'Account opening, closing, or management',
           product: 'Bank account or service',
           state: 'KY',
@@ -73,7 +71,6 @@ describe('component::ComplaintDetail', () => {
       params: {
         product: 'bar',
         issue: 'nope',
-        tab: 'List',
       },
     });
     expect(
@@ -81,7 +78,7 @@ describe('component::ComplaintDetail', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: 'Back to search results' }),
-    ).toHaveAttribute('href', '/?issue=nope&product=bar&tab=List');
+    ).toHaveAttribute('href', '/?issue=nope&product=bar');
     expect(screen.getByText('This page is loading')).toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: 'Back to search results' }),
@@ -131,9 +128,8 @@ describe('component::ComplaintDetail', () => {
     expect(screen.getByText(docResponse.submitted_via)).toBeInTheDocument();
   });
 
-  it('handles missing narrative, sub-agg and timely values', async () => {
+  it('handles missing sub-agg and timely values', async () => {
     const docResponse = response.hits.hits[0]._source;
-    docResponse.complaint_what_happened = '';
     docResponse.timely = '';
     docResponse.sub_issue = '';
     docResponse.sub_product = '';
@@ -163,9 +159,6 @@ describe('component::ComplaintDetail', () => {
     expect(screen.getByText(docResponse.submitted_via)).toBeInTheDocument();
     expect(screen.queryByText('Sub-product:')).not.toBeInTheDocument();
     expect(screen.queryByText('Sub-issue:')).not.toBeInTheDocument();
-    expect(
-      screen.queryByText('Consumer complaint narrative'),
-    ).not.toBeInTheDocument();
   });
 
   it('Not Timely', async () => {

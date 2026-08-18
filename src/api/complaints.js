@@ -1,10 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_PLACEHOLDER } from '../constants';
-import {
-  processAggregations,
-  trendsReceived,
-} from '../reducers/trends/trends-slice';
-import { processStateAggregations } from '../utils/map';
 import queryString from 'query-string';
 
 export const complaintsApi = createApi({
@@ -70,21 +65,6 @@ export const complaintsApi = createApi({
         };
       },
     }),
-    getMap: builder.query({
-      query: (params) => `geo/states?${queryString.stringify(params)}`,
-      transformResponse: (response) => {
-        const { aggregations } = response;
-        const state = { product: [], state: [] };
-        // add in "issue" if we ever need issue row chart again
-        const keys = ['product'];
-        const results = {};
-        processAggregations(keys, state, aggregations, results);
-        results.state = processStateAggregations(aggregations.state);
-        return {
-          results,
-        };
-      },
-    }),
     getMeta: builder.query({
       query: () => ({
         url: `?field=all&size=0&no_aggs=true`,
@@ -95,23 +75,6 @@ export const complaintsApi = createApi({
         url: params.url,
       }),
     }),
-    getTrends: builder.query({
-      query: (params) => {
-        const newP = { ...params };
-        delete newP.reducerValues;
-        return {
-          url: `trends?${queryString.stringify(newP)}`,
-        };
-      },
-      transformResponse: (response, meta, arg) => {
-        if (!response) {
-          return {};
-        }
-        const { aggregations } = response;
-        const state = { ...arg.reducerValues };
-        return trendsReceived(state, aggregations);
-      },
-    }),
   }),
 });
 
@@ -119,8 +82,6 @@ export const {
   useGetAggregationsQuery,
   useGetDocumentQuery,
   useGetListQuery,
-  useGetMapQuery,
   useGetMetaQuery,
   useGetSuggestQuery,
-  useGetTrendsQuery,
 } = complaintsApi;

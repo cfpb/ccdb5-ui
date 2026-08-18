@@ -1,6 +1,5 @@
 import { createBrowserHistory } from 'history';
 import queryString from 'query-string';
-import { MODE_LIST, MODE_TRENDS } from '../../constants';
 import { extractReducerAttributes } from '../../api/params/params';
 import { appUrlChanged } from '../../reducers/routes/routes-slice';
 
@@ -15,14 +14,12 @@ function getFiltersAttrs(filters) {
 }
 
 /**
- * Function to return only attributes user needs on Query Tab
+ * Function to return query attributes that belong in the URL
  *
- * @param {string} tab - The current tab we are on
  * @returns {Array} an array of params
  */
-function getQueryAttrs(tab) {
-  // default query that every route should have
-  const defaultParams = [
+function getQueryAttrs() {
+  return [
     'dateRange',
     'company_received_min',
     'company_received_max',
@@ -30,43 +27,20 @@ function getQueryAttrs(tab) {
     'date_received_max',
     'searchText',
     'searchField',
+    'search_after',
+    'size',
+    'page',
+    'sort',
   ];
-
-  // list view needs these params
-  if (tab === MODE_LIST) {
-    return [...defaultParams, 'search_after', 'size', 'page', 'sort'];
-  }
-  if (tab === MODE_TRENDS) {
-    return [...defaultParams, 'dateInterval'];
-  }
-  return defaultParams;
 }
 
 /**
- * helper function to return trends params to extract based on view mode
+ * helper function to return viewModel params to extract
  *
- * @param {string} tab - current tab from viewModel
  * @returns {Array} lists the params to extract
  */
-function getTrendsAttrs(tab) {
-  return tab === MODE_TRENDS
-    ? ['chartType', 'focus', 'lens', 'subLens', 'trend_depth']
-    : [];
-}
-
-/**
- * helper function to return viewModel params to extract based on view mode
- *
- * @param {string} tab - current tab from viewModel
- * @returns {Array} lists the params to extract
- */
-function getViewModelAttrs(tab) {
-  const attrs = ['debug', 'tour', 'tab'];
-  const chartModes = [MODE_TRENDS];
-  if (chartModes.includes(tab)) {
-    attrs.push('interval');
-  }
-  return attrs;
+function getViewModelAttrs() {
+  return ['debug', 'tour'];
 }
 
 /**
@@ -76,23 +50,15 @@ function getViewModelAttrs(tab) {
  * @returns {object} an object that can be transferred to the URL query string
  */
 export function extractQueryStringParams(state) {
-  // Make a list of the attributes to copy to the URL
+  const attrsFilters = getFiltersAttrs(state.filters),
+    attrsQuery = getQueryAttrs(),
+    attrsView = getViewModelAttrs();
 
-  // Conditional extractions
-  const { tab } = state.view,
-    attrsFilters = getFiltersAttrs(state.filters),
-    attrsTrends = getTrendsAttrs(tab),
-    attrsQuery = getQueryAttrs(tab),
-    attrsView = getViewModelAttrs(tab);
-
-  // Grab specific attributes from the reducers
   const params = Object.assign(
     {},
-    // no unique map atts
     extractReducerAttributes(state.query, attrsQuery),
     extractReducerAttributes(state.filters, attrsFilters),
     extractReducerAttributes(state.view, attrsView),
-    extractReducerAttributes(state.trends, attrsTrends),
   );
 
   if (state.query.searchAfter) {
@@ -105,8 +71,8 @@ export function extractQueryStringParams(state) {
 /**
  * Middleware function to synch state to url
  *
- * @param {import('../types/redux-types').ReduxTypes.Store} store - Redux store
- * @returns {(next: import('../types/redux-types').ReduxTypes.Next) => (action: import('../types/redux-types').ReduxTypes.PlainAction | import('../types/redux-types').ReduxTypes.Thunk) => Promise<unknown>} A Redux middleware function
+ * @param {import('../../types/redux-types').Store} store - Redux store
+ * @returns {(next: import('../../types/redux-types').Next) => (action: import('../../types/redux-types').PlainAction | import('../../types/redux-types').Thunk) => Promise<unknown>} A Redux middleware function
  */
 export default function synchUrl(store) {
   return (next) => (action) => {
