@@ -36,7 +36,7 @@ const filterPills = () =>
 
 describe('Filter Panel', () => {
   it('allows the app to filter complaints', () => {
-    cy.visit('?tab=List');
+    cy.visit('/');
     waitForLoading();
     cy.log('it has filter panel');
     cy.findByRole('heading', { name: 'Filter results by...' }).should(

@@ -6,7 +6,7 @@
  * to `document` (or when selectors are resolved too early).
  *
  * Prefer `.filter-panel` over `aside.content__sidebar` for filter steps:
- * the sidebar is a layout wrapper (padding, tab class names, full column
+ * the sidebar is a layout wrapper (padding, full column
  * height) while `.filter-panel` is the actual "Filter results by" UI that
  * the tour copy describes. A sidebar highlight is often oversized and can
  * look misaligned, especially in the embedded layout.

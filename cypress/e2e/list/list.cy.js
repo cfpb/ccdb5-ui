@@ -15,7 +15,7 @@ const searchField = () =>
 
 describe('List View', () => {
   it('shows complaints, pagination, sorts and filters', () => {
-    cy.visit('?size=10&searchText=debt%20recovery&tab=List');
+    cy.visit('?size=10&searchText=debt%20recovery');
     waitForLoading();
     complaintLinks().should('have.length', 10);
     cy.url().should('contain', 'size=10');

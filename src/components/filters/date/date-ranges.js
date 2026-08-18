@@ -1,6 +1,5 @@
 import './date-ranges.scss';
 import { selectQueryDateRange } from '../../../reducers/query/selectors';
-import { selectViewTab } from '../../../reducers/view/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@cfpb/design-system-react';
 import { dateRanges } from '../../../constants';
@@ -10,7 +9,6 @@ import { sendAnalyticsEvent } from '../../../utils';
 export const DateRanges = () => {
   const dispatch = useDispatch();
   const dateRange = useSelector(selectQueryDateRange);
-  const tab = useSelector(selectViewTab);
 
   const btnClassName = (selectedDateRange) => {
     const classes = ['a-btn', 'date-selector', 'range-' + selectedDateRange];
@@ -25,7 +23,7 @@ export const DateRanges = () => {
       return;
     }
 
-    sendAnalyticsEvent('Button', tab + ':' + selectedDateRange);
+    sendAnalyticsEvent('Button', selectedDateRange);
     dispatch(dateRangeChanged(selectedDateRange));
   };
 

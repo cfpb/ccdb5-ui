@@ -1,6 +1,5 @@
 import * as routesActions from '../../reducers/routes/routes-slice';
 import routesReducer from '../../reducers/routes/routes-slice';
-import { MODE_LIST } from '../../constants';
 import emptyStore from '../../actions/__fixtures__/empty-store';
 import synchUrl from './synch-url';
 import { createStore } from 'redux';
@@ -36,9 +35,8 @@ describe('redux middleware::synchUrl', () => {
     targetState.query.dateLastIndexed = '2021-05-05';
     targetState.query.date_received_min = '09-12-1980';
     targetState.query.date_received_max = '09-20-2000';
-    targetState.view.tab = MODE_LIST;
     targetState.routes.queryString =
-      '=3y&date_received_max=09-20-2000&date_received_min=09-12-1980&page=1&searchField=all&size=25&sort=created_date_desc&tab=List';
+      'date_received_max=09-20-2000&date_received_min=09-12-1980&page=1&searchField=all&size=25&sort=created_date_desc';
   });
 
   afterEach(() => {
@@ -58,7 +56,6 @@ describe('redux middleware::synchUrl', () => {
       search_after: '2314324_1233',
       size: 25,
       sort: 'created_date_desc',
-      tab: 'List',
     });
   });
 });

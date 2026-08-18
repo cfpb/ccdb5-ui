@@ -13,11 +13,9 @@ import { queryState } from '../../../reducers/query/query-slice';
 import { viewState } from '../../../reducers/view/view-slice';
 import * as utils from '../../../utils';
 import { aggResponse, listResponse } from './fixture';
-import { MODE_LIST } from '../../../constants';
 
 describe('ListPanel', () => {
   const renderComponent = (newQueryState, newViewState) => {
-    newViewState.tab = MODE_LIST;
     newQueryState.dateLastIndexed = '2020-01-01';
     merge(newQueryState, queryState);
     merge(newViewState, viewState);

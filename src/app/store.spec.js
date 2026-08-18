@@ -7,6 +7,6 @@ describe('redux store', () => {
     expect(state.filters).toBeDefined();
     expect(state.query.searchField).toBe('all');
     expect(state.routes.queryString).toBe('');
-    expect(state.view.tab).toBe('List');
+    expect(state.view.width).toBe(0);
   });
 });

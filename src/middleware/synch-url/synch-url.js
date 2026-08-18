@@ -40,7 +40,7 @@ function getQueryAttrs() {
  * @returns {Array} lists the params to extract
  */
 function getViewModelAttrs() {
-  return ['debug', 'tour', 'tab'];
+  return ['debug', 'tour'];
 }
 
 /**

@@ -13,7 +13,7 @@ const typeAheadRequest =
 describe('Search Bar', () => {
   describe('Typeaheads', () => {
     it('has a search bar', () => {
-      cy.visit('?tab=List');
+      cy.visit('/');
       waitForLoading();
       cy.findByRole('search').should('be.visible');
       searchField().select('company');
@@ -57,7 +57,7 @@ describe('Search Bar', () => {
 
   describe('Advanced search tips', () => {
     it('toggles search tips', () => {
-      cy.visit('?tab=List');
+      cy.visit('/');
       waitForLoading();
 
       cy.findByRole('heading', { name: 'Search tips' }).should('not.exist');
@@ -73,7 +73,7 @@ describe('Search Bar', () => {
 
   describe('Search submit', () => {
     it('submits an All data search', () => {
-      cy.visit('?tab=List');
+      cy.visit('/');
       waitForLoading();
 
       searchField().select('all');

@@ -12,7 +12,6 @@ import target, {
   viewState,
 } from './view-slice';
 import * as actions from '../../actions';
-import * as types from '../../constants';
 
 describe('reducer:View', () => {
   let action;
@@ -136,7 +135,6 @@ describe('reducer:View', () => {
         isPrintMode: true,
         modalTypeShown: false,
         showTour: false,
-        tab: types.MODE_LIST,
         width: 0,
       });
     });

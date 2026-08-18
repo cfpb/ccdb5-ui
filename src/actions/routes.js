@@ -13,7 +13,8 @@ import isEqual from 'react-fast-compare';
  */
 export function normalizeRouteParams(params) {
   const processed = { ...params };
-  const remove = ['search_after'];
+  // Drop legacy view-mode params; List is the only results view now.
+  const remove = ['search_after', 'tab'];
   const numbers = ['size', 'page'];
 
   for (const value of remove) {

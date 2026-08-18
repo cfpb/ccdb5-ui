@@ -1,4 +1,3 @@
-import * as constants from '../../constants';
 import emptyStore from '../../actions/__fixtures__/empty-store';
 import * as sut from './params';
 
@@ -8,7 +7,6 @@ describe('api.v2.params', () => {
     fixtureStore = structuredClone(emptyStore);
     fixtureStore.query.date_received_min = '2011-07-21';
     fixtureStore.query.date_received_max = '2018-01-01';
-    fixtureStore.view.tab = constants.MODE_LIST;
   });
 
   describe('extractAggregationParams', () => {

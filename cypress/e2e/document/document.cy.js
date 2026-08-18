@@ -23,7 +23,7 @@ describe('Document View', () => {
 
   describe('document detail view', () => {
     beforeEach(() => {
-      cy.visit('?tab=List');
+      cy.visit('/');
       waitForLoading();
     });
     it('navigates to document detail', () => {
@@ -40,7 +40,7 @@ describe('Document View', () => {
 
   describe('preserve page state', () => {
     it('restores filters after visiting document detail', () => {
-      cy.visit('?searchText=pizza&size=10&sort=relevance_desc&tab=List');
+      cy.visit('?searchText=pizza&size=10&sort=relevance_desc');
 
       sortSelect().find('option:selected').should('have.text', 'Relevance');
 

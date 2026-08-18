@@ -37,7 +37,6 @@ describe('component::DateRanges', () => {
     const ranges = Object.values(dateRanges);
     const query = {
       dateRange: 'All',
-      tab: 'List',
     };
 
     renderComponent(query);
@@ -54,7 +53,6 @@ describe('component::DateRanges', () => {
   it('should select button and trigger toggle on newly selected range', async () => {
     const query = {
       dateRange: 'All',
-      tab: 'List',
     };
 
     renderComponent(query);
@@ -62,13 +60,12 @@ describe('component::DateRanges', () => {
     await user.click(screen.getByRole('button', { name: '1 year' }));
 
     expect(dateRangeToggledFn).toHaveBeenCalledWith('1y');
-    expect(sendAnalyticsEventFn).toHaveBeenCalledWith('Button', 'List:1y');
+    expect(sendAnalyticsEventFn).toHaveBeenCalledWith('Button', '1y');
   });
 
   it('should not trigger toggle on already selected range', async () => {
     const query = {
       dateRange: 'All',
-      tab: 'List',
     };
 
     renderComponent(query);

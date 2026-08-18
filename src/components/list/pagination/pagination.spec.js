@@ -9,7 +9,6 @@ import { merge } from '../../../test-utils/function-helpers';
 import { Pagination } from './pagination';
 import fetchMock from 'jest-fetch-mock';
 import { listResponseP1, listResponseP2 } from './fixture';
-import { MODE_LIST } from '../../../constants';
 
 describe('Pagination', () => {
   const renderComponent = (newQueryState) => {
@@ -17,7 +16,7 @@ describe('Pagination', () => {
     const data = {
       query: newQueryState,
       routes: { queryString: '?sdfsda' },
-      view: { tab: MODE_LIST },
+      view: {},
     };
 
     render(<Pagination />, {

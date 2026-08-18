@@ -4,7 +4,7 @@ const pagination = () => cy.findByRole('navigation', { name: 'Pagination' });
 
 describe('Complaint export', () => {
   it('opens download modal for filtered results under the limit', () => {
-    cy.visit('?size=10&searchText=debt%20recovery&tab=List');
+    cy.visit('?size=10&searchText=debt%20recovery');
     waitForLoading();
     pagination().findByRole('button', { name: 'Next' }).click();
     cy.url().should('include', 'page=2');

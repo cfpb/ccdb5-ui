@@ -15,9 +15,6 @@ export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT';
 export const MODAL_TYPE_EXPORT_CONFIRMATION = 'MODAL_TYPE_EXPORT_CONFIRMATION';
 export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT';
 
-// view modes
-export const MODE_LIST = 'List';
-
 export const knownFilters = [
   'company',
   'company_public_response',

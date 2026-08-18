@@ -39,7 +39,6 @@ export interface ViewState {
   hasFilters: boolean;
   modalTypeShown: string | false;
   showTour: boolean;
-  tab: string;
   width: number;
 }
 

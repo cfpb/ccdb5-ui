@@ -10,7 +10,7 @@ import { filtersState } from '../../../reducers/filters/filters-slice';
 import { queryState } from '../../../reducers/query/query-slice';
 import * as viewActions from '../../../reducers/view/view-slice';
 import { viewState } from '../../../reducers/view/view-slice';
-import { MODAL_TYPE_EXPORT_CONFIRMATION, MODE_LIST } from '../../../constants';
+import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { waitFor } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../../list/list-panel/fixture';
@@ -29,7 +29,11 @@ const withHitTotal = (total, docCount = total) => ({
 describe('DataExport', () => {
   const originalClipboard = { ...navigator.clipboard };
 
-  const renderComponent = (newFiltersState, newQueryState, newViewState) => {
+  const renderComponent = (
+    newFiltersState = {},
+    newQueryState = {},
+    newViewState = {},
+  ) => {
     const mockClipboard = {
       writeText: jest.fn(),
     };
@@ -37,7 +41,7 @@ describe('DataExport', () => {
     merge(newQueryState, { dateLastIndexed: '2020-01-01' });
     merge(newFiltersState, filtersState);
     merge(newQueryState, queryState);
-    merge(newQueryState, viewState);
+    merge(newViewState, viewState);
 
     const data = {
       filters: newFiltersState,
@@ -60,7 +64,7 @@ describe('DataExport', () => {
     const modalHiddenSpy = jest
       .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
-    renderComponent({}, {}, { tab: MODE_LIST });
+    renderComponent({});
     expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     expect(
       screen.getByText(/Select the data you would like to download/),
@@ -95,7 +99,7 @@ describe('DataExport', () => {
     const modalHiddenSpy = jest
       .spyOn(viewActions, 'modalHidden')
       .mockImplementation(() => jest.fn());
-    renderComponent({}, {}, { tab: MODE_LIST });
+    renderComponent({});
     expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
@@ -103,7 +107,7 @@ describe('DataExport', () => {
   });
 
   it('defaults to all complaint data and shows empty-filter alert', () => {
-    renderComponent({}, {}, { tab: MODE_LIST });
+    renderComponent({});
 
     const radioFiltered = screen.getByRole('radio', {
       name: /Filtered results/i,
@@ -128,12 +132,12 @@ describe('DataExport', () => {
     const sendAnalyticsSpy = jest
       .spyOn(utils, 'sendAnalyticsEvent')
       .mockImplementation(() => jest.fn());
-    renderComponent({}, {}, { tab: MODE_LIST });
+    renderComponent({});
 
     fireEvent.click(screen.getByRole('button', { name: /Download data/ }));
     expect(sendAnalyticsSpy).toHaveBeenCalledWith(
       'Export All Data',
-      'List:csv',
+      'csv',
     );
     expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
@@ -156,7 +160,7 @@ describe('DataExport', () => {
         date_received_min: '2017-05-05',
         searchText: 'debt',
       },
-      { tab: MODE_LIST },
+      {},
     );
 
     const radioFiltered = screen.getByRole('radio', {
@@ -172,18 +176,23 @@ describe('DataExport', () => {
     ).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: /Download data/ }));
-    expect(sendAnalyticsSpy).toHaveBeenCalledWith('Export Some Data', 'List');
+    expect(sendAnalyticsSpy).toHaveBeenCalledWith(
+      'Export Some Data',
+      'filtered',
+    );
     expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
 
     aggregationsSpy.mockRestore();
   });
 
   it('disables filtered results and shows limit alert when over 100,000', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+    const aggregationsSpy = jest
+      .spyOn(aggregationHooks, 'useGetAggregations')
+      .mockReturnValue({ data: withHitTotal(150_000, 6_000_000) });
     renderComponent(
       { product: ['Mortgage'] },
       { searchText: 'debt' },
-      { tab: MODE_LIST },
+      {},
     );
 
     await screen.findByText(FILTER_DOWNLOAD_LIMIT_MESSAGE);
@@ -206,6 +215,8 @@ describe('DataExport', () => {
     expect(
       screen.queryByText(FILTER_DOWNLOAD_EMPTY_MESSAGE),
     ).not.toBeInTheDocument();
+
+    aggregationsSpy.mockRestore();
   });
 
   it('switches dataset selections when filtered is available', async () => {

@@ -4,7 +4,7 @@
 
 import * as types from '../constants';
 
-type EnforceableField = 'dateRange' | 'searchField' | 'size' | 'sort' | 'tab';
+type EnforceableField = 'dateRange' | 'searchField' | 'size' | 'sort';
 
 const valMap: Record<
   EnforceableField,
@@ -25,10 +25,6 @@ const valMap: Record<
   sort: {
     defaultVal: 'created_date_desc',
     values: Object.keys(types.sorts),
-  },
-  tab: {
-    defaultVal: types.MODE_LIST,
-    values: [types.MODE_LIST],
   },
 };
 

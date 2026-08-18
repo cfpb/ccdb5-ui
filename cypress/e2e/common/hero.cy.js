@@ -4,7 +4,7 @@ import { waitForLoading } from '../utils';
 
 describe('Hero', () => {
   it('opens and closes the Things to know modal', () => {
-    cy.visit('?tab=List');
+    cy.visit('/');
     waitForLoading();
 
     cy.findByRole('button', {

@@ -71,7 +71,6 @@ describe('component::ComplaintDetail', () => {
       params: {
         product: 'bar',
         issue: 'nope',
-        tab: 'List',
       },
     });
     expect(
@@ -79,7 +78,7 @@ describe('component::ComplaintDetail', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: 'Back to search results' }),
-    ).toHaveAttribute('href', '/?issue=nope&product=bar&tab=List');
+    ).toHaveAttribute('href', '/?issue=nope&product=bar');
     expect(screen.getByText('This page is loading')).toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: 'Back to search results' }),

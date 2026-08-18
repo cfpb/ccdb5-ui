@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import * as types from '../../constants';
-import { enforceValues } from '../../utils/reducers';
 
 export const viewState = {
   isPrintMode: false,
@@ -8,7 +6,6 @@ export const viewState = {
   hasFilters: true,
   modalTypeShown: false,
   showTour: false,
-  tab: types.MODE_LIST,
   width: 0,
 };
 
@@ -47,11 +44,6 @@ export const viewSlice = createSlice({
         state.hasFilters = !state.hasFilters;
       },
     },
-    tabChanged: {
-      reducer: (state, action) => {
-        state.tab = enforceValues(action.payload, 'tab');
-      },
-    },
     tourHidden: {
       reducer: (state) => {
         state.showTour = false;
@@ -68,7 +60,6 @@ export const viewSlice = createSlice({
       const params = action.payload.params;
 
       state.isPrintMode = params.isPrintMode === 'true';
-      state.tab = enforceValues(params.tab, 'tab');
     });
   },
 });
@@ -77,9 +68,7 @@ export const {
   hideAdvancedSearchTips,
   modalHidden,
   modalShown,
-  processParams,
   showAdvancedSearchTips,
-  tabChanged,
   tourHidden,
   tourShown,
   updateFilterVisibility,
