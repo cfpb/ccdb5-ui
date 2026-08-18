@@ -24,12 +24,11 @@ describe('Search Bar', () => {
       cy.visit('/');
       waitForLoading();
       cy.findByRole('search').should('be.visible');
-      searchField().select('company');
-      waitForLoading();
-      cy.findByRole('search').should('be.visible');
 
       cy.log('has no typeahead functionality in All Data');
       cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
+      searchField().select('all');
+      waitForLoading();
       searchInput().clear();
       searchInput().type('bank', {
         delay: 200,
