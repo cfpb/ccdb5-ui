@@ -1,6 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-export const actionsState = {
+export interface ActionsState {
+  actions: unknown[];
+}
+
+export const actionsState: ActionsState = {
   actions: [],
 };
 
@@ -8,7 +12,7 @@ export const actionsSlice = createSlice({
   name: 'actions',
   initialState: actionsState,
   reducers: {
-    addAction: (state, action) => {
+    addAction: (state, action: PayloadAction<unknown>) => {
       state.actions.push(action.payload);
     },
     clearActions: (state) => {

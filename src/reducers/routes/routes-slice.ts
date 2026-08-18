@@ -1,15 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  type PayloadAction,
+  type SliceCaseReducers,
+} from '@reduxjs/toolkit';
 import { enforceValues } from '../../utils/reducers';
 import queryString from 'query-string';
+import type { RoutesState } from '../../types/root-state';
 
-export const updateParams = (state, action) => {
+type RouteParamsPayload = {
+  path: string;
+  params: Record<string, unknown>;
+};
+
+export const updateParams = (
+  state: RoutesState,
+  action: PayloadAction<RouteParamsPayload>,
+) => {
   const { params, path } = action.payload;
   state.path = path;
   state.params = params;
   state.queryString = queryString.stringify(params);
 };
 
-export const routesState = {
+export const routesState: RoutesState = {
   // path has to be empty so that synchURL fires when the page loads through
   // useLocation / routes.js
   path: '',
@@ -23,7 +36,7 @@ export const routesSlice = createSlice({
   reducers: {
     appUrlChanged: {
       reducer: updateParams,
-      prepare: (path, params) => {
+      prepare: (path: string, params: Record<string, unknown>) => {
         return {
           payload: { path, params },
         };
@@ -31,10 +44,10 @@ export const routesSlice = createSlice({
     },
     routeChanged: {
       reducer: updateParams,
-      prepare: (path, params) => {
-        if (params.size > 0) {
+      prepare: (path: string, params: Record<string, unknown>) => {
+        if (params.size && Number(params.size) > 0) {
           // set up the size param so the query reducer can use a valid size
-          params.size = enforceValues(params.size.toString(), 'size');
+          params.size = enforceValues(String(params.size), 'size');
         }
 
         return {
@@ -45,7 +58,7 @@ export const routesSlice = createSlice({
         };
       },
     },
-  },
+  } satisfies SliceCaseReducers<RoutesState>,
 });
 
 export const { appUrlChanged, routeChanged } = routesSlice.actions;

@@ -70,14 +70,11 @@ export default defineConfig({
       }
 
       appendRules({
-        test: /\.js/, // Or any other file extension you want to apply the loader to
+        test: /\.[cm]?[jt]sx?$/,
         loader: 'string-replace-loader',
         options: {
-          search: '@@API', // The string or regex to search for
+          search: /@@API/g,
           replace: apiBase,
-          // You can also use 'multiple' for multiple replacements or a 'callback' function
-          // multiple: [{ search: 'str1', replace: 'new1' }, { search: 'str2', replace: 'new2' }],
-          // callback: (match) => { /* dynamic replacement logic */ return 'newString'; }
         },
       });
     },

@@ -2,14 +2,13 @@ import * as types from '../../constants';
 import { minDate } from '../../constants';
 import {
   calculateDateRange,
-  coalesce,
   setMaxDate,
   shortIsoFormat,
   startOfToday,
 } from '../../utils';
 import { enforceValues } from '../../utils/reducers';
 import dayjs from 'dayjs';
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf, type PayloadAction } from '@reduxjs/toolkit';
 import { formatDate } from '../../utils/format-date';
 import {
   filterAdded,
@@ -20,8 +19,10 @@ import {
   multipleFiltersAdded,
   multipleFiltersRemoved,
 } from '../filters/filters-slice';
+import { routeChanged } from '../routes/routes-slice';
 import queryString from 'query-string';
 import { complaintsApi } from '../../api/complaints';
+import type { QueryState } from '../../types/root-state';
 
 // ----------------------------------------------------------------------------
 // Helper functions
@@ -32,7 +33,7 @@ import { complaintsApi } from '../../api/complaints';
  * @param {object} state - the raw, unvalidated state
  * @returns {object|undefined} the validated state, or early exit
  */
-export function alignDateRange(state) {
+export function alignDateRange(state: QueryState) {
   // Shorten the input field names
   const dateLastIndexed = state.dateLastIndexed || startOfToday();
   const dateMax = state.date_received_max;
@@ -59,7 +60,7 @@ export function alignDateRange(state) {
   for (let idx = 0; !isMatched && idx < ranges.length; idx++) {
     const range = ranges[idx];
 
-    if (dayjs(dateMin).isSame(rangeMap[range], 'day')) {
+    if (dayjs(dateMin).isSame(rangeMap[range as keyof typeof rangeMap], 'day')) {
       state.dateRange = range;
       isMatched = true;
     }
@@ -77,7 +78,7 @@ export function alignDateRange(state) {
  * @param {object} params - a set of URL parameters
  * @returns {boolean} true if the params meet this condition
  */
-export function dateRangeNoDates(params) {
+export function dateRangeNoDates(params: Record<string, unknown>) {
   const keys = Object.keys(params);
 
   return (
@@ -96,13 +97,16 @@ export function dateRangeNoDates(params) {
  * @param {string} value - Hopefully, an ISO-8601 formatted string
  * @returns {string} The parsed and validated date, or null
  */
-export function toDate(value) {
-  if (dayjs(value).isValid()) {
-    return formatDate(value);
+export function toDate(value: unknown): string | null {
+  if (dayjs(value as string).isValid()) {
+    return String(formatDate(value as string) ?? '');
   }
 
   return null;
 }
+
+const formatDayjs = (value: dayjs.Dayjs): string =>
+  String(formatDate(value.toDate()) ?? '');
 
 /**
  * Get search results after specified page
@@ -111,11 +115,14 @@ export function toDate(value) {
  * @param {number} page - page number
  * @returns {Array} array containing complaint's received date and id
  */
-function getSearchAfter(breakPoints, page) {
+function getSearchAfter(
+  breakPoints: Record<number, string[]> | QueryState,
+  page: number,
+): string {
   if (!breakPoints || !Object.hasOwn(breakPoints, page)) {
     return '';
   }
-  const point = breakPoints[page];
+  const point = (breakPoints as Record<number, string[]>)[page];
   return point ? point.join('_') : '';
 }
 
@@ -126,7 +133,7 @@ function getSearchAfter(breakPoints, page) {
  * @param {object} state - the redux state
  * @returns {object} contains the from and searchAfter params
  */
-function getPagination(page, state) {
+function getPagination(page: number, state: QueryState) {
   return {
     from: (page - 1) * state.size,
     page,
@@ -137,7 +144,7 @@ function getPagination(page, state) {
 // ----------------------------------------------------------------------------
 // Query String Builder
 
-const fieldMap = {
+const fieldMap: Record<string, string> = {
   searchAfter: 'search_after',
   searchText: 'search_term',
   searchField: 'field',
@@ -150,9 +157,9 @@ const fieldMap = {
  * @param {object} state - a set of key/value pairs
  * @returns {string} a formatted query string
  */
-export function stateToQS(state) {
-  const params = {};
-  const fields = Object.keys(state);
+export function stateToQS(state: QueryState) {
+  const params: Record<string, unknown> = {};
+  const fields = Object.keys(state) as (keyof QueryState)[];
 
   // Copy over the fields
 
@@ -166,10 +173,13 @@ export function stateToQS(state) {
       continue;
     }
 
-    let value = fieldValue;
+    let value: unknown = fieldValue;
 
     // Process dates
-    if (types.dateFilters.includes(field)) {
+    if (
+      typeof value === 'string' &&
+      (types.dateFilters as readonly string[]).includes(field)
+    ) {
       value = shortIsoFormat(value);
     }
 
@@ -197,7 +207,7 @@ export function stateToQS(state) {
   ]);
 
   // where we only filter out the params required for each of the tabs
-  const filteredParams = {};
+  const filteredParams: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(params)) {
     if (filterKeys.has(key)) {
       filteredParams[key] = value;
@@ -213,13 +223,13 @@ export function stateToQS(state) {
  *
  * @param {object} state - redux state
  */
-export function clearPager(state) {
+export function clearPager(state: QueryState) {
   state.from = 0;
   state.page = 1;
   state.searchAfter = '';
 }
 
-export const queryState = {
+export const queryState: QueryState = {
   company_received_max: '',
   company_received_min: '',
   dateRange: '',
@@ -235,41 +245,53 @@ export const queryState = {
   sort: 'created_date_desc',
 };
 
+interface DateChangedPayload {
+  minDate: string;
+  maxDate: string;
+}
+
+/**
+ * Apply a named date range preset to query state.
+ *
+ * @param state - Query slice state to update.
+ * @param payload - Date range key such as All, 3m, 6m, 1y, or 3y.
+ */
+function applyDateRangeChanged(state: QueryState, payload: string) {
+  const dateRange = String(enforceValues(payload, 'dateRange'));
+  const maxDateVal = formatDayjs(dayjs(startOfToday()));
+  const res: Record<string, string> = {
+    All: formatDayjs(dayjs(types.DATE_RANGE_MIN)),
+    '3m': formatDayjs(dayjs(maxDateVal).subtract(3, 'months')),
+    '6m': formatDayjs(dayjs(maxDateVal).subtract(6, 'months')),
+    '1y': formatDayjs(dayjs(maxDateVal).subtract(1, 'year')),
+    '3y': formatDayjs(dayjs(maxDateVal).subtract(3, 'years')),
+  };
+  state.dateRange = dateRange;
+  state.date_received_min = res[dateRange] ?? state.date_received_min;
+  state.date_received_max = maxDateVal;
+}
+
 export const querySlice = createSlice({
   name: 'query',
   initialState: queryState,
   reducers: {
-    dateRangeChanged: {
-      reducer: (state, action) => {
-        const dateRange = enforceValues(action.payload, 'dateRange');
-        const maxDate = formatDate(dayjs(startOfToday()));
-        const res = {
-          All: formatDate(dayjs(types.DATE_RANGE_MIN)),
-          '3m': formatDate(dayjs(maxDate).subtract(3, 'months')),
-          '6m': formatDate(dayjs(maxDate).subtract(6, 'months')),
-          '1y': formatDate(dayjs(maxDate).subtract(1, 'year')),
-          '3y': formatDate(dayjs(maxDate).subtract(3, 'years')),
-        };
-        state.dateRange = dateRange;
-        state.date_received_min = res[dateRange] ?? state.date_received_min;
-        state.date_received_max = maxDate;
-      },
+    dateRangeChanged(state, action: PayloadAction<string>) {
+      applyDateRangeChanged(state, action.payload);
     },
     companyReceivedDateChanged: {
-      reducer: (state, action) => {
-        let { maxDate, minDate } = action.payload;
+      reducer: (state, action: PayloadAction<DateChangedPayload>) => {
+        const { maxDate: maxDateIn, minDate: minDateIn } = action.payload;
 
-        minDate = dayjs(minDate).isValid()
-          ? formatDate(dayjs(minDate).startOf('day'))
+        const minDate = dayjs(minDateIn).isValid()
+          ? formatDayjs(dayjs(minDateIn).startOf('day'))
           : null;
-
-        maxDate = dayjs(maxDate).isValid()
-          ? formatDate(dayjs(maxDate).startOf('day'))
+        const maxDate = dayjs(maxDateIn).isValid()
+          ? formatDayjs(dayjs(maxDateIn).startOf('day'))
           : null;
-        state.company_received_min = minDate;
-        state.company_received_max = maxDate;
+        state.company_received_min = minDate ?? '';
+        state.company_received_max = maxDate ?? '';
       },
-      prepare: (minDate, maxDate) => {
+      prepare: (minDate: string, maxDate: string) => {
         return {
           payload: {
             minDate,
@@ -279,13 +301,13 @@ export const querySlice = createSlice({
       },
     },
     datesChanged: {
-      reducer: (state, action) => {
-        let { maxDate, minDate } = action.payload;
-        minDate = dayjs(minDate).isValid()
-          ? formatDate(dayjs(minDate).startOf('day'))
+      reducer: (state, action: PayloadAction<DateChangedPayload>) => {
+        const { maxDate: maxDateIn, minDate: minDateIn } = action.payload;
+        const minDate = dayjs(minDateIn).isValid()
+          ? formatDayjs(dayjs(minDateIn).startOf('day'))
           : null;
-        maxDate = dayjs(maxDate).isValid()
-          ? formatDate(dayjs(maxDate).startOf('day'))
+        const maxDate = dayjs(maxDateIn).isValid()
+          ? formatDayjs(dayjs(maxDateIn).startOf('day'))
           : null;
 
         const isDatesChanged =
@@ -301,13 +323,13 @@ export const querySlice = createSlice({
         if (dateRange && isDatesChanged) {
           state.dateRange = dateRange;
         } else {
-          delete state.dateRange;
+          delete (state as { dateRange?: string }).dateRange;
         }
 
         state.date_received_min = minDate || state.date_received_min;
         state.date_received_max = maxDate || state.date_received_max;
       },
-      prepare: (minDate, maxDate) => {
+      prepare: (minDate: string, maxDate: string) => {
         return {
           payload: {
             minDate,
@@ -316,111 +338,105 @@ export const querySlice = createSlice({
         };
       },
     },
-    searchFieldChanged: {
-      reducer: (state, action) => {
-        state.searchField = action.payload;
-      },
+    searchFieldChanged(state, action: PayloadAction<string>) {
+      state.searchField = action.payload;
     },
-    searchTextChanged: {
-      reducer: (state, action) => {
-        state.searchText = action.payload;
-      },
+    searchTextChanged(state, action: PayloadAction<string>) {
+      state.searchText = action.payload;
     },
-    prevPageShown: {
-      reducer: (state, action) => {
-        const breakPoints = action.payload;
-        // don't let them go lower than 1
-        const prevPage = state.page - 1;
-        const pagination = getPagination(prevPage, state);
-        state.page = pagination.page;
-        state.from = pagination.from;
-        state.searchAfter = getSearchAfter(breakPoints, prevPage);
-      },
+    prevPageShown(state, action: PayloadAction<Record<number, string[]>>) {
+      const breakPoints = action.payload;
+      // don't let them go lower than 1
+      const prevPage = state.page - 1;
+      const pagination = getPagination(prevPage, state);
+      state.page = pagination.page;
+      state.from = pagination.from;
+      state.searchAfter = getSearchAfter(breakPoints, prevPage);
     },
-    nextPageShown: {
-      reducer: (state, action) => {
-        const breakPoints = action.payload;
-        const nextPage = state.page + 1;
-        const pagination = getPagination(nextPage, state);
-        state.page = pagination.page;
-        state.from = pagination.from;
-        state.searchAfter = getSearchAfter(breakPoints, nextPage);
-      },
+    nextPageShown(state, action: PayloadAction<Record<number, string[]>>) {
+      const breakPoints = action.payload;
+      const nextPage = state.page + 1;
+      const pagination = getPagination(nextPage, state);
+      state.page = pagination.page;
+      state.from = pagination.from;
+      state.searchAfter = getSearchAfter(breakPoints, nextPage);
     },
-    sizeChanged: {
-      reducer: (state, action) => {
-        state.size = enforceValues(action.payload, 'size');
-      },
+    sizeChanged(state, action: PayloadAction<string | number>) {
+      state.size = enforceValues(action.payload, 'size') as QueryState['size'];
     },
-    sortChanged: {
-      reducer: (state, action) => {
-        state.sort = enforceValues(action.payload, 'sort');
-      },
+    sortChanged(state, action: PayloadAction<string>) {
+      state.sort = String(enforceValues(action.payload, 'sort'));
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase('filters/filtersCleared', (state) => {
+      .addCase(filtersCleared, (state) => {
         state.dateRange = 'All';
         state.company_received_max = '';
         state.company_received_min = '';
-        state.date_received_min = minDate;
+        state.date_received_min = minDate as string;
         state.date_received_max = state.dateLastIndexed;
         state.company_received_max = '';
         state.company_received_min = '';
       })
-      .addCase('routes/routeChanged', (state, action) => {
+      .addCase(routeChanged, (state, action) => {
         const { params } = action.payload;
         // Set some variables from the URL
-        const keys = ['dateRange', 'searchField', 'searchText', 'sort'];
+        const keys = ['dateRange', 'searchField', 'searchText', 'sort'] as const;
         for (const item of keys) {
           if (!Object.hasOwn(params, item)) {
             continue;
           }
           const paramValue = params[item];
           if (paramValue) {
-            state[item] = enforceValues(paramValue, item);
+            (state as QueryState & Record<string, string | number>)[item] = String(
+              enforceValues(String(paramValue), item),
+            );
           }
         }
 
         for (const field of types.dateFilters) {
-          if (params[field] !== undefined && dayjs(params[field]).isValid()) {
-            state[field] = toDate(params[field]);
+          if (params[field] === undefined || !dayjs(params[field] as string).isValid()) {
+            continue;
+          }
+
+          const parsedDate = toDate(params[field]);
+          if (parsedDate) {
+            (state as QueryState & Record<string, string>)[field] = parsedDate;
           }
         }
 
         // Handle numeric fields
-        const defaultPage = coalesce(params, 'page', queryState.page);
-        const defaultSize = coalesce(params, 'size', queryState.size);
-        state.page = Number(defaultPage);
-        state.size = Number(defaultSize);
+        state.page = Number(params.page ?? queryState.page);
+        state.size = Number(params.size ?? queryState.size);
 
         if (params.search_after) {
-          state.searchAfter = params.search_after;
+          state.searchAfter = String(params.search_after);
         }
 
         // Apply the date range
         if (dateRangeNoDates(params) || params.dateRange === 'All') {
-          const innerAction = { payload: params.dateRange };
-          querySlice.caseReducers.dateRangeChanged(state, innerAction);
+          applyDateRangeChanged(state, String(params.dateRange));
         }
         alignDateRange(state);
       })
       .addMatcher(
         complaintsApi.endpoints.getMeta.matchFulfilled,
         (state, { payload }) => {
-          state.dateLastIndexed = dayjs(payload._meta.last_updated)
+          state.dateLastIndexed = dayjs(
+            (payload as { _meta: { last_updated: string } })._meta.last_updated,
+          )
             .startOf('day')
             .format('YYYY-MM-DD');
 
-          setMaxDate(formatDate(dayjs(state.dateLastIndexed).startOf('day')));
+          setMaxDate(formatDayjs(dayjs(state.dateLastIndexed).startOf('day')) as string);
 
           // set defaults if the value is not set yet
           if (!state.date_received_max) {
-            state.date_received_max = formatDate(dayjs(state.dateLastIndexed));
+            state.date_received_max = formatDayjs(dayjs(state.dateLastIndexed));
           }
           if (!state.date_received_min) {
-            state.date_received_min = formatDate(
+            state.date_received_min = formatDayjs(
               dayjs(state.dateLastIndexed).subtract(3, 'years'),
             );
           }
