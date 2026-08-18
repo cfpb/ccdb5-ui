@@ -9,11 +9,11 @@ export const DateRanges = () => {
   const dispatch = useDispatch();
   const dateRange = useSelector(selectQueryDateRange);
 
-  const btnClassName = (selectedDateRange) => {
+  const btnClassName = (selectedDateRange: string) => {
     return selectedDateRange === dateRange ? 'active' : '';
   };
 
-  const toggleDateRange = (selectedDateRange) => {
+  const toggleDateRange = (selectedDateRange: string) => {
     if (dateRange === selectedDateRange) {
       return;
     }

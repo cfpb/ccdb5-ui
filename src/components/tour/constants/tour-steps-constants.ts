@@ -1,13 +1,21 @@
 import { LIST_COMPLAINTS_SELECTORS as LIST } from './tour-step-selectors';
 
-const generateLinkText = (index, linkObject) =>
+interface TourStepTarget {
+  selector: string;
+  label: string;
+}
+
+const generateLinkText = (
+  index: number,
+  linkObject: [string, TourStepTarget],
+) =>
   `<li><button class="a-btn a-btn--link" onclick="(function(){var t=window.__ccdbDom&&window.__ccdbDom.querySelectorAll('.introjs-bullets li a')[${index + 1}];t&&t.click();})()">` +
   linkObject[1].label +
   '</button></li>';
 
 let listIndex = '';
 for (const [key, value] of Object.entries(LIST).slice(1).entries()) {
-  listIndex += generateLinkText(key, value);
+  listIndex += generateLinkText(key, value as [string, TourStepTarget]);
 }
 
 export const TOUR_STEPS = [

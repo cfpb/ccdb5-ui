@@ -1,10 +1,22 @@
-import PropTypes from 'prop-types';
+import type { ChangeEvent, KeyboardEvent } from 'react';
 import { Icon, Button } from '@cfpb/design-system-react';
 import { ClearButton } from '../clear-button/clear-button';
 
+interface InputProps {
+  ariaLabel: string;
+  className?: string;
+  htmlId: string;
+  isDisabled?: boolean;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleClear?: () => void;
+  handlePressEnter?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  value: string;
+}
+
 export const Input = ({
   ariaLabel,
-  className,
+  className = '',
   htmlId,
   isDisabled = false,
   handleChange,
@@ -12,7 +24,7 @@ export const Input = ({
   handlePressEnter,
   placeholder = 'Enter your search text',
   value,
-}) => {
+}: InputProps) => {
   return (
     <div className="o-search-input">
       <div className="o-search-input__input">
@@ -34,22 +46,11 @@ export const Input = ({
           placeholder={placeholder}
           title={placeholder || ariaLabel}
           autoComplete="off"
-          maxLength="75"
+          maxLength={75}
         />
-        <ClearButton onClear={handleClear} />
+        <ClearButton onClear={handleClear!} />
       </div>
       <Button type="submit" label="Search" />
     </div>
   );
-};
-Input.propTypes = {
-  ariaLabel: PropTypes.string.isRequired,
-  className: PropTypes.string,
-  isDisabled: PropTypes.bool,
-  handleChange: PropTypes.func.isRequired,
-  handleClear: PropTypes.func,
-  handlePressEnter: PropTypes.func,
-  htmlId: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  value: PropTypes.string.isRequired,
 };

@@ -1,14 +1,20 @@
 import './collapsible-filter.scss';
 import { Icon, Heading } from '@cfpb/design-system-react';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
+
+interface CollapsibleFilterProps {
+  className?: string;
+  title: string;
+  desc?: string;
+  children: ReactNode;
+}
 
 export const CollapsibleFilter = ({
   className = '',
   title,
   desc = '',
   children,
-}) => {
+}: CollapsibleFilterProps) => {
   const [isOpen, setOpen] = useState(true);
 
   const opened = (
@@ -43,11 +49,4 @@ export const CollapsibleFilter = ({
       ) : null}
     </section>
   );
-};
-
-CollapsibleFilter.propTypes = {
-  className: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  desc: PropTypes.string,
-  children: PropTypes.node.isRequired,
 };

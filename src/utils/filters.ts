@@ -1,15 +1,15 @@
 import { filterPatch, SLUG_SEPARATOR, THESE_UNITED_STATES } from '../constants';
 import { slugify } from '../utils';
 
-type AggBucket = {
+interface AggBucket {
   key: string;
   [key: string]: unknown;
-};
+}
 
-type Agg = {
+interface Agg {
   key: string;
   [key: string]: unknown;
-};
+}
 
 export const formatPillPrefix = (fieldName: string): string => {
   // update this if they want the pill prefixes in other fields.
@@ -50,8 +50,7 @@ export const getUpdatedFilters = (
   const siblings = aggs.find((agg) => agg.key === parentFilter);
   if (hasParent && siblings) {
     const subAgg = siblings['sub_' + fieldName + '.raw'] as
-      | { buckets: AggBucket[] }
-      | undefined;
+      { buckets: AggBucket[] } | undefined;
     const buckets = subAgg?.buckets ?? [];
     for (const bucket of buckets) {
       // don't include self
