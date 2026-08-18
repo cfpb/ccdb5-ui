@@ -1,12 +1,19 @@
 @use 'css/base' as *;
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
 
 .date-filter {
-  h4 {
-    margin-bottom: 0;
+  // Keep 15px between expandable header divider and the From/To fields.
+  &.o-expandable .o-expandable__content::before {
+    padding-top: $gutter-normal;
   }
 
   ul.date-inputs {
     margin: 0;
+
+    // Aggregation list rules add borders between <li>s; From/To should not.
+    > li + li {
+      border-top: none;
+    }
 
     li {
       display: inline-block;
@@ -30,6 +37,14 @@
       margin: 0;
 
       list-style: none;
+    }
+  }
+
+  .date-ranges {
+    margin-top: $gutter-normal;
+
+    p {
+      margin: 0 0 10px;
     }
   }
 }

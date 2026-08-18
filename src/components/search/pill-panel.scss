@@ -1,6 +1,7 @@
 @use 'css/base' as *;
 
 .pill-panel {
+  margin-top: $grid-gutter-width;
   padding-right: $gutter-narrow;
   display: flex;
   flex-direction: row;
@@ -35,7 +36,7 @@
 
   @media screen and (max-width: $bp-xs-max) {
     flex-direction: column;
-    margin-top: 70px;
+
     .pill-panel__clear {
       display: block;
 

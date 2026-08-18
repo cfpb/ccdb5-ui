@@ -11,7 +11,6 @@ import { Pagination } from '../pagination/pagination';
 import { useMemo } from 'react';
 import { Select } from '../../refine-bar/select';
 import { sendAnalyticsEvent } from '../../../utils';
-import { Separator } from '../../refine-bar/separator';
 import { selectViewWidth } from '../../../reducers/view/selectors';
 import {
   selectQuerySize,
@@ -89,19 +88,16 @@ export const ListPanel = () => {
     <section className="list-panel">
       {!!hasMobileFilters && <FilterPanel />}
       <FilterPanelToggle />
-      <div className="layout-row refine-bar">
-        <Separator />
+      <div className="refine-bar">
         <Select
-          label="Select the number of results to display at a time"
-          title="Show"
+          label="Show per page"
           values={sizes}
           id="size"
           value={size}
           handleChange={onSize}
         />
         <Select
-          label="Choose the order in which the results are displayed"
-          title="Sort"
+          label="Sort by"
           values={sorts}
           id="sort"
           value={sort}

@@ -41,13 +41,17 @@ describe('component::DateRanges', () => {
 
     renderComponent(query);
 
-    expect(
-      screen.getByText('Date range (Click to modify range)'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Select date range')).toBeInTheDocument();
 
     for (const range of ranges) {
-      expect(screen.getByRole('button', { name: range })).toBeInTheDocument();
+      const button = screen.getByRole('button', { name: range });
+      expect(button).toHaveClass('a-btn--secondary');
+      expect(button).toHaveAttribute('aria-pressed');
     }
+
+    expect(screen.getByRole('button', { name: 'Full date range' })).toHaveClass(
+      'active',
+    );
   });
 
   it('should select button and trigger toggle on newly selected range', async () => {

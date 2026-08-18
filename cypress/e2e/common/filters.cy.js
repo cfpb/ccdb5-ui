@@ -45,7 +45,7 @@ describe('Filter Panel', () => {
     waitForLoading();
     cy.log('is expanded');
 
-    // ids are the label association targets; two "From"/"Through" fields exist
+    // ids are the label association targets; two "From"/"To" fields exist
     cy.get('#date-received-from').should('be.visible');
 
     cy.log('collapse it');

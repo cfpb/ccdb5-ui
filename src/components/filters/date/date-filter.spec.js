@@ -40,7 +40,7 @@ describe('component::DateFilter', () => {
     renderComponent(query);
 
     expect(
-      screen.getByText("'From' date must be less than 'through' date"),
+      screen.getByText("'From' date must be less than 'To' date"),
     ).toBeInTheDocument();
   });
 });

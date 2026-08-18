@@ -61,7 +61,7 @@ export const TOUR_STEPS = [
     intro:
       'Use the “Search within” bar to find specific words or phrases in complaints. By default, this will search “All data”, but you can change this using the gray dropdown menu.' +
       '<br /> <br />' +
-      'Click “Show advanced search tips” to see some advanced ways to refine your word search.',
+      'Click “Show search tips” to see some advanced ways to refine your word search.',
   },
   {
     element: LIST.STEP_8.selector,
