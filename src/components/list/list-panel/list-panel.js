@@ -89,7 +89,7 @@ export const ListPanel = () => {
     <section className="list-panel">
       {!!hasMobileFilters && <FilterPanel />}
       <FilterPanelToggle />
-      <div className="refine-bar refine-bar--list">
+      <div className="refine-bar">
         <Select
           label="Show per page"
           values={sizes}

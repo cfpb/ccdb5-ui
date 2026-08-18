@@ -1,14 +1,17 @@
-@use 'sass:math';
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
 .refine-bar {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
   gap: $gutter-normal;
   align-items: start;
   width: 100%;
-  margin: math.div($grid-gutter-width, 3) 0;
+  margin: 0;
+
+  // Horizontal gutters come from the page/column — don't double-inset.
+  padding: $grid-gutter-width 0;
 
   section {
     margin: 0;
@@ -20,20 +23,8 @@
       }
     }
   }
-}
-
-.refine-bar--list {
-  box-sizing: border-box;
-
-  // Wide enough for the longest option plus the design-system arrow box.
-  grid-template-columns: repeat(2, 14rem);
-  margin: 0;
-
-  // Horizontal gutters come from the page/column — don't double-inset.
-  padding: $grid-gutter-width 0;
 
   @media screen and (max-width: $bp-xs-max) {
-    grid-template-columns: 1fr;
     padding: $gutter-normal 0;
   }
 }
