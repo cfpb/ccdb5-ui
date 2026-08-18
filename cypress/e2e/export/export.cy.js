@@ -7,7 +7,7 @@ describe('Complaint export', () => {
   const filteredDownload = `${downloadWell} .download-filtered-btn`;
 
   it('offers filtered download without pagination params', () => {
-    cy.visit('?size=10&searchText=debt%20recovery&tab=List');
+    cy.visit('?size=10&searchText=debt%20recovery');
     waitForLoading();
     pagination().findByRole('button', { name: 'Next' }).click();
     cy.url().should('include', 'page=2');
