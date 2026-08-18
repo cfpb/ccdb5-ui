@@ -2,7 +2,6 @@ import * as types from '../../constants';
 import { minDate } from '../../constants';
 import {
   calculateDateRange,
-  coalesce,
   setMaxDate,
   shortIsoFormat,
   startOfToday,
@@ -178,8 +177,8 @@ export function stateToQS(state: QueryState) {
 
     // Process dates
     if (
-      (types.dateFilters as readonly string[]).includes(field) &&
-      typeof value === 'string'
+      typeof value === 'string' &&
+      (types.dateFilters as readonly string[]).includes(field)
     ) {
       value = shortIsoFormat(value);
     }
@@ -246,11 +245,17 @@ export const queryState: QueryState = {
   sort: 'created_date_desc',
 };
 
-type DateChangedPayload = {
+interface DateChangedPayload {
   minDate: string;
   maxDate: string;
-};
+}
 
+/**
+ * Apply a named date range preset to query state.
+ *
+ * @param state - Query slice state to update.
+ * @param payload - Date range key such as All, 3m, 6m, 1y, or 3y.
+ */
 function applyDateRangeChanged(state: QueryState, payload: string) {
   const dateRange = String(enforceValues(payload, 'dateRange'));
   const maxDateVal = formatDayjs(dayjs(startOfToday()));
@@ -391,11 +396,13 @@ export const querySlice = createSlice({
         }
 
         for (const field of types.dateFilters) {
-          if (params[field] !== undefined && dayjs(params[field] as string).isValid()) {
-            const parsedDate = toDate(params[field]);
-            if (parsedDate) {
-              (state as QueryState & Record<string, string>)[field] = parsedDate;
-            }
+          if (params[field] === undefined || !dayjs(params[field] as string).isValid()) {
+            continue;
+          }
+
+          const parsedDate = toDate(params[field]);
+          if (parsedDate) {
+            (state as QueryState & Record<string, string>)[field] = parsedDate;
           }
         }
 

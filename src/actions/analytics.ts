@@ -1,10 +1,10 @@
-type DataLayerOptions = {
+interface DataLayerOptions {
   event: string;
   action: string;
   label: string;
   eventCallback?: () => void;
   eventTimeout: number;
-};
+}
 
 const Analytics = {
   tagManagerIsLoaded: false,
@@ -76,9 +76,9 @@ const Analytics = {
         dataLayer?: DataLayerOptions[];
       }
     ).dataLayer;
-    if (Analytics.tagManagerIsLoaded && dataLayer) {
+    if (dataLayer && Analytics.tagManagerIsLoaded) {
       dataLayer.push(dataLayerOptions);
-    } else if (callback && typeof callback === 'function') {
+    } else if (typeof callback === 'function') {
       callback();
     }
   },
