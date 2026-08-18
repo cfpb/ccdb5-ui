@@ -1,5 +1,5 @@
 import './action-bar.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Button, Heading } from '@cfpb/design-system-react';
 import { sendAnalyticsEvent } from '../../utils';
 import { modalShown, updatePrintModeOn } from '../../reducers/view/view-slice';

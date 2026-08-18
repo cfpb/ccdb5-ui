@@ -13,7 +13,6 @@ import { viewState } from '../../../reducers/view/view-slice';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { waitFor } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
-import { aggResponse } from '../../list/list-panel/fixture';
 import * as aggregationHooks from '../../../api/hooks/use-get-aggregations';
 
 const FILTER_DOWNLOAD_EMPTY_MESSAGE =
@@ -135,10 +134,7 @@ describe('DataExport', () => {
     renderComponent({});
 
     fireEvent.click(screen.getByRole('button', { name: /Download data/ }));
-    expect(sendAnalyticsSpy).toHaveBeenCalledWith(
-      'Export All Data',
-      'csv',
-    );
+    expect(sendAnalyticsSpy).toHaveBeenCalledWith('Export All Data', 'csv');
     expect(modalShownSpy).toHaveBeenCalledWith(MODAL_TYPE_EXPORT_CONFIRMATION);
   });
 
@@ -189,11 +185,7 @@ describe('DataExport', () => {
     const aggregationsSpy = jest
       .spyOn(aggregationHooks, 'useGetAggregations')
       .mockReturnValue({ data: withHitTotal(150_000, 6_000_000) });
-    renderComponent(
-      { product: ['Mortgage'] },
-      { searchText: 'debt' },
-      {},
-    );
+    renderComponent({ product: ['Mortgage'] }, { searchText: 'debt' }, {});
 
     await screen.findByText(FILTER_DOWNLOAD_LIMIT_MESSAGE);
 
