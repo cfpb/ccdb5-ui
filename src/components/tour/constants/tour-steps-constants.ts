@@ -91,7 +91,7 @@ export const TOUR_STEPS = [
   {
     element: LIST.STEP_12.selector,
     intro:
-      'Sort complaints by “Newest to oldest,” “Oldest to newest,” “Relevance,” and “Relevance (asc).”' +
+      'Sort complaints by “Newest to oldest,” “Oldest to newest,” “Most relevant,” and “Least relevant.”' +
       '<br /><br />' +
       'Relevancy are based on any applied search terms.',
   },

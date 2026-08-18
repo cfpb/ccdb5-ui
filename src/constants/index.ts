@@ -58,8 +58,8 @@ sizes['100'] = '100 results';
 export const sorts = {
   created_date_desc: 'Newest to oldest',
   created_date_asc: 'Oldest to newest',
-  relevance_desc: 'Relevance',
-  relevance_asc: 'Relevance (asc)',
+  relevance_desc: 'Most relevant',
+  relevance_asc: 'Least relevant',
 } as const;
 
 export const SLUG_SEPARATOR = '•';

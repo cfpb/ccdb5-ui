@@ -42,7 +42,7 @@ describe('Document View', () => {
     it('restores filters after visiting document detail', () => {
       cy.visit('?searchText=pizza&size=10&sort=relevance_desc');
 
-      sortSelect().find('option:selected').should('have.text', 'Relevance');
+      sortSelect().find('option:selected').should('have.text', 'Most relevant');
 
       firstComplaintLink().click();
 
@@ -54,7 +54,7 @@ describe('Document View', () => {
 
       waitForLoading();
 
-      sortSelect().find('option:selected').should('have.text', 'Relevance');
+      sortSelect().find('option:selected').should('have.text', 'Most relevant');
     });
   });
 });
