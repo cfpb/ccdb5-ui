@@ -24,21 +24,16 @@
 
 .refine-bar--list {
   box-sizing: border-box;
-  grid-template-columns: 11rem 11rem;
+
+  // Wide enough for the longest option plus the design-system arrow box.
+  grid-template-columns: repeat(2, 14rem);
   margin: 0;
+
   // Horizontal gutters come from the page/column — don't double-inset.
   padding: $grid-gutter-width 0;
-
-  .refine-select {
-    width: 11rem;
-  }
 
   @media screen and (max-width: $bp-xs-max) {
     grid-template-columns: 1fr;
     padding: $gutter-normal 0;
-
-    .refine-select {
-      width: 100%;
-    }
   }
 }

@@ -2,8 +2,6 @@
 @use 'css/base' as *;
 
 .search-status {
-  margin: 0 0 $grid-gutter-width;
-
   @media screen and (max-width: $bp-xs-max) {
     margin-bottom: $gutter-normal;
   }
