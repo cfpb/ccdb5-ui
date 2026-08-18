@@ -1,3 +1,11 @@
+interface DataLayerOptions {
+  event: string;
+  action: string;
+  label: string;
+  eventCallback?: () => void;
+  eventTimeout: number;
+}
+
 const Analytics = {
   tagManagerIsLoaded: false,
 
@@ -13,7 +21,13 @@ const Analytics = {
    * @param {number} timeout - Callback invocation fallback time.
    * @returns {object} Data layer object.
    */
-  getDataLayerOptions: function (action, label, category, callback, timeout) {
+  getDataLayerOptions: function (
+    action: string,
+    label: string | false,
+    category: string,
+    callback?: () => void,
+    timeout?: number,
+  ): DataLayerOptions {
     return {
       event: category || Analytics.EVENT_CATEGORY,
       action: action,
@@ -33,7 +47,7 @@ const Analytics = {
     ) {
       Analytics.tagManagerIsLoaded = true;
     } else {
-      let _tagManager;
+      let _tagManager: unknown;
       Object.defineProperty(globalThis, 'google_tag_manager', {
         enumerable: true,
         configurable: true,
@@ -55,11 +69,16 @@ const Analytics = {
    * Pushes an event to the GTM dataLayer.
    * @param {object} dataLayerOptions - Type of event.
    */
-  sendEvent: function (dataLayerOptions) {
+  sendEvent: function (dataLayerOptions: DataLayerOptions) {
     const callback = dataLayerOptions.eventCallback;
-    if (Analytics.tagManagerIsLoaded) {
-      globalThis.dataLayer.push(dataLayerOptions);
-    } else if (callback && typeof callback === 'function') {
+    const dataLayer = (
+      globalThis as typeof globalThis & {
+        dataLayer?: DataLayerOptions[];
+      }
+    ).dataLayer;
+    if (dataLayer && Analytics.tagManagerIsLoaded) {
+      dataLayer.push(dataLayerOptions);
+    } else if (typeof callback === 'function') {
       callback();
     }
   },

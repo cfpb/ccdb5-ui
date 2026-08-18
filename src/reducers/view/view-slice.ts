@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { routeChanged } from '../routes/routes-slice';
+import type { ViewState } from '../../types/root-state';
 
-export const viewState = {
+export const viewState: ViewState = {
   isPrintMode: false,
   hasAdvancedSearchTips: false,
   hasFilters: true,
@@ -13,10 +15,8 @@ export const viewSlice = createSlice({
   name: 'view',
   initialState: viewState,
   reducers: {
-    hideAdvancedSearchTips: {
-      reducer: (state) => {
-        state.hasAdvancedSearchTips = false;
-      },
+    hideAdvancedSearchTips(state) {
+      state.hasAdvancedSearchTips = false;
     },
     moreAboutModalHidden(state) {
       state.isMoreAboutModalOpen = false;
@@ -24,10 +24,8 @@ export const viewSlice = createSlice({
     moreAboutModalShown(state) {
       state.isMoreAboutModalOpen = true;
     },
-    showAdvancedSearchTips: {
-      reducer: (state) => {
-        state.hasAdvancedSearchTips = true;
-      },
+    showAdvancedSearchTips(state) {
+      state.hasAdvancedSearchTips = true;
     },
     updatePrintModeOn(state) {
       state.isPrintMode = true;
@@ -39,25 +37,19 @@ export const viewSlice = createSlice({
       state.hasFilters = action.payload > 749;
       state.width = action.payload;
     },
-    updateFilterVisibility: {
-      reducer: (state) => {
-        state.hasFilters = !state.hasFilters;
-      },
+    updateFilterVisibility(state) {
+      state.hasFilters = !state.hasFilters;
     },
-    tourHidden: {
-      reducer: (state) => {
-        state.showTour = false;
-      },
+    tourHidden(state) {
+      state.showTour = false;
     },
-    tourShown: {
-      reducer: (state) => {
-        state.showTour = true;
-      },
+    tourShown(state) {
+      state.showTour = true;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase('routes/routeChanged', (state, action) => {
-      const params = action.payload.params;
+    builder.addCase(routeChanged, (state, action) => {
+      const { params } = action.payload;
 
       state.isPrintMode = params.isPrintMode === 'true';
     });

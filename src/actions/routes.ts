@@ -1,6 +1,8 @@
 import { routeChanged } from '../reducers/routes/routes-slice';
 import dayjs from 'dayjs';
 import isEqual from 'react-fast-compare';
+import type { Thunk } from '../types/redux-types';
+import type { RootState } from '../types/root-state';
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -11,7 +13,9 @@ import isEqual from 'react-fast-compare';
  * @param {object} params - the query string params as a dictionary
  * @returns {object} a processed version of the params
  */
-export function normalizeRouteParams(params) {
+export function normalizeRouteParams(
+  params: Record<string, unknown>,
+): Record<string, unknown> {
   const processed = { ...params };
   // Drop legacy view-mode params; List is the only results view now.
   const remove = ['search_after', 'tab'];
@@ -43,13 +47,16 @@ export function normalizeRouteParams(params) {
  * @param {object} params - the query string
  * @returns {import('../types/redux-types').Thunk} A thunk that updates the route when the URL changed
  */
-export function changeRoute(path, params) {
+export function changeRoute(
+  path: string,
+  params: Record<string, unknown>,
+): Thunk {
   return function (dispatch, getState) {
-    const store = getState();
+    const store = getState() as RootState;
     const normalized = normalizeRouteParams(params);
     const isValid =
-      dayjs(params.date_received_max).isValid() &&
-      dayjs(params.date_received_min).isValid();
+      dayjs(params.date_received_max as string).isValid() &&
+      dayjs(params.date_received_min as string).isValid();
     const { routes } = store;
     const isSameRoute =
       routes.path === path && isEqual(routes.params, normalized);

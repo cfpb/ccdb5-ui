@@ -24,14 +24,14 @@ export const knownFilters = [
   'tags',
   'timely',
   'zip_code',
-];
+] as const;
 
 export const dateFilters = [
   'company_received_max',
   'company_received_min',
   'date_received_max',
   'date_received_min',
-];
+] as const;
 
 export const dateRanges = {
   '3m': '3 months',
@@ -39,15 +39,15 @@ export const dateRanges = {
   '1y': '1 year',
   '3y': '3 years',
   All: 'Full date range',
-};
+} as const;
 
 // these filters we need to shim subItems when a parent is selected
-export const filterPatch = ['issue', 'product'];
+export const filterPatch = ['issue', 'product'] as const;
 
 // note the keys need to remain strings here for the select box options
 // we're declaring this so eslint autofix doesn't rename the props without
 // quotes
-export const sizes = {};
+export const sizes: Record<string, string> = {};
 sizes['10'] = '10 results';
 sizes['25'] = '25 results';
 sizes['50'] = '50 results';
@@ -58,14 +58,13 @@ export const sorts = {
   created_date_asc: 'Oldest to newest',
   relevance_desc: 'Most relevant',
   relevance_asc: 'Least relevant',
-};
-
+} as const;
 export const SLUG_SEPARATOR = '•';
 
 /// ////////////////////////////////////////////////////////////////////////////
 // JSON Objects
 
-export const THESE_UNITED_STATES = {
+export const THESE_UNITED_STATES: Record<string, string> = {
   AA: 'Armed Forces Americas',
   AE: 'Armed Forces Europe',
   AL: 'Alabama',
