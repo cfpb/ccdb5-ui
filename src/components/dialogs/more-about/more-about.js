@@ -25,6 +25,10 @@ export const MoreAbout = ({ onClose }) => {
           Company-specific information should be considered in the context of
           that company’s size and/or market share.
         </Paragraph>
+        <Paragraph>
+          One consumer’s experience is not necessarily representative of all
+          consumers’ experiences
+        </Paragraph>
         <Paragraph>This database generally updates daily.</Paragraph>
       </div>
       <div className="footer layout-row">
