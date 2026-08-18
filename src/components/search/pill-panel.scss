@@ -1,47 +1,39 @@
 @use 'css/base' as *;
 
 .pill-panel {
+  margin-bottom: $grid-gutter-width;
   padding-right: $gutter-narrow;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: baseline;
 
   .pill-panel__list {
     margin: 0;
   }
 
-  .pill-panel__clear {
-    button {
-      margin-left: $gutter-narrow;
-      align-items: baseline;
+  .override {
+    padding-right: 0;
+    padding-left: 0;
+    border: 0;
 
-      svg {
-        position: relative;
-        top: 3px;
-      }
+    p {
+      padding-top: 4px;
     }
   }
 
-  .pill-label {
-    padding-right: $gutter-normal;
-    margin-bottom: 0;
+  .pill-panel__clear button {
+    position: relative;
+    top: 1px;
+    padding: 4px 0;
+    line-height: 1.1875;
   }
 
-  ul {
-    padding-top: $gutter-narrow;
-    margin: 0;
+  .pill-label {
+    p {
+      margin-bottom: 0;
+    }
   }
 
   @media screen and (max-width: $bp-xs-max) {
-    flex-direction: column;
-    margin-top: 70px;
     .pill-panel__clear {
       display: block;
-
-      button {
-        margin: 0;
-      }
     }
   }
 }

@@ -30,7 +30,7 @@ describe('component: PillPanel', () => {
     expect(screen.getByText('Filters applied:')).toBeInTheDocument();
     expect(
       screen.getByRole('button', {
-        name: /Date Received: 5\/5\/2017 - 5\/5\/2020/,
+        name: /Date received: 5\/5\/2017 - 5\/5\/2020/,
       }),
     ).toBeInTheDocument();
 

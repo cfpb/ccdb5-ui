@@ -1,8 +1,8 @@
 import './aggregation-branch.scss';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button, Heading, Icon } from '@cfpb/design-system-react';
+import { Heading, Icon } from '@cfpb/design-system-react';
 import {
   coalesce,
   getAllFilters,
@@ -26,6 +26,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   const filters = useSelector(selectFiltersRoot);
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
+  const checkboxRef = useRef(null);
 
   // Find all query filters that refer to the field name
   const allFilters = coalesce(filters, fieldName, []);
@@ -48,6 +49,12 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   } else if (activeParent.length > 0) {
     checkedState = CHECKED;
   }
+
+  useEffect(() => {
+    if (checkboxRef.current) {
+      checkboxRef.current.indeterminate = checkedState === INDETERMINATE;
+    }
+  }, [checkedState]);
 
   // Fix up the subitems to prepend the current item key
   const unsorted = subitems.map((sub) => ({
@@ -95,6 +102,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
         className={`aggregation-branch ${sanitizeHtmlId(item.key)} ${liStyle}`}
       >
         <input
+          ref={checkboxRef}
           type="checkbox"
           aria-label={item.key}
           disabled={item.isDisabled}
@@ -109,8 +117,8 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
         >
           <span className="u-visually-hidden">{item.key}</span>
         </label>
-        <Button
-          isLink
+        <button
+          type="button"
           className="aggregation-branch__toggle"
           aria-label={item.key}
           aria-expanded={isOpen}
@@ -125,7 +133,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
             isPresentational
             className="aggregation-branch__caret"
           />
-        </Button>
+        </button>
       </li>
       {isOpen ? (
         <ul className="children">

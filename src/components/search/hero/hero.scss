@@ -21,12 +21,8 @@
   }
 
   li {
-    padding-bottom: 0;
-    border-bottom: 0;
-
     button,
     a {
-      font-size: 16px;
       display: inline-block;
     }
 
@@ -55,14 +51,5 @@
 
   .content-header {
     display: inline-flex;
-  }
-
-  h4.content-header {
-    box-sizing: border-box;
-    margin-left: $gutter-narrow;
-    margin-top: 0;
-    color: var(--gray-dark);
-    text-transform: uppercase;
-    vertical-align: text-bottom;
   }
 }

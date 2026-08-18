@@ -4,7 +4,7 @@ export const viewState = {
   isPrintMode: false,
   hasAdvancedSearchTips: false,
   hasFilters: true,
-  modalTypeShown: false,
+  isMoreAboutModalOpen: false,
   showTour: false,
   width: 0,
 };
@@ -18,11 +18,11 @@ export const viewSlice = createSlice({
         state.hasAdvancedSearchTips = false;
       },
     },
-    modalHidden(state) {
-      state.modalTypeShown = false;
+    moreAboutModalHidden(state) {
+      state.isMoreAboutModalOpen = false;
     },
-    modalShown(state, action) {
-      state.modalTypeShown = action.payload;
+    moreAboutModalShown(state) {
+      state.isMoreAboutModalOpen = true;
     },
     showAdvancedSearchTips: {
       reducer: (state) => {
@@ -66,8 +66,8 @@ export const viewSlice = createSlice({
 
 export const {
   hideAdvancedSearchTips,
-  modalHidden,
-  modalShown,
+  moreAboutModalHidden,
+  moreAboutModalShown,
   showAdvancedSearchTips,
   tourHidden,
   tourShown,

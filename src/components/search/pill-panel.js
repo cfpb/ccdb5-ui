@@ -1,8 +1,7 @@
 import './pill-panel.scss';
 import { DATE_RANGE_MIN, knownFilters } from '../../constants';
-import { Button, Heading } from '@cfpb/design-system-react';
-import { selectFiltersRoot } from '../../reducers/filters/selectors';
-import {
+import { Button, Paragraph } from '@cfpb/design-system-react';
+import { selectFiltersRoot } from '../../reducers/filters/selectors';import {
   selectQueryDateLastIndexed,
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
@@ -40,7 +39,7 @@ const buildDatePill = (dateReceivedMin, dateReceivedMax, dateLastIndexed) => {
   return {
     fieldName: 'date_received',
     value:
-      'Date Received: ' +
+      'Date received: ' +
       dayjs(dateReceivedMin).format('M/D/YYYY') +
       ' - ' +
       dayjs(dateReceivedMax).format('M/D/YYYY'),
@@ -72,10 +71,10 @@ export const PillPanel = () => {
 
   return (
     <section className="pill-panel">
-      <Heading type="3" className="h4 pill-label flex-fixed">
-        Filters applied:
-      </Heading>
       <ul className="m-tag-group pill-panel__list">
+        <li className="override pill-label">
+          <Paragraph>Filters applied:</Paragraph>
+        </li>
         {filters.map((filter) => (
           <Pill
             key={filter.fieldName + filter.value}
@@ -88,10 +87,10 @@ export const PillPanel = () => {
             }
           />
         ))}
-        <li className="pill-panel__clear">
+        <li className="override pill-panel__clear">
           <Button
             appearance="warning"
-            label="Clear all filters"
+            label="Clear filters"
             isLink
             onClick={() => dispatch(filtersCleared(searchField))}
           />

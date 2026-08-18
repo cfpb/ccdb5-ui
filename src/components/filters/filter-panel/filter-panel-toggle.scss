@@ -13,9 +13,7 @@
 
   @media screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
     display: block;
-    width: 90vw;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
     & .a-btn {
       width: 100%;
     }
@@ -23,7 +21,7 @@
 
   @media screen and (max-width: $bp-xs-max) {
     display: block;
-    width: 90vw;
+    width: 100%;
     & .a-btn {
       width: 100%;
     }

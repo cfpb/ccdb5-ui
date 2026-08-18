@@ -31,7 +31,7 @@ export const FederalState = () => {
     };
   });
   const [dropdownOptions, setDropdownOptions] = useState(starterOptions);
-  const desc = 'The state in the mailing address provided by the consumer';
+  const desc = 'The state in the mailing address provided by the consumer.';
 
   const onInputChange = (value) => {
     const num = normalize(value);
@@ -56,13 +56,13 @@ export const FederalState = () => {
   return (
     <CollapsibleFilter title="State" desc={desc} className="aggregation state">
       <Typeahead
-        ariaLabel="Start typing to begin listing US states"
+        ariaLabel={desc}
         htmlId="state-typeahead"
         handleChange={onSelection}
         handleInputChange={onInputChange}
         hasClearButton={true}
         options={dropdownOptions}
-        placeholder="Enter state name or abbreviation"
+        placeholder=""
       />
       <StickyOptions
         fieldName={FIELD_NAME}

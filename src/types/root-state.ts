@@ -37,7 +37,7 @@ export interface ViewState {
   isPrintMode: boolean;
   hasAdvancedSearchTips: boolean;
   hasFilters: boolean;
-  modalTypeShown: string | false;
+  isMoreAboutModalOpen: boolean;
   showTour: boolean;
   width: number;
 }
