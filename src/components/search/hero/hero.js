@@ -1,8 +1,8 @@
 import './hero.scss';
 import { useDispatch } from 'react-redux';
 import { Button, Heading, Link } from '@cfpb/design-system-react';
-import { LINK_DATA_USE, MODAL_TYPE_MORE_ABOUT } from '../../../constants';
-import { modalShown } from '../../../reducers/view/view-slice';
+import { LINK_DATA_USE } from '../../../constants';
+import { moreAboutModalShown } from '../../../reducers/view/view-slice';
 
 export const Hero = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const Hero = () => {
             label="Things to know before you use this database"
             isLink
             onClick={() => {
-              dispatch(modalShown(MODAL_TYPE_MORE_ABOUT));
+              dispatch(moreAboutModalShown());
             }}
           />
         </li>
@@ -33,7 +33,6 @@ export const Hero = () => {
         <li className="m-list__item">
           <Link
             to="https://cfpb.github.io/api/ccdb/"
-            iconRight="external-link"
             target="_blank"
             rel="noopener noreferrer"
             label="Technical documentation"

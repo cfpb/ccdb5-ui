@@ -84,7 +84,7 @@ describe('ListPanel', () => {
     renderComponent(newQueryState, {});
     fireEvent.change(
       screen.getByRole('combobox', {
-        name: 'Select the number of results to display at a time',
+        name: 'Show per page',
       }),
       { target: { value: '10' } },
     );
@@ -105,7 +105,7 @@ describe('ListPanel', () => {
     renderComponent(newQueryState, {});
     fireEvent.change(
       screen.getByRole('combobox', {
-        name: 'Choose the order in which the results are displayed',
+        name: 'Sort by',
       }),
       { target: { value: 'created_date_asc' } },
     );
@@ -119,7 +119,7 @@ describe('ListPanel', () => {
 
     renderComponent({}, newViewState);
 
-    expect(screen.getByText('Filter results by...')).toBeInTheDocument();
+    expect(screen.getByText('Filter results by')).toBeInTheDocument();
   });
 
   test('FilterPanel not showed when width is 1000', async () => {
@@ -142,7 +142,7 @@ describe('ListPanel', () => {
     });
     renderComponent({}, newViewState);
 
-    await screen.findByText('Show');
-    expect(screen.queryByText('Filter results by...')).not.toBeInTheDocument();
+    await screen.findByText('Show per page');
+    expect(screen.queryByText('Filter results by')).not.toBeInTheDocument();
   });
 });

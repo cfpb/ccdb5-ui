@@ -116,9 +116,7 @@ describe('component::ComplaintDetail', () => {
       screen.getByRole('link', { name: 'Back to search results' }),
     ).toHaveAttribute('href', '/');
 
-    expect(
-      screen.getByText('Date CFPB received the complaint'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Date received')).toBeInTheDocument();
     expect(screen.getAllByText('Yes')).toHaveLength(1);
     expect(screen.getByText(docResponse.company)).toBeInTheDocument();
     expect(screen.getByText(docResponse.company_response)).toBeInTheDocument();
@@ -147,9 +145,7 @@ describe('component::ComplaintDetail', () => {
 
     await screen.findByText(docResponse.company_public_response);
 
-    expect(
-      screen.getByText('Date CFPB received the complaint'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Date received')).toBeInTheDocument();
 
     expect(screen.getByText(docResponse.company)).toBeInTheDocument();
     expect(screen.getByText(docResponse.company_response)).toBeInTheDocument();

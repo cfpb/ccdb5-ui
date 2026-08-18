@@ -9,7 +9,10 @@ const backToSearch = () =>
   cy.findByRole('link', { name: 'Back to search results' });
 
 const sortSelect = () =>
-  cy.findByLabelText('Choose the order in which the results are displayed');
+  cy.findByLabelText('Sort by');
+
+const sizeSelect = () =>
+  cy.findByLabelText('Show per page');
 
 describe('Document View', () => {
   describe('error handling', () => {
@@ -42,7 +45,9 @@ describe('Document View', () => {
     it('restores filters after visiting document detail', () => {
       cy.visit('?searchText=pizza&size=10&sort=relevance_desc');
 
-      sortSelect().find('option:selected').should('have.text', 'Relevance');
+      sortSelect().find('option:selected').should('have.text', 'Most relevant');
+      cy.findByDisplayValue('pizza').should('be.visible');
+      sizeSelect().find('option:selected').should('have.text', '10 results');
 
       firstComplaintLink().click();
 
@@ -54,7 +59,13 @@ describe('Document View', () => {
 
       waitForLoading();
 
-      sortSelect().find('option:selected').should('have.text', 'Relevance');
+      sortSelect().find('option:selected').should('have.text', 'Most relevant');
+      cy.findByDisplayValue('pizza').should('be.visible');
+      sizeSelect().find('option:selected').should('have.text', '10 results');
+      cy.url()
+        .should('contain', 'searchText=pizza')
+        .and('contain', 'size=10')
+        .and('contain', 'sort=relevance_desc');
     });
   });
 });

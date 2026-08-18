@@ -116,7 +116,7 @@ export const FilterSearch = ({ fieldName }) => {
             filterBy={['key']}
             onChange={(selected) => handleSelections(selected)}
             onInputChange={(text) => handleInputChange(text)}
-            placeholder={'Enter name of ' + fieldNameNew}
+            placeholder=""
             labelKey="key"
             options={dropdownOptions}
             ref={ref}

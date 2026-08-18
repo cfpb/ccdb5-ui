@@ -5,10 +5,10 @@ const complaintLinks = () => cy.findAllByRole('link', { name: /^Complaint / });
 const pagination = () => cy.findByRole('navigation', { name: 'Pagination' });
 
 const sizeSelect = () =>
-  cy.findByLabelText('Select the number of results to display at a time');
+  cy.findByLabelText('Show per page');
 
 const sortSelect = () =>
-  cy.findByLabelText('Choose the order in which the results are displayed');
+  cy.findByLabelText('Sort by');
 
 const searchField = () =>
   cy.findByLabelText('Choose which field will be searched');
@@ -70,7 +70,7 @@ describe('List View', () => {
     cy.log('resets after applying filter');
     waitForLoading();
     cy.findByRole('button', {
-      name: 'Collapse Product / sub-product filter',
+      name: 'Collapse Product and sub-product filter',
     })
       .closest('section')
       .within(() => {

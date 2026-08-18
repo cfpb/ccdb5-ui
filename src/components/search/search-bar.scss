@@ -1,42 +1,66 @@
-@use 'sass:math';
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
 .search-bar {
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: $gutter-normal;
+  }
+
+  &__input {
+    flex: 0 1 670px;
+    width: 670px;
+    max-width: 670px;
+    min-width: 0;
+
+    .o-search-input {
+      width: 100%;
+    }
+
+    .typeahead {
+      width: 100%;
+    }
+  }
+
+  &__tips {
+    margin-top: $gutter-normal;
+  }
+
   @media screen and (max-width: $bp-xs-max) {
-    h4,
-    .advanced-container {
-      width: 0;
+    &__input {
+      flex-basis: 100%;
+      width: 100%;
+      max-width: none;
+    }
+
+    .search-field-select {
       display: none;
     }
   }
 
-  .cf-select {
-    display: flex;
+  .search-field-select {
+    flex: 0 0 12rem;
     box-sizing: border-box;
-    background-color: var(--gray);
-    flex-direction: column;
-    justify-content: center;
 
-    @media screen and (max-width: $bp-xs-max) {
-      width: 0;
-      display: none;
+    // Keep the field select aligned with the search input in the row layout.
+    // SelectSingle always renders a-label--heading; hide until DSR supports labelClassName.
+    .a-label--heading {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
     }
 
-    select {
-      background-color: var(--gray);
-      color: var(--white);
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    &::after {
-      background-color: var(--gray);
-      color: var(--white);
-      border-left: solid 1px var(--gray-60);
-      padding-left: math.div($grid-gutter-width, 3);
+    .a-select {
+      width: 100%;
+      height: 100%;
     }
   }
 
@@ -44,38 +68,5 @@
     position: static;
     width: auto;
     height: auto;
-  }
-
-  .typeahead-portal {
-    height: $grid-gutter-width;
-    min-width: 12em;
-    position: relative;
-
-    .typeahead {
-      height: 100%;
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-
-      span {
-        &.waiting,
-        &.error,
-        &.no-results {
-          position: absolute;
-          top: -1 * $grid-gutter-width + $gutter-minimum;
-          left: 0;
-        }
-      }
-    }
-  }
-
-  .advanced-container {
-    margin-left: 10px;
-    width: 175px;
-  }
-
-  h4 {
-    margin-bottom: $gutter-minimum;
   }
 }

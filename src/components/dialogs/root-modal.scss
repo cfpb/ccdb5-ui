@@ -13,45 +13,28 @@
   justify-content: center;
   align-items: center;
 
-  // 30px inset on all sides. When the modal is taller than the viewport it
-  // scrolls inside this padded frame, keeping 30px left/right gutters.
-  padding: $grid-gutter-width;
-  box-sizing: border-box;
-
-  // 60% black overlay (#000000 at 60% opacity).
-  background-color: rgb(0 0 0 / 60%);
+  // gray-dark #43484e in hex.
+  --faded-gray-dark: 67, 72, 78;
+  background-color: rgb(var(--faded-gray-dark), 0.75);
 }
 
 .modal-body {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 570px;
+  max-width: 480px;
   max-height: 100%;
   padding: 0;
   border: 1px solid var(--gray-dark);
-  border-top: 5px solid var(--green);
+  border-top: 12px solid var(--green);
   border-radius: 4px;
-  margin: 0;
+  margin: $gutter-wide;
   overflow: auto;
   background: var(--white);
   outline: none;
 
   .header {
-    position: relative;
-    padding: $grid-gutter-width;
-
-    // Leave room for the absolutely positioned Close control.
-    padding-right: 4.5rem;
+    padding: $gutter-normal;
     padding-bottom: 0;
 
     align-items: flex-start;
-
-    // Close sits 15px from the top and right edges of the modal.
-    .a-btn--link {
-      position: absolute;
-      top: $gutter-normal;
-      right: $gutter-normal;
-    }
 
     .cf-icon-svg {
       padding-left: $gutter-minimum;
@@ -59,16 +42,15 @@
   }
 
   .body {
-    padding: 0 $grid-gutter-width $grid-gutter-width;
+    padding: 0 $gutter-normal;
 
     p:last-of-type {
-      margin-bottom: $grid-gutter-width;
+      margin-bottom: $gutter-normal;
     }
   }
 
   .footer {
-    padding: $grid-gutter-width;
-    border-top: 1px solid var(--gray-40);
+    padding: $gutter-normal;
 
     background-color: var(--gray-5);
     align-items: baseline;

@@ -1,50 +1,12 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
-.action-bar {
-  border-left: 1px solid transparent;
-  border-right: 1px solid var(--gray-40);
-  border-bottom: 1px solid var(--gray-40);
-  background-color: var(--green-20);
-  padding: $gutter-normal $grid-gutter-width;
-  margin-left: -15px;
-
-  h2 {
-    margin: 0;
-
-    @media screen and (max-width: $bp-xs-max) {
-      padding: $gutter-normal;
-    }
-  }
-
-  .export-results {
-    padding-top: $gutter-minimum;
-    margin: 0 0 $gutter-minimum;
-
-    .a-btn {
-      margin-right: $gutter-normal;
-      font-size: $size-v;
-      display: inline-block;
-
-      svg {
-        margin-right: $gutter-minimum;
-      }
-    }
-  }
-
+.search-status {
   @media screen and (max-width: $bp-xs-max) {
-    margin: 0;
-    padding-left: $gutter-normal;
-    padding-right: $gutter-normal;
-    border: 1px solid var(--gray-40);
-    width: 100%;
-    box-sizing: border-box;
-    .export-results {
-      margin-left: 0;
-    }
+    margin-bottom: $gutter-normal;
   }
+}
 
-  @media screen and (max-width: 749px) {
-    border-left: 1px solid var(--gray-40);
-  }
+.action-bar {
+  margin: 0;
 }
