@@ -2,13 +2,6 @@ import { TOUR_STEP_TARGETS as STEP } from './tour-selector-constants';
 
 export { TOUR_SELECTORS, TOUR_STEP_TARGETS } from './tour-selector-constants';
 
-export const DOCUMENT_STEP_SELECTORS = {
-  STEP_1: '.content__hero',
-  STEP_2: '.m-pagination__btn-next',
-  STEP_3: '.saved__search-panel div:nth-child(2)',
-  STEP_4: '.back-to-results',
-};
-
 export const LIST_COMPLAINTS_SELECTORS = {
   STEP_1: STEP.INDEX,
   STEP_2: STEP.HELP_LINKS,

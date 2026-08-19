@@ -366,21 +366,6 @@ export function getFullUrl(uri) {
 }
 
 /**
- * helper function
- *
- * @param {object} bucket - contains key value pairs
- * @returns {string} name of the key that has the buckets
- */
-export const getSubKeyName = (bucket) => {
-  for (const item in bucket) {
-    if (item !== 'trend_period' && bucket[item].buckets) {
-      return item;
-    }
-  }
-  return '';
-};
-
-/**
  * helper function to take in array parameters from the url, filters, etc and
  * set the values in the processed object
  *
