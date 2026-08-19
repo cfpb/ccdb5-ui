@@ -25,12 +25,13 @@ describe('ComplaintCard', () => {
   test('ComplaintCard renders with basic information', () => {
     render(<ComplaintCard row={itemFixture} />);
 
+    expect(screen.getByText('Complaint ID')).toBeInTheDocument();
     expect(screen.getByText(itemFixture.complaint_id)).toBeInTheDocument();
     expect(screen.getByText('Company name')).toBeInTheDocument();
     expect(screen.getByText(itemFixture.company)).toBeInTheDocument();
-    expect(screen.getByText('Date received:')).toBeInTheDocument();
+    expect(screen.getByText('Date received')).toBeInTheDocument();
     expect(screen.getByText('11/16/2022')).toBeInTheDocument();
-    expect(screen.getByText(`Consumer’s state:`)).toBeInTheDocument();
+    expect(screen.getByText(`Consumer’s state`)).toBeInTheDocument();
     expect(screen.getByText(itemFixture.state)).toBeInTheDocument();
     expect(
       screen.getByText('Company response to consumer'),
@@ -42,10 +43,10 @@ describe('ComplaintCard', () => {
       screen.getByRole('heading', { name: 'Product' }),
     ).toBeInTheDocument();
     expect(screen.getByText(itemFixture.product)).toBeInTheDocument();
-    expect(screen.queryByText(/Sub-product:/)).not.toBeInTheDocument();
+    expect(screen.queryByText('Sub-product')).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Issue' })).toBeInTheDocument();
     expect(screen.getByText(itemFixture.issue)).toBeInTheDocument();
-    expect(screen.queryByText(/Sub-issue:/)).not.toBeInTheDocument();
+    expect(screen.queryByText('Sub-issue')).not.toBeInTheDocument();
   });
 
   test('Renders sub product', () => {
@@ -53,7 +54,7 @@ describe('ComplaintCard', () => {
 
     render(<ComplaintCard row={itemFixture} />);
 
-    expect(screen.getByText(/Sub-product:/)).toBeInTheDocument();
+    expect(screen.getByText('Sub-product')).toBeInTheDocument();
     expect(screen.getByText(itemFixture.sub_product)).toBeInTheDocument();
   });
 
@@ -62,7 +63,7 @@ describe('ComplaintCard', () => {
 
     render(<ComplaintCard row={itemFixture} />);
 
-    expect(screen.getByText(/Sub-issue:/)).toBeInTheDocument();
+    expect(screen.getByText('Sub-issue')).toBeInTheDocument();
     expect(screen.getByText(itemFixture.sub_issue)).toBeInTheDocument();
   });
 

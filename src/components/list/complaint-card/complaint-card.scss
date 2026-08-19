@@ -1,99 +1,50 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
-// Reset interfering Captial Framework style
-.card-container .card .card-left {
-  min-width: initial;
-}
-
 li.card-container {
-  padding: $grid-gutter-width 0;
+  padding: $grid-gutter-width $grid-gutter-width $grid-gutter-width
+    $gutter-normal;
   border-bottom: 1px solid var(--gray-40);
   margin: 0;
-
   list-style-type: none;
-
-  &:first-of-type {
-    padding-top: 0;
-  }
 
   &:last-of-type {
     border: 0;
-    padding-bottom: 0;
   }
 
   .card {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: $grid-gutter-width;
+    align-items: start;
 
     @media screen and (max-width: $bp-xs-max) {
-      flex-wrap: wrap;
+      grid-template-columns: 1fr;
+      row-gap: $gutter-normal;
+    }
+  }
+
+  .card-field {
+    & + & {
+      margin-top: $gutter-normal;
     }
 
-    .card-left {
-      box-sizing: border-box;
-      width: 260px;
-      padding-right: $grid-gutter-width;
-
-      @media screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
-        width: 50%;
-        padding-right: $gutter-normal;
-      }
-
-      @media screen and (max-width: $bp-xs-max) {
-        width: 100%;
-        padding-right: $gutter-narrow;
-      }
+    h4 {
+      margin: 0 0 $gutter-minimum;
     }
+  }
 
-    .card-right {
-      @media screen and (max-width: $bp-xs-max) {
-        width: 100%;
-        padding-top: $gutter-normal;
-      }
-    }
+  .card-field__value {
+    margin: 0;
+    font-weight: normal;
+  }
 
-    .layout-row {
-      .spacer {
-        margin: $gutter-narrow;
-      }
+  .to-detail {
+    border-bottom-width: 1px;
+  }
 
-      h4 {
-        margin-right: $gutter-minimum;
-
-        font-size: 16px;
-      }
-    }
-
-    .layout-column {
-      h3 {
-        margin-top: 0;
-        margin-bottom: $gutter-minimum;
-
-        a {
-          border-bottom-width: 2px;
-        }
-
-        &.to-detail {
-          margin-bottom: $gutter-normal;
-        }
-      }
-
-      h4 {
-        margin-top: 0;
-        margin-bottom: $gutter-minimum;
-      }
-    }
-
-    .subitem {
-      margin-right: $gutter-minimum;
-      font-weight: 500;
-    }
-
-    em {
-      background-color: var(--teal-20);
-      font-style: normal;
-    }
+  em {
+    background-color: var(--teal-20);
+    font-style: normal;
   }
 }
