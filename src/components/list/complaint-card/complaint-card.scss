@@ -15,7 +15,11 @@
   &__body {
     display: grid;
     grid-template-columns: 260px minmax(0, 1fr);
+    grid-template-areas:
+      'id meta'
+      'primary secondary';
     column-gap: $grid-gutter-width;
+    row-gap: $grid-gutter-width;
     align-items: start;
 
     @media screen and (max-width: $bp-sm-max) {
@@ -24,8 +28,43 @@
 
     @media screen and (max-width: $bp-xs-max) {
       grid-template-columns: minmax(0, 1fr);
-      row-gap: $grid-gutter-width;
+      grid-template-areas:
+        'id'
+        'meta'
+        'primary'
+        'secondary';
     }
+  }
+
+  &__id {
+    grid-area: id;
+  }
+
+  &__meta {
+    display: flex;
+    grid-area: meta;
+    justify-content: space-between;
+    align-items: baseline;
+    column-gap: $gutter-normal;
+    flex-wrap: wrap;
+  }
+
+  &__meta-item {
+    margin: 0;
+  }
+
+  &__meta-label {
+    display: inline;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  &__column--primary {
+    grid-area: primary;
+  }
+
+  &__column--secondary {
+    grid-area: secondary;
   }
 
   &__field {

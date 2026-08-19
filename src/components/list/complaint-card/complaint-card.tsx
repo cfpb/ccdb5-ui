@@ -50,7 +50,7 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
   return (
     <li className="complaint-card">
       <div className="complaint-card__body">
-        <div className="complaint-card__column">
+        <div className="complaint-card__id">
           <CardField title="Complaint ID">
             <Link
               className="complaint-card__detail-link"
@@ -60,9 +60,26 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
               {cleanId}
             </Link>
           </CardField>
-          <CardField title="Date received">
-            <span>{formatDisplayDate(row.date_received)}</span>
-          </CardField>
+        </div>
+        <div className="complaint-card__meta">
+          <p className="complaint-card__meta-item">
+            <Heading type="4" className="complaint-card__meta-label">
+              Date received:
+            </Heading>{' '}
+            <span className="complaint-card__field-value">
+              {formatDisplayDate(row.date_received)}
+            </span>
+          </p>
+          <p className="complaint-card__meta-item">
+            <Heading type="4" className="complaint-card__meta-label">
+              Consumer’s state:
+            </Heading>{' '}
+            <span className="complaint-card__field-value">
+              {renderPossibleHighlight(row.state)}
+            </span>
+          </p>
+        </div>
+        <div className="complaint-card__column complaint-card__column--primary">
           <CardField title="Company name">
             {renderPossibleHighlight(row.company)}
           </CardField>
@@ -72,11 +89,8 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
           <CardField title="Timely response?">
             {renderPossibleHighlight(row.timely)}
           </CardField>
-          <CardField title="Consumer’s state">
-            {renderPossibleHighlight(row.state)}
-          </CardField>
         </div>
-        <div className="complaint-card__column">
+        <div className="complaint-card__column complaint-card__column--secondary">
           <CardField title="Product">
             {renderPossibleHighlight(row.product)}
           </CardField>

@@ -95,7 +95,8 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
       >
         <Checkbox
           id={id}
-          label={<span className="u-visually-hidden">{item.key}</span>}
+          label={item.key}
+          labelClassName="u-visually-hidden"
           className="aggregation-branch__checkbox"
           disabled={item.isDisabled}
           checked={checkedState === CHECKED}
@@ -105,7 +106,6 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
         <button
           type="button"
           className="aggregation-branch__toggle"
-          aria-label={item.key}
           aria-expanded={isOpen}
           onClick={toggleOpen}
         >
