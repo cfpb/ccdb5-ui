@@ -242,7 +242,7 @@ export const AdvancedTips = () => {
           />
         </div>
       </div>
-      <div className="footer">
+      <div className="advanced-tips__footer">
         <Heading type="3">Additional notes:</Heading>
         <ul className="m-list">
           <li className="m-list__item">

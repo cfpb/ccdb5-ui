@@ -37,9 +37,9 @@ const renderPossibleHighlight = (str: string) => {
 };
 
 const CardField = ({ title, children }: CardFieldProps) => (
-  <div className="card-field">
+  <div className="complaint-card__field">
     <Heading type="4">{title}</Heading>
-    <div className="card-field__value">{children}</div>
+    <div className="complaint-card__field-value">{children}</div>
   </div>
 );
 
@@ -48,12 +48,12 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
   const complaintIdPath = 'detail/' + stripPossibleHighlight(row.complaint_id);
 
   return (
-    <li className="card-container">
-      <div className="card">
-        <div className="card__column">
+    <li className="complaint-card">
+      <div className="complaint-card__body">
+        <div className="complaint-card__column">
           <CardField title="Complaint ID">
             <Link
-              className="to-detail"
+              className="complaint-card__detail-link"
               to={complaintIdPath}
               aria-label={'Complaint ' + ariaReadoutNumbers(cleanId)}
             >
@@ -76,7 +76,7 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
             {renderPossibleHighlight(row.state)}
           </CardField>
         </div>
-        <div className="card__column">
+        <div className="complaint-card__column">
           <CardField title="Product">
             {renderPossibleHighlight(row.product)}
           </CardField>

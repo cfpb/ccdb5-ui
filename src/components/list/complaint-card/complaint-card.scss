@@ -1,7 +1,7 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
-li.card-container {
+.complaint-card {
   padding: $grid-gutter-width $grid-gutter-width $grid-gutter-width
     $gutter-normal;
   border-bottom: 1px solid var(--gray-40);
@@ -12,7 +12,7 @@ li.card-container {
     border: 0;
   }
 
-  .card {
+  &__body {
     display: grid;
     grid-template-columns: 260px minmax(0, 1fr);
     column-gap: $grid-gutter-width;
@@ -28,22 +28,22 @@ li.card-container {
     }
   }
 
-  .card-field {
+  &__field {
     h4 {
       margin: 0 0 $gutter-minimum;
     }
   }
 
-  .card-field + .card-field {
+  &__field + &__field {
     margin-top: $grid-gutter-width;
   }
 
-  .card-field__value {
+  &__field-value {
     margin: 0;
     font-weight: normal;
   }
 
-  .to-detail {
+  &__detail-link {
     border-bottom-width: 1px;
   }
 

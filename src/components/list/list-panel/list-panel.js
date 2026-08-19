@@ -77,7 +77,7 @@ export const ListPanel = () => {
     );
   };
 
-  const renderMap = {
+  const renderByPhase = {
     ERROR: _renderError,
     NO_RESULTS: _renderNoResults,
     RESULTS: _renderResults,
@@ -104,7 +104,7 @@ export const ListPanel = () => {
           handleChange={onSort}
         />
       </div>
-      {renderMap[phase]()}
+      {renderByPhase[phase]()}
       <Pagination />
     </section>
   );

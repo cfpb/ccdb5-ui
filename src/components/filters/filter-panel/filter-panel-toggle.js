@@ -12,7 +12,7 @@ export const FilterPanelToggle = () => {
       <div className="m-btn-group">
         <Button
           label={hasFilters ? 'Close filters' : 'Filter results'}
-          className="filter-toggle-button"
+          className="filter-panel-toggle__button"
           onClick={() => {
             dispatch(updateFilterVisibility());
           }}

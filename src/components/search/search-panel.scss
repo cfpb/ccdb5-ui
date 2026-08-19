@@ -1,7 +1,7 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
-.date-subscript {
+.search-panel__last-updated {
   font-size: $base-font-size-px;
   color: var(--gray);
 }

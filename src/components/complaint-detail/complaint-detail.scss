@@ -1,12 +1,14 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
-.card-container {
+.complaint-detail {
   max-width: 100%;
   padding: $gutter-normal;
   margin-bottom: $grid-gutter-width;
 
-  nav {
+  &__nav {
+    display: flex;
+    flex-flow: row wrap;
     width: 100%;
     justify-content: space-between;
 
@@ -15,23 +17,21 @@
       font-size: $base-font-size-px;
     }
 
-    .a-btn--link {
-      span {
-        margin-right: $gutter-normal;
-      }
+    .a-btn--link span {
+      margin-right: $gutter-normal;
     }
   }
 
-  h1 {
+  &__body > h1 {
     margin: $gutter-normal 0;
     margin-top: $grid-gutter-width;
   }
 
-  h2.company-information {
+  &__company-heading {
     margin-top: $gutter-wide;
   }
 
-  .card {
+  &__card {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -40,7 +40,19 @@
       flex-wrap: wrap;
     }
 
-    .card-left {
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+
+    h3,
+    h4 {
+      margin-top: 0;
+      margin-bottom: $gutter-minimum;
+    }
+
+    &--narrow {
       box-sizing: border-box;
       min-width: 260px;
       width: 33%;
@@ -49,70 +61,42 @@
       @media screen and (min-width: $bp-xs-max) and (max-width: $bp-sm-max) {
         padding-right: $gutter-normal;
       }
-
-      @media screen and (max-width: $bp-xs-max) {
-        width: 100%;
-        padding-right: $gutter-narrow;
-      }
     }
 
-    .card-right {
+    &--wide {
       width: 67%;
-
-      @media screen and (max-width: $bp-xs-max) {
-        width: 100%;
-        padding-top: $gutter-normal;
-      }
     }
 
-    .cf-icon__before {
+    @media screen and (max-width: $bp-xs-max) {
+      width: 100%;
+    }
+  }
+
+  &__column--narrow {
+    @media screen and (max-width: $bp-xs-max) {
       padding-right: $gutter-narrow;
-      font-size: 16px;
-
-      &.cf-icon-approved-round {
-        color: var(--green);
-      }
-
-      &.cf-icon-delete-round {
-        color: var(--red);
-      }
-
-      &.cf-icon-minus-round {
-        color: var(--gold);
-      }
-
-      &.cf-icon-help-round {
-        color: var(--navy);
-      }
-
-      &.cf-icon-error-round {
-        color: var(--gray-80);
-      }
-
-      &.cf-icon-clock-round {
-        color: var(--green);
-      }
-
-      &.cf-icon-clock-round.not-timely {
-        color: var(--gold);
-      }
     }
+  }
 
-    .layout-column {
-      h3 {
-        margin-top: 0;
-        margin-bottom: $gutter-minimum;
-      }
-
-      h4 {
-        margin-top: 0;
-        margin-bottom: $gutter-minimum;
-      }
+  &__column--wide {
+    @media screen and (max-width: $bp-xs-max) {
+      padding-top: $gutter-normal;
     }
+  }
 
-    .subitem {
-      margin-right: $gutter-minimum;
-      font-weight: 500;
-    }
+  &__subaggregation {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &__subaggregation-label {
+    margin-right: $gutter-minimum;
+    font-weight: 500;
+  }
+
+  &__timely-icon {
+    padding-right: $gutter-narrow;
+    color: var(--green);
+    font-size: 16px;
   }
 }

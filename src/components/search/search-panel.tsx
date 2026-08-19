@@ -10,7 +10,7 @@ export const SearchPanel = () => {
   const { data, isLoading, isFetching } = useGetMetaQuery('meta');
   const lastIndexed = data?._meta?.last_indexed;
   const lastIndexedMessage = lastIndexed ? (
-    <span className="date-subscript">
+    <span className="search-panel__last-updated">
       (Last updated {formatNaturalDate(lastIndexed)})
     </span>
   ) : null;

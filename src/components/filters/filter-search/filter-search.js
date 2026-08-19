@@ -112,7 +112,7 @@ export const FilterSearch = ({ fieldName }) => {
             id={sanitizeHtmlId(`filter-search-${fieldName}`)}
             maxResults={5}
             minLength={2}
-            className="typeahead-selector"
+            className="typeahead__selector"
             filterBy={['key']}
             onChange={(selected) => handleSelections(selected)}
             onInputChange={(text) => handleInputChange(text)}
@@ -125,10 +125,10 @@ export const FilterSearch = ({ fieldName }) => {
               className: 'a-text-input a-text-input--full',
             }}
             renderMenuItemChildren={(option) => (
-              <li className="typeahead-option typeahead-option--multi">
+              <li className="typeahead__option typeahead__option--multi">
                 <HighlightingOption key={option.value} {...option.top} />
                 {option.isParent ? null : (
-                  <div className="typeahead-option__sub">
+                  <div className="typeahead__option-sub">
                     {option.value ? (
                       <HighlightingOption key={option.value} {...option} />
                     ) : null}

@@ -23,19 +23,15 @@
   .search-panel h3,
   .a-tag-filter .cf-icon-svg,
   .pill-panel__clear,
-  .state-filters__clear,
   .search-bar,
   .content__hero,
   .content__sidebar,
   .filter-panel hr,
   .refine-bar,
-  .m-pagination,
-  .u-right,
-  .total {
+  .m-pagination {
     display: none !important;
   }
 
-  .advanced-container,
   .search-panel {
     width: 100%;
   }
@@ -48,20 +44,17 @@
   .search-panel h3,
   .a-tag-filter .cf-icon-svg,
   .pill-panel__clear,
-  .state-filters__clear,
   .search-bar,
   .content__hero,
   .content__sidebar,
   .filter-panel hr,
   .refine-bar,
   .m-pagination,
-  .warning,
-  .u-right,
-  .total,
+  .warning-notification,
   .a-micro-copy,
   .filter-button,
   footer,
-  .filter-toggle-button {
+  .filter-panel-toggle__button {
     display: none !important;
   }
 }

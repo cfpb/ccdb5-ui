@@ -35,7 +35,7 @@ export const ActionBar = () => {
         )}
         {error ? null : (
           <div>
-            <Heading type="3" className="h4 flex-all export-results">
+            <Heading type="3" className="h4 action-bar__actions">
               <Button
                 label="Export data"
                 isLink

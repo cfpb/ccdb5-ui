@@ -208,7 +208,7 @@ export function stateToQS(state: QueryState) {
     'no_aggs',
   ]);
 
-  // where we only filter out the params required for each of the tabs
+  // Keep only parameters supported by the complaints API.
   const filteredParams: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(params)) {
     if (filterKeys.has(key)) {
