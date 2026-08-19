@@ -27,9 +27,10 @@ describe('ComplaintCard', () => {
 
     expect(screen.getByText('Complaint ID')).toBeInTheDocument();
     expect(screen.getByText(itemFixture.complaint_id)).toBeInTheDocument();
+    expect(screen.getByText('Date received')).toBeInTheDocument();
+    expect(screen.getByText('11/16/2022')).toBeInTheDocument();
     expect(screen.getByText('Company name')).toBeInTheDocument();
     expect(screen.getByText(itemFixture.company)).toBeInTheDocument();
-    expect(screen.queryByText('Date received')).not.toBeInTheDocument();
     expect(screen.getByText(`Consumer’s state`)).toBeInTheDocument();
     expect(screen.getByText(itemFixture.state)).toBeInTheDocument();
     expect(

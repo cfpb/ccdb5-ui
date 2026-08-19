@@ -1,6 +1,7 @@
 import './complaint-card.scss';
 import { ariaReadoutNumbers } from '../../../utils';
 import { Link } from 'react-router';
+import { formatDisplayDate } from '../../../utils/format-date';
 import { Heading } from '@cfpb/design-system-react';
 import type { ReactNode } from 'react';
 
@@ -9,6 +10,7 @@ export interface ComplaintCardRow {
   company: string;
   company_response: string;
   timely: string;
+  date_received: string;
   state: string;
   product: string;
   sub_product?: string | null;
@@ -57,6 +59,9 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
             >
               {cleanId}
             </Link>
+          </CardField>
+          <CardField title="Date received">
+            <span>{formatDisplayDate(row.date_received)}</span>
           </CardField>
           <CardField title="Company name">
             {renderPossibleHighlight(row.company)}
