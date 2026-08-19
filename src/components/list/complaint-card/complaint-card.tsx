@@ -50,7 +50,7 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
   return (
     <li className="card-container">
       <div className="card">
-        <div className="card-left">
+        <div className="card__column">
           <CardField title="Complaint ID">
             <Link
               className="to-detail"
@@ -76,7 +76,7 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
             {renderPossibleHighlight(row.state)}
           </CardField>
         </div>
-        <div className="card-right">
+        <div className="card__column">
           <CardField title="Product">
             {renderPossibleHighlight(row.product)}
           </CardField>

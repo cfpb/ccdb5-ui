@@ -1,5 +1,4 @@
 @use 'css/base' as *;
-@use '@cfpb/cfpb-design-system/src/components/cfpb-icons/icons-lib' as *;
 
 li.aggregation-branch {
   &.parent {
@@ -7,21 +6,9 @@ li.aggregation-branch {
     align-items: flex-start;
     list-style-type: none;
 
-    .toggle {
+    .aggregation-branch__checkbox {
       flex: none;
-
-      &.indeterminate::before {
-        border: solid 2px var(--gray-dark);
-        background-color: var(--white);
-        background-image: $cfpb-background-icon-svg-minus;
-        background-size: auto $cf-icon-height;
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-
-      .a-checkbox:checked + &.a-label::before {
-        border: solid 2px var(--gray-dark);
-      }
+      margin-bottom: 0;
     }
 
     .aggregation-branch__toggle {

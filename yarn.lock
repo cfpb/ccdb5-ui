@@ -1468,7 +1468,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.28.5"
     "@cfpb/browserslist-config": "npm:^0.0.7"
     "@cfpb/cfpb-design-system": "npm:^5.8.2"
-    "@cfpb/design-system-react": "npm:^2.0.2"
+    "@cfpb/design-system-react": "https://github.com/cfpb/design-system-react.git#indeterminate-checkbox"
     "@eslint/js": "npm:^10.0.1"
     "@fontsource-variable/source-sans-3": "npm:5.3.0"
     "@reduxjs/toolkit": "npm:^2.12.0"
@@ -1550,9 +1550,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cfpb/design-system-react@npm:^2.0.2":
+"@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#indeterminate-checkbox":
   version: 2.0.2
-  resolution: "@cfpb/design-system-react@npm:2.0.2"
+  resolution: "@cfpb/design-system-react@https://github.com/cfpb/design-system-react.git#commit=9df6706cd7ceec0655c9e3d5a55f4930c734a9ce"
   dependencies:
     react-select: "npm:^5.10.2"
   peerDependencies:
@@ -1560,7 +1560,7 @@ __metadata:
     lit: ^3.3.3
     react: ^19.2.8
     react-dom: ^19.2.8
-  checksum: 10c0/ebe781a9d4ed09ddc528f76b5a54521c70d321fe2cef0ceb36759e5882a952bdac6b2af0767291548952c22ab18064dfb202b2f275f9d5709eb9d38fb209206d
+  checksum: 10c0/e3c92b1b4de58fc8c0695262f37a5fec61028b3f746fc477f504060664ea638d5e2ecac3c1188194e153a684f0ce0f69cf9c1c5fe3006146a67f79d5c974d4d4
   languageName: node
   linkType: hard
 

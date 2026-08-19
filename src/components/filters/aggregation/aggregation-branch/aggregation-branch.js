@@ -1,8 +1,8 @@
 import './aggregation-branch.scss';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Heading, Icon } from '@cfpb/design-system-react';
+import { Checkbox, Heading, Icon } from '@cfpb/design-system-react';
 import {
   coalesce,
   getAllFilters,
@@ -26,7 +26,6 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   const filters = useSelector(selectFiltersRoot);
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
-  const checkboxRef = useRef(null);
 
   // Find all query filters that refer to the field name
   const allFilters = coalesce(filters, fieldName, []);
@@ -50,12 +49,6 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
     checkedState = CHECKED;
   }
 
-  useEffect(() => {
-    if (checkboxRef.current) {
-      checkboxRef.current.indeterminate = checkedState === INDETERMINATE;
-    }
-  }, [checkedState]);
-
   // Fix up the subitems to prepend the current item key
   const unsorted = subitems.map((sub) => ({
     isDisabled: sub.isDisabled,
@@ -70,7 +63,6 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
     return <AggregationItem item={item} key={item.key} fieldName={fieldName} />;
   }
 
-  const liStyle = 'parent m-form-field m-form-field--checkbox';
   const id = sanitizeHtmlId(`${fieldName} ${item.key}`);
 
   const toggleOpen = () => {
@@ -99,24 +91,17 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   return (
     <>
       <li
-        className={`aggregation-branch ${sanitizeHtmlId(item.key)} ${liStyle}`}
+        className={`aggregation-branch ${sanitizeHtmlId(item.key)} parent`}
       >
-        <input
-          ref={checkboxRef}
-          type="checkbox"
-          aria-label={item.key}
+        <Checkbox
+          id={id}
+          label={<span className="u-visually-hidden">{item.key}</span>}
+          className="aggregation-branch__checkbox"
           disabled={item.isDisabled}
           checked={checkedState === CHECKED}
-          className="flex-fixed a-checkbox"
-          id={id}
+          isIndeterminate={checkedState === INDETERMINATE}
           onChange={toggleParent}
         />
-        <label
-          className={`toggle a-label ${checkedState === INDETERMINATE ? ' indeterminate' : ''}`}
-          htmlFor={id}
-        >
-          <span className="u-visually-hidden">{item.key}</span>
-        </label>
         <button
           type="button"
           className="aggregation-branch__toggle"

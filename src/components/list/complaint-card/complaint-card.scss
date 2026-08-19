@@ -14,24 +14,28 @@ li.card-container {
 
   .card {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 260px minmax(0, 1fr);
     column-gap: $grid-gutter-width;
     align-items: start;
 
+    @media screen and (max-width: $bp-sm-max) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
     @media screen and (max-width: $bp-xs-max) {
-      grid-template-columns: 1fr;
-      row-gap: $gutter-normal;
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: $grid-gutter-width;
     }
   }
 
   .card-field {
-    & + & {
-      margin-top: $gutter-normal;
-    }
-
     h4 {
       margin: 0 0 $gutter-minimum;
     }
+  }
+
+  .card-field + .card-field {
+    margin-top: $grid-gutter-width;
   }
 
   .card-field__value {
