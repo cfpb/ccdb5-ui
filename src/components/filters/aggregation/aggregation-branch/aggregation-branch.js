@@ -95,8 +95,9 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
       >
         <Checkbox
           id={id}
-          label={item.key}
-          labelClassName="u-visually-hidden"
+          // The label renders the visible box via ::before, so hide only its
+          // text; the adjacent toggle button already shows the item name.
+          label={<span className="u-visually-hidden">{item.key}</span>}
           className="aggregation-branch__checkbox"
           disabled={item.isDisabled}
           checked={checkedState === CHECKED}
