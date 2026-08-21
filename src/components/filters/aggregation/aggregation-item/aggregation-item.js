@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Heading } from '@cfpb/design-system-react';
+import { Checkbox, Heading } from '@cfpb/design-system-react';
 import { filterPatch, SLUG_SEPARATOR } from '../../../../constants';
 import { coalesce, sanitizeHtmlId } from '../../../../utils';
 import { arrayEquals } from '../../../../utils/compare';
@@ -53,7 +53,6 @@ export const AggregationItem = ({ fieldName, item }) => {
     filters.includes(item.key.split(SLUG_SEPARATOR)[0]);
 
   const value = item.value || item.key;
-  const liStyle = 'layout-row m-form-field m-form-field--checkbox';
   const id = sanitizeHtmlId(fieldName + '-' + item.key);
 
   const addFilter = () => {
@@ -91,19 +90,16 @@ export const AggregationItem = ({ fieldName, item }) => {
   };
 
   return (
-    <li className={liStyle}>
-      <input
-        type="checkbox"
-        className="flex-fixed a-checkbox"
-        aria-label={item.key}
+    <li className="aggregation-item layout-row">
+      <Checkbox
+        id={id}
+        label={value}
+        labelClassName="bucket-key"
+        className="aggregation-item__checkbox"
         disabled={item.isDisabled}
         checked={isActive}
-        id={id}
         onChange={onChange}
       />
-      <label className="a-label flex-all bucket-key" htmlFor={id}>
-        {value}
-      </label>
       <Heading type="5" className="flex-fixed bucket-count">
         {item.doc_count.toLocaleString()}
       </Heading>
