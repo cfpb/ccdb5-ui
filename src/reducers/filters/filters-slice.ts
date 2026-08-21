@@ -14,7 +14,10 @@ import type { FiltersState } from '../../types/root-state';
  * @param {string} val - the filter to toggle
  * @returns {Array} a cast copy to avoid any state mutation
  */
-export function filterArrayAction(target: string[] = [], val: string): string[] {
+export function filterArrayAction(
+  target: string[] = [],
+  val: string,
+): string[] {
   if (target.includes(val)) {
     target = target.filter(function (value) {
       return value !== val;
@@ -38,29 +41,29 @@ export const filtersState: FiltersState = {
   zip_code: [],
 };
 
-type FilterPayload = {
+interface FilterPayload {
   filterName: string;
   filterValue: string;
-};
+}
 
-type FilterTogglePayload = {
+interface FilterTogglePayload {
   filterName: string;
   filterValue: { key: string };
-};
+}
 
-type FiltersReplacedPayload = {
+interface FiltersReplacedPayload {
   filterName: string;
   values: string[];
-};
+}
 
-type MultipleFiltersPayload = {
+interface MultipleFiltersPayload {
   filterName: string;
   values: string[];
-};
+}
 
-type StateFilterPayload = {
+interface StateFilterPayload {
   abbr: string;
-};
+}
 
 export const filtersSlice = createSlice({
   name: 'filters',
@@ -183,7 +186,11 @@ export const filtersSlice = createSlice({
     },
     stateFilterAdded(state, action: PayloadAction<StateFilterPayload>) {
       const filters = state as FiltersState & Record<string, string[]>;
-      const stateFilters = coalesce(filters, 'state', [] as string[]) as string[];
+      const stateFilters = coalesce(
+        filters,
+        'state',
+        [] as string[],
+      ) as string[];
       const { abbr } = action.payload;
       if (!stateFilters.includes(abbr)) {
         stateFilters.push(abbr);
@@ -196,9 +203,15 @@ export const filtersSlice = createSlice({
     },
     stateFilterRemoved(state, action: PayloadAction<StateFilterPayload>) {
       const filters = state as FiltersState & Record<string, string[]>;
-      const stateFilters = coalesce(filters, 'state', [] as string[]) as string[];
+      const stateFilters = coalesce(
+        filters,
+        'state',
+        [] as string[],
+      ) as string[];
       const { abbr } = action.payload;
-      filters.state = stateFilters.filter((stateAbbr: string) => stateAbbr !== abbr);
+      filters.state = stateFilters.filter(
+        (stateAbbr: string) => stateAbbr !== abbr,
+      );
     },
   },
   extraReducers: (builder) => {

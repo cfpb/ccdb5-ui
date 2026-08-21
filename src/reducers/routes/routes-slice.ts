@@ -7,10 +7,10 @@ import { enforceValues } from '../../utils/reducers';
 import queryString from 'query-string';
 import type { RoutesState } from '../../types/root-state';
 
-type RouteParamsPayload = {
+interface RouteParamsPayload {
   path: string;
   params: Record<string, unknown>;
-};
+}
 
 export const updateParams = (
   state: RoutesState,
@@ -45,7 +45,7 @@ export const routesSlice = createSlice({
     routeChanged: {
       reducer: updateParams,
       prepare: (path: string, params: Record<string, unknown>) => {
-        if (params.size && Number(params.size) > 0) {
+        if (params.size > 0 && Number(params.size) > 0) {
           // set up the size param so the query reducer can use a valid size
           params.size = enforceValues(String(params.size), 'size');
         }

@@ -4,12 +4,12 @@ import { Button, Heading, Paragraph } from '@cfpb/design-system-react';
 export const MoreAbout = ({ onClose }) => {
   return (
     <section className="more-about-modal">
-      <div className="header">
+      <div className="ccdb-modal__header">
         <Heading type="3">
           Things you should know before you use this database
         </Heading>
       </div>
-      <div className="body">
+      <div className="ccdb-modal__body">
         <Paragraph>
           This database only includes complaints the CFPB sent to companies and
           complaints are only published after the company responds, confirming a
@@ -25,9 +25,13 @@ export const MoreAbout = ({ onClose }) => {
           Company-specific information should be considered in the context of
           that company’s size and/or market share.
         </Paragraph>
+        <Paragraph>
+          One consumer’s experience is not necessarily representative of all
+          consumers’ experiences
+        </Paragraph>
         <Paragraph>This database generally updates daily.</Paragraph>
       </div>
-      <div className="footer layout-row">
+      <div className="ccdb-modal__footer">
         <Button label="Close" onClick={onClose} />
       </div>
     </section>

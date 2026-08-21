@@ -37,17 +37,13 @@ describe('SearchBar', () => {
     const newViewState = { hasAdvancedSearchTips: false };
 
     renderComponent(newQueryState, newViewState);
-    await user.click(
-      screen.getByRole('button', { name: /Show advanced search tips/ }),
-    );
+    await user.click(screen.getByRole('button', { name: /Show search tips/ }));
     expect(
-      await screen.findByRole('button', { name: /Hide advanced search tips/ }),
+      await screen.findByRole('button', { name: /Hide search tips/ }),
     ).toBeInTheDocument();
-    await user.click(
-      screen.getByRole('button', { name: /Hide advanced search tips/ }),
-    );
+    await user.click(screen.getByRole('button', { name: /Hide search tips/ }));
     expect(
-      await screen.findByRole('button', { name: /Show advanced search tips/ }),
+      await screen.findByRole('button', { name: /Show search tips/ }),
     ).toBeInTheDocument();
   });
 
@@ -59,7 +55,9 @@ describe('SearchBar', () => {
     const newViewState = { hasAdvancedSearchTips: false };
 
     renderComponent(newQueryState, newViewState);
-    const fieldSelect = screen.getByRole('combobox');
+    const fieldSelect = screen.getByLabelText(
+      'Choose which field will be searched',
+    );
     await user.selectOptions(fieldSelect, 'Company name');
     await waitFor(() =>
       expect(searchFieldChangedSpy).toHaveBeenCalledWith('company'),
@@ -74,7 +72,9 @@ describe('SearchBar', () => {
     const newViewState = { hasAdvancedSearchTips: false };
 
     renderComponent(newQueryState, newViewState);
-    const input = screen.getByPlaceholderText('Enter your search term(s)');
+    const input = screen.getByRole('searchbox', {
+      name: /Enter the term you want to search for/,
+    });
     await user.type(input, 'value');
     expect(input).toHaveValue('value');
     await user.click(input);
@@ -94,7 +94,9 @@ describe('SearchBar', () => {
     const newViewState = { hasAdvancedSearchTips: false };
 
     renderComponent(newQueryState, newViewState);
-    const input = screen.getByPlaceholderText('Enter your search term(s)');
+    const input = screen.getByRole('searchbox', {
+      name: /Enter the term you want to search for/,
+    });
     await user.type(input, 'value');
     expect(input).toHaveValue('value');
     await user.click(screen.getByRole('button', { name: /clear search/ }));
@@ -111,7 +113,9 @@ describe('SearchBar', () => {
     const newViewState = { hasAdvancedSearchTips: false };
 
     renderComponent(newQueryState, newViewState);
-    const input = screen.getByPlaceholderText('Enter your search term(s)');
+    const input = screen.getByRole('combobox', {
+      name: /Enter your search term\(s\)/,
+    });
     await user.type(input, 'Tru');
     const option = await screen.findByRole('option', {
       name: /Truist/,
@@ -132,7 +136,9 @@ describe('SearchBar', () => {
     const newViewState = { hasAdvancedSearchTips: false };
 
     renderComponent(newQueryState, newViewState);
-    const input = screen.getByPlaceholderText('Enter your search term(s)');
+    const input = screen.getByRole('combobox', {
+      name: /Enter your search term\(s\)/,
+    });
     await user.type(input, 'appl');
     expect(input).toHaveValue('appl');
     await user.click(

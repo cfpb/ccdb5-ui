@@ -1,7 +1,7 @@
 @use 'css/base' as *;
 
 .o-expandable {
-  h4 {
+  .o-expandable__label {
     max-width: calc(100% - 55px);
     box-sizing: border-box;
     padding-right: $gutter-minimum;

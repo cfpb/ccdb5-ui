@@ -7,7 +7,7 @@
     width: 100%;
   }
 
-  &-selector {
+  &__selector {
     width: 100%;
     position: relative;
 
@@ -21,17 +21,6 @@
       right: 0;
       left: 0;
 
-      li.footer {
-        padding: $gutter-normal;
-        border-top: solid 1px var(--gray-40);
-        margin: 0;
-        background-color: var(--pacific-20);
-        cursor: default;
-        font-size: $size-vi;
-        font-style: italic;
-        list-style-type: none;
-        text-align: center;
-      }
     }
 
     input {
@@ -68,7 +57,7 @@
     width: auto;
   }
 
-  .typeahead-option {
+  &__option {
     padding: $gutter-normal;
     border-top: solid 1px var(--gray-40);
     margin: 0;
@@ -76,17 +65,10 @@
     cursor: default;
     list-style-type: none;
 
-    &:hover,
-    &.selected {
+    &:hover {
       border-top: solid 2px var(--pacific);
       border-bottom: solid 2px var(--pacific);
       background-color: var(--gray-10);
-    }
-
-    &__sub {
-      font-size: 14px;
-      margin-left: 10px;
-      color: var(--pacific);
     }
 
     &--multi {
@@ -97,6 +79,11 @@
     }
   }
 
+  &__option-sub {
+    margin-left: 10px;
+    color: var(--pacific);
+    font-size: 14px;
+  }
 
   .o-search-input__input {
     &-label {

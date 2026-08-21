@@ -8,8 +8,7 @@ const firstComplaintLink = () =>
 const backToSearch = () =>
   cy.findByRole('link', { name: 'Back to search results' });
 
-const sortSelect = () =>
-  cy.findByLabelText('Choose the order in which the results are displayed');
+const sortSelect = () => cy.findByLabelText('Sort by');
 
 describe('Document View', () => {
   describe('error handling', () => {
@@ -42,7 +41,7 @@ describe('Document View', () => {
     it('restores filters after visiting document detail', () => {
       cy.visit('?searchText=pizza&size=10&sort=relevance_desc');
 
-      sortSelect().find('option:selected').should('have.text', 'Relevance');
+      sortSelect().find('option:selected').should('have.text', 'Most relevant');
 
       firstComplaintLink().click();
 
@@ -54,7 +53,7 @@ describe('Document View', () => {
 
       waitForLoading();
 
-      sortSelect().find('option:selected').should('have.text', 'Relevance');
+      sortSelect().find('option:selected').should('have.text', 'Most relevant');
     });
   });
 });

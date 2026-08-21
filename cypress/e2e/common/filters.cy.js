@@ -12,6 +12,15 @@ const productFilterButton = (name) =>
     name: new RegExp(`${name} Product / sub-product filter`),
   });
 
+const productSection = () => productFilterButton('Collapse').closest('section');
+
+// Parent aggregation toggles are named by their visible text, which includes
+// the complaint count alongside the product name.
+const productToggle = (name) =>
+  productSection().findByRole('button', {
+    name: new RegExp(String.raw`^${name}\b`),
+  });
+
 const timelyFilterButton = (name) =>
   cy.findByRole('button', {
     name: new RegExp(
@@ -26,8 +35,7 @@ const stateFilterButton = (name) =>
     name: new RegExp(`${name} State filter`),
   });
 
-const sizeSelect = () =>
-  cy.findByLabelText('Select the number of results to display at a time');
+const sizeSelect = () => cy.findByLabelText('Show per page');
 
 const complaintLinks = () => cy.findAllByRole('link', { name: /^Complaint / });
 
@@ -45,7 +53,7 @@ describe('Filter Panel', () => {
     waitForLoading();
     cy.log('is expanded');
 
-    // ids are the label association targets; two "From"/"Through" fields exist
+    // ids are the label association targets; two "From"/"To" fields exist
     cy.get('#date-received-from').should('be.visible');
 
     cy.log('collapse it');
@@ -137,11 +145,9 @@ describe('Filter Panel', () => {
 
     // Product/Sub-product
     cy.log('can collapse/expand a complex filter');
-    productFilterButton('Collapse')
-      .closest('section')
-      .within(() => {
-        cy.findAllByRole('checkbox').should('have.length.gt', 1);
-      });
+    productSection().within(() => {
+      cy.findAllByRole('checkbox').should('have.length.gt', 1);
+    });
 
     // close it
     productFilterButton('Collapse').click();
@@ -150,19 +156,17 @@ describe('Filter Panel', () => {
     // open it
     productFilterButton('Expand').click();
 
-    productFilterButton('Collapse')
-      .closest('section')
-      .within(() => {
-        cy.findAllByRole('checkbox').should('have.length.gt', 1);
-      });
+    productSection().within(() => {
+      cy.findAllByRole('checkbox').should('have.length.gt', 1);
+    });
 
     cy.log('can expand sub-filters');
 
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
     // Open sub-filter
-    cy.findByRole('button', { name: 'Mortgage' }).click();
+    productToggle('Mortgage').click();
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('exist');
-    cy.findByRole('button', { name: 'Mortgage' }).click();
+    productToggle('Mortgage').click();
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
 
     cy.log('toggles a filter by clicking checkbox input');
@@ -183,7 +187,7 @@ describe('Filter Panel', () => {
     cy.log('applies sub-filter by clicking');
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('not.exist');
     // Open sub-filter
-    cy.findByRole('button', { name: 'Mortgage' }).click();
+    productToggle('Mortgage').click();
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).should('exist');
     cy.findByRole('checkbox', { name: /FHA mortgage/i }).click({
       force: true,

@@ -8,26 +8,51 @@
     margin-top: math.div($grid-gutter-width, 1.5);
 
     li {
-      padding: 0;
-      border: 0;
-      margin-bottom: $gutter-normal;
-
       position: relative;
-
       align-items: baseline;
+      padding: $gutter-normal 0;
+      border: 0;
+      margin-bottom: 0;
 
       .bucket-key {
         max-width: calc(100% - 65px); // $max-count-width + $bucket-indent
+        color: var(--black);
         vertical-align: top;
       }
 
       .bucket-count {
         position: absolute;
-        top: 0;
+        top: $gutter-normal;
         right: 0;
         margin-bottom: 0;
         color: var(--gray);
       }
+    }
+
+    .aggregation-item__checkbox {
+      flex: 1 1 auto;
+      min-width: 0;
+      margin-bottom: 0;
+    }
+
+    // Rule lines between parent items and between child items.
+    > li + li {
+      border-top: 1px solid var(--gray-40);
+    }
+  }
+
+  // Nested product/issue lists insert a sibling <ul.children> between parents.
+  ul:not(.children) {
+    > ul.children {
+      border-top: 1px solid var(--gray-40);
+      margin: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-left: $gutter-normal * 1.5;
+    }
+
+    > ul.children + li {
+      border-top: 1px solid var(--gray-40);
     }
   }
 }

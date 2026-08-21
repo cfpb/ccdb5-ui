@@ -56,13 +56,4 @@
   .content-header {
     display: inline-flex;
   }
-
-  h4.content-header {
-    box-sizing: border-box;
-    margin-left: $gutter-narrow;
-    margin-top: 0;
-    color: var(--gray-dark);
-    text-transform: uppercase;
-    vertical-align: text-bottom;
-  }
 }

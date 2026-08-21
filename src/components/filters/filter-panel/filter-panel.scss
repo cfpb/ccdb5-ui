@@ -2,40 +2,50 @@
 @use 'css/base' as *;
 
 .filter-panel {
-  padding: $gutter-normal;
-  border-left: 1px solid var(--gray-40);
-  border-right: 1px solid var(--gray-40);
-  background: var(--gray-5);
+  // Surface chrome comes from DS `.o-well`. Border overrides need the extra
+  // class because `.o-well` is emitted after this file in the bundle.
+  &.o-well {
+    // Drop the top edge so it doesn't double up with the search well's
+    // bottom border directly above it.
+    border-top: 0;
 
-  @media screen and (min-width: $bp-med-min) {
-    padding: $grid-gutter-width;
-  }
-
-  @media screen and (max-width: $bp-xs-max) {
-    border-right: none;
+    @media screen and (max-width: $bp-xs-max) {
+      border-right: none;
+    }
   }
 
   .a-form-alert {
     margin-top: $gutter-normal;
   }
 
-  // Drop DS expandable side padding so filter controls use the panel width.
+  // Vertical rhythm against <hr>s: 15px above titles and 30px below content.
   .o-expandable__header {
-    padding-right: 0;
-    padding-left: 0;
+    padding: $gutter-normal 0;
   }
 
   .o-expandable__content {
-    padding-right: 0;
-    padding-left: 0;
+    padding: 0 0 $grid-gutter-width;
+
+    &::before {
+      padding-top: $gutter-normal;
+    }
+  }
+
+  // Keep any non-expandable filters on the same vertical rhythm.
+  > section:not(.o-expandable) {
+    padding: $gutter-normal 0 $grid-gutter-width;
+
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
   }
 
   hr {
     margin: 0;
     color: var(--gray-40);
-  }
-
-  .single-checkbox {
-    margin: $gutter-normal 0;
   }
 }

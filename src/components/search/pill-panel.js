@@ -72,7 +72,7 @@ export const PillPanel = () => {
 
   return (
     <section className="pill-panel">
-      <Heading type="3" className="h4 pill-label flex-fixed">
+      <Heading type="3" className="h4 pill-panel__label">
         Filters applied:
       </Heading>
       <ul className="m-tag-group pill-panel__list">

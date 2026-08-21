@@ -17,7 +17,7 @@
     }
   }
 
-  .export-results {
+  &__actions {
     padding-top: $gutter-minimum;
     margin: 0 0 $gutter-minimum;
 
@@ -39,7 +39,7 @@
     border: 1px solid var(--gray-40);
     width: 100%;
     box-sizing: border-box;
-    .export-results {
+    .action-bar__actions {
       margin-left: 0;
     }
   }

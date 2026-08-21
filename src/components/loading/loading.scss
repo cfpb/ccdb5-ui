@@ -9,7 +9,7 @@
   pointer-events: none;
 }
 
-.light-box {
+.loading-overlay {
   position: fixed;
   inset: 0;
 
@@ -23,19 +23,18 @@
   background-color: rgb(var(--faded-gray-dark), 0.75);
   pointer-events: auto;
   z-index: 100;
-}
+  &__box {
+    max-width: 480px;
+    padding: $grid-gutter-width;
+    border: 1px solid var(--gray-dark);
+    border-radius: 4px;
+    overflow: auto;
 
-.loading-box {
-  max-width: 480px;
-  padding: $grid-gutter-width;
-  border: 1px solid var(--gray-dark);
-  border-radius: 4px;
-  overflow: auto;
+    background: var(--gray-5);
+    outline: none;
 
-  background: var(--gray-5);
-  outline: none;
-
-  span.cf-icon-svg {
-    padding-right: $gutter-narrow;
+    span.cf-icon-svg {
+      padding-right: $gutter-narrow;
+    }
   }
 }

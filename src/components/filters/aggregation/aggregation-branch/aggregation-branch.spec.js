@@ -52,7 +52,7 @@ describe('component::AggregationBranch', () => {
         screen.getByRole('checkbox', { name: props.item.key }),
       ).not.toBeChecked();
       expect(
-        screen.getByRole('button', { name: props.item.key }),
+        screen.getByRole('button', { name: new RegExp(props.item.key) }),
       ).toBeInTheDocument();
       expect(screen.getByText(props.item.doc_count)).toBeInTheDocument();
       expect(screen.queryByRole('list')).not.toBeInTheDocument();
@@ -140,7 +140,9 @@ describe('component::AggregationBranch', () => {
     it('should show children list items on button click', async () => {
       renderComponent(props);
 
-      await user.click(screen.getByRole('button', { name: props.item.key }));
+      await user.click(
+        screen.getByRole('button', { name: new RegExp(props.item.key) }),
+      );
 
       expect(screen.getByRole('list')).toBeInTheDocument();
     });

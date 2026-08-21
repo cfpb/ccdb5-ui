@@ -5,7 +5,15 @@ import { waitForLoading } from '../utils';
 const searchField = () =>
   cy.findByLabelText('Choose which field will be searched');
 
-const searchInput = () => cy.findByPlaceholderText('Enter your search term(s)');
+const searchInput = () =>
+  cy.findByRole('searchbox', {
+    name: /Enter the term you want to search for/,
+  });
+
+const companySearchInput = () =>
+  cy.findByRole('combobox', {
+    name: /Enter your search term\(s\)/,
+  });
 
 const typeAheadRequest =
   '**/data-research/consumer-complaints/search/api/v1/_suggest_company/**';
@@ -16,12 +24,11 @@ describe('Search Bar', () => {
       cy.visit('/');
       waitForLoading();
       cy.findByRole('search').should('be.visible');
-      searchField().select('company');
-      waitForLoading();
-      cy.findByRole('search').should('be.visible');
 
       cy.log('has no typeahead functionality in All Data');
       cy.intercept(typeAheadRequest, { body: [] }).as('typeahead');
+      searchField().select('all');
+      waitForLoading();
       searchInput().clear();
       searchInput().type('bank', {
         delay: 200,
@@ -38,8 +45,8 @@ describe('Search Bar', () => {
       }).as('typeahead');
       searchField().select('company');
       waitForLoading();
-      searchInput().clear();
-      searchInput().type('bank', {
+      companySearchInput().clear();
+      companySearchInput().type('bank', {
         delay: 200,
       });
 
@@ -61,12 +68,12 @@ describe('Search Bar', () => {
       waitForLoading();
 
       cy.findByRole('heading', { name: 'Search tips' }).should('not.exist');
-      cy.findByRole('button', { name: 'Show advanced search tips' }).click();
+      cy.findByRole('button', { name: 'Show search tips' }).click();
       cy.findByRole('heading', { name: 'Search tips' }).should('be.visible');
-      cy.findByRole('button', { name: 'Hide advanced search tips' }).click();
+      cy.findByRole('button', { name: 'Hide search tips' }).click();
       cy.findByRole('heading', { name: 'Search tips' }).should('not.exist');
       cy.findByRole('button', {
-        name: 'Show advanced search tips',
+        name: 'Show search tips',
       }).should('be.visible');
     });
   });

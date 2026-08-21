@@ -60,7 +60,9 @@ export function alignDateRange(state: QueryState) {
   for (let idx = 0; !isMatched && idx < ranges.length; idx++) {
     const range = ranges[idx];
 
-    if (dayjs(dateMin).isSame(rangeMap[range as keyof typeof rangeMap], 'day')) {
+    if (
+      dayjs(dateMin).isSame(rangeMap[range as keyof typeof rangeMap], 'day')
+    ) {
       state.dateRange = range;
       isMatched = true;
     }
@@ -206,7 +208,7 @@ export function stateToQS(state: QueryState) {
     'no_aggs',
   ]);
 
-  // where we only filter out the params required for each of the tabs
+  // Keep only parameters supported by the complaints API.
   const filteredParams: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(params)) {
     if (filterKeys.has(key)) {
@@ -382,21 +384,28 @@ export const querySlice = createSlice({
       .addCase(routeChanged, (state, action) => {
         const { params } = action.payload;
         // Set some variables from the URL
-        const keys = ['dateRange', 'searchField', 'searchText', 'sort'] as const;
+        const keys = [
+          'dateRange',
+          'searchField',
+          'searchText',
+          'sort',
+        ] as const;
         for (const item of keys) {
           if (!Object.hasOwn(params, item)) {
             continue;
           }
           const paramValue = params[item];
           if (paramValue) {
-            (state as QueryState & Record<string, string | number>)[item] = String(
-              enforceValues(String(paramValue), item),
-            );
+            (state as QueryState & Record<string, string | number>)[item] =
+              String(enforceValues(String(paramValue), item));
           }
         }
 
         for (const field of types.dateFilters) {
-          if (params[field] === undefined || !dayjs(params[field] as string).isValid()) {
+          if (
+            params[field] === undefined ||
+            !dayjs(params[field] as string).isValid()
+          ) {
             continue;
           }
 
@@ -429,7 +438,9 @@ export const querySlice = createSlice({
             .startOf('day')
             .format('YYYY-MM-DD');
 
-          setMaxDate(formatDayjs(dayjs(state.dateLastIndexed).startOf('day')) as string);
+          setMaxDate(
+            formatDayjs(dayjs(state.dateLastIndexed).startOf('day')) as string,
+          );
 
           // set defaults if the value is not set yet
           if (!state.date_received_max) {
