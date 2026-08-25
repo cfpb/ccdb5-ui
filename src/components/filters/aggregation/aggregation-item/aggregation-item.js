@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Checkbox, Heading } from '@cfpb/design-system-react';
 import { filterPatch, SLUG_SEPARATOR } from '../../../../constants';
 import { coalesce, sanitizeHtmlId } from '../../../../utils';
-import { arrayEquals } from '../../../../utils/compare';
 import {
   filtersReplaced,
   filterToggled,
@@ -12,31 +11,32 @@ import { getUpdatedFilters } from '../../../../utils/filters';
 import { selectFiltersRoot } from '../../../../reducers/filters/selectors';
 import { useGetAggregations } from '../../../../api/hooks/use-get-aggregations';
 
-const appliedFilters = ({ fieldName, item, aggs, filters }) => {
-  // We should find the parent
-  // determine if the other siblings are already checked
-  // check the parent only, and uncheck the rest so that the fake check
-  // will take affect
-  const [parentFilter, childFilter] = item.key.split(SLUG_SEPARATOR);
-  const subItems = aggs
-    .find((agg) => agg.key === parentFilter)
-    ['sub_' + fieldName + '.raw'].buckets.map((agg) => agg.key)
-    .toSorted((left, right) => left.localeCompare(right));
-
+const appliedFilters = ({ item, siblings, filters, isActive }) => {
+  const [parentFilter] = item.key.split(SLUG_SEPARATOR);
   const parentKey = parentFilter + SLUG_SEPARATOR;
-  const selectedFilters = filters
-    .filter((filter) => filter.includes(parentKey))
-    .map((filter) => filter.replace(parentKey, ''));
-  selectedFilters.push(childFilter);
+  const activeChildren = new Set(
+    filters.filter((filter) => filter.startsWith(parentKey)),
+  );
+  const selectingFinalChild =
+    !isActive &&
+    siblings.length > 0 &&
+    siblings
+      .filter((sibling) => sibling.key !== item.key)
+      .every((sibling) => activeChildren.has(sibling.key));
 
-  selectedFilters.sort((left, right) => left.localeCompare(right));
+  if (selectingFinalChild) {
+    return [
+      ...filters.filter(
+        (filter) => filter !== parentFilter && !filter.startsWith(parentKey),
+      ),
+      parentFilter,
+    ];
+  }
 
-  return arrayEquals(selectedFilters, subItems)
-    ? [...filters.filter((filter) => !filter.includes(parentKey)), parentFilter]
-    : [...filters, item.key];
+  return [...filters, item.key];
 };
 
-export const AggregationItem = ({ fieldName, item }) => {
+export const AggregationItem = ({ fieldName, item, siblings = [] }) => {
   const { data: aggsState, isSuccess, error } = useGetAggregations();
   const filtersState = useSelector(selectFiltersRoot);
   const dispatch = useDispatch();
@@ -59,7 +59,24 @@ export const AggregationItem = ({ fieldName, item }) => {
     const isChildItem = item.key.includes(SLUG_SEPARATOR);
     // cases where its issue / product
     if (isChildItem && filterPatch.includes(fieldName)) {
-      const filtersToApply = appliedFilters({ fieldName, item, aggs, filters });
+      const parentFilter = item.key.split(SLUG_SEPARATOR)[0];
+      const rawSiblings =
+        aggs.find((agg) => agg.key === parentFilter)?.[
+          'sub_' + fieldName + '.raw'
+        ]?.buckets ?? [];
+      const normalizedSiblings =
+        siblings.length > 0
+          ? siblings
+          : rawSiblings.map((sibling) => ({
+              ...sibling,
+              key: `${parentFilter}${SLUG_SEPARATOR}${sibling.key}`,
+            }));
+      const filtersToApply = appliedFilters({
+        item,
+        siblings: normalizedSiblings,
+        filters,
+        isActive,
+      });
       dispatch(filtersReplaced(fieldName, filtersToApply));
     } else {
       dispatch(filterToggled(fieldName, item));
@@ -74,6 +91,7 @@ export const AggregationItem = ({ fieldName, item }) => {
         filters,
         aggs,
         fieldName,
+        siblings,
       );
       dispatch(filtersReplaced(fieldName, updatedFilters));
     } else {
@@ -115,4 +133,5 @@ AggregationItem.propTypes = {
     value: PropTypes.string,
     isDisabled: PropTypes.bool,
   }).isRequired,
+  siblings: PropTypes.array,
 };

@@ -96,6 +96,13 @@ describe('component::AggregationBranch', () => {
         screen.getByRole('checkbox', { indeterminate: true }),
       ).toBeInTheDocument();
     });
+
+    it('does not match an unrelated branch with the same prefix', () => {
+      renderComponent(props, { abc: ['foobar', 'foobar•child'] });
+
+      expect(screen.getByRole('checkbox')).not.toBeChecked();
+      expect(screen.getByRole('checkbox')).not.toBePartiallyChecked();
+    });
   });
 
   describe('toggle states', () => {
@@ -118,6 +125,20 @@ describe('component::AggregationBranch', () => {
       await user.click(screen.getByRole('checkbox'));
 
       expect(replaceFiltersFn).toHaveBeenCalledWith(props.fieldName, ['foo']);
+    });
+
+    it('replaces selected children with the parent without affecting prefix collisions', async () => {
+      renderComponent(props, {
+        abc: ['foo•bar', 'foobar', 'foobar•child'],
+      });
+
+      await user.click(screen.getByRole('checkbox'));
+
+      expect(replaceFiltersFn).toHaveBeenCalledWith(props.fieldName, [
+        'foobar',
+        'foobar•child',
+        'foo',
+      ]);
     });
 
     it('should properly uncheck the component', async () => {

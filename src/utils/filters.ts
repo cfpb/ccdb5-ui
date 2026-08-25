@@ -31,6 +31,7 @@ export const getUpdatedFilters = (
   filters: string[],
   aggs: Agg[],
   fieldName: string,
+  normalizedSiblings?: AggBucket[],
 ): string[] => {
   // early exit if its not issue or product
   if (!filterPatch.includes(fieldName as (typeof filterPatch)[number])) {
@@ -47,15 +48,18 @@ export const getUpdatedFilters = (
     .filter((filter) => filter !== filterName);
   // apply siblings
   const sibs: string[] = [];
-  const siblings = aggs.find((agg) => agg.key === parentFilter);
-  if (hasParent && siblings) {
-    const subAgg = siblings['sub_' + fieldName + '.raw'] as
+  const parentAggregation = aggs.find((agg) => agg.key === parentFilter);
+  if (hasParent) {
+    const subAgg = parentAggregation?.['sub_' + fieldName + '.raw'] as
       { buckets: AggBucket[] } | undefined;
-    const buckets = subAgg?.buckets ?? [];
+    const buckets = normalizedSiblings ?? subAgg?.buckets ?? [];
     for (const bucket of buckets) {
       // don't include self
-      if (bucket.key !== parts[1]) {
-        sibs.push(slugify(parentFilter, bucket.key));
+      const childKey = bucket.key.includes(SLUG_SEPARATOR)
+        ? bucket.key.split(SLUG_SEPARATOR)[1]
+        : bucket.key;
+      if (childKey !== parts[1]) {
+        sibs.push(slugify(parentFilter, childKey));
       }
     }
   }

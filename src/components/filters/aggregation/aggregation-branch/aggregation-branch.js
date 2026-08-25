@@ -30,9 +30,11 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   // Find all query filters that refer to the field name
   const allFilters = coalesce(filters, fieldName, []);
 
-  // Do any of these values start with the key?
+  // Match only this parent or its children. A bare prefix would also match an
+  // unrelated branch such as "Foobar" when this key is "Foo".
   const keyFilters = allFilters.filter(
-    (aFilter) => aFilter.indexOf(item.key) === 0,
+    (aFilter) =>
+      aFilter === item.key || aFilter.startsWith(item.key + SLUG_SEPARATOR),
   );
 
   // Does the key contain the separator?
@@ -80,7 +82,8 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
     } else {
       // remove all of the child filters
       const replacementFilters = allFilters.filter(
-        (filter) => !filter.includes(item.key + SLUG_SEPARATOR),
+        (filter) =>
+          filter !== item.key && !filter.startsWith(item.key + SLUG_SEPARATOR),
       );
       // add self/ parent filter
       replacementFilters.push(item.key);
@@ -90,9 +93,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
 
   return (
     <>
-      <li
-        className={`aggregation-branch ${sanitizeHtmlId(item.key)} parent`}
-      >
+      <li className={`aggregation-branch ${sanitizeHtmlId(item.key)} parent`}>
         <Checkbox
           id={id}
           // The label renders the visible box via ::before, so hide only its
@@ -128,6 +129,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
               item={bucket}
               key={bucket.key}
               fieldName={fieldName}
+              siblings={buckets}
             />
           ))}
         </ul>
