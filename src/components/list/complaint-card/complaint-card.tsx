@@ -39,7 +39,11 @@ const renderPossibleHighlight = (str: string) => {
 const CardField = ({ title, children }: CardFieldProps) => (
   <div className="complaint-card__field">
     <Heading type="4">{title}</Heading>
-    <div className="complaint-card__field-value">{children}</div>
+    <div className="complaint-card__field-value">
+      {typeof children === 'string'
+        ? renderPossibleHighlight(children)
+        : children}
+    </div>
   </div>
 );
 
@@ -80,32 +84,20 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
           </p>
         </div>
         <div className="complaint-card__column complaint-card__column--primary">
-          <CardField title="Company name">
-            {renderPossibleHighlight(row.company)}
-          </CardField>
+          <CardField title="Company name">{row.company}</CardField>
           <CardField title="Company response to consumer">
-            {renderPossibleHighlight(row.company_response)}
+            {row.company_response}
           </CardField>
-          <CardField title="Timely response?">
-            {renderPossibleHighlight(row.timely)}
-          </CardField>
+          <CardField title="Timely response?">{row.timely}</CardField>
         </div>
         <div className="complaint-card__column complaint-card__column--secondary">
-          <CardField title="Product">
-            {renderPossibleHighlight(row.product)}
-          </CardField>
+          <CardField title="Product">{row.product}</CardField>
           {row.sub_product ? (
-            <CardField title="Sub-product">
-              {renderPossibleHighlight(row.sub_product)}
-            </CardField>
+            <CardField title="Sub-product">{row.sub_product}</CardField>
           ) : null}
-          <CardField title="Issue">
-            {renderPossibleHighlight(row.issue)}
-          </CardField>
+          <CardField title="Issue">{row.issue}</CardField>
           {row.sub_issue ? (
-            <CardField title="Sub-issue">
-              {renderPossibleHighlight(row.sub_issue)}
-            </CardField>
+            <CardField title="Sub-issue">{row.sub_issue}</CardField>
           ) : null}
         </div>
       </div>
