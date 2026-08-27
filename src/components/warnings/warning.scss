@@ -1,4 +1,4 @@
-.warning {
+.warning-notification {
   &.m-notification {
     margin: 10px;
 
@@ -7,12 +7,13 @@
     }
   }
 
-  .close {
+  &__close {
     position: absolute;
-    right: 0;
     top: 0;
+    right: 0;
     margin: 5px 10px;
     cursor: pointer;
+
     svg {
       fill: var(--gray);
     }

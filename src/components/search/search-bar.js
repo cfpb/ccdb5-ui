@@ -22,7 +22,6 @@ import { Input } from '../typeahead/input/input';
 const searchFieldOptions = [
   { value: 'all', label: 'All data' },
   { value: 'company', label: 'Company name' },
-  { value: 'complaint_what_happened', label: 'Narratives' },
 ];
 
 export const SearchBar = () => {

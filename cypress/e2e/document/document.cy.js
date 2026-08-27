@@ -8,11 +8,9 @@ const firstComplaintLink = () =>
 const backToSearch = () =>
   cy.findByRole('link', { name: 'Back to search results' });
 
-const sortSelect = () =>
-  cy.findByLabelText('Sort by');
+const sortSelect = () => cy.findByLabelText('Sort by');
 
-const sizeSelect = () =>
-  cy.findByLabelText('Show per page');
+const sizeSelect = () => cy.findByLabelText('Show per page');
 
 describe('Document View', () => {
   describe('error handling', () => {

@@ -29,6 +29,12 @@
       }
     }
 
+    .aggregation-item__checkbox {
+      flex: 1 1 auto;
+      min-width: 0;
+      margin-bottom: 0;
+    }
+
     // Rule lines between parent items and between child items.
     > li + li {
       border-top: 1px solid var(--gray-40);

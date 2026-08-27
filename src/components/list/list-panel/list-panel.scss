@@ -16,4 +16,12 @@
       padding: $grid-gutter-width 0;
     }
   }
+
+  .m-pagination {
+    .a-btn[disabled],
+    .m-pagination__label,
+    .m-pagination__btn-submit {
+      color: var(--gray);
+    }
+  }
 }

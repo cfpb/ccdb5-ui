@@ -239,6 +239,58 @@ describe('component::AggregationItem', () => {
         ]);
       });
 
+      test('deselects a selected child from legacy all-children state', async () => {
+        const ownProps = {
+          fieldName: 'issue',
+          item: {
+            key: 'Parent•One',
+            doc_count: 1,
+          },
+          siblings: [{ key: 'Parent•One' }, { key: 'Parent•Two' }],
+        };
+        renderComponent(ownProps, { issue: ['Parent•One', 'Parent•Two'] });
+        await screen.findByRole('checkbox');
+        fireEvent.click(screen.getByRole('checkbox'));
+
+        expect(replaceFiltersFn).toHaveBeenCalledWith('issue', ['Parent•Two']);
+      });
+
+      test('uses reconstructed missing siblings when selecting the final child', async () => {
+        const ownProps = {
+          fieldName: 'issue',
+          item: { key: 'Parent•Two', doc_count: 1 },
+          siblings: [
+            { key: 'Parent•One' },
+            { key: 'Parent•Two' },
+            { key: 'Parent•Missing', doc_count: 0 },
+          ],
+        };
+        renderComponent(ownProps, {
+          issue: ['Parent•One', 'Parent•Missing'],
+        });
+        await screen.findByRole('checkbox');
+        fireEvent.click(screen.getByRole('checkbox'));
+
+        expect(replaceFiltersFn).toHaveBeenCalledWith('issue', ['Parent']);
+      });
+
+      test('does not throw when the selected branch is missing from aggregations', async () => {
+        const ownProps = {
+          fieldName: 'issue',
+          item: { key: 'Missing parent•Only child', doc_count: 0 },
+          siblings: [{ key: 'Missing parent•Only child', doc_count: 0 }],
+        };
+        renderComponent(ownProps, {});
+        await screen.findByRole('checkbox');
+
+        expect(() =>
+          fireEvent.click(screen.getByRole('checkbox')),
+        ).not.toThrow();
+        expect(replaceFiltersFn).toHaveBeenCalledWith('issue', [
+          'Missing parent',
+        ]);
+      });
+
       test('handles non product & issue filters', async () => {
         const ownProps = {
           fieldName: 'fieldName',

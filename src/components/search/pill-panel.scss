@@ -4,35 +4,33 @@
   margin-bottom: $grid-gutter-width;
   padding-right: $gutter-narrow;
 
-  .pill-panel__list {
+  &__list {
     margin: 0;
   }
 
-  .override {
+  // The label and clear control are list items so they wrap inline with the
+  // pills; reset the tag-group chrome the DS applies to every child.
+  &__label,
+  &__clear {
     padding-right: 0;
     padding-left: 0;
     border: 0;
 
     p {
       padding-top: 4px;
+      margin-bottom: 0;
     }
   }
 
-  .pill-panel__clear button {
+  &__clear button {
     position: relative;
     top: 1px;
     padding: 4px 0;
     line-height: 1.1875;
   }
 
-  .pill-label {
-    p {
-      margin-bottom: 0;
-    }
-  }
-
   @media screen and (max-width: $bp-xs-max) {
-    .pill-panel__clear {
+    &__clear {
       display: block;
     }
   }

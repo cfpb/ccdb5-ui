@@ -1,7 +1,8 @@
 import './pill-panel.scss';
 import { DATE_RANGE_MIN, knownFilters } from '../../constants';
 import { Button, Paragraph } from '@cfpb/design-system-react';
-import { selectFiltersRoot } from '../../reducers/filters/selectors';import {
+import { selectFiltersRoot } from '../../reducers/filters/selectors';
+import {
   selectQueryDateLastIndexed,
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
@@ -72,7 +73,7 @@ export const PillPanel = () => {
   return (
     <section className="pill-panel">
       <ul className="m-tag-group pill-panel__list">
-        <li className="override pill-label">
+        <li className="pill-panel__label">
           <Paragraph>Filters applied:</Paragraph>
         </li>
         {filters.map((filter) => (
@@ -87,10 +88,10 @@ export const PillPanel = () => {
             }
           />
         ))}
-        <li className="override pill-panel__clear">
+        <li className="pill-panel__clear">
           <Button
             appearance="warning"
-            label="Clear filters"
+            label="Clear all filters"
             isLink
             onClick={() => dispatch(filtersCleared(searchField))}
           />

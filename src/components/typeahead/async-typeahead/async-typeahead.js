@@ -111,7 +111,7 @@ export const AsyncTypeahead = ({
           <Typeahead
             id={htmlId}
             minLength={1}
-            className="typeahead-selector"
+            className="typeahead__selector"
             defaultInputValue={defaultValue}
             delay={250}
             disabled={isDisabled}
@@ -141,7 +141,7 @@ export const AsyncTypeahead = ({
             maxResults={maxResults}
             placeholder={placeholder}
             renderMenuItemChildren={(option) => (
-              <li className="typeahead-option">
+              <li className="typeahead__option">
                 <HighlightingOption
                   key={option.key}
                   label={option.label}

@@ -61,4 +61,16 @@ describe('getUpdatedFilters', () => {
     const res = sut.getUpdatedFilters(filterName, filters, aggs, fieldName);
     expect(res).toEqual(['b', 'c']);
   });
+
+  it('expands a parent using reconstructed siblings', () => {
+    const res = sut.getUpdatedFilters(
+      slugify('a', 'b'),
+      ['a', 'foobar', 'foobar•child'],
+      [],
+      'issue',
+      [{ key: 'a•b' }, { key: 'a•c' }, { key: 'a•missing' }],
+    );
+
+    expect(res).toEqual(['foobar', 'foobar•child', 'a•c', 'a•missing']);
+  });
 });

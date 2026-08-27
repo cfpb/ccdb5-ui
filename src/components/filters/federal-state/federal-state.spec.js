@@ -51,8 +51,8 @@ describe('FederalState', () => {
 
     fetchMock.mockResponse(JSON.stringify(statesResponse));
     renderComponent({ state: ['TX'] });
-    // test presence of zero count filters
-    await screen.findByLabelText('TX');
+    // StickyOptions keeps selected states even with a zero aggregation count.
+    await screen.findByRole('checkbox', { name: 'Texas (TX)' });
     const input = screen.getByRole('combobox', {
       name: 'The state in the mailing address provided by the consumer.',
     });

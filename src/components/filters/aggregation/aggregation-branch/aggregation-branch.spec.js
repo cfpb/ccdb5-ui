@@ -52,7 +52,7 @@ describe('component::AggregationBranch', () => {
         screen.getByRole('checkbox', { name: props.item.key }),
       ).not.toBeChecked();
       expect(
-        screen.getByRole('button', { name: props.item.key }),
+        screen.getByRole('button', { name: new RegExp(props.item.key) }),
       ).toBeInTheDocument();
       expect(screen.getByText(props.item.doc_count)).toBeInTheDocument();
       expect(screen.queryByRole('list')).not.toBeInTheDocument();
@@ -96,6 +96,13 @@ describe('component::AggregationBranch', () => {
         screen.getByRole('checkbox', { indeterminate: true }),
       ).toBeInTheDocument();
     });
+
+    it('does not match an unrelated branch with the same prefix', () => {
+      renderComponent(props, { abc: ['foobar', 'foobar•child'] });
+
+      expect(screen.getByRole('checkbox')).not.toBeChecked();
+      expect(screen.getByRole('checkbox')).not.toBePartiallyChecked();
+    });
   });
 
   describe('toggle states', () => {
@@ -120,6 +127,20 @@ describe('component::AggregationBranch', () => {
       expect(replaceFiltersFn).toHaveBeenCalledWith(props.fieldName, ['foo']);
     });
 
+    it('replaces selected children with the parent without affecting prefix collisions', async () => {
+      renderComponent(props, {
+        abc: ['foo•bar', 'foobar', 'foobar•child'],
+      });
+
+      await user.click(screen.getByRole('checkbox'));
+
+      expect(replaceFiltersFn).toHaveBeenCalledWith(props.fieldName, [
+        'foobar',
+        'foobar•child',
+        'foo',
+      ]);
+    });
+
     it('should properly uncheck the component', async () => {
       const query = {
         abc: [props.item.key],
@@ -140,7 +161,9 @@ describe('component::AggregationBranch', () => {
     it('should show children list items on button click', async () => {
       renderComponent(props);
 
-      await user.click(screen.getByRole('button', { name: props.item.key }));
+      await user.click(
+        screen.getByRole('button', { name: new RegExp(props.item.key) }),
+      );
 
       expect(screen.getByRole('list')).toBeInTheDocument();
     });

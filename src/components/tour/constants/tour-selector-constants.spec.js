@@ -19,7 +19,7 @@ describe('tour selector constants', () => {
     );
   });
 
-  it('uses list-view filter and result targets', () => {
+  it('uses complaint search filter and result targets', () => {
     expect(LIST_COMPLAINTS_SELECTORS.STEP_3).toBe(TOUR_STEP_TARGETS.FILTERS);
     expect(LIST_COMPLAINTS_SELECTORS.STEP_4).toBe(
       TOUR_STEP_TARGETS.DATE_RECEIVED,

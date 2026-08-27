@@ -2,17 +2,19 @@
 @use 'css/base' as *;
 
 .filter-panel {
-  // Surface chrome comes from DS `.o-well`.
-  @media screen and (max-width: $bp-xs-max) {
-    border-right: none;
+  // Surface chrome comes from DS `.o-well`. Border overrides need the extra
+  // class because `.o-well` is emitted after this file in the bundle.
+  &.o-well {
+    @media screen and (max-width: $bp-xs-max) {
+      border-right: none;
+    }
   }
 
   .a-form-alert {
     margin-top: $gutter-normal;
   }
 
-  // Vertical rhythm against <hr>s: 15px above titles, 30px below content
-  // (e.g. under "+ Show N more" and the Has Narrative checkbox).
+  // Vertical rhythm against <hr>s: 15px above titles and 30px below content.
   .o-expandable__header {
     padding: $gutter-normal 0;
   }
@@ -25,7 +27,7 @@
     }
   }
 
-  // Non-expandable filters (e.g. Has Narrative) match that bottom spacing.
+  // Keep any non-expandable filters on the same vertical rhythm.
   > section:not(.o-expandable) {
     padding: $gutter-normal 0 $grid-gutter-width;
 

@@ -38,7 +38,7 @@ export const Typeahead = ({
           <DropdownTypeahead
             id={htmlId}
             minLength={1}
-            className="typeahead-selector"
+            className="typeahead__selector"
             disabled={isDisabled}
             isLoading={false}
             ref={ref}
@@ -54,7 +54,7 @@ export const Typeahead = ({
             maxResults={maxResults}
             placeholder={placeholder}
             renderMenuItemChildren={(option) => (
-              <li className="typeahead-option">
+              <li className="typeahead__option">
                 <HighlightingOption
                   key={option.key}
                   label={option.label}

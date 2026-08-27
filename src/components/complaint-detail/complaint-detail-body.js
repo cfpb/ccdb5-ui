@@ -5,8 +5,8 @@ import { formatDisplayDate } from '../../utils/format-date';
 
 const SubAggregation = ({ label, value }) => {
   return value ? (
-    <div className="layout-row">
-      <span className="subitem">{label}</span>
+    <div className="complaint-detail__subaggregation">
+      <span className="complaint-detail__subaggregation-label">{label}</span>
       <span>{value}</span>
     </div>
   ) : null;
@@ -24,7 +24,7 @@ const CompanyTimely = ({ value }) => {
 
   return (
     <div>
-      <span className="cf-icon__before">
+      <span className="complaint-detail__timely-icon">
         <Icon name="clock-round" isPresentational />
       </span>
       <span>{value}</span>
@@ -42,13 +42,13 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
   const h1ReadOut = ariaReadoutNumbers(id);
 
   return (
-    <article>
+    <article className="complaint-detail__body">
       <Heading type="1" aria-label={'Complaint ' + h1ReadOut}>
         {id}
       </Heading>
-      <div className="card">
-        <div className="card-left layout-column">
-          <Heading type="4">Date received</Heading>
+      <div className="complaint-detail__card">
+        <div className="complaint-detail__column complaint-detail__column--narrow">
+          <Heading type="4">Date CFPB received the complaint</Heading>
           <span>{formatDisplayDate(data.date_received)}</span>
 
           <Heading type="4" className="u-mt15">
@@ -75,7 +75,7 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
             </>
           ) : null}
         </div>
-        <div className="card-right layout-column">
+        <div className="complaint-detail__column complaint-detail__column--wide">
           <Heading type="4">Product</Heading>
           <Heading type="3">{data.product}</Heading>
           <SubAggregation label="Sub-product:" value={data.sub_product} />
@@ -88,11 +88,11 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
         </div>
       </div>
 
-      <Heading type="2" className="company-information">
+      <Heading type="2" className="complaint-detail__company-heading">
         Company information
       </Heading>
-      <div className="card">
-        <div className="card-left layout-column">
+      <div className="complaint-detail__card">
+        <div className="complaint-detail__column complaint-detail__column--narrow">
           <Heading type="4">Date complaint sent to company</Heading>
           <span>{formatDisplayDate(data.date_sent_to_company)}</span>
 
@@ -101,7 +101,7 @@ export const ComplaintDetailBody = ({ data, error, id }) => {
           </Heading>
           <span>{data.company}</span>
         </div>
-        <div className="card-right layout-column">
+        <div className="complaint-detail__column complaint-detail__column--wide">
           <Heading type="4">Timely response?</Heading>
           <CompanyTimely value={data.timely} />
 

@@ -25,8 +25,8 @@ export const RootModal = () => {
       {...(appElement ? { appElement } : {})}
       isOpen
       contentLabel="CFPB Modal Dialog"
-      className="modal-body"
-      overlayClassName="modal-overlay"
+      className="ccdb-modal"
+      overlayClassName="ccdb-modal__overlay"
       parentSelector={() => portalParent}
       onRequestClose={closeModal}
     >
