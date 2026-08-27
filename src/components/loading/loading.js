@@ -10,8 +10,8 @@ export const Loading = ({ isLoading }) => {
   }
 
   return createPortal(
-    <section className="light-box" aria-busy="true" aria-live="polite">
-      <div className="loading-box">
+    <section className="loading-overlay" aria-busy="true" aria-live="polite">
+      <div className="loading-overlay__box">
         <Icon name="updating" isPresentational />{' '}
         <span>This page is loading</span>
       </div>

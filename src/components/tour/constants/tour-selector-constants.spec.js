@@ -15,11 +15,11 @@ describe('tour selector constants', () => {
       '.ccdb-content aside.content__sidebar .filter-panel .date-filter',
     );
     expect(TOUR_SELECTORS.EXPORT_BTN).toBe(
-      '.ccdb-content .export-results .export-btn',
+      '.ccdb-content .action-bar__actions .export-btn',
     );
   });
 
-  it('uses list-view filter and result targets', () => {
+  it('uses complaint search filter and result targets', () => {
     expect(LIST_COMPLAINTS_SELECTORS.STEP_3).toBe(TOUR_STEP_TARGETS.FILTERS);
     expect(LIST_COMPLAINTS_SELECTORS.STEP_4).toBe(
       TOUR_STEP_TARGETS.DATE_RECEIVED,

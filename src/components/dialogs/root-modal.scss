@@ -1,7 +1,7 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
-.modal-overlay {
+.ccdb-modal__overlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -22,7 +22,7 @@
   background-color: rgb(0 0 0 / 60%);
 }
 
-.modal-body {
+.ccdb-modal {
   box-sizing: border-box;
   width: 100%;
   max-width: 570px;
@@ -36,8 +36,9 @@
   background: var(--white);
   outline: none;
 
-  .header {
+  &__header {
     position: relative;
+    display: flex;
     padding: $grid-gutter-width;
 
     // Leave room for the absolutely positioned Close control.
@@ -58,7 +59,7 @@
     }
   }
 
-  .body {
+  &__body {
     padding: 0 $grid-gutter-width $grid-gutter-width;
 
     p:last-of-type {
@@ -66,7 +67,9 @@
     }
   }
 
-  .footer {
+  &__footer {
+    display: flex;
+    flex-flow: row wrap;
     padding: $grid-gutter-width;
     border-top: 1px solid var(--gray-40);
 

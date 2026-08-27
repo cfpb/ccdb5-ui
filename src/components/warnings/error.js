@@ -5,7 +5,7 @@ import './error.scss';
 export const ErrorBlock = ({ text }) => (
   <div
     role="alert"
-    className="error m-notification m-notification--visible m-notification--error"
+    className="error-notification m-notification m-notification--visible m-notification--error"
   >
     <Icon name="error-round" isPresentational />
     <div className="m-notification__content">

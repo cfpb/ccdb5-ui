@@ -29,12 +29,12 @@ export const ComplaintDetail = () => {
   const { data, isLoading, error } = useGetDocumentQuery(id);
 
   return (
-    <section className="card-container">
-      <nav className="layout-row">
-        <div className="back-to-search flex-fixed">
+    <section className="complaint-detail">
+      <nav className="complaint-detail__nav">
+        <div className="complaint-detail__back-link">
           <Link to={backUrl} iconLeft="left" label="Back to search results" />
         </div>
-        <div className="meaning flex-fixed">
+        <div className="complaint-detail__meaning-link">
           <Link
             to={LINK_DATA_USE}
             target="_blank"

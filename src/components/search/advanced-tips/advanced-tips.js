@@ -242,7 +242,7 @@ export const AdvancedTips = () => {
           />
         </div>
       </div>
-      <div className="footer">
+      <div className="advanced-tips__footer">
         <Heading type="3">Additional notes:</Heading>
         <ul className="m-list">
           <li className="m-list__item">
@@ -256,7 +256,7 @@ export const AdvancedTips = () => {
             both words (i.e., foreclosure AND house).
           </li>
           <li className="m-list__item">
-            Capitalization does not have an effect on searched terms (expect for
+            Capitalization does not have an effect on searched terms (except for
             the AND / OR / NOT operators).
           </li>
           <li className="m-list__item">

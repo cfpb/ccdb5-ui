@@ -2,7 +2,7 @@ import './aggregation-branch.scss';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button, Heading, Icon } from '@cfpb/design-system-react';
+import { Checkbox, Heading, Icon } from '@cfpb/design-system-react';
 import {
   coalesce,
   getAllFilters,
@@ -30,9 +30,11 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
   // Find all query filters that refer to the field name
   const allFilters = coalesce(filters, fieldName, []);
 
-  // Do any of these values start with the key?
+  // Match only this parent or its children. A bare prefix would also match an
+  // unrelated branch such as "Foobar" when this key is "Foo".
   const keyFilters = allFilters.filter(
-    (aFilter) => aFilter.indexOf(item.key) === 0,
+    (aFilter) =>
+      aFilter === item.key || aFilter.startsWith(item.key + SLUG_SEPARATOR),
   );
 
   // Does the key contain the separator?
@@ -63,7 +65,6 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
     return <AggregationItem item={item} key={item.key} fieldName={fieldName} />;
   }
 
-  const liStyle = 'parent m-form-field m-form-field--checkbox';
   const id = sanitizeHtmlId(`${fieldName} ${item.key}`);
 
   const toggleOpen = () => {
@@ -81,7 +82,8 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
     } else {
       // remove all of the child filters
       const replacementFilters = allFilters.filter(
-        (filter) => !filter.includes(item.key + SLUG_SEPARATOR),
+        (filter) =>
+          filter !== item.key && !filter.startsWith(item.key + SLUG_SEPARATOR),
       );
       // add self/ parent filter
       replacementFilters.push(item.key);
@@ -91,28 +93,21 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
 
   return (
     <>
-      <li
-        className={`aggregation-branch ${sanitizeHtmlId(item.key)} ${liStyle}`}
-      >
-        <input
-          type="checkbox"
-          aria-label={item.key}
+      <li className={`aggregation-branch ${sanitizeHtmlId(item.key)} parent`}>
+        <Checkbox
+          id={id}
+          // The label renders the visible box via ::before, so hide only its
+          // text; the adjacent toggle button already shows the item name.
+          label={<span className="u-visually-hidden">{item.key}</span>}
+          className="aggregation-branch__checkbox"
           disabled={item.isDisabled}
           checked={checkedState === CHECKED}
-          className="flex-fixed a-checkbox"
-          id={id}
+          isIndeterminate={checkedState === INDETERMINATE}
           onChange={toggleParent}
         />
-        <label
-          className={`toggle a-label ${checkedState === INDETERMINATE ? ' indeterminate' : ''}`}
-          htmlFor={id}
-        >
-          <span className="u-visually-hidden">{item.key}</span>
-        </label>
-        <Button
-          isLink
+        <button
+          type="button"
           className="aggregation-branch__toggle"
-          aria-label={item.key}
           aria-expanded={isOpen}
           onClick={toggleOpen}
         >
@@ -125,7 +120,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
             isPresentational
             className="aggregation-branch__caret"
           />
-        </Button>
+        </button>
       </li>
       {isOpen ? (
         <ul className="children">
@@ -134,6 +129,7 @@ export const AggregationBranch = ({ fieldName, item, subitems }) => {
               item={bucket}
               key={bucket.key}
               fieldName={fieldName}
+              siblings={buckets}
             />
           ))}
         </ul>

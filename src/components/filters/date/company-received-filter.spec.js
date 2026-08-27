@@ -25,7 +25,7 @@ describe('component::CompanyReceivedFilter', () => {
   it('Renders', async () => {
     renderComponent({});
     expect(screen.getByLabelText('From')).toBeInTheDocument();
-    expect(screen.getByLabelText('Through')).toBeInTheDocument();
+    expect(screen.getByLabelText('To')).toBeInTheDocument();
 
     await user.type(screen.getByLabelText('From'), '2018-09-03{Enter}');
     // expect(screen.getByText())
@@ -34,7 +34,7 @@ describe('component::CompanyReceivedFilter', () => {
       '',
     );
 
-    await user.type(screen.getByLabelText('Through'), '2021-09-03{Enter}');
+    await user.type(screen.getByLabelText('To'), '2021-09-03{Enter}');
     expect(companyReceivedDateUpdatedSpy).toHaveBeenCalledWith(
       '2018-09-03',
       '2021-09-03',
@@ -47,7 +47,7 @@ describe('component::CompanyReceivedFilter', () => {
       company_received_max: '09-23-2017',
     });
     expect(
-      screen.getByText("'From' date must be less than 'through' date"),
+      screen.getByText("'From' date must be less than 'To' date"),
     ).toBeInTheDocument();
   });
 });

@@ -7,8 +7,8 @@ export const ExportConfirmation = () => {
 
   return (
     <section className="export-modal">
-      <div className="header layout-row">
-        <Heading type="3" className="flex-all">
+      <div className="ccdb-modal__header">
+        <Heading type="3">
           Download complaint data
         </Heading>
         <Button
@@ -20,8 +20,8 @@ export const ExportConfirmation = () => {
           }}
         />
       </div>
-      <div className="body">
-        <div className="instructions">
+      <div className="ccdb-modal__body">
+        <div className="export-modal__instructions">
           It may take a few minutes for your file to download. You can keep
           working while it processes.
         </div>

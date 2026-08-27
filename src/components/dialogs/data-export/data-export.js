@@ -92,8 +92,8 @@ export const DataExport = () => {
 
   return (
     <section className="export-modal">
-      <div className="header layout-row">
-        <Heading type="3" className="flex-all">
+      <div className="ccdb-modal__header">
+        <Heading type="3">
           Download complaint data
         </Heading>
         <Button
@@ -105,14 +105,14 @@ export const DataExport = () => {
           }}
         />
       </div>
-      <div className="body">
-        <div className="instructions">
+      <div className="ccdb-modal__body">
+        <div className="export-modal__instructions">
           Download your filtered results (CSV) or download all complaint data
           (CSV ZIP). Filtered results downloads are limited to 100,000
           complaints.
         </div>
-        <div className="group">
-          <Heading type="4" className="group-title">
+        <div className="export-modal__group">
+          <Heading type="4" className="export-modal__group-title">
             Select the data you would like to download
           </Heading>
           <div>
@@ -157,17 +157,17 @@ export const DataExport = () => {
             </div>
           </div>
           {filterAlertMessage ? (
-            <div className="export-filter-alert">
+            <div className="export-modal__filter-alert">
               <AlertFieldLevel message={filterAlertMessage} status="error" />
             </div>
           ) : null}
         </div>
 
-        <div className="heres-the-url">
+        <div className="export-modal__url">
           <Heading type="4">Save a link to your filtered results</Heading>
-          <div className="layout-row">
+          <div className="export-modal__url-control">
             <input
-              className="flex-all a-text-input"
+              className="export-modal__url-input a-text-input"
               id="export-uri-input"
               type="text"
               value={resultsLink}
@@ -183,7 +183,7 @@ export const DataExport = () => {
           </div>
         </div>
       </div>
-      <div className="footer layout-row">
+      <div className="ccdb-modal__footer">
         <Button
           label="Download data"
           iconRight="download"

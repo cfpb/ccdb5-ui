@@ -1,17 +1,18 @@
 @use 'css/base' as *;
 
 .pill-panel {
+  margin-top: $grid-gutter-width;
   padding-right: $gutter-narrow;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: baseline;
 
-  .pill-panel__list {
+  &__list {
     margin: 0;
   }
 
-  .pill-panel__clear {
+  &__clear {
     button {
       margin-left: $gutter-narrow;
       align-items: baseline;
@@ -23,7 +24,8 @@
     }
   }
 
-  .pill-label {
+  &__label {
+    flex: none;
     padding-right: $gutter-normal;
     margin-bottom: 0;
   }
@@ -35,8 +37,8 @@
 
   @media screen and (max-width: $bp-xs-max) {
     flex-direction: column;
-    margin-top: 70px;
-    .pill-panel__clear {
+
+    &__clear {
       display: block;
 
       button {

@@ -26,12 +26,12 @@ export const TOUR_SELECTORS = {
   SEARCH_BAR: `${TOUR_SCOPE} .search-bar`,
   SEARCH_SUMMARY: `${TOUR_SCOPE} #search-summary`,
   // Design-system link buttons render as <a>, not <button>
-  EXPORT_BTN: `${TOUR_SCOPE} .export-results .export-btn`,
-  PRINT_BTN: `${TOUR_SCOPE} .export-results .print-preview`,
+  EXPORT_BTN: `${TOUR_SCOPE} .action-bar__actions .export-btn`,
+  PRINT_BTN: `${TOUR_SCOPE} .action-bar__actions .print-preview`,
   SELECT_SIZE: `${TOUR_SCOPE} [data-tour="select-size"]`,
   SELECT_SORT: `${TOUR_SCOPE} [data-tour="select-sort"]`,
   CARDS_PANEL: `${TOUR_SCOPE} .cards-panel`,
-  TO_DETAIL: `${TOUR_SCOPE} .cards-panel .to-detail`,
+  TO_DETAIL: `${TOUR_SCOPE} .cards-panel .complaint-card__detail-link`,
   MOBILE_FILTER_TOGGLE: `${TOUR_SCOPE} .filter-panel-toggle .m-btn-group .a-btn`,
 };
 

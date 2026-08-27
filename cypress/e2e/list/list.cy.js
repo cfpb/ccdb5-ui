@@ -4,11 +4,9 @@ const complaintLinks = () => cy.findAllByRole('link', { name: /^Complaint / });
 
 const pagination = () => cy.findByRole('navigation', { name: 'Pagination' });
 
-const sizeSelect = () =>
-  cy.findByLabelText('Select the number of results to display at a time');
+const sizeSelect = () => cy.findByLabelText('Show per page');
 
-const sortSelect = () =>
-  cy.findByLabelText('Choose the order in which the results are displayed');
+const sortSelect = () => cy.findByLabelText('Sort by');
 
 const searchField = () =>
   cy.findByLabelText('Choose which field will be searched');

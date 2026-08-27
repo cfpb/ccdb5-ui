@@ -5,7 +5,7 @@ import { PrintInfoFooter } from '../print/print-info-footer';
 
 export const ResultsPanel = () => {
   return (
-    <div className="content__main list">
+    <div className="content__main">
       <PrintInfo />
       <ActionBar />
       <ListPanel />

@@ -8,12 +8,8 @@
   }
 
   .cards-panel {
-    padding: $grid-gutter-width;
+    padding: 0;
     margin: 0;
-
-    @media screen and (max-width: $bp-xs-max) {
-      padding: $gutter-normal;
-    }
   }
 
   .m-pagination {
