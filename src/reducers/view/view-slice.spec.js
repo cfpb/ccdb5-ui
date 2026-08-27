@@ -32,7 +32,10 @@ describe('reducer:View', () => {
 
     it('hides the more about modal', () => {
       expect(
-        target({ ...viewState, isMoreAboutModalOpen: true }, moreAboutModalHidden()),
+        target(
+          { ...viewState, isMoreAboutModalOpen: true },
+          moreAboutModalHidden(),
+        ),
       ).toEqual({
         ...viewState,
         isMoreAboutModalOpen: false,

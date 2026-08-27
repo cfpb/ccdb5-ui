@@ -156,7 +156,9 @@ describe('DownloadComplaintData', () => {
     await user.click(filteredLink);
 
     expect(
-      screen.getByText(/You must add search terms or apply filters to download filtered results/),
+      screen.getByText(
+        /You must add search terms or apply filters to download filtered results/,
+      ),
     ).toBeInTheDocument();
 
     act(() => {
@@ -165,7 +167,9 @@ describe('DownloadComplaintData', () => {
 
     await waitFor(() => {
       expect(
-        screen.queryByText(/You must add search terms or apply filters to download filtered results/),
+        screen.queryByText(
+          /You must add search terms or apply filters to download filtered results/,
+        ),
       ).not.toBeInTheDocument();
     });
   });

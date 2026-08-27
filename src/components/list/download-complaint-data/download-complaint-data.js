@@ -66,10 +66,12 @@ export const DownloadComplaintData = () => {
   }, [alert]);
 
   const clearFadeTimer = useCallback(() => {
-    if (fadeTimerRef.current) {
-      clearTimeout(fadeTimerRef.current);
-      fadeTimerRef.current = null;
+    if (!fadeTimerRef.current) {
+      return;
     }
+
+    clearTimeout(fadeTimerRef.current);
+    fadeTimerRef.current = null;
   }, []);
 
   const dismissAlertWithFade = useCallback(() => {
