@@ -91,7 +91,7 @@ export const PillPanel = () => {
         <li className="pill-panel__clear">
           <Button
             appearance="warning"
-            label="Clear all filters"
+            label="Clear filters"
             isLink
             onClick={() => dispatch(filtersCleared(searchField))}
           />

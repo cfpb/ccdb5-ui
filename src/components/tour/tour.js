@@ -1,5 +1,5 @@
 import './tour.scss';
-import { useCallback, useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectViewIsPrintMode,
@@ -82,82 +82,66 @@ export const Tour = () => {
     [isMobileTour],
   );
 
-  const handleBeforeChange = useCallback(
-    (ref) => {
-      if (!ref.current) {
-        return;
-      }
-      const currentStep = ref.current.introJs.currentStep();
+  const onBeforeChange = () => {
+    if (!stepRef.current) {
+      return;
+    }
+    const currentStep = stepRef.current.introJs.currentStep();
 
-      if (!Object.hasOwn(baseSteps, currentStep)) {
-        return;
-      }
+    if (!Object.hasOwn(baseSteps, currentStep)) {
+      return;
+    }
 
-      const filterListener = async () => {
-        querySelector('.introjs-nextbutton')?.setAttribute(
-          'style',
-          'display: inline',
-        );
+    const filterListener = async () => {
+      querySelector('.introjs-nextbutton')?.setAttribute(
+        'style',
+        'display: inline',
+      );
 
-        const afterFilterAction =
-          currentStep === MOBILE_FILTER_CLOSE_STEP_INDEX
-            ? Promise.resolve()
-            : waitForDateFilter();
+      const afterFilterAction =
+        currentStep === MOBILE_FILTER_CLOSE_STEP_INDEX
+          ? Promise.resolve()
+          : waitForDateFilter();
 
-        await afterFilterAction;
-        await ref.current.introJs.nextStep();
-        querySelector(MOBILE_FILTER_TOGGLE_SELECTOR)?.removeEventListener(
-          'click',
-          filterListener,
-        );
-      };
+      await afterFilterAction;
+      await stepRef.current.introJs.nextStep();
+      querySelector(MOBILE_FILTER_TOGGLE_SELECTOR)?.removeEventListener(
+        'click',
+        filterListener,
+      );
+    };
 
-      if (
-        isMobileTour &&
-        (currentStep === MOBILE_FILTER_OPEN_STEP_INDEX ||
-          currentStep === MOBILE_FILTER_CLOSE_STEP_INDEX)
-      ) {
-        querySelector('.introjs-nextbutton')?.setAttribute(
-          'style',
-          'display: none',
-        );
-        querySelector(MOBILE_FILTER_TOGGLE_SELECTOR)?.addEventListener(
-          'click',
-          filterListener,
-        );
-      }
-    },
-    [baseSteps, isMobileTour],
-  );
+    if (
+      isMobileTour &&
+      (currentStep === MOBILE_FILTER_OPEN_STEP_INDEX ||
+        currentStep === MOBILE_FILTER_CLOSE_STEP_INDEX)
+    ) {
+      querySelector('.introjs-nextbutton')?.setAttribute(
+        'style',
+        'display: none',
+      );
+      querySelector(MOBILE_FILTER_TOGGLE_SELECTOR)?.addEventListener(
+        'click',
+        filterListener,
+      );
+    }
+  };
 
-  const handleBeforeExit = useCallback(
-    (ref) => {
-      if (!showTour || ref.current === null) {
-        return true;
-      }
-      if (ref.current.introJs.currentStep() + 1 < baseSteps.length) {
-        return confirm('Are you sure you want to exit the tour?');
-      }
+  const onBeforeExit = () => {
+    if (!showTour || stepRef.current === null) {
       return true;
-    },
-    [baseSteps.length, showTour],
-  );
+    }
+    if (stepRef.current.introJs.currentStep() + 1 < baseSteps.length) {
+      return confirm('Are you sure you want to exit the tour?');
+    }
+    return true;
+  };
 
-  const hideTour = useCallback(() => {
+  const hideTour = () => {
     if (showTour) {
       dispatch(tourHidden());
     }
-  }, [dispatch, showTour]);
-
-  const onBeforeChange = useCallback(
-    () => handleBeforeChange(stepRef),
-    [handleBeforeChange],
-  );
-
-  const onBeforeExit = useCallback(
-    () => handleBeforeExit(stepRef),
-    [handleBeforeExit],
-  );
+  };
 
   return isLoading ? null : (
     <>

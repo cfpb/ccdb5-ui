@@ -1,7 +1,7 @@
 /* eslint complexity: ["error", 7] */
 import './date-filter.scss';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../../constants';
-import { useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
@@ -22,6 +22,27 @@ dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
 dayjs.extend(dayjsUtc);
 
+const ERROR_FROM_AFTER_THROUGH = "'From' date must be less than 'To' date";
+const ERROR_SAME_DATE = "'From' date cannot be the same as 'To' date";
+
+const dateReceivedError = (fromDate, throughDate) => {
+  if (dayjs(fromDate).isAfter(throughDate)) {
+    return ERROR_FROM_AFTER_THROUGH;
+  }
+  if (dayjs(fromDate).isSame(throughDate)) {
+    return ERROR_SAME_DATE;
+  }
+  if (dayjs(throughDate).isAfter(maxDate)) {
+    return "'To' date cannot be later than " + formatDisplayDate(maxDate);
+  }
+  return false;
+};
+
+const dateInputClassName = (hasError) =>
+  ['a-text-input', hasError ? 'a-text-input--error' : '']
+    .filter(Boolean)
+    .join(' ');
+
 export const DateFilter = () => {
   const fieldName = 'date_received';
   const title = 'The date the CFPB received the complaint';
@@ -37,16 +58,12 @@ export const DateFilter = () => {
   const [draftThroughDate, setDraftThroughDate] = useState(null);
   const dispatch = useDispatch();
 
-  const errorMessageText = "'From' date must be less than 'To' date";
-  const errorSameDate = "'From' date cannot be the same as 'To' date";
-  const errorThroughOutOfBounds =
-    "'To' date cannot be later than " + formatDisplayDate(maxDate);
-
   const fromRef = useRef();
   const throughRef = useRef();
 
   const fromDate = draftFromDate ?? formattedFromDate;
   const throughDate = draftThroughDate ?? formattedThroughDate;
+  const errors = dateReceivedError(fromDate, throughDate);
 
   const handleKeyDownFromDate = (event) => {
     if (event.key === 'Enter') {
@@ -59,19 +76,6 @@ export const DateFilter = () => {
       throughRef.current.blur();
     }
   };
-
-  const errors = useMemo(() => {
-    if (dayjs(fromDate).isAfter(throughDate)) {
-      return errorMessageText;
-    }
-    if (dayjs(fromDate).isSame(throughDate)) {
-      return errorSameDate;
-    }
-    if (dayjs(throughDate).isAfter(maxDate)) {
-      return errorThroughOutOfBounds;
-    }
-    return false;
-  }, [errorThroughOutOfBounds, fromDate, throughDate]);
 
   const handleDateChange = () => {
     // use local vars so we can sanitize before committing
@@ -117,35 +121,23 @@ export const DateFilter = () => {
     setDraftThroughDate(_throughDate);
   };
 
-  const inputFromClassName = useMemo(() => {
-    const style = ['a-text-input'];
-    if (
-      isTrue([
-        !dayjs(fromDate).isValid(),
-        dayjs(fromDate).isBefore(minDate),
-        dayjs(fromDate).isAfter(throughDate),
-        dayjs(fromDate).isSame(throughDate),
-      ])
-    ) {
-      style.push('a-text-input--error');
-    }
-    return style.join(' ');
-  }, [fromDate, throughDate]);
+  const inputFromClassName = dateInputClassName(
+    isTrue([
+      !dayjs(fromDate).isValid(),
+      dayjs(fromDate).isBefore(minDate),
+      dayjs(fromDate).isAfter(throughDate),
+      dayjs(fromDate).isSame(throughDate),
+    ]),
+  );
 
-  const inputThroughClassName = useMemo(() => {
-    const style = ['a-text-input'];
-    if (
-      isTrue([
-        !dayjs(throughDate).isValid(),
-        dayjs(throughDate).isAfter(maxDate),
-        dayjs(throughDate).isBefore(fromDate),
-        dayjs(throughDate).isSame(fromDate),
-      ])
-    ) {
-      style.push('a-text-input--error');
-    }
-    return style.join(' ');
-  }, [fromDate, throughDate]);
+  const inputThroughClassName = dateInputClassName(
+    isTrue([
+      !dayjs(throughDate).isValid(),
+      dayjs(throughDate).isAfter(maxDate),
+      dayjs(throughDate).isBefore(fromDate),
+      dayjs(throughDate).isSame(fromDate),
+    ]),
+  );
 
   return (
     <CollapsibleFilter
