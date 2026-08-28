@@ -10,6 +10,7 @@ module.exports = {
     '@babel/preset-typescript',
   ],
   plugins: [
+    'babel-plugin-react-compiler',
     '@babel/plugin-transform-modules-commonjs',
     [
       'module-resolver',
