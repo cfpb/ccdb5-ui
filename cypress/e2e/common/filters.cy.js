@@ -39,8 +39,7 @@ const sizeSelect = () => cy.findByLabelText('Show per page');
 
 const complaintLinks = () => cy.findAllByRole('link', { name: /^Complaint / });
 
-const filterPills = () =>
-  cy.findByRole('heading', { name: 'Filters applied:' }).closest('section');
+const filterPills = () => cy.findByText('Filters applied:').closest('section');
 
 describe('Filter Panel', () => {
   it('allows the app to filter complaints', () => {
@@ -137,8 +136,8 @@ describe('Filter Panel', () => {
     });
 
     // Filter clear button
-    cy.findByRole('button', { name: 'Clear all filters' }).should('exist');
-    cy.findByRole('button', { name: 'Clear all filters' }).click();
+    cy.findByRole('button', { name: 'Clear filters' }).should('exist');
+    cy.findByRole('button', { name: 'Clear filters' }).click();
 
     cy.findByRole('button', { name: /Date Received:/ }).should('not.exist');
     cy.findByRole('button', { name: 'Timely: Yes' }).should('not.exist');

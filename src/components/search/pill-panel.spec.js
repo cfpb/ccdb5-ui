@@ -50,5 +50,9 @@ describe('component: PillPanel', () => {
         name: /Timely/,
       }),
     ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('button', { name: 'Clear filters' }),
+    ).toBeInTheDocument();
   });
 });

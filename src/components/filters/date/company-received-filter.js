@@ -1,7 +1,7 @@
 /* eslint complexity: ["error", 7] */
 import './date-filter.scss';
 import { DATE_VALIDATION_FORMAT, maxDate, minDate } from '../../../constants';
-import { useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   selectQueryCompanyReceivedMax,
   selectQueryCompanyReceivedMin,
@@ -19,6 +19,39 @@ import { sanitizeHtmlId } from '../../../utils';
 dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
 
+const ERROR_FROM_AFTER_THROUGH = "'From' date must be less than 'To' date";
+
+const companyReceivedErrors = (fromDate, throughDate) => {
+  const errs = [];
+  if (dayjs(fromDate).isAfter(throughDate)) {
+    errs.push(ERROR_FROM_AFTER_THROUGH);
+  }
+  if (dayjs(fromDate).isBefore(minDate)) {
+    errs.push(
+      "'From' date must be after " +
+        dayjs(minDate).format(DATE_VALIDATION_FORMAT),
+    );
+  }
+  if (dayjs(throughDate).isAfter(maxDate)) {
+    errs.push(
+      "'To' date must be before " +
+        dayjs(maxDate).format(DATE_VALIDATION_FORMAT),
+    );
+  }
+  return errs;
+};
+
+const dateInputClassName = (hasError) =>
+  ['a-text-input', hasError ? 'a-text-input--error' : '']
+    .filter(Boolean)
+    .join(' ');
+
+const fromDateHasError = (fromDate, throughDate) =>
+  dayjs(fromDate).isBefore(minDate) || dayjs(fromDate).isAfter(throughDate);
+
+const throughDateHasError = (fromDate, throughDate) =>
+  dayjs(throughDate).isAfter(maxDate) || dayjs(throughDate).isBefore(fromDate);
+
 export const CompanyReceivedFilter = () => {
   const fieldName = 'company_received';
   const title = 'The date the CFPB sent the complaint to the company';
@@ -33,13 +66,13 @@ export const CompanyReceivedFilter = () => {
   const [draftFromDate, setDraftFromDate] = useState(null);
   const [draftThroughDate, setDraftThroughDate] = useState(null);
   const dispatch = useDispatch();
-  const errorMessageText = "'From' date must be less than 'To' date";
 
   const fromRef = useRef();
   const throughRef = useRef();
 
   const fromDate = draftFromDate ?? formattedFromDate;
   const throughDate = draftThroughDate ?? formattedThroughDate;
+  const errors = companyReceivedErrors(fromDate, throughDate);
 
   const handleKeyDownFromDate = (event) => {
     if (event.key === 'Enter') {
@@ -52,27 +85,6 @@ export const CompanyReceivedFilter = () => {
       throughRef.current.blur();
     }
   };
-
-  const errors = useMemo(() => {
-    const errs = [];
-    if (dayjs(fromDate).isAfter(throughDate)) {
-      errs.push(errorMessageText);
-    }
-    if (dayjs(fromDate).isBefore(minDate)) {
-      errs.push(
-        "'From' date must be after " +
-          dayjs(minDate).format(DATE_VALIDATION_FORMAT),
-      );
-    }
-    if (dayjs(throughDate).isAfter(maxDate)) {
-      errs.push(
-        "'To' date must be before " +
-          dayjs(maxDate).format(DATE_VALIDATION_FORMAT),
-      );
-    }
-
-    return errs;
-  }, [fromDate, throughDate]);
 
   const handleDateChange = () => {
     let _throughDate = throughDate;
@@ -94,27 +106,13 @@ export const CompanyReceivedFilter = () => {
     setDraftThroughDate(null);
   };
 
-  const inputFromClassName = useMemo(() => {
-    const style = ['a-text-input'];
-    if (
-      dayjs(fromDate).isBefore(minDate) ||
-      dayjs(fromDate).isAfter(throughDate)
-    ) {
-      style.push('a-text-input--error');
-    }
-    return style.join(' ');
-  }, [fromDate, throughDate]);
+  const inputFromClassName = dateInputClassName(
+    fromDateHasError(fromDate, throughDate),
+  );
 
-  const inputThroughClassName = useMemo(() => {
-    const style = ['a-text-input'];
-    if (
-      dayjs(throughDate).isAfter(maxDate) ||
-      dayjs(throughDate).isBefore(fromDate)
-    ) {
-      style.push('a-text-input--error');
-    }
-    return style.join(' ');
-  }, [fromDate, throughDate]);
+  const inputThroughClassName = dateInputClassName(
+    throughDateHasError(fromDate, throughDate),
+  );
 
   return (
     <CollapsibleFilter

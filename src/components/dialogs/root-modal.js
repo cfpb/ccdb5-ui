@@ -4,25 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DataExport } from './data-export/data-export';
 import { ExportConfirmation } from './data-export/export-confirmation';
 import { MoreAbout } from './more-about/more-about';
-import { useMemo } from 'react';
 import ReactModal from 'react-modal';
 import { selectViewModalTypeShown } from '../../reducers/view/selectors';
 import { modalHidden } from '../../reducers/view/view-slice';
 import { getAppElement, getModalPortalParent } from '../../utils/dom';
+
+const MODALS = {
+  [types.MODAL_TYPE_DATA_EXPORT]: DataExport,
+  [types.MODAL_TYPE_EXPORT_CONFIRMATION]: ExportConfirmation,
+  [types.MODAL_TYPE_MORE_ABOUT]: MoreAbout,
+};
 
 export const RootModal = () => {
   const modalType = useSelector(selectViewModalTypeShown);
   const dispatch = useDispatch();
   const appElement = getAppElement();
   const portalParent = getModalPortalParent();
-  const SpecificModal = useMemo(() => {
-    const modals = {
-      [types.MODAL_TYPE_DATA_EXPORT]: DataExport,
-      [types.MODAL_TYPE_EXPORT_CONFIRMATION]: ExportConfirmation,
-      [types.MODAL_TYPE_MORE_ABOUT]: MoreAbout,
-    };
-    return modals[modalType];
-  }, [modalType]);
+  const SpecificModal = MODALS[modalType];
 
   return SpecificModal ? (
     <ReactModal

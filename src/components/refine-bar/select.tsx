@@ -1,4 +1,4 @@
-import { useMemo, type JSX } from 'react';
+import type { JSX } from 'react';
 import { SelectSingle } from '@cfpb/design-system-react';
 
 interface SelectOption {
@@ -67,7 +67,7 @@ export const Select = ({
   values,
 }: SelectProps): JSX.Element => {
   const idSelect = 'select-' + id;
-  const options = useMemo(() => toOptions(values), [values]);
+  const options = toOptions(values);
   const currentValue = String(value ?? '');
 
   const onChange = (

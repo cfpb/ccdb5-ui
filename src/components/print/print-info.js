@@ -1,6 +1,5 @@
 import './print-info.scss';
 import { useSelector } from 'react-redux';
-import { useMemo } from 'react';
 import { shortFormat } from '../../utils';
 import {
   selectQueryDateReceivedMax,
@@ -21,22 +20,6 @@ export const PrintInfo = () => {
   const docCount = error ? 0 : data?.doc_count || 0;
   const total = error ? 0 : data?.total || 0;
 
-  const complaintCountText = useMemo(() => {
-    if (docCount === total) {
-      return (
-        <div>
-          Showing <span>{total.toLocaleString()}</span> complaints
-        </div>
-      );
-    }
-    return (
-      <div>
-        Showing <span>{total.toLocaleString()}</span> out of
-        <span> {docCount.toLocaleString()} </span> total complaints{' '}
-      </div>
-    );
-  }, [docCount, total]);
-
   return isPrintMode ? (
     <section className="print-info">
       <p>
@@ -47,7 +30,18 @@ export const PrintInfo = () => {
           <span>Search Term:</span> {searchText}
         </p>
       )}
-      <div>{complaintCountText}</div>
+      <div>
+        {docCount === total ? (
+          <div>
+            Showing <span>{total.toLocaleString()}</span> complaints
+          </div>
+        ) : (
+          <div>
+            Showing <span>{total.toLocaleString()}</span> out of
+            <span> {docCount.toLocaleString()} </span> total complaints{' '}
+          </div>
+        )}
+      </div>
     </section>
   ) : null;
 };
