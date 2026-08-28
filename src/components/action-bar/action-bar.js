@@ -1,63 +1,47 @@
 import './action-bar.scss';
-import { useDispatch } from 'react-redux';
-import { Button, Heading } from '@cfpb/design-system-react';
-import { sendAnalyticsEvent } from '../../utils';
-import { modalShown, updatePrintModeOn } from '../../reducers/view/view-slice';
+import { Alert } from '@cfpb/design-system-react';
 import { StaleDataWarnings } from '../warnings/stale-data-warnings';
-import { MODAL_TYPE_DATA_EXPORT } from '../../constants';
 import { useGetAggregations } from '../../api/hooks/use-get-aggregations';
+import { usePageLoading } from '../../api/hooks/use-page-loading';
+
+/**
+ * @param {number} total - Matching complaint count
+ * @param {number} docCount - Total complaints in the dataset
+ * @returns {string} Summary message for the search results alert
+ */
+const buildSummaryMessage = (total, docCount) => {
+  if (total === docCount) {
+    return 'Showing ' + docCount.toLocaleString() + ' total complaints';
+  }
+  return (
+    'Showing ' +
+    total.toLocaleString() +
+    ' matching results out of ' +
+    docCount.toLocaleString() +
+    ' total complaints'
+  );
+};
 
 export const ActionBar = () => {
-  const dispatch = useDispatch();
   const { data, error } = useGetAggregations();
+  const isPending = usePageLoading();
   const docCount = error ? 0 : data?.doc_count || 0;
   const total = error ? 0 : data?.total || 0;
 
-  const showPrintView = () => {
-    sendAnalyticsEvent('Print', 'Print');
-    dispatch(updatePrintModeOn());
-  };
+  const message =
+    isPending && !data
+      ? 'Loading complaint counts…'
+      : buildSummaryMessage(total, docCount);
+
   return (
-    <>
-      <div className="action-bar" id="search-summary">
-        {total === docCount ? (
-          <Heading type="2">
-            {'Showing ' + docCount.toLocaleString() + ' total complaints'}
-          </Heading>
-        ) : (
-          <Heading type="2">
-            {'Showing ' +
-              total.toLocaleString() +
-              ' matches out of ' +
-              docCount.toLocaleString() +
-              ' total complaints'}
-          </Heading>
-        )}
-        {error ? null : (
-          <div>
-            <Heading type="3" className="h4 action-bar__actions">
-              <Button
-                label="Export data"
-                isLink
-                className="export-btn"
-                data-gtm_ignore="true"
-                onClick={() => {
-                  sendAnalyticsEvent('Export', 'User Opens Export Modal');
-                  dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
-                }}
-              />
-              <Button
-                label="Print"
-                isLink
-                iconLeft="print"
-                className="print-preview"
-                onClick={showPrintView}
-              />
-            </Heading>
-          </div>
-        )}
-      </div>
+    <div className="search-status">
+      <Alert
+        id="search-summary"
+        className="action-bar"
+        status={isPending ? 'loading' : 'success'}
+        message={message}
+      />
       <StaleDataWarnings />
-    </>
+    </div>
   );
 };

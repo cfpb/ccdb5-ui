@@ -68,7 +68,7 @@ describe('List View', () => {
     cy.log('resets after applying filter');
     waitForLoading();
     cy.findByRole('button', {
-      name: 'Collapse Product / sub-product filter',
+      name: 'Collapse Product and sub-product filter',
     })
       .closest('section')
       .within(() => {

@@ -10,6 +10,8 @@ const backToSearch = () =>
 
 const sortSelect = () => cy.findByLabelText('Sort by');
 
+const sizeSelect = () => cy.findByLabelText('Show per page');
+
 describe('Document View', () => {
   describe('error handling', () => {
     it('handles bogus id', () => {
@@ -42,6 +44,8 @@ describe('Document View', () => {
       cy.visit('?searchText=pizza&size=10&sort=relevance_desc');
 
       sortSelect().find('option:selected').should('have.text', 'Most relevant');
+      cy.findByDisplayValue('pizza').should('be.visible');
+      sizeSelect().find('option:selected').should('have.text', '10 results');
 
       firstComplaintLink().click();
 
@@ -54,6 +58,12 @@ describe('Document View', () => {
       waitForLoading();
 
       sortSelect().find('option:selected').should('have.text', 'Most relevant');
+      cy.findByDisplayValue('pizza').should('be.visible');
+      sizeSelect().find('option:selected').should('have.text', '10 results');
+      cy.url()
+        .should('contain', 'searchText=pizza')
+        .and('contain', 'size=10')
+        .and('contain', 'sort=relevance_desc');
     });
   });
 });

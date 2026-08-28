@@ -24,7 +24,8 @@ describe('component:SearchPanel', () => {
     renderComponent();
     await screen.findByText(/Last updated/);
     expect(
-      screen.getByText('Date Received: 11/4/2021 - 11/4/2024'),
+      screen.getByRole('heading', { name: /Search complaint data/ }),
     ).toBeInTheDocument();
+    expect(screen.queryByText('Filters applied:')).not.toBeInTheDocument();
   });
 });

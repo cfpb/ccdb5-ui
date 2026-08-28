@@ -17,6 +17,7 @@ import {
 } from '../../../reducers/query/selectors';
 import { useGetList } from '../../../api/hooks/use-get-list';
 import { Heading } from '@cfpb/design-system-react';
+import { DownloadComplaintData } from '../download-complaint-data/download-complaint-data';
 
 const ERROR = 'ERROR';
 const NO_RESULTS = 'NO_RESULTS';
@@ -103,6 +104,7 @@ export const ListPanel = () => {
           handleChange={onSort}
         />
       </div>
+      <DownloadComplaintData />
       {renderByPhase[phase]()}
       <Pagination />
     </section>

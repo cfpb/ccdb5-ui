@@ -48,16 +48,15 @@ describe('component::Company', () => {
     renderComponent(filters, { dateLastIndexed: '2024-10-07' });
     await screen.findByRole('checkbox', { name: 'Monocle Popper Inc' });
     expect(
-      screen.getByText('The complaint is about this company.'),
+      screen.getByText(
+        'The company name that the consumer listed in their complaint.',
+      ),
     ).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText('Enter company name'),
-    ).toBeInTheDocument();
-    await user.type(screen.getByPlaceholderText('Enter company name'), 'Safe');
+    const input = screen.getByRole('combobox', { name: 'Company Search' });
+    expect(input).toBeInTheDocument();
+    await user.type(input, 'Safe');
     fetchMock.mockResponse(JSON.stringify(['Safe-T Deposits LLC']));
-    expect(screen.getByPlaceholderText('Enter company name')).toHaveValue(
-      'Safe',
-    );
+    expect(input).toHaveValue('Safe');
     expect(
       screen.getByRole('checkbox', { name: 'Monocle Popper Inc' }),
     ).toBeInTheDocument();

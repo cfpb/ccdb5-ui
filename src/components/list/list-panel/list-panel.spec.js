@@ -119,7 +119,7 @@ describe('ListPanel', () => {
 
     renderComponent({}, newViewState);
 
-    expect(screen.getByText('Filter results by...')).toBeInTheDocument();
+    expect(screen.getByText('Filter results by')).toBeInTheDocument();
   });
 
   test('FilterPanel not showed when width is 1000', async () => {
@@ -143,6 +143,6 @@ describe('ListPanel', () => {
     renderComponent({}, newViewState);
 
     await screen.findByText('Show per page');
-    expect(screen.queryByText('Filter results by...')).not.toBeInTheDocument();
+    expect(screen.queryByText('Filter results by')).not.toBeInTheDocument();
   });
 });

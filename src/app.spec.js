@@ -41,11 +41,13 @@ describe('initial state', () => {
       </Provider>,
     );
 
-    await screen.findByText(/Search complaint data/);
+    await screen.findByText(/Consumer Complaint Database/);
     expect(updateLocationHookSpy).toHaveBeenCalled();
     expect(screen.getByText(/Consumer Complaint Database/)).toBeInTheDocument();
     expect(
-      screen.getByLabelText('Choose which field will be searched'),
+      await screen.findByRole('combobox', {
+        name: /Choose which field will be searched/,
+      }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Show search tips/ }),

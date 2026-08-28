@@ -5,10 +5,6 @@
   // Surface chrome comes from DS `.o-well`. Border overrides need the extra
   // class because `.o-well` is emitted after this file in the bundle.
   &.o-well {
-    // Drop the top edge so it doesn't double up with the search well's
-    // bottom border directly above it.
-    border-top: 0;
-
     @media screen and (max-width: $bp-xs-max) {
       border-right: none;
     }
