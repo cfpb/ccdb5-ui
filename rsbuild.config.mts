@@ -89,7 +89,9 @@ export default defineConfig({
         },
       },
     }),
-    pluginReact(),
+    pluginReact({
+      reactCompiler: true,
+    }),
     pluginSvgr({
       svgrOptions: {
         svgoConfig: {
