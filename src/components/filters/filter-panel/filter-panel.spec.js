@@ -31,7 +31,7 @@ describe('FilterPanel', () => {
   it('renders without crashing', () => {
     renderComponent(viewStore);
     expect(
-      screen.getByRole('heading', { name: 'Filter results by...' }),
+      screen.getByRole('heading', { name: 'Filter results by' }),
     ).toBeInTheDocument();
     expect(
       screen.queryByRole('button', { name: /Close filters/ }),
@@ -47,7 +47,7 @@ describe('FilterPanel', () => {
     ).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: /Close filters/ }));
     expect(
-      screen.queryByRole('heading', { name: 'Filter results by...' }),
+      screen.queryByRole('heading', { name: 'Filter results by' }),
     ).not.toBeInTheDocument();
   });
 });

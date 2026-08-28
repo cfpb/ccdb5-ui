@@ -36,7 +36,7 @@ describe('ComplaintCard', () => {
     expect(
       screen.getByRole('heading', { name: 'Consumer’s state:' }),
     ).toBeInTheDocument();
-    expect(screen.getByText(itemFixture.state)).toBeInTheDocument();
+    expect(screen.getByText('Florida (FL)')).toBeInTheDocument();
     expect(
       screen.getByText('Company response to consumer'),
     ).toBeInTheDocument();
@@ -80,5 +80,13 @@ describe('ComplaintCard', () => {
       'href',
       '/detail/7990095',
     );
+  });
+
+  test('Formats state like the state filter', () => {
+    itemFixture.state = '<em>TX</em>';
+
+    render(<ComplaintCard row={itemFixture} />);
+
+    expect(screen.getByText('Texas (TX)')).toBeInTheDocument();
   });
 });

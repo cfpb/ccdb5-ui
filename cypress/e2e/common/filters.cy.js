@@ -4,7 +4,7 @@ import { waitForLoading } from '../utils';
 
 const dateFilterButton = (name) =>
   cy.findByRole('button', {
-    name: new RegExp(`${name} Date CFPB received the complaint filter`),
+    name: new RegExp(`${name} Date the CFPB received the complaint filter`),
   });
 
 const productFilterButton = (name) =>
@@ -46,7 +46,7 @@ describe('Filter Panel', () => {
     cy.visit('/');
     waitForLoading();
     cy.log('it has filter panel');
-    cy.findByRole('heading', { name: 'Filter results by...' }).should(
+    cy.findByRole('heading', { name: 'Filter results by' }).should(
       'be.visible',
     );
     waitForLoading();
@@ -98,7 +98,7 @@ describe('Filter Panel', () => {
     cy.url().should('include', `date_received_max=202`);
     cy.log('can expand/collapse/apply filter group');
     // default date Filter pills
-    cy.findAllByRole('button', { name: /Date Received:/ }).should(
+    cy.findAllByRole('button', { name: /Date received:/ }).should(
       'have.length',
       1,
     );
@@ -139,7 +139,7 @@ describe('Filter Panel', () => {
     cy.findByRole('button', { name: 'Clear filters' }).should('exist');
     cy.findByRole('button', { name: 'Clear filters' }).click();
 
-    cy.findByRole('button', { name: /Date Received:/ }).should('not.exist');
+    cy.findByRole('button', { name: /Date received:/ }).should('not.exist');
     cy.findByRole('button', { name: 'Timely: Yes' }).should('not.exist');
 
     // Product/Sub-product

@@ -11,4 +11,9 @@
     color: var(--gray);
     font-size: 16px;
   }
+
+  // Expandable content already has top padding from the divider.
+  .a-label__helper--block {
+    margin-top: 0;
+  }
 }

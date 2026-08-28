@@ -18,6 +18,8 @@
     li {
       display: inline-block;
       width: calc(50% - 8px); // Half $gutter-normal
+      // Aggregation rows pad 15px; don't stack that under "Select date range".
+      padding-bottom: 0;
 
       list-style: none;
 
@@ -35,6 +37,7 @@
 
     p {
       margin: 0 0 10px;
+      color: var(--black);
     }
   }
 }

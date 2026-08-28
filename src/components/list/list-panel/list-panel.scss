@@ -10,6 +10,23 @@
   .cards-panel {
     padding: 0;
     margin: 0;
+    width: 100%;
+
+    // DS `.content__main li` (and p/h*) caps readable line length at 41.875rem.
+    > .complaint-card {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: none;
+
+      p,
+      h3,
+      h4,
+      h5,
+      h6,
+      label {
+        max-width: none;
+      }
+    }
   }
 
   .m-pagination {

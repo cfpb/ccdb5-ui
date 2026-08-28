@@ -2,6 +2,7 @@ import './complaint-card.scss';
 import { ariaReadoutNumbers } from '../../../utils';
 import { Link } from 'react-router';
 import { formatDisplayDate } from '../../../utils/format-date';
+import { formatStateLabel } from '../../../utils/filters';
 import { Heading } from '@cfpb/design-system-react';
 import type { ReactNode } from 'react';
 
@@ -79,7 +80,7 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
               Consumer’s state:
             </Heading>{' '}
             <span className="complaint-card__field-value">
-              {renderPossibleHighlight(row.state)}
+              {formatStateLabel(stripPossibleHighlight(row.state))}
             </span>
           </p>
         </div>

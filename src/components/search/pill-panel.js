@@ -40,7 +40,7 @@ const buildDatePill = (dateReceivedMin, dateReceivedMax, dateLastIndexed) => {
   return {
     fieldName: 'date_received',
     value:
-      'Date Received: ' +
+      'Date received: ' +
       dayjs(dateReceivedMin).format('M/D/YYYY') +
       ' - ' +
       dayjs(dateReceivedMax).format('M/D/YYYY'),

@@ -23,6 +23,11 @@ describe('component::DateFilter', () => {
     };
 
     renderComponent(query);
+    expect(
+      screen.getByRole('heading', {
+        name: 'Date the CFPB received the complaint',
+      }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Learn more')).toBeInTheDocument();
     expect(
       screen.getByText(

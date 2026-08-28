@@ -25,7 +25,10 @@ describe('component::CollapsibleFilter', () => {
     it('renders initially as expected', () => {
       renderComponent(props);
       expect(screen.getByText(props.title)).toBeInTheDocument();
-      expect(screen.getByText(props.desc)).toBeInTheDocument();
+      expect(screen.getByText(props.desc)).toHaveClass(
+        'a-label__helper',
+        'a-label__helper--block',
+      );
       expect(screen.getByText('test child element')).toBeInTheDocument();
     });
   });

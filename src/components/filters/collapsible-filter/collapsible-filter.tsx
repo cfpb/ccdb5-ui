@@ -43,7 +43,11 @@ export const CollapsibleFilter = ({
       </button>
       {isOpen ? (
         <div className="o-expandable__content">
-          {desc ? <p>{desc}</p> : null}
+          {desc ? (
+            <small className="a-label__helper a-label__helper--block">
+              {desc}
+            </small>
+          ) : null}
           {children}
         </div>
       ) : null}

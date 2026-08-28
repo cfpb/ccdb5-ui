@@ -50,7 +50,7 @@ export const TOUR_STEPS = [
   {
     element: LIST.STEP_4.selector,
     intro:
-      'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.',
+      'You can adjust the date range of the complaint data showed using the “Date the CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.',
   },
   {
     element: LIST.STEP_5.selector,
