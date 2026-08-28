@@ -10,7 +10,7 @@ import {
 import { Button, Link, SelectSingle } from '@cfpb/design-system-react';
 import { AdvancedTips } from './advanced-tips/advanced-tips';
 import { useDispatch, useSelector } from 'react-redux';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import {
   selectQuerySearchField,
   selectQuerySearchText,
@@ -36,7 +36,6 @@ export const SearchBar = () => {
   const [shouldCallClear, setShouldCallClear] = useState(true);
 
   const displayedValue = isDirty ? inputValue : searchText;
-  const options = useMemo(() => searchFieldOptions, []);
 
   const onSearchTipToggle = (isOn) => {
     if (isOn) {
@@ -101,7 +100,7 @@ export const SearchBar = () => {
             <SelectSingle
               id="searchField"
               label="Choose which field will be searched"
-              options={options}
+              options={searchFieldOptions}
               value={searchField}
               onChange={onSelectSearchField}
             />

@@ -8,7 +8,6 @@ import { ErrorBlock } from '../../warnings/error';
 import { FilterPanel } from '../../filters/filter-panel/filter-panel';
 import { FilterPanelToggle } from '../../filters/filter-panel/filter-panel-toggle';
 import { Pagination } from '../pagination/pagination';
-import { useMemo } from 'react';
 import { Select } from '../../refine-bar/select';
 import { sendAnalyticsEvent } from '../../../utils';
 import { selectViewWidth } from '../../../reducers/view/selectors';
@@ -38,7 +37,7 @@ export const ListPanel = () => {
   const sort = useSelector(selectQuerySort);
   const width = useSelector(selectViewWidth);
 
-  const hasMobileFilters = useMemo(() => width < 750, [width]);
+  const hasMobileFilters = width < 750;
 
   const items = data?.hits || [];
 

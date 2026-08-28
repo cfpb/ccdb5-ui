@@ -11,7 +11,7 @@ import {
 import { modalHidden, modalShown } from '../../../reducers/view/view-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AlertFieldLevel, Button, Heading } from '@cfpb/design-system-react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { selectQueryRoot } from '../../../reducers/query/selectors';
 import { selectFiltersRoot } from '../../../reducers/filters/selectors';
@@ -43,19 +43,16 @@ export const DataExport = () => {
   const exportDataset =
     isFilteredDisabled && dataset === DATASET_FILTERED ? DATASET_FULL : dataset;
 
-  const exportUri = useMemo(() => {
-    const mergedState = {
-      ...filtersState,
-      ...queryState,
-    };
-    const url =
-      exportDataset === DATASET_FULL
-        ? buildAllResultsUri()
-        : buildSomeResultsUri(someComplaintsCount, mergedState);
-    return getFullUrl(url);
-  }, [exportDataset, someComplaintsCount, filtersState, queryState]);
-
-  const resultsLink = useMemo(() => getFullUrl(location.href), []);
+  const mergedState = {
+    ...filtersState,
+    ...queryState,
+  };
+  const exportUrl =
+    exportDataset === DATASET_FULL
+      ? buildAllResultsUri()
+      : buildSomeResultsUri(someComplaintsCount, mergedState);
+  const exportUri = getFullUrl(exportUrl);
+  const resultsLink = getFullUrl(location.href);
 
   const filterAlertMessage = filtersApplied
     ? isOverFilterLimit
@@ -93,9 +90,7 @@ export const DataExport = () => {
   return (
     <section className="export-modal">
       <div className="ccdb-modal__header">
-        <Heading type="3">
-          Download complaint data
-        </Heading>
+        <Heading type="3">Download complaint data</Heading>
         <Button
           label="Close"
           isLink

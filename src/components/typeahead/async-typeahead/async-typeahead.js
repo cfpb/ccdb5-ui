@@ -73,7 +73,7 @@ export const AsyncTypeahead = ({
       setIsVisible(!!newSearchTerm);
       setSearchValue(newSearchTerm);
     },
-    [handleChange, setIsOpen, setSearchValue],
+    [handleChange],
   );
 
   const suggestField = fieldName === 'company' ? 'company' : 'zip';

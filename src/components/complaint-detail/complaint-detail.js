@@ -1,5 +1,4 @@
 import './complaint-detail.scss';
-import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
 import { useGetDocumentQuery } from '../../api/complaints';
@@ -15,16 +14,11 @@ export const ComplaintDetail = () => {
   const { id } = useParams();
 
   const params = useSelector(selectRoutesParams);
-  const backUrl = useMemo(() => {
-    // exit out if not initialized
-    if (!location) {
-      return '';
-    }
-
-    const pathName = location.pathname;
-    const idx = pathName.indexOf('detail');
-    return formatUri(pathName.slice(0, Math.max(0, idx)), params);
-  }, [location, params]);
+  const pathName = location?.pathname ?? '';
+  const idx = pathName.indexOf('detail');
+  const backUrl = location
+    ? formatUri(pathName.slice(0, Math.max(0, idx)), params)
+    : '';
 
   const { data, isLoading, error } = useGetDocumentQuery(id);
 
