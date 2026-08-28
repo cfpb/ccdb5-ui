@@ -1,5 +1,5 @@
 import './download-complaint-data.scss';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   AlertFieldLevel,
@@ -111,22 +111,17 @@ export const DownloadComplaintData = () => {
     [clearFadeTimer],
   );
 
-  const allComplaintsUri = useMemo(
-    () => getFullUrl(buildAllResultsUri('csv')),
-    [],
-  );
-
-  const filteredUri = useMemo(() => {
-    const mergedState = {
-      ...filtersState,
-      ...queryState,
-    };
-    return getFullUrl(buildSomeResultsUri(filteredCount, mergedState));
-  }, [filtersState, queryState, filteredCount]);
-
   if (error) {
     return null;
   }
+
+  const allComplaintsUri = getFullUrl(buildAllResultsUri('csv'));
+  const filteredUri = getFullUrl(
+    buildSomeResultsUri(filteredCount, {
+      ...filtersState,
+      ...queryState,
+    }),
+  );
 
   return (
     <WellContainer
