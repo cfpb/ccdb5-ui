@@ -10,15 +10,24 @@ import {
   WellContainer,
 } from '@cfpb/design-system-react';
 import dayjs from 'dayjs';
-import { DATE_RANGE_MIN } from '../../../constants';
-import {
-  buildAllResultsUri,
-  buildSomeResultsUri,
-} from '../../dialogs/data-export/data-export-utils';
+import { API_PLACEHOLDER, DATE_RANGE_MIN } from '../../../constants';
 import { getFullUrl, sendAnalyticsEvent } from '../../../utils';
 import { selectFiltersRoot } from '../../../reducers/filters/selectors';
 import { selectQueryRoot } from '../../../reducers/query/selectors';
+import { stateToQS } from '../../../reducers/query/query-slice';
 import { useGetAggregations } from '../../../api/hooks/use-get-aggregations';
+
+const ALL_RESULTS_URI =
+  'https://files.consumerfinance.gov/ccdb/complaints.csv.zip';
+
+const buildFilteredResultsUri = (size, state) => {
+  const params = { ...state, size, format: 'csv', no_aggs: true };
+
+  delete params.from;
+  delete params.searchAfter;
+
+  return API_PLACEHOLDER + stateToQS(params);
+};
 
 export const FILTER_DOWNLOAD_MAX = 1e5;
 export const FILTER_DOWNLOAD_LIMIT_MESSAGE =
@@ -115,9 +124,9 @@ export const DownloadComplaintData = () => {
     return null;
   }
 
-  const allComplaintsUri = getFullUrl(buildAllResultsUri('csv'));
+  const allComplaintsUri = getFullUrl(ALL_RESULTS_URI);
   const filteredUri = getFullUrl(
-    buildSomeResultsUri(filteredCount, {
+    buildFilteredResultsUri(filteredCount, {
       ...filtersState,
       ...queryState,
     }),
