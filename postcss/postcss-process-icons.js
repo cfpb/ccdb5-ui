@@ -1,13 +1,12 @@
 // modified from
 // https://github.com/cfpb/design-system/blob/main/esbuild/plugins/postcss-process-icons.js
 
-const { readFileSync } = require('fs');
-const path = require('path');
+import { readFileSync } from 'node:fs';
 
-const currentDir = path.dirname(__filename);
+const currentDir = import.meta.dirname;
 
 const pluginProcessIcons = () => {
-  const stripQuotes = (str) => str.replace(/['"]+/g, '');
+  const stripQuotes = (str) => str.replaceAll(/['"]+/g, '');
 
   return {
     postcssPlugin: 'process-icons',
@@ -45,4 +44,4 @@ const pluginProcessIcons = () => {
 };
 pluginProcessIcons.postcss = true;
 
-module.exports = { pluginProcessIcons };
+export default pluginProcessIcons;

@@ -12,7 +12,6 @@ import * as viewActions from '../../../reducers/view/view-slice';
 import { viewState } from '../../../reducers/view/view-slice';
 import { MODAL_TYPE_EXPORT_CONFIRMATION } from '../../../constants';
 import { waitFor } from '@testing-library/react';
-import fetchMock from 'jest-fetch-mock';
 import * as aggregationHooks from '../../../api/hooks/use-get-aggregations';
 
 const FILTER_DOWNLOAD_EMPTY_MESSAGE =
@@ -34,9 +33,14 @@ describe('DataExport', () => {
     newViewState = {},
   ) => {
     const mockClipboard = {
-      writeText: jest.fn(),
+      writeText: rs.fn(),
     };
-    navigator.clipboard = mockClipboard;
+    Object.defineProperty(navigator, 'clipboard', {
+      value: mockClipboard,
+      writable: true,
+      configurable: true, // Allows it to be changed or reset later
+    });
+
     merge(newQueryState, { dateLastIndexed: '2020-01-01' });
     merge(newFiltersState, filtersState);
     merge(newQueryState, queryState);
@@ -55,14 +59,16 @@ describe('DataExport', () => {
     fetchMock.resetMocks();
   });
   afterEach(() => {
-    jest.resetAllMocks();
-    navigator.clipboard = originalClipboard;
+    rs.resetAllMocks();
+    Object.defineProperty(navigator, 'clipboard', {
+      ...originalClipboard,
+    });
   });
 
   it('renders default state without crashing', async () => {
-    const modalHiddenSpy = jest
+    const modalHiddenSpy = rs
       .spyOn(viewActions, 'modalHidden')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     renderComponent({});
     expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     expect(
@@ -95,9 +101,9 @@ describe('DataExport', () => {
   });
 
   it('closes the modal by clicking cancel', async () => {
-    const modalHiddenSpy = jest
+    const modalHiddenSpy = rs
       .spyOn(viewActions, 'modalHidden')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     renderComponent({});
     expect(screen.getByText('Download complaint data')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
@@ -125,12 +131,12 @@ describe('DataExport', () => {
   });
 
   it('downloads all complaint data as CSV', async () => {
-    const modalShownSpy = jest
+    const modalShownSpy = rs
       .spyOn(viewActions, 'modalShown')
-      .mockImplementation(() => jest.fn());
-    const sendAnalyticsSpy = jest
+      .mockImplementation(() => rs.fn());
+    const sendAnalyticsSpy = rs
       .spyOn(utils, 'sendAnalyticsEvent')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     renderComponent({});
 
     fireEvent.click(screen.getByRole('button', { name: /Download data/ }));
@@ -139,15 +145,15 @@ describe('DataExport', () => {
   });
 
   it('defaults to filtered results when under the download limit', async () => {
-    const aggregationsSpy = jest
+    const aggregationsSpy = rs
       .spyOn(aggregationHooks, 'useGetAggregations')
       .mockReturnValue({ data: withHitTotal(50_000, 6_000_000) });
-    const modalShownSpy = jest
+    const modalShownSpy = rs
       .spyOn(viewActions, 'modalShown')
-      .mockImplementation(() => jest.fn());
-    const sendAnalyticsSpy = jest
+      .mockImplementation(() => rs.fn());
+    const sendAnalyticsSpy = rs
       .spyOn(utils, 'sendAnalyticsEvent')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
 
     renderComponent(
       { issue: ['foo'], product: ['bar', 'baz'], state: ['TX', 'CA'] },
@@ -182,7 +188,7 @@ describe('DataExport', () => {
   });
 
   it('disables filtered results and shows limit alert when over 100,000', async () => {
-    const aggregationsSpy = jest
+    const aggregationsSpy = rs
       .spyOn(aggregationHooks, 'useGetAggregations')
       .mockReturnValue({ data: withHitTotal(150_000, 6_000_000) });
     renderComponent({ product: ['Mortgage'] }, { searchText: 'debt' }, {});
@@ -212,7 +218,7 @@ describe('DataExport', () => {
   });
 
   it('switches dataset selections when filtered is available', async () => {
-    const aggregationsSpy = jest
+    const aggregationsSpy = rs
       .spyOn(aggregationHooks, 'useGetAggregations')
       .mockReturnValue({ data: withHitTotal(50_000, 6_000_000) });
 

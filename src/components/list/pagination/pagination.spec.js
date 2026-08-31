@@ -7,7 +7,6 @@ import {
 } from '../../../test-utils/test-utils';
 import { merge } from '../../../test-utils/function-helpers';
 import { Pagination } from './pagination';
-import fetchMock from 'jest-fetch-mock';
 import { listResponseP1, listResponseP2 } from './fixture';
 
 describe('Pagination', () => {
@@ -29,9 +28,9 @@ describe('Pagination', () => {
   });
 
   test('nextPageShown dispatched when Next button clicked', async () => {
-    const nextPageShownSpy = jest
+    const nextPageShownSpy = rs
       .spyOn(pagingActions, 'nextPageShown')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     fetchMock.mockResponseOnce(JSON.stringify(listResponseP1));
     renderComponent({
       dateLastIndexed: '2020-05-05',
@@ -44,9 +43,9 @@ describe('Pagination', () => {
   });
 
   test('prevPageShown dispatched when Previous button clicked', async () => {
-    const prevPageShownSpy = jest
+    const prevPageShownSpy = rs
       .spyOn(pagingActions, 'prevPageShown')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     fetchMock.mockResponseOnce(JSON.stringify(listResponseP2));
 
     renderComponent({

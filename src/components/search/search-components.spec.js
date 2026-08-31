@@ -4,7 +4,6 @@ import { MemoryRouter, Route, Routes } from 'react-router';
 import { Provider } from 'react-redux';
 import { SearchComponents } from './search-components';
 import { DsrLink } from '../dsr-link/dsr-link';
-import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../list/list-panel/fixture';
 import { configureStoreUtil } from '../../test-utils/test-utils';
 

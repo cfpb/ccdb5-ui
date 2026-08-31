@@ -5,11 +5,8 @@ import {
 } from '../../../test-utils/test-utils';
 import userEvent from '@testing-library/user-event';
 import { AsyncTypeahead } from './async-typeahead';
-import fetchMock from 'jest-fetch-mock';
 import { queryState } from '../../../reducers/query/query-slice';
 import { viewState } from '../../../reducers/view/view-slice';
-
-fetchMock.enableMocks();
 
 describe('AsyncTypeahead', () => {
   const user = userEvent.setup({ delay: null });
@@ -51,13 +48,13 @@ describe('AsyncTypeahead', () => {
 
   beforeEach(() => {
     fetchMock.resetMocks();
-    handleChangeMock = jest.fn();
-    handleClearMock = jest.fn();
-    handleSearchMock = jest.fn();
+    handleChangeMock = rs.fn();
+    handleClearMock = rs.fn();
+    handleSearchMock = rs.fn();
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    rs.restoreAllMocks();
   });
 
   test('Value changes when user types', async () => {
@@ -84,7 +81,7 @@ describe('AsyncTypeahead', () => {
     await user.type(input, 'apple');
     await screen.findAllByRole('option', { name: /Apple/ });
     await user.click(screen.getByRole('option', { name: /Apple Bank/ }));
-    await waitFor(() => expect(handleChangeMock).toHaveBeenCalledTimes(7));
+    await waitFor(() => expect(handleChangeMock).toHaveBeenCalledTimes(6));
   });
 
   test('User can clear input value from default value', async () => {

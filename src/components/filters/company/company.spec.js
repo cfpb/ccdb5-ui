@@ -4,7 +4,6 @@ import { queryState } from '../../../reducers/query/query-slice';
 import { Company } from './company';
 import { screen, testRender as render } from '../../../test-utils/test-utils';
 import userEvent from '@testing-library/user-event';
-import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from './fixture';
 
 const renderComponent = (newFiltersState, newQueryState) => {

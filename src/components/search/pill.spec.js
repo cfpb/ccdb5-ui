@@ -23,13 +23,13 @@ describe('component::Pill', () => {
   let dateRangeToggledFn, removeFilterFn, replaceFilterFn;
 
   beforeEach(() => {
-    dateRangeToggledFn = jest.spyOn(queryActions, 'dateRangeChanged');
-    removeFilterFn = jest.spyOn(filtersActions, 'filterRemoved');
-    replaceFilterFn = jest.spyOn(filtersActions, 'filtersReplaced');
+    dateRangeToggledFn = rs.spyOn(queryActions, 'dateRangeChanged');
+    removeFilterFn = rs.spyOn(filtersActions, 'filterRemoved');
+    replaceFilterFn = rs.spyOn(filtersActions, 'filtersReplaced');
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    rs.restoreAllMocks();
   });
 
   it('should render in initial state', () => {

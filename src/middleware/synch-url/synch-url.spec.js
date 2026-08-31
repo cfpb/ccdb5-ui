@@ -30,7 +30,7 @@ function setupStore(targetState) {
 describe('redux middleware::synchUrl', () => {
   let store, rSpy, targetState;
   beforeEach(() => {
-    rSpy = jest.spyOn(routesActions, 'appUrlChanged');
+    rSpy = rs.spyOn(routesActions, 'appUrlChanged');
     targetState = structuredClone(emptyStore);
     targetState.query.dateLastIndexed = '2021-05-05';
     targetState.query.date_received_min = '09-12-1980';

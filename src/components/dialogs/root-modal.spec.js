@@ -23,9 +23,9 @@ describe('RootModal', () => {
   });
 
   it('renders Export dialog', () => {
-    const closeSpy = jest
+    const closeSpy = rs
       .spyOn(viewActions, 'modalHidden')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     const { container } = render(<RootModal />, {
       preloadedState: {
         view: {
@@ -40,9 +40,9 @@ describe('RootModal', () => {
   });
 
   it('renders Export Confirmation dialog', async () => {
-    const closeSpy = jest
+    const closeSpy = rs
       .spyOn(viewActions, 'modalHidden')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     const { container } = render(<RootModal />, {
       preloadedState: {
         view: {
@@ -61,9 +61,9 @@ describe('RootModal', () => {
   });
 
   it('renders MoreAbout dialog', () => {
-    const closeSpy = jest
+    const closeSpy = rs
       .spyOn(viewActions, 'modalHidden')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     const { container } = render(<RootModal />, {
       preloadedState: {
         view: {

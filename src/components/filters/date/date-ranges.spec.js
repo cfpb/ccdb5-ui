@@ -25,12 +25,12 @@ describe('component::DateRanges', () => {
   let dateRangeToggledFn, sendAnalyticsEventFn;
 
   beforeEach(() => {
-    dateRangeToggledFn = jest.spyOn(queryActions, 'dateRangeChanged');
-    sendAnalyticsEventFn = jest.spyOn(utils, 'sendAnalyticsEvent');
+    dateRangeToggledFn = rs.spyOn(queryActions, 'dateRangeChanged');
+    sendAnalyticsEventFn = rs.spyOn(utils, 'sendAnalyticsEvent');
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    rs.restoreAllMocks();
   });
 
   it('should render initial state', () => {

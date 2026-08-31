@@ -7,6 +7,7 @@ import {
   getFullUrl,
   sanitizeHtmlId,
   sendAnalyticsEvent,
+  setMaxDate,
   shortIsoFormat,
   sortSelThenCount,
   startOfToday,
@@ -22,7 +23,9 @@ dayjs.extend(dayjsUtc);
 
 describe('module::utils', () => {
   describe('startOfToday', () => {
+    afterAll(() => {});
     it('defaults MAX_DATE if the metadata is missing', () => {
+      setMaxDate(null);
       const actual = startOfToday();
       // this date is set in setupTests.js
       expect(dayjs(actual).toISOString()).toBe('2020-05-05T00:00:00.000Z');
@@ -68,20 +71,20 @@ describe('module::utils', () => {
 
   describe('debounce', () => {
     beforeEach(() => {
-      jest.useFakeTimers();
+      rs.useFakeTimers();
     });
 
     it('calls the passed in function after N milliseconds', () => {
-      const spy = jest.fn();
+      const spy = rs.fn();
       const target = debounce(spy, 200);
       target();
       expect(spy).not.toHaveBeenCalled();
-      jest.advanceTimersByTime(200);
+      rs.advanceTimersByTime(200);
       expect(spy).toHaveBeenCalled();
     });
 
     it('only triggers one call while the timer is active', () => {
-      const spy = jest.fn();
+      const spy = rs.fn();
       const target = debounce(spy, 200);
 
       target();
@@ -89,18 +92,18 @@ describe('module::utils', () => {
       target();
 
       expect(spy).not.toHaveBeenCalled();
-      jest.runAllTimers();
+      rs.runAllTimers();
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('passes arguments to the original function', () => {
-      const spy = jest.fn();
+      const spy = rs.fn();
       const target = debounce(spy, 200);
 
       target('foo', 'bar', 'baz', 'qaz');
 
       expect(spy).not.toHaveBeenCalled();
-      jest.runAllTimers();
+      rs.runAllTimers();
       expect(spy).toHaveBeenCalledWith('foo', 'bar', 'baz', 'qaz');
     });
   });
@@ -166,7 +169,7 @@ describe('module::utils', () => {
   describe('getFullUrl', () => {
     it('adds a host if needed', () => {
       const actual = getFullUrl('/foo/bar#baz?qaz=a&b=c');
-      expect(actual).toBe('http://localhost/foo/bar#baz?qaz=a&b=c');
+      expect(actual).toBe('http://localhost:3000/foo/bar#baz?qaz=a&b=c');
     });
 
     it('does not add a host if it is there', () => {
@@ -310,8 +313,8 @@ describe('module::utils', () => {
 
   describe('sendAnalyticsEvent', () => {
     it('calls the analytics library', () => {
-      Analytics.getDataLayerOptions = jest.fn();
-      Analytics.sendEvent = jest.fn();
+      Analytics.getDataLayerOptions = rs.fn();
+      Analytics.sendEvent = rs.fn();
       sendAnalyticsEvent('myAction Name', 'some label');
       expect(Analytics.getDataLayerOptions).toHaveBeenCalledWith(
         'myAction Name',

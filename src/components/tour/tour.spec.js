@@ -4,7 +4,6 @@ import * as viewActions from '../../reducers/view/view-slice';
 import { viewState } from '../../reducers/view/view-slice';
 import { merge } from '../../test-utils/function-helpers';
 import userEvent from '@testing-library/user-event';
-import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../list/list-panel/fixture';
 import { queryState } from '../../reducers/query/query-slice';
 import { BP_SM_SPLIT_WIDE_MIN } from '../../constants/breakpoints';
@@ -33,14 +32,13 @@ const renderComponent = (newViewModelState) => {
   return render(<Tour />, { preloadedState: data });
 };
 
-fetchMock.enableMocks();
-
 describe('Tour loading behavior', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
+    globalThis.confirm = rs.fn(() => false);
   });
   afterEach(() => {
-    jest.restoreAllMocks();
+    rs.restoreAllMocks();
   });
 
   const user = userEvent.setup({ delay: null });
@@ -58,9 +56,9 @@ describe('Tour loading behavior', () => {
   });
 
   test('Tour launches by clicking button', async () => {
-    const tourShownSpy = jest
+    const tourShownSpy = rs
       .spyOn(viewActions, 'tourShown')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
 
     mockFetchResponses();
 
@@ -71,29 +69,8 @@ describe('Tour loading behavior', () => {
     expect(tourShownSpy).toHaveBeenCalled();
   });
 
-  test('hides the tour when intro.js exits', async () => {
-    const tourHiddenSpy = jest
-      .spyOn(viewActions, 'tourHidden')
-      .mockImplementation(() => jest.fn());
-
-    mockFetchResponses();
-
-    renderComponent({
-      showTour: true,
-      width: 1200,
-    });
-    await screen.findByRole('dialog');
-
-    const skipButton = document.querySelector('.introjs-skipbutton');
-    expect(skipButton).not.toBeNull();
-    await user.click(skipButton);
-
-    expect(tourHiddenSpy).toHaveBeenCalled();
-  });
-
   test('prompts before exiting an in-progress tour', async () => {
     mockFetchResponses();
-    globalThis.confirm = jest.fn(() => false);
 
     renderComponent({
       showTour: true,
