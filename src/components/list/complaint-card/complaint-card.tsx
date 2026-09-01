@@ -1,8 +1,7 @@
 import './complaint-card.scss';
 import { ariaReadoutNumbers } from '../../../utils';
-import { Link } from '@cfpb/design-system-react';
 import { formatDisplayDate } from '../../../utils/format-date';
-import { Heading } from '@cfpb/design-system-react';
+import { Heading, Link } from '@cfpb/design-system-react';
 import type { ReactNode } from 'react';
 
 export interface ComplaintCardRow {
@@ -74,22 +73,22 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
         </div>
         <div className="complaint-card__column complaint-card__column--secondary">
           <div className="complaint-card__meta">
-            <p className="complaint-card__meta-item">
+            <div className="complaint-card__meta-item">
               <Heading type="4" className="complaint-card__meta-label">
                 Date received:
               </Heading>{' '}
               <span className="complaint-card__field-value">
                 {formatDisplayDate(row.date_received)}
               </span>
-            </p>
-            <p className="complaint-card__meta-item">
+            </div>
+            <div className="complaint-card__meta-item">
               <Heading type="4" className="complaint-card__meta-label">
                 Consumer’s state:
               </Heading>{' '}
               <span className="complaint-card__field-value">
                 {renderPossibleHighlight(row.state)}
               </span>
-            </p>
+            </div>
           </div>
           <CardField title="Product">{row.product}</CardField>
           {row.sub_product ? (
