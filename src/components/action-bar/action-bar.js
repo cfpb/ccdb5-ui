@@ -34,26 +34,24 @@ export const ActionBar = () => {
           </Heading>
         )}
         {error ? null : (
-          <div>
-            <Heading type="3" className="h4 action-bar__actions">
-              <Button
-                label="Export data"
-                isLink
-                className="export-btn"
-                data-gtm_ignore="true"
-                onClick={() => {
-                  sendAnalyticsEvent('Export', 'User Opens Export Modal');
-                  dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
-                }}
-              />
-              <Button
-                label="Print"
-                isLink
-                iconLeft="print"
-                className="print-preview"
-                onClick={showPrintView}
-              />
-            </Heading>
+          <div className="action-bar__actions">
+            <Button
+              label="Export data"
+              isLink
+              className="export-btn"
+              data-gtm_ignore="true"
+              onClick={() => {
+                sendAnalyticsEvent('Export', 'User Opens Export Modal');
+                dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
+              }}
+            />
+            <Button
+              label="Print"
+              isLink
+              iconLeft="print"
+              className="print-preview"
+              onClick={showPrintView}
+            />
           </div>
         )}
       </div>
