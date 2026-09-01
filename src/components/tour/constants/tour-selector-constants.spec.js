@@ -16,7 +16,10 @@ describe('tour selector constants', () => {
       '.ccdb-content aside.content__sidebar .filter-panel .date-filter',
     );
     expect(TOUR_SELECTORS.EXPORT_BTN).toBe(
-      '.ccdb-content [data-tour="download-complaint-data"]',
+      '.ccdb-content .action-bar__actions .export-btn',
+    );
+    expect(TOUR_SELECTORS.PRINT_BTN).toBe(
+      '.ccdb-content .action-bar__actions .print-preview',
     );
   });
 
@@ -25,8 +28,11 @@ describe('tour selector constants', () => {
     expect(LIST_COMPLAINTS_SELECTORS.STEP_4).toBe(
       TOUR_STEP_TARGETS.DATE_RECEIVED,
     );
-    expect(LIST_COMPLAINTS_SELECTORS.STEP_12).toBe(TOUR_STEP_TARGETS.RESULTS);
-    expect(LIST_COMPLAINTS_SELECTORS.STEP_13).toBe(
+    expect(LIST_COMPLAINTS_SELECTORS.STEP_10).toBe(
+      TOUR_STEP_TARGETS.PRINT_PAGE,
+    );
+    expect(LIST_COMPLAINTS_SELECTORS.STEP_13).toBe(TOUR_STEP_TARGETS.RESULTS);
+    expect(LIST_COMPLAINTS_SELECTORS.STEP_14).toBe(
       TOUR_STEP_TARGETS.COMPLAINT_DETAIL,
     );
   });
