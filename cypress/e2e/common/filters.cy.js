@@ -4,12 +4,12 @@ import { waitForLoading } from '../utils';
 
 const dateFilterButton = (name) =>
   cy.findByRole('button', {
-    name: new RegExp(`${name} Date the CFPB received the complaint filter`),
+    name: new RegExp(`${name} Date received filter`),
   });
 
 const productFilterButton = (name) =>
   cy.findByRole('button', {
-    name: new RegExp(`${name} Product / sub-product filter`),
+    name: new RegExp(`${name} Product and sub-product filter`),
   });
 
 const productSection = () => productFilterButton('Collapse').closest('section');
@@ -24,7 +24,7 @@ const productToggle = (name) =>
 const timelyFilterButton = (name) =>
   cy.findByRole('button', {
     name: new RegExp(
-      String.raw`${name} Did company provide a timely response\? filter`,
+      String.raw`${name} Did the company provide a timely response\? filter`,
     ),
   });
 
@@ -33,6 +33,11 @@ const timelySection = () => timelyFilterButton('Collapse').closest('section');
 const stateFilterButton = (name) =>
   cy.findByRole('button', {
     name: new RegExp(`${name} State filter`),
+  });
+
+const stateTypeahead = () =>
+  cy.findByRole('combobox', {
+    name: 'The state in the mailing address provided by the consumer.',
   });
 
 const sizeSelect = () => cy.findByLabelText('Show per page');
@@ -109,7 +114,7 @@ describe('Filter Panel', () => {
     // Close it
     timelyFilterButton('Collapse').should('be.visible').click();
     cy.findByRole('button', {
-      name: /Expand Did company provide a timely response\? filter/,
+      name: /Expand Did the company provide a timely response\? filter/,
     })
       .closest('section')
       .within(() => {
@@ -218,22 +223,18 @@ describe('Filter Panel', () => {
     cy.log('Typeahead Filters');
     // state
     cy.log('can collapse/expand and search a filter');
-    cy.findByPlaceholderText('Enter state name or abbreviation').should(
-      'be.visible',
-    );
+    stateTypeahead().should('be.visible');
 
     cy.log('close it');
     stateFilterButton('Collapse').click();
 
-    cy.findByPlaceholderText('Enter state name or abbreviation').should(
-      'not.exist',
-    );
+    stateTypeahead().should('not.exist');
 
     cy.log('open again');
     stateFilterButton('Expand').click();
     cy.log('searches a typeahead filter');
-    cy.findByPlaceholderText('Enter state name or abbreviation').clear();
-    cy.findByPlaceholderText('Enter state name or abbreviation').type('texas');
+    stateTypeahead().clear();
+    stateTypeahead().type('texas');
 
     cy.findByRole('option', { name: /Texas/ }).click();
 

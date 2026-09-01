@@ -24,6 +24,10 @@ describe('component:SearchPanel', () => {
     renderComponent();
     await screen.findByText(/Last updated/);
     expect(
+      screen.getByRole('heading', { name: /Search complaint data/ }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Filters applied:')).toBeInTheDocument();
+    expect(
       screen.getByText('Date received: 11/4/2021 - 11/4/2024'),
     ).toBeInTheDocument();
   });

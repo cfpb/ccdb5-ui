@@ -2,10 +2,8 @@
 @use 'css/base' as *;
 
 .complaint-card {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: none;
-  padding: $grid-gutter-width $gutter-normal;
+  padding: $grid-gutter-width $grid-gutter-width $grid-gutter-width
+    $gutter-normal;
   border-bottom: 1px solid var(--gray-40);
   margin: 0;
   list-style-type: none;
@@ -17,11 +15,7 @@
   &__body {
     display: grid;
     grid-template-columns: 260px minmax(0, 1fr);
-    grid-template-areas:
-      'id meta'
-      'primary secondary';
     column-gap: $grid-gutter-width;
-    row-gap: $grid-gutter-width;
     align-items: start;
 
     @media screen and (max-width: $bp-sm-max) {
@@ -30,21 +24,18 @@
 
     @media screen and (max-width: $bp-xs-max) {
       grid-template-columns: minmax(0, 1fr);
-      grid-template-areas:
-        'id'
-        'meta'
-        'primary'
-        'secondary';
+      row-gap: $grid-gutter-width;
     }
   }
 
-  &__id {
-    grid-area: id;
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: $grid-gutter-width;
   }
 
   &__meta {
     display: flex;
-    grid-area: meta;
     justify-content: space-between;
     align-items: baseline;
     column-gap: $gutter-normal;
@@ -58,24 +49,13 @@
   &__meta-label {
     display: inline;
     margin: 0;
-  }
-
-  &__column--primary {
-    grid-area: primary;
-  }
-
-  &__column--secondary {
-    grid-area: secondary;
+    font-weight: 600;
   }
 
   &__field {
     h4 {
       margin: 0 0 $gutter-minimum;
     }
-  }
-
-  &__field + &__field {
-    margin-top: $grid-gutter-width;
   }
 
   &__field-value {

@@ -8,15 +8,7 @@
   }
 
   p {
-    color: var(--gray);
+    color: var(--gray-dark);
     font-size: 16px;
-  }
-
-  // Expandable content already has top padding from the divider.
-  // Space the helper from the search field / list the same 15px used
-  // elsewhere in the filter panel (and DS `.o-search-input` row-gap).
-  .a-label__helper--block {
-    margin-top: 0;
-    margin-bottom: $gutter-normal;
   }
 }

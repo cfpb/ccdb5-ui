@@ -22,12 +22,6 @@ dayjs.extend(dayjsCustomParseFormat);
 dayjs.extend(dayjsIsBetween);
 dayjs.extend(dayjsUtc);
 
-const WARN_SERIES_BREAK =
-  'CFPB updated product and issue options in April 2017 and August 2023.';
-
-const LEARN_SERIES_BREAK =
-  'https://www.consumerfinance.gov/data-research/consumer-complaints/#past-changes';
-
 const ERROR_FROM_AFTER_THROUGH = "'From' date must be less than 'To' date";
 const ERROR_SAME_DATE = "'From' date cannot be the same as 'To' date";
 
@@ -51,7 +45,8 @@ const dateInputClassName = (hasError) =>
 
 export const DateFilter = () => {
   const fieldName = 'date_received';
-  const title = 'Date the CFPB received the complaint';
+  const title = 'Date received';
+  const desc = 'The date the CFPB received the complaint.';
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateThrough = useSelector(selectQueryDateReceivedMax);
   const formattedFromDate = dayjs(dateFrom).isValid()
@@ -149,22 +144,9 @@ export const DateFilter = () => {
     <CollapsibleFilter
       title={title}
       className="aggregation date-filter"
-      desc=""
+      desc={desc}
     >
       <div>
-        <p className="u-mt15">
-          {' '}
-          {WARN_SERIES_BREAK}{' '}
-          <a
-            href={LEARN_SERIES_BREAK}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Learn more about Product and
-                  Issue changes (opens in new window)"
-          >
-            Learn more
-          </a>
-        </p>
         <ul className="date-inputs">
           <li>
             <label

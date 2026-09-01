@@ -50,7 +50,7 @@ export const TOUR_STEPS = [
   {
     element: LIST.STEP_4.selector,
     intro:
-      'You can adjust the date range of the complaint data showed using the “Date the CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.',
+      'You can adjust the date range of the complaint data showed using the “Date received” filter. <br /> The default date range is three years from today’s date.',
   },
   {
     element: LIST.STEP_5.selector,
@@ -78,30 +78,27 @@ export const TOUR_STEPS = [
   },
   {
     element: LIST.STEP_9.selector,
-    intro: 'You can download complaint data as CSV by selecting “Export data”.',
+    intro:
+      'You can download all complaint data or your filtered results from this section.',
   },
   {
     element: LIST.STEP_10.selector,
-    intro: 'Select “Print” to generate a pdf of the current page.',
-  },
-  {
-    element: LIST.STEP_11.selector,
     intro: 'Select the number of complaints to view per page here.',
   },
   {
-    element: LIST.STEP_12.selector,
+    element: LIST.STEP_11.selector,
     intro:
       'Sort complaints by “Newest to oldest,” “Oldest to newest,” “Most relevant,” and “Least relevant.”' +
       '<br /><br />' +
       'Relevancy are based on any applied search terms.',
   },
   {
-    element: LIST.STEP_13.selector,
+    element: LIST.STEP_12.selector,
     intro:
       'These are your search results. As you apply filters and search terms, your results will display here. This view shows a preview of the complaint.',
   },
   {
-    element: LIST.STEP_14.selector,
+    element: LIST.STEP_13.selector,
     intro:
       'Click the blue ID number to see more details about a particular complaint.',
   },

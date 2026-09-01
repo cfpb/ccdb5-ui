@@ -1,8 +1,7 @@
 import './complaint-card.scss';
 import { ariaReadoutNumbers } from '../../../utils';
-import { Link } from 'react-router';
+import { Link } from '@cfpb/design-system-react';
 import { formatDisplayDate } from '../../../utils/format-date';
-import { formatStateLabel } from '../../../utils/filters';
 import { Heading } from '@cfpb/design-system-react';
 import type { ReactNode } from 'react';
 
@@ -55,36 +54,18 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
   return (
     <li className="complaint-card">
       <div className="complaint-card__body">
-        <div className="complaint-card__id">
-          <CardField title="Complaint ID">
-            <Link
-              className="complaint-card__detail-link"
-              to={complaintIdPath}
-              aria-label={'Complaint ' + ariaReadoutNumbers(cleanId)}
-            >
-              {cleanId}
-            </Link>
-          </CardField>
-        </div>
-        <div className="complaint-card__meta">
-          <p className="complaint-card__meta-item">
-            <Heading type="4" className="complaint-card__meta-label">
-              Date received:
-            </Heading>{' '}
-            <span className="complaint-card__field-value">
-              {formatDisplayDate(row.date_received)}
-            </span>
-          </p>
-          <p className="complaint-card__meta-item">
-            <Heading type="4" className="complaint-card__meta-label">
-              Consumer’s state:
-            </Heading>{' '}
-            <span className="complaint-card__field-value">
-              {formatStateLabel(stripPossibleHighlight(row.state))}
-            </span>
-          </p>
-        </div>
         <div className="complaint-card__column complaint-card__column--primary">
+          <div className="complaint-card__id">
+            <CardField title="Complaint ID">
+              <Link
+                className="complaint-card__detail-link"
+                isJump
+                to={complaintIdPath}
+                aria-label={'Complaint ' + ariaReadoutNumbers(cleanId)}
+                label={cleanId}
+              />
+            </CardField>
+          </div>
           <CardField title="Company name">{row.company}</CardField>
           <CardField title="Company response to consumer">
             {row.company_response}
@@ -92,6 +73,24 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
           <CardField title="Timely response?">{row.timely}</CardField>
         </div>
         <div className="complaint-card__column complaint-card__column--secondary">
+          <div className="complaint-card__meta">
+            <p className="complaint-card__meta-item">
+              <Heading type="4" className="complaint-card__meta-label">
+                Date received:
+              </Heading>{' '}
+              <span className="complaint-card__field-value">
+                {formatDisplayDate(row.date_received)}
+              </span>
+            </p>
+            <p className="complaint-card__meta-item">
+              <Heading type="4" className="complaint-card__meta-label">
+                Consumer’s state:
+              </Heading>{' '}
+              <span className="complaint-card__field-value">
+                {renderPossibleHighlight(row.state)}
+              </span>
+            </p>
+          </div>
           <CardField title="Product">{row.product}</CardField>
           {row.sub_product ? (
             <CardField title="Sub-product">{row.sub_product}</CardField>
