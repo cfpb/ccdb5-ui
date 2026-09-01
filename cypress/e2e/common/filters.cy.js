@@ -37,7 +37,7 @@ const stateFilterButton = (name) =>
 
 const stateTypeahead = () =>
   cy.findByRole('combobox', {
-    name: 'The state in the mailing address provided by the consumer.',
+    name: 'Start typing to begin listing US states',
   });
 
 const sizeSelect = () => cy.findByLabelText('Show per page');
