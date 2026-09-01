@@ -2,6 +2,9 @@
 @use 'css/base' as *;
 
 .complaint-card {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
   padding: $grid-gutter-width $grid-gutter-width $grid-gutter-width
     $gutter-normal;
   border-bottom: 1px solid var(--gray-40);

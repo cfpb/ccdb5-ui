@@ -45,7 +45,7 @@ export const TOUR_STEPS = [
   {
     element: LIST.STEP_3.selector,
     intro:
-      'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear all filters” under the Search bar.',
+      'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear filters” under the Search bar.',
   },
   {
     element: LIST.STEP_4.selector,
