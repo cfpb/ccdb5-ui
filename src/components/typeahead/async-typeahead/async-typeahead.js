@@ -118,6 +118,7 @@ export const AsyncTypeahead = ({
             filterBy={filterBy}
             inputProps={{
               id: htmlId,
+              type: 'search',
               className: 'a-text-input a-text-input--full',
             }}
             isLoading={isLoading || isFetching}

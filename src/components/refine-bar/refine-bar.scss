@@ -9,10 +9,7 @@
   align-items: start;
   width: 100%;
   margin: 0;
-
-  // Line up with the action bar text: that bar pulls itself out to the column
-  // edge with a -15px margin, then insets its content by 30px.
-  padding: $grid-gutter-width 0 $grid-gutter-width $gutter-normal;
+  padding: $grid-gutter-width 0 0;
 
   section {
     margin: 0;

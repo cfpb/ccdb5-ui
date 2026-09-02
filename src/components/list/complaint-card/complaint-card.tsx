@@ -1,8 +1,7 @@
 import './complaint-card.scss';
 import { ariaReadoutNumbers } from '../../../utils';
-import { Link } from 'react-router';
 import { formatDisplayDate } from '../../../utils/format-date';
-import { Heading } from '@cfpb/design-system-react';
+import { Heading, Link } from '@cfpb/design-system-react';
 import type { ReactNode } from 'react';
 
 export interface ComplaintCardRow {
@@ -11,7 +10,6 @@ export interface ComplaintCardRow {
   company_response: string;
   timely: string;
   date_received: string;
-  state: string;
   product: string;
   sub_product?: string | null;
   issue: string;
@@ -52,38 +50,20 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
   const complaintIdPath = 'detail/' + stripPossibleHighlight(row.complaint_id);
 
   return (
-    <li className="complaint-card">
+    <article className="complaint-card">
       <div className="complaint-card__body">
-        <div className="complaint-card__id">
-          <CardField title="Complaint ID">
-            <Link
-              className="complaint-card__detail-link"
-              to={complaintIdPath}
-              aria-label={'Complaint ' + ariaReadoutNumbers(cleanId)}
-            >
-              {cleanId}
-            </Link>
-          </CardField>
-        </div>
-        <div className="complaint-card__meta">
-          <p className="complaint-card__meta-item">
-            <Heading type="4" className="complaint-card__meta-label">
-              Date received:
-            </Heading>{' '}
-            <span className="complaint-card__field-value">
-              {formatDisplayDate(row.date_received)}
-            </span>
-          </p>
-          <p className="complaint-card__meta-item">
-            <Heading type="4" className="complaint-card__meta-label">
-              Consumer’s state:
-            </Heading>{' '}
-            <span className="complaint-card__field-value">
-              {renderPossibleHighlight(row.state)}
-            </span>
-          </p>
-        </div>
         <div className="complaint-card__column complaint-card__column--primary">
+          <div className="complaint-card__id">
+            <Heading type="3">
+              <Link
+                className="complaint-card__detail-link"
+                isJump
+                to={complaintIdPath}
+                aria-label={'Complaint ' + ariaReadoutNumbers(cleanId)}
+                label={cleanId}
+              />
+            </Heading>
+          </div>
           <CardField title="Company name">{row.company}</CardField>
           <CardField title="Company response to consumer">
             {row.company_response}
@@ -91,6 +71,9 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
           <CardField title="Timely response?">{row.timely}</CardField>
         </div>
         <div className="complaint-card__column complaint-card__column--secondary">
+          <CardField title="Date received">
+            {formatDisplayDate(row.date_received)}
+          </CardField>
           <CardField title="Product">{row.product}</CardField>
           {row.sub_product ? (
             <CardField title="Sub-product">{row.sub_product}</CardField>
@@ -101,6 +84,6 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
           ) : null}
         </div>
       </div>
-    </li>
+    </article>
   );
 };

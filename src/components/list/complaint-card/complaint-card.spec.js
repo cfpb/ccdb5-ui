@@ -25,18 +25,19 @@ describe('ComplaintCard', () => {
   test('ComplaintCard renders with basic information', () => {
     render(<ComplaintCard row={itemFixture} />);
 
-    expect(screen.getByText('Complaint ID')).toBeInTheDocument();
+    expect(screen.queryByText('Complaint ID')).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /Complaint 7 9 9 0 0 9 5/ }),
+    ).toBeInTheDocument();
     expect(screen.getByText(itemFixture.complaint_id)).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: 'Date received:' }),
+      screen.getByRole('heading', { name: 'Date received' }),
     ).toBeInTheDocument();
     expect(screen.getByText('11/16/2022')).toBeInTheDocument();
     expect(screen.getByText('Company name')).toBeInTheDocument();
     expect(screen.getByText(itemFixture.company)).toBeInTheDocument();
-    expect(
-      screen.getByRole('heading', { name: 'Consumer’s state:' }),
-    ).toBeInTheDocument();
-    expect(screen.getByText(itemFixture.state)).toBeInTheDocument();
+    expect(screen.queryByText('Consumer’s state:')).not.toBeInTheDocument();
+    expect(screen.queryByText(itemFixture.state)).not.toBeInTheDocument();
     expect(
       screen.getByText('Company response to consumer'),
     ).toBeInTheDocument();

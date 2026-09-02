@@ -18,9 +18,14 @@
     margin-top: $gutter-normal;
   }
 
-  // Vertical rhythm against <hr>s: 15px above titles and 30px below content.
+  // Vertical rhythm against <hr>s: 15px above titles and 30px below content
+  // (45px between expanded sections). Collapsed headers were 15+15=30px.
   .o-expandable__header {
     padding: $gutter-normal 0;
+
+    &[aria-expanded='false'] {
+      padding-bottom: $grid-gutter-width;
+    }
   }
 
   .o-expandable__content {
@@ -28,6 +33,28 @@
 
     &::before {
       padding-top: $gutter-normal;
+    }
+  }
+
+  // No helper text: 15px from the title to the first option, without
+  // collapsing the first row's own padding (that made Yes look flush
+  // against the heading while No still had a full 15px cell).
+  .aggregation.simple:not(:has(.o-expandable__content > p)) {
+    .o-expandable__header {
+      padding-bottom: 0;
+
+      &[aria-expanded='false'] {
+        padding-bottom: $grid-gutter-width;
+      }
+    }
+
+    .o-expandable__content::before {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    ul {
+      margin-top: 0;
     }
   }
 

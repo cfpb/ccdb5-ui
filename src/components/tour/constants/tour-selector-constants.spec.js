@@ -4,6 +4,7 @@ import {
   TOUR_STEP_TARGETS,
 } from './tour-selector-constants';
 import { LIST_COMPLAINTS_SELECTORS } from './tour-step-selectors';
+import { TOUR_STEPS } from './tour-steps-constants';
 
 describe('tour selector constants', () => {
   it('scopes shared selectors under the app root', () => {
@@ -17,6 +18,9 @@ describe('tour selector constants', () => {
     expect(TOUR_SELECTORS.EXPORT_BTN).toBe(
       '.ccdb-content .action-bar__actions .export-btn',
     );
+    expect(TOUR_SELECTORS.PRINT_BTN).toBe(
+      '.ccdb-content .action-bar__actions .print-preview',
+    );
   });
 
   it('uses complaint search filter and result targets', () => {
@@ -24,6 +28,23 @@ describe('tour selector constants', () => {
     expect(LIST_COMPLAINTS_SELECTORS.STEP_4).toBe(
       TOUR_STEP_TARGETS.DATE_RECEIVED,
     );
+    expect(LIST_COMPLAINTS_SELECTORS.STEP_10).toBe(
+      TOUR_STEP_TARGETS.PRINT_PAGE,
+    );
     expect(LIST_COMPLAINTS_SELECTORS.STEP_13).toBe(TOUR_STEP_TARGETS.RESULTS);
+    expect(LIST_COMPLAINTS_SELECTORS.STEP_14).toBe(
+      TOUR_STEP_TARGETS.COMPLAINT_DETAIL,
+    );
+  });
+
+  it('has a target for every tour step', () => {
+    const missing = Object.entries(LIST_COMPLAINTS_SELECTORS)
+      .filter(([, target]) => !target?.selector)
+      .map(([key]) => key);
+
+    expect(missing).toEqual([]);
+    expect(Object.keys(LIST_COMPLAINTS_SELECTORS)).toHaveLength(
+      TOUR_STEPS.length,
+    );
   });
 });

@@ -48,7 +48,7 @@ describe('component::Company', () => {
     renderComponent(filters, { dateLastIndexed: '2024-10-07' });
     await screen.findByRole('checkbox', { name: 'Monocle Popper Inc' });
     expect(
-      screen.getByText('The complaint is about this company.'),
+      screen.getByText('The company the consumer identified in the complaint.'),
     ).toBeInTheDocument();
     expect(
       screen.getByPlaceholderText('Enter company name'),

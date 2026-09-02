@@ -2,11 +2,11 @@
 @use 'css/base' as *;
 
 .complaint-card {
-  padding: $grid-gutter-width $grid-gutter-width $grid-gutter-width
-    $gutter-normal;
+  box-sizing: border-box;
+  width: 100%;
+  padding: $grid-gutter-width 0;
   border-bottom: 1px solid var(--gray-40);
   margin: 0;
-  list-style-type: none;
 
   &:last-of-type {
     border: 0;
@@ -15,11 +15,7 @@
   &__body {
     display: grid;
     grid-template-columns: 260px minmax(0, 1fr);
-    grid-template-areas:
-      'id meta'
-      'primary secondary';
     column-gap: $grid-gutter-width;
-    row-gap: $grid-gutter-width;
     align-items: start;
 
     @media screen and (max-width: $bp-sm-max) {
@@ -28,43 +24,14 @@
 
     @media screen and (max-width: $bp-xs-max) {
       grid-template-columns: minmax(0, 1fr);
-      grid-template-areas:
-        'id'
-        'meta'
-        'primary'
-        'secondary';
+      row-gap: $grid-gutter-width;
     }
   }
 
-  &__id {
-    grid-area: id;
-  }
-
-  &__meta {
+  &__column {
     display: flex;
-    grid-area: meta;
-    justify-content: space-between;
-    align-items: baseline;
-    column-gap: $gutter-normal;
-    flex-wrap: wrap;
-  }
-
-  &__meta-item {
-    margin: 0;
-  }
-
-  &__meta-label {
-    display: inline;
-    margin: 0;
-    font-weight: 600;
-  }
-
-  &__column--primary {
-    grid-area: primary;
-  }
-
-  &__column--secondary {
-    grid-area: secondary;
+    flex-direction: column;
+    gap: $grid-gutter-width;
   }
 
   &__field {
@@ -73,17 +40,15 @@
     }
   }
 
-  &__field + &__field {
-    margin-top: $grid-gutter-width;
-  }
-
   &__field-value {
     margin: 0;
     font-weight: normal;
   }
 
-  &__detail-link {
-    border-bottom-width: 1px;
+  &__id {
+    h3 {
+      margin: 0;
+    }
   }
 
   em {

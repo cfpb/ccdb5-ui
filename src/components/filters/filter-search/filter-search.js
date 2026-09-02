@@ -123,6 +123,7 @@ export const FilterSearch = ({ fieldName }) => {
             inputProps={{
               'aria-label': `${fieldNameNew} Filter Menu Input`,
               className: 'a-text-input a-text-input--full',
+              type: 'search',
             }}
             renderMenuItemChildren={(option) => (
               <li className="typeahead__option typeahead__option--multi">
