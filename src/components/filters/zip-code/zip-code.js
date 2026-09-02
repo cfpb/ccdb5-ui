@@ -17,7 +17,7 @@ export const ZipCode = () => {
   return (
     <CollapsibleFilter
       title="ZIP code"
-      desc="The mailing ZIP code provided by the consumer"
+      desc="The mailing ZIP code provided by the consumer."
       className="aggregation"
     >
       <AsyncTypeahead

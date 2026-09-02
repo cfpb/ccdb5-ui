@@ -65,6 +65,7 @@ export const Typeahead = ({
             )}
             inputProps={{
               id: htmlId,
+              type: 'search',
               className: 'a-text-input a-text-input--full',
             }}
           />

@@ -4,11 +4,9 @@
 .complaint-card {
   box-sizing: border-box;
   width: 100%;
-  max-width: none;
   padding: $grid-gutter-width 0;
   border-bottom: 1px solid var(--gray-40);
   margin: 0;
-
 
   &:last-of-type {
     border: 0;
@@ -34,24 +32,6 @@
     display: flex;
     flex-direction: column;
     gap: $grid-gutter-width;
-  }
-
-  &__meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    column-gap: $gutter-normal;
-    flex-wrap: wrap;
-  }
-
-  &__meta-item {
-    margin: 0;
-  }
-
-  &__meta-label {
-    display: inline;
-    margin: 0;
-    font-weight: 600;
   }
 
   &__field {

@@ -70,7 +70,7 @@ describe('ListPanel', () => {
     expect(elements).toHaveLength(25);
 
     const el = await screen.findAllByRole('heading', {
-      name: 'Date received:',
+      name: 'Complaint ID',
     });
     expect(el).toHaveLength(25);
   });

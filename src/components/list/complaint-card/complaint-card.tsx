@@ -10,7 +10,6 @@ export interface ComplaintCardRow {
   company_response: string;
   timely: string;
   date_received: string;
-  state: string;
   product: string;
   sub_product?: string | null;
   issue: string;
@@ -72,24 +71,9 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
           <CardField title="Timely response?">{row.timely}</CardField>
         </div>
         <div className="complaint-card__column complaint-card__column--secondary">
-          <div className="complaint-card__meta">
-            <div className="complaint-card__meta-item">
-              <Heading type="4" className="complaint-card__meta-label">
-                Date received:
-              </Heading>{' '}
-              <span className="complaint-card__field-value">
-                {formatDisplayDate(row.date_received)}
-              </span>
-            </div>
-            <div className="complaint-card__meta-item">
-              <Heading type="4" className="complaint-card__meta-label">
-                Consumer’s state:
-              </Heading>{' '}
-              <span className="complaint-card__field-value">
-                {renderPossibleHighlight(row.state)}
-              </span>
-            </div>
-          </div>
+          <CardField title="Date received">
+            {formatDisplayDate(row.date_received)}
+          </CardField>
           <CardField title="Product">{row.product}</CardField>
           {row.sub_product ? (
             <CardField title="Sub-product">{row.sub_product}</CardField>
