@@ -51,7 +51,7 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
   const complaintIdPath = 'detail/' + stripPossibleHighlight(row.complaint_id);
 
   return (
-    <li className="complaint-card">
+    <article className="complaint-card">
       <div className="complaint-card__body">
         <div className="complaint-card__column complaint-card__column--primary">
           <div className="complaint-card__id">
@@ -100,6 +100,6 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
           ) : null}
         </div>
       </div>
-    </li>
+    </article>
   );
 };

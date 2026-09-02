@@ -5,11 +5,10 @@
   box-sizing: border-box;
   width: 100%;
   max-width: none;
-  padding: $grid-gutter-width $grid-gutter-width $grid-gutter-width
-    $gutter-normal;
+  padding: $grid-gutter-width 0;
   border-bottom: 1px solid var(--gray-40);
   margin: 0;
-  list-style-type: none;
+
 
   &:last-of-type {
     border: 0;

@@ -7,7 +7,6 @@
   border-bottom: 1px solid var(--gray-40);
   background-color: var(--green-20);
   padding: $gutter-normal $grid-gutter-width;
-  margin-left: -15px;
 
   h2 {
     margin: 0;
@@ -44,7 +43,8 @@
     }
   }
 
-  @media screen and (max-width: 749px) {
+  // Stacked layout below desktop: show the left edge so it matches the filter panel.
+  @media screen and (max-width: $bp-sm-max) {
     border-left: 1px solid var(--gray-40);
   }
 }

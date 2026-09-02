@@ -2,36 +2,25 @@
 @use 'css/base' as *;
 
 .list-panel {
+  box-sizing: border-box;
+
+  // One 30px gutter from the filter sidebar to list content (refine bar, cards).
+  padding-left: $grid-gutter-width;
+
+  @media screen and (max-width: $bp-sm-max) {
+    padding-left: 0;
+  }
+
   // The "No results were found for your search" heading.
   h2 {
     margin: 15px;
   }
 
   .cards-panel {
-    padding: $grid-gutter-width 0;
-    margin: 0;
+    box-sizing: border-box;
     width: 100%;
-
-    // DS `.content__main li` (and p/h*) caps readable line length at 41.875rem.
-    > .complaint-card {
-      box-sizing: border-box;
-      width: 100%;
-      max-width: none;
-
-      p,
-      h3,
-      h4,
-      h5,
-      h6,
-      label {
-        max-width: none;
-      }
-    }
-
-    // Match the column edge (refine bar), not an extra inset.
-    @media screen and (max-width: 800px) {
-      padding: $grid-gutter-width 0;
-    }
+    margin: 0;
+    padding: 0;
   }
 
   .m-pagination {
