@@ -18,7 +18,7 @@
     li {
       display: inline-block;
       width: calc(50% - 8px); // Half $gutter-normal
-
+      padding: 0;
       list-style: none;
 
       &:first-of-type {
