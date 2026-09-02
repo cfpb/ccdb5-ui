@@ -4,8 +4,8 @@
     "src",
     "cypress",
     "eslint.config.mjs",
-    "jest.config.js",
-    "jest.setup.js",
+    "rstest.config.ts",
+    "rstest.setup.ts",
     "rsbuild.config.mts"
   ],
   "exclude": ["node_modules", "dist", "coverage"]

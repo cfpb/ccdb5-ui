@@ -7,15 +7,10 @@ This application allows consumers to search complaints submitted to the CFPB by 
 
 This application is written in JavaScript and [Sass](https://sass-lang.com/) within
 the [React](https://facebook.github.io/react/) + [Redux](http://redux.js.org/)
-framework. It uses [Webpack](http://webpack.github.io/docs/) at runtime to
-manage module loading.
-
-The code is written with the [ES6](http://es6-features.org/) feature set
-of JavaScript. Backwards compatibility is achieved by compiling the script with
-[Babel](https://babeljs.io/) prior to using it within the browser.
+framework. It uses [Rsbuild](https://rsbuild.rs/) to bundle the app for the browser.
 
 Unit testing of the application is performed within
-[Jest](https://facebook.github.io/jest/) with
+[Rstest](https://rstest.rs/) with
 [Testing Library](https://testing-library.com/) providing support for event testing.
 
 [Yarn](https://yarnpkg.com/) (via Corepack) is used to manage the build/test/deploy cycle.
@@ -88,13 +83,11 @@ Enter `Control-C` to exit development mode
 
 #### Unit testing
 
-To launch the JavaScript test runner in interactive watch/test mode:
+To run the JavaScript unit tests (including coverage for Coveralls):
 
 ```bash
 yarn test
 ```
-
-Enter `Control-C` to exit interactive watch mode
 
 ## Cypress integration tests
 
@@ -210,7 +203,6 @@ Ready to publish changes to npm?
     - Re-add the last two lines to the root `.yarnrc` file.
 - When running the project under CFGOV, you will need to index complaints to have a functioning app. The default docker setup of cfgov does not index any complaint data.
   You will have to run the [CCDB Data Pipeline](https://github.com/cfpb/ccdb-data-pipeline/blob/main/INSTALL.md) and load complaints into Elasticsearch.
-
 
 ## Getting help
 

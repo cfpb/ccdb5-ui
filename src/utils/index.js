@@ -319,7 +319,7 @@ export function setMaxDate(date) {
 export function startOfToday() {
   if (!maxDateState.value) {
     // eslint-disable-next-line no-console
-    console.log('waiting for API response, setting MAX_DATE to today');
+    console.error('waiting for API response, setting MAX_DATE to today');
     maxDateState.value = formatDate(dayjs().startOf('day'));
   }
   return maxDateState.value;
