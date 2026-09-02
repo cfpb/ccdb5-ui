@@ -25,7 +25,10 @@ describe('ComplaintCard', () => {
   test('ComplaintCard renders with basic information', () => {
     render(<ComplaintCard row={itemFixture} />);
 
-    expect(screen.getByText('Complaint ID')).toBeInTheDocument();
+    expect(screen.queryByText('Complaint ID')).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /Complaint 7 9 9 0 0 9 5/ }),
+    ).toBeInTheDocument();
     expect(screen.getByText(itemFixture.complaint_id)).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: 'Date received' }),

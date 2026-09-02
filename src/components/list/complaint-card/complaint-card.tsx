@@ -54,7 +54,7 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
       <div className="complaint-card__body">
         <div className="complaint-card__column complaint-card__column--primary">
           <div className="complaint-card__id">
-            <CardField title="Complaint ID">
+            <Heading type="3">
               <Link
                 className="complaint-card__detail-link"
                 isJump
@@ -62,7 +62,7 @@ export const ComplaintCard = ({ row }: ComplaintCardProps) => {
                 aria-label={'Complaint ' + ariaReadoutNumbers(cleanId)}
                 label={cleanId}
               />
-            </CardField>
+            </Heading>
           </div>
           <CardField title="Company name">{row.company}</CardField>
           <CardField title="Company response to consumer">

@@ -45,8 +45,10 @@
     font-weight: normal;
   }
 
-  &__detail-link {
-    border-bottom-width: 1px;
+  &__id {
+    h3 {
+      margin: 0;
+    }
   }
 
   em {

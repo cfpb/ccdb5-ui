@@ -69,9 +69,7 @@ describe('ListPanel', () => {
     const elements = await screen.findAllByText('EQUIFAX, INC.');
     expect(elements).toHaveLength(25);
 
-    const el = await screen.findAllByRole('heading', {
-      name: 'Complaint ID',
-    });
+    const el = await screen.findAllByRole('link', { name: /Complaint / });
     expect(el).toHaveLength(25);
   });
 
