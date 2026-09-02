@@ -21,11 +21,11 @@ export const ActionBar = () => {
     <>
       <div className="action-bar" id="search-summary">
         {total === docCount ? (
-          <Heading type="2">
+          <Heading type="3">
             {'Showing ' + docCount.toLocaleString() + ' total complaints'}
           </Heading>
         ) : (
-          <Heading type="2">
+          <Heading type="3">
             {'Showing ' +
               total.toLocaleString() +
               ' matches out of ' +
@@ -38,6 +38,7 @@ export const ActionBar = () => {
             <Button
               label="Export data"
               isLink
+              iconRight="download"
               className="export-btn"
               data-gtm_ignore="true"
               onClick={() => {
@@ -48,7 +49,7 @@ export const ActionBar = () => {
             <Button
               label="Print"
               isLink
-              iconLeft="print"
+              iconRight="print"
               className="print-preview"
               onClick={showPrintView}
             />

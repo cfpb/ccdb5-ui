@@ -13,7 +13,7 @@ export const Company = () => {
   const aggsCompany = error ? [] : data?.company || [];
   const options = structuredClone(aggsCompany);
 
-  const desc = 'The complaint is about this company.';
+  const desc = 'The company the consumer identified in the complaint.';
 
   return (
     <CollapsibleFilter

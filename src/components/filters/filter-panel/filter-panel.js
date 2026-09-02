@@ -65,7 +65,7 @@ export const FilterPanel = () => {
           <hr />
           <SimpleFilter
             title="Company response to consumer"
-            desc="This is how the company responded to the complaint."
+            desc="The company's response to the consumer's complaint."
             fieldName="company_response"
           />
           <hr />
