@@ -468,7 +468,6 @@ __metadata:
     "@types/react": "npm:^19.2.18"
     "@types/react-dom": "npm:^19.2.5"
     autoprefixer: "npm:^10.5.4"
-    coveralls-next: "npm:^6.0.2"
     cypress: "npm:^15.21.1"
     dayjs: "npm:^1.11.23"
     eslint: "npm:10.9.1"
@@ -4829,18 +4828,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"coveralls-next@npm:^6.0.2":
-  version: 6.0.2
-  resolution: "coveralls-next@npm:6.0.2"
-  dependencies:
-    js-yaml: "npm:4.2.0"
-    lcov-parse: "npm:1.0.0"
-  bin:
-    coveralls: bin/coveralls.js
-  checksum: 10c0/7656541cccf43a56cc6ddace6c48e7d193c730eee5befe239d292cfdb8e74c0d9aaa34940820baf5fda0619241cae2ef8df9f9ab9cb815787c46080d9b7acdd3
-  languageName: node
-  linkType: hard
-
 "cross-fetch@npm:^3.1.8":
   version: 3.2.0
   resolution: "cross-fetch@npm:3.2.0"
@@ -8324,17 +8311,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:4.2.0":
-  version: 4.2.0
-  resolution: "js-yaml@npm:4.2.0"
-  dependencies:
-    argparse: "npm:^2.0.1"
-  bin:
-    js-yaml: bin/js-yaml.js
-  checksum: 10c0/1916456c118746603b067d74bbcbb0445d9a1d5e474ad4ae775e7b20525bed902e01d9d97dd0c81fcd8d4f596162309d0eb057f4aa38f3e9647f14075e9dea45
-  languageName: node
-  linkType: hard
-
 "js-yaml@npm:^3.13.1":
   version: 3.15.1
   resolution: "js-yaml@npm:3.15.1"
@@ -8572,15 +8548,6 @@ __metadata:
   dependencies:
     language-subtag-registry: "npm:^0.3.20"
   checksum: 10c0/9ab911213c4bd8bd583c850201c17794e52cb0660d1ab6e32558aadc8324abebf6844e46f92b80a5d600d0fbba7eface2c207bfaf270a1c7fd539e4c3a880bff
-  languageName: node
-  linkType: hard
-
-"lcov-parse@npm:1.0.0":
-  version: 1.0.0
-  resolution: "lcov-parse@npm:1.0.0"
-  bin:
-    lcov-parse: ./bin/cli.js
-  checksum: 10c0/0d7c3f55361a0f6eda4788928b014a7b56685ceb62b5f8fc1daf0b1dedba4d02e6aa0069e21fee92c479b7dacfd2e8e951e5cdec908f1615b516ff9f91033030
   languageName: node
   linkType: hard
 
