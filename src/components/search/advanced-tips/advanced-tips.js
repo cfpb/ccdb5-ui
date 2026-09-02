@@ -1,73 +1,87 @@
 import './advanced-tips.scss';
 import { TooltipWrapper } from '../../common/tooltip-wrapper/tooltip-wrapper';
 import { ComplexExample } from './complex-example';
-import { Icon, Heading } from '@cfpb/design-system-react';
+import PropTypes from 'prop-types';
+import {
+  Heading,
+  Label,
+  Link,
+  List,
+  ListItem,
+  Paragraph,
+  TextInput,
+} from '@cfpb/design-system-react';
+
+const ExampleInput = ({ id, label, tooltip, value, className }) => (
+  <>
+    <Label isInline className="u-visually-hidden" htmlFor={id}>
+      {label}
+    </Label>
+    <TooltipWrapper text={tooltip}>
+      <TextInput id={id} className={className} readOnly value={value} />
+    </TooltipWrapper>
+  </>
+);
+
+ExampleInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  tooltip: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
 
 export const AdvancedTips = () => {
   return (
     <div className="advanced-tips">
       <div>
         <Heading type="3">Search tips</Heading>
-        <ul className="m-list">
-          <li className="m-list__item">
+        <List>
+          <ListItem>
             Hover over the examples within the sample search bars below to see
             what their results should return
-          </li>
-          <li className="m-list__item">
+          </ListItem>
+          <ListItem>
             When searching within &quot;All data&quot;, terms must be found in
             the same field to be considered a match
-          </li>
-          <li className="m-list__item">
+          </ListItem>
+          <ListItem>
             The search function will look for any variations of the word that
             includes the stem – for example, if deferment is searched, it would
             return the following variations: deferment, defer, deferred,
             deferral, etc.
-          </li>
-        </ul>
+          </ListItem>
+        </List>
       </div>
       <div className="tips content-l">
         <div className="tip content-l__col content-l__col-1-3">
           <Heading type="4">AND / OR / NOT</Heading>
-          <label className="u-visually-hidden" htmlFor="example-and">
-            Use AND when results must contain all terms
-          </label>
-          <TooltipWrapper text="Results would include both call (call, called, calling, etc.) as well as harass (harass, harassed, harassing, etc.).">
-            <input
-              className="a-text-input"
-              id="example-and"
-              type="text"
-              readOnly
-              value="call AND harass"
-            />
-          </TooltipWrapper>
-          <label className="u-visually-hidden" htmlFor="example-or">
-            Use OR when results should contain at least one of the terms
-          </label>
-          <TooltipWrapper text="Results would include either loan (loan, loans, loaned, etc.) or mortage (mortgage, mortgages, etc.).">
-            <input
-              className="a-text-input"
-              id="example-or"
-              type="text"
-              readOnly
-              value="loan OR mortgage"
-            />
-          </TooltipWrapper>
-          <label className="u-visually-hidden" htmlFor="example-not">
-            Use NOT when results should contain at least one of the terms
-          </label>
-          <TooltipWrapper text="Results would only include claim (claim, claims, claimed, etc.) and cannot include the term accident (accident, accidents, etc.)">
-            <input
-              className="a-text-input"
-              id="example-not"
-              type="text"
-              readOnly
-              value="claim NOT accident"
-            />
-          </TooltipWrapper>
+          <ExampleInput
+            id="example-and"
+            label="Use AND when results must contain all terms"
+            tooltip="Results would include both call (call, called, calling, etc.) as well as harass (harass, harassed, harassing, etc.)."
+            value="call AND harass"
+          />
+          <ExampleInput
+            id="example-or"
+            label="Use OR when results should contain at least one of the terms"
+            tooltip="Results would include either loan (loan, loans, loaned, etc.) or mortage (mortgage, mortgages, etc.)."
+            value="loan OR mortgage"
+          />
+          <ExampleInput
+            id="example-not"
+            label="Use NOT when results should contain at least one of the terms"
+            tooltip="Results would only include claim (claim, claims, claimed, etc.) and cannot include the term accident (accident, accidents, etc.)"
+            value="claim NOT accident"
+          />
           <div className="tip-description">
-            <p>Use AND when results must contain both terms</p>
-            <p>Use OR when results should contain at least one of the terms</p>
-            <p>Use NOT when results must not contain the term</p>
+            <Paragraph>Use AND when results must contain both terms</Paragraph>
+            <Paragraph>
+              Use OR when results should contain at least one of the terms
+            </Paragraph>
+            <Paragraph>
+              Use NOT when results must not contain the term
+            </Paragraph>
           </div>
           <ComplexExample
             id="and-or-not"
@@ -81,33 +95,25 @@ export const AdvancedTips = () => {
         </div>
         <div className="tip content-l__col content-l__col-1-3">
           <Heading type="4">Must/Must not contain</Heading>
-          <label className="u-visually-hidden" htmlFor="example-must-plus">
-            Use + if the search must contain the selected term
-          </label>
-          <TooltipWrapper text="Results must include the word foreclosure (foreclosure, foreclosed, etc.).">
-            <input
-              className="a-text-input"
-              id="example-must-plus"
-              type="text"
-              readOnly
-              value="+foreclosure"
-            />
-          </TooltipWrapper>
-          <label className="u-visually-hidden" htmlFor="example-must-minus">
-            Use - if the search must not contain the selected term
-          </label>
-          <TooltipWrapper text="Results cannot include the word collect (collect, collects, collecting, etc.).">
-            <input
-              className="a-text-input"
-              id="example-must-minus"
-              type="text"
-              readOnly
-              value="-collect"
-            />
-          </TooltipWrapper>
+          <ExampleInput
+            id="example-must-plus"
+            label="Use + if the search must contain the selected term"
+            tooltip="Results must include the word foreclosure (foreclosure, foreclosed, etc.)."
+            value="+foreclosure"
+          />
+          <ExampleInput
+            id="example-must-minus"
+            label="Use - if the search must not contain the selected term"
+            tooltip="Results cannot include the word collect (collect, collects, collecting, etc.)."
+            value="-collect"
+          />
           <div className="tip-description">
-            <p>Use + if the search must contain the selected term</p>
-            <p>Use - if the search must not contain the selected term</p>
+            <Paragraph>
+              Use + if the search must contain the selected term
+            </Paragraph>
+            <Paragraph>
+              Use - if the search must not contain the selected term
+            </Paragraph>
           </div>
           <ComplexExample
             id="must-or-must-not"
@@ -121,58 +127,43 @@ export const AdvancedTips = () => {
         </div>
         <div className="tip content-l__col content-l__col-1-3">
           <Heading type="4">Wildcard search</Heading>
-          <label className="u-visually-hidden" htmlFor="example-wc-star">
-            Use * to substitute any consecutive number of characters.
-          </label>
-          <TooltipWrapper text='Results would include all terms that start with the base "report" (report, reports, reported, reporting, etc.) and "$*.00" would include all variations of whole number dollar values ($8.00, $1234.00, etc.).'>
-            <input
-              className="a-text-input"
-              id="example-wc-star"
-              type="text"
-              readOnly
-              value="report* AND $*.00"
-            />
-          </TooltipWrapper>
-          <label className="u-visually-hidden" htmlFor="example-wc-question">
-            Use ? to replace any single character anywhere in a term.
-          </label>
-          <TooltipWrapper text="Results would return variations such as: woman, women, etc.">
-            <input
-              className="a-text-input"
-              id="example-wc-question"
-              type="text"
-              readOnly
-              value="wom?n"
-            />
-          </TooltipWrapper>
+          <ExampleInput
+            id="example-wc-star"
+            label="Use * to substitute any consecutive number of characters."
+            tooltip='Results would include all terms that start with the base "report" (report, reports, reported, reporting, etc.) and "$*.00" would include all variations of whole number dollar values ($8.00, $1234.00, etc.).'
+            value="report* AND $*.00"
+          />
+          <ExampleInput
+            id="example-wc-question"
+            label="Use ? to replace any single character anywhere in a term."
+            tooltip="Results would return variations such as: woman, women, etc."
+            value="wom?n"
+          />
           <div className="tip-description">
-            <p>Use * to substitute any consecutive number of characters.</p>
-            <p>Use ? to replace any single character anywhere in a term.</p>
+            <Paragraph>
+              Use * to substitute any consecutive number of characters.
+            </Paragraph>
+            <Paragraph>
+              Use ? to replace any single character anywhere in a term.
+            </Paragraph>
           </div>
         </div>
         <div className="tip content-l__col content-l__col-1-3">
           <Heading type="4">Proximity search</Heading>
-          <label className="u-visually-hidden" htmlFor="example-proximity">
-            Use ~[#] at the end of a phrase to search for terms with up to that
-            number of gap words between them; Order does not matter and the
-            terms should be in a single set of quotation marks (&quot; &quot;).
-          </label>
-          <TooltipWrapper text='Results would include the terms "auto", "loan", and "default" in any order, with up to three (3) gap words in between them. For example, results could include: "defaulted auto loan", "auto loan that went into default", "Auto Loan with the same defaulted", etc.'>
-            <input
-              className="a-text-input example-input"
-              id="example-proximity"
-              type="text"
-              readOnly
-              value='"auto loan default"~3'
-            />
-          </TooltipWrapper>
+          <ExampleInput
+            id="example-proximity"
+            className="example-input"
+            label='Use ~[#] at the end of a phrase to search for terms with up to that number of gap words between them; Order does not matter and the terms should be in a single set of quotation marks (" ").'
+            tooltip='Results would include the terms "auto", "loan", and "default" in any order, with up to three (3) gap words in between them. For example, results could include: "defaulted auto loan", "auto loan that went into default", "Auto Loan with the same defaulted", etc.'
+            value='"auto loan default"~3'
+          />
           <div className="tip-description">
-            <p>
+            <Paragraph>
               Use ~[#] at the end of a phrase to search for terms with up to
               that number of gap words between them; Order does not matter and
               the terms should be in a single set of quotation marks (&quot;
               &quot;).
-            </p>
+            </Paragraph>
           </div>
           <ComplexExample
             id="proximity"
@@ -184,24 +175,18 @@ export const AdvancedTips = () => {
         </div>
         <div className="tip content-l__col content-l__col-1-3">
           <Heading type="4">Fuzzy search</Heading>
-          <label className="u-visually-hidden" htmlFor="example-fuzzy">
-            Use ~1 at the end of a term to search for terms that are spelled
-            similarly to your keyword within a certain margin of error.
-          </label>
-          <TooltipWrapper text="Results would include the correct spelling of escrow, as well as other (potentially misspelled) versions, such as: escrow, escrowed, escro, esrow, etc.">
-            <input
-              className="a-text-input example-input"
-              id="example-fuzzy"
-              type="text"
-              readOnly
-              value="escrow~1"
-            />
-          </TooltipWrapper>
+          <ExampleInput
+            id="example-fuzzy"
+            className="example-input"
+            label="Use ~1 at the end of a term to search for terms that are spelled similarly to your keyword within a certain margin of error."
+            tooltip="Results would include the correct spelling of escrow, as well as other (potentially misspelled) versions, such as: escrow, escrowed, escro, esrow, etc."
+            value="escrow~1"
+          />
           <div className="tip-description">
-            <p>
+            <Paragraph>
               Use ~1 at the end of a term to search for terms that are spelled
               similarly to your keyword within a certain margin of error.
-            </p>
+            </Paragraph>
           </div>
           <ComplexExample
             id="fuzzy"
@@ -215,24 +200,18 @@ export const AdvancedTips = () => {
         </div>
         <div className="tip content-l__col content-l__col-1-3">
           <Heading type="4">Boost search</Heading>
-          <label className="u-visually-hidden" htmlFor="example-boost">
-            Use ^[#] at the end of a term or terms to increase or decrease its
-            relevance compared to the other term(s).
-          </label>
-          <TooltipWrapper text='Results would be sorted by relevance in favor of the term "pay"'>
-            <input
-              className="a-text-input example-input"
-              id="example-boost"
-              type="text"
-              readOnly
-              value="pay^2 OR credit"
-            />
-          </TooltipWrapper>
+          <ExampleInput
+            id="example-boost"
+            className="example-input"
+            label="Use ^[#] at the end of a term or terms to increase or decrease its relevance compared to the other term(s)."
+            tooltip='Results would be sorted by relevance in favor of the term "pay"'
+            value="pay^2 OR credit"
+          />
           <div className="tip-description">
-            <p>
+            <Paragraph>
               Use ^[#] at the end of a term or terms to increase or decrease its
               relevance compared to the other term(s).
-            </p>
+            </Paragraph>
           </div>
           <ComplexExample
             id="boost"
@@ -244,32 +223,32 @@ export const AdvancedTips = () => {
       </div>
       <div className="advanced-tips__footer">
         <Heading type="3">Additional notes:</Heading>
-        <ul className="m-list">
-          <li className="m-list__item">
+        <List>
+          <ListItem>
             Putting a phrase only in quotations (&quot; &quot;) will search for
             the words in that order, but it will not be an exact match – meaning
             it may include stemmed versions of the term.
-          </li>
-          <li className="m-list__item">
+          </ListItem>
+          <ListItem>
             The default operator is &quot;AND&quot;, meaning if you search
             &quot;foreclosure house&quot;, it will search results that include
             both words (i.e., foreclosure AND house).
-          </li>
-          <li className="m-list__item">
+          </ListItem>
+          <ListItem>
             Capitalization does not have an effect on searched terms (except for
             the AND / OR / NOT operators).
-          </li>
-          <li className="m-list__item">
-            <a
-              href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/elasticsearch-intro.html"
+          </ListItem>
+          <ListItem>
+            <Link
+              to="https://docs.opensearch.org/latest/getting-started/intro/"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              Find out more <Icon name="external-link" isPresentational />
-            </a>{' '}
-            about Elastic Search
-          </li>
-        </ul>
+              iconRight="external-link"
+              label="Find out more"
+            />{' '}
+            about OpenSearch
+          </ListItem>
+        </List>
       </div>
     </div>
   );
