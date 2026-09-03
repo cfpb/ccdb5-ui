@@ -3831,19 +3831,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"coveralls-next@npm:^6.0.2":
-  version: 6.0.2
-  resolution: "coveralls-next@npm:6.0.2"
-  dependencies:
-    js-yaml: "npm:4.2.0"
-    lcov-parse: "npm:1.0.0"
-  bin:
-    coveralls: bin/coveralls.js
-  checksum: 10c0/7656541cccf43a56cc6ddace6c48e7d193c730eee5befe239d292cfdb8e74c0d9aaa34940820baf5fda0619241cae2ef8df9f9ab9cb815787c46080d9b7acdd3
-  languageName: node
-  linkType: hard
-
-"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.3, cross-spawn@npm:^7.0.6":
+"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.6":
   version: 7.0.6
   resolution: "cross-spawn@npm:7.0.6"
   dependencies:
@@ -6480,17 +6468,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:4.2.0":
-  version: 4.2.0
-  resolution: "js-yaml@npm:4.2.0"
-  dependencies:
-    argparse: "npm:^2.0.1"
-  bin:
-    js-yaml: bin/js-yaml.js
-  checksum: 10c0/1916456c118746603b067d74bbcbb0445d9a1d5e474ad4ae775e7b20525bed902e01d9d97dd0c81fcd8d4f596162309d0eb057f4aa38f3e9647f14075e9dea45
-  languageName: node
-  linkType: hard
-
 "js-yaml@npm:^4.1.0":
   version: 4.3.2
   resolution: "js-yaml@npm:4.3.2"
@@ -6683,19 +6660,6 @@ __metadata:
   dependencies:
     language-subtag-registry: "npm:^0.3.20"
   checksum: 10c0/9ab911213c4bd8bd583c850201c17794e52cb0660d1ab6e32558aadc8324abebf6844e46f92b80a5d600d0fbba7eface2c207bfaf270a1c7fd539e4c3a880bff
-  languageName: node
-  linkType: hard
-
-"lcov-parse@npm:1.0.0":
-  version: 1.0.0
-  resolution: "lcov-parse@npm:1.0.0"
-  bin:
-    lcov-parse: ./bin/cli.js
-  checksum: 10c0/0d7c3f55361a0f6eda4788928b014a7b56685ceb62b5f8fc1daf0b1dedba4d02e6aa0069e21fee92c479b7dacfd2e8e951e5cdec908f1615b516ff9f91033030
-"leven@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "leven@npm:3.1.0"
-  checksum: 10c0/cd778ba3fbab0f4d0500b7e87d1f6e1f041507c56fdcd47e8256a3012c98aaee371d4c15e0a76e0386107af2d42e2b7466160a2d80688aaa03e66e49949f42df
   languageName: node
   linkType: hard
 
@@ -9613,11 +9577,11 @@ __metadata:
   linkType: hard
 
 "systeminformation@npm:^5.31.1":
-  version: 5.33.7
-  resolution: "systeminformation@npm:5.33.7"
+  version: 5.33.8
+  resolution: "systeminformation@npm:5.33.8"
   bin:
     systeminformation: lib/cli.js
-  checksum: 10c0/1a95cfbff0a9d49f1e91d956b945dde4ab3f765b60a8bcb87b3790b32a79518e33c364dde9d5cb5c6240578f9e8b19b5f6ad954bef08754a0556d6cbee7f46dd
+  checksum: 10c0/cc1dd9f5998936b72f0c8fb61fdfe21294e1aa3818c79d3373e27ff65080414b3e93ced80b8ee59fcec8b603854bcd1cbabfdfbd52b75817b11e5056ba5d5ac8
   conditions: (os=darwin | os=linux | os=win32 | os=freebsd | os=openbsd | os=netbsd | os=sunos | os=android)
   languageName: node
   linkType: hard
