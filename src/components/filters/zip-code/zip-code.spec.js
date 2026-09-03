@@ -4,14 +4,11 @@ import {
   waitFor,
 } from '../../../test-utils/test-utils';
 import userEvent from '@testing-library/user-event';
-import fetchMock from 'jest-fetch-mock';
 import * as filterActions from '../../../reducers/filters/filters-slice';
 import { filtersState } from '../../../reducers/filters/filters-slice';
 import { ZipCode } from './zip-code';
 import { cloneDeep, merge } from 'lodash';
 import { aggResponse } from '../../list/list-panel/fixture';
-
-fetchMock.enableMocks();
 
 const renderComponent = (newFiltersState) => {
   merge(newFiltersState, filtersState);
@@ -54,9 +51,9 @@ describe('ZipCode', () => {
           });
     });
 
-    const multipleFiltersAddedSpy = jest
+    const multipleFiltersAddedSpy = rs
       .spyOn(filterActions, 'multipleFiltersAdded')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
 
     renderComponent({ zip_code: ['90210'] });
     // test presence of zero count filters

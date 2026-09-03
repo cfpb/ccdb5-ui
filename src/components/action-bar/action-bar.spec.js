@@ -8,7 +8,6 @@ import {
   testRender as render,
 } from '../../test-utils/test-utils';
 import * as utils from '../../utils';
-import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../list/list-panel/fixture';
 
 describe('ActionBar', () => {
@@ -28,7 +27,7 @@ describe('ActionBar', () => {
 
   let gaSpy;
   beforeEach(() => {
-    gaSpy = jest.spyOn(utils, 'sendAnalyticsEvent');
+    gaSpy = rs.spyOn(utils, 'sendAnalyticsEvent');
     fetchMock.resetMocks();
   });
 
@@ -37,13 +36,13 @@ describe('ActionBar', () => {
 
     const view = {};
 
-    const printModeOnSpy = jest
+    const printModeOnSpy = rs
       .spyOn(viewActions, 'updatePrintModeOn')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
 
-    const dataExportSpy = jest
+    const dataExportSpy = rs
       .spyOn(viewActions, 'modalShown')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     renderComponent(view);
 
     await screen.findByText(

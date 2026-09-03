@@ -111,12 +111,12 @@ describe('component::AggregationBranch', () => {
     let replaceFiltersFn, removeMultipleFiltersFn;
 
     beforeEach(() => {
-      replaceFiltersFn = jest.spyOn(filter, 'filtersReplaced');
-      removeMultipleFiltersFn = jest.spyOn(filter, 'multipleFiltersRemoved');
+      replaceFiltersFn = rs.spyOn(filter, 'filtersReplaced');
+      removeMultipleFiltersFn = rs.spyOn(filter, 'multipleFiltersRemoved');
     });
 
     afterEach(() => {
-      jest.restoreAllMocks();
+      rs.restoreAllMocks();
     });
 
     it('should properly check the component', async () => {

@@ -5,7 +5,6 @@ import {
 } from '../../test-utils/test-utils';
 import { merge } from '../../test-utils/function-helpers';
 import { routesState } from '../../reducers/routes/routes-slice';
-import fetchMock from 'jest-fetch-mock';
 import { Route, Routes } from 'react-router';
 
 const fixture = {

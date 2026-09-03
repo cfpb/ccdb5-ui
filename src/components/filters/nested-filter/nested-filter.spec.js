@@ -1,6 +1,5 @@
 import { generateOptions, NestedFilter } from './nested-filter';
 import { slugify } from '../../../utils';
-import fetchMock from 'jest-fetch-mock';
 import * as filterActions from '../../../reducers/filters/filters-slice';
 import { filtersState } from '../../../reducers/filters/filters-slice';
 import { viewState } from '../../../reducers/view/view-slice';
@@ -25,21 +24,19 @@ const renderComponent = (newFiltersState, newViewState) => {
   });
 };
 
-fetchMock.enableMocks();
-
 describe('component:NestedFilter', () => {
   const user = userEvent.setup({ delay: null });
   let filterAddedSpy;
   beforeEach(() => {
     fetchMock.resetMocks();
 
-    filterAddedSpy = jest
+    filterAddedSpy = rs
       .spyOn(filterActions, 'filterAdded')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    rs.resetAllMocks();
   });
   it('renders a truncated set of filter options', async () => {
     fetchMock.mockResponse(JSON.stringify(aggResponse));

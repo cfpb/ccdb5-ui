@@ -2,11 +2,11 @@ import { MoreAbout } from './more-about';
 import { screen, testRender as render } from '../../../test-utils/test-utils';
 import userEvent from '@testing-library/user-event';
 
-jest.useRealTimers();
+rs.useRealTimers();
 describe('MoreAbout', () => {
   const user = userEvent.setup();
   it('renders without crashing', async () => {
-    const closeSpy = jest.fn();
+    const closeSpy = rs.fn();
     render(<MoreAbout onClose={closeSpy} />);
     expect(
       screen.getByText('Things you should know before you use this database'),

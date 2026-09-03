@@ -1,19 +1,14 @@
-const { defineConfig } = require('cypress');
+import { defineConfig } from 'cypress';
 
-module.exports = defineConfig({
+export default defineConfig({
   viewportWidth: 1200,
   viewportHeight: 1200,
-  responseTimeout: 80000,
-  defaultCommandTimeout: 30000,
-  requestTimeout: 20000,
+  responseTimeout: 80_000,
+  defaultCommandTimeout: 30_000,
+  requestTimeout: 20_000,
   screenshotOnRunFailure: false,
   video: false,
   e2e: {
-    // We've imported your old cypress plugins here.
-    // You may want to clean this up later by importing these.
-    setupNodeEvents(on, config) {
-      return require('./cypress/plugins/index.js')(on, config);
-    },
     baseUrl: 'http://localhost:3000/',
   },
 });

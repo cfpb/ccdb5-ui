@@ -6,7 +6,7 @@ import {
 import { ClearButton } from './clear-button';
 
 describe('ClearButton', () => {
-  const mockedOnClear = jest.fn();
+  const mockedOnClear = rs.fn();
 
   test('When clear button is clicked then onClear is called', () => {
     render(<ClearButton onClear={mockedOnClear} />);

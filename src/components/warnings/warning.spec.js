@@ -2,7 +2,7 @@ import { Warning } from './warning';
 import { screen, testRender as render } from '../../test-utils/test-utils';
 import userEvent from '@testing-library/user-event';
 
-jest.useRealTimers();
+rs.useRealTimers();
 describe('component:Warning', () => {
   const user = userEvent.setup();
   it('renders Warning without crashing', () => {
@@ -16,7 +16,7 @@ describe('component:Warning', () => {
 
   it('renders Warning w/ close button without crashing', async () => {
     const props = {
-      closeFn: jest.fn(),
+      closeFn: rs.fn(),
       text: 'Some nag message you can close',
     };
 
