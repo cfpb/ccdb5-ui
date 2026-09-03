@@ -69,6 +69,27 @@ describe('Tour loading behavior', () => {
     expect(tourShownSpy).toHaveBeenCalled();
   });
 
+  test('hides the tour when intro.js exits', async () => {
+    globalThis.confirm = rs.fn(() => true);
+    const tourHiddenSpy = rs
+      .spyOn(viewActions, 'tourHidden')
+      .mockImplementation(() => rs.fn());
+
+    mockFetchResponses();
+
+    renderComponent({
+      showTour: true,
+      width: 1200,
+    });
+    await screen.findByRole('dialog');
+
+    const skipButton = document.querySelector('.introjs-skipbutton');
+    expect(skipButton).not.toBeNull();
+    await user.click(skipButton);
+
+    expect(tourHiddenSpy).toHaveBeenCalled();
+  });
+
   test('prompts before exiting an in-progress tour', async () => {
     mockFetchResponses();
 

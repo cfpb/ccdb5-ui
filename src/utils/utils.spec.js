@@ -23,11 +23,10 @@ dayjs.extend(dayjsUtc);
 
 describe('module::utils', () => {
   describe('startOfToday', () => {
-    afterAll(() => {});
     it('defaults MAX_DATE if the metadata is missing', () => {
       setMaxDate(null);
       const actual = startOfToday();
-      // this date is set in setupTests.js
+      // this date is set in rstest.setup.ts
       expect(dayjs(actual).toISOString()).toBe('2020-05-05T00:00:00.000Z');
     });
   });
