@@ -14,11 +14,11 @@ const renderComponent = (newQueryState) => {
   render(<CompanyReceivedFilter />, { preloadedState: data });
 };
 
-jest.useRealTimers();
+rs.useRealTimers();
 
 describe('component::CompanyReceivedFilter', () => {
   const user = userEvent.setup();
-  const companyReceivedDateUpdatedSpy = jest.spyOn(
+  const companyReceivedDateUpdatedSpy = rs.spyOn(
     filterActions,
     'companyReceivedDateChanged',
   );

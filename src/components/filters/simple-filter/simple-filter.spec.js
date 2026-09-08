@@ -1,6 +1,5 @@
 import { screen, testRender as render } from '../../../test-utils/test-utils';
 import { SimpleFilter } from './simple-filter';
-import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../../list/list-panel/fixture';
 
 const renderComponent = (props) => {

@@ -55,6 +55,8 @@ export default tseslint.config(
         ...globals.browser,
         ...globals.node,
         ...globals.jest,
+        rs: 'readonly',
+        fetchMock: 'readonly',
         JSX: 'readonly',
       },
     },

@@ -14,7 +14,7 @@ import target, {
 import * as types from '../../constants';
 import { minDate } from '../../constants';
 import dayjs from 'dayjs';
-import { startOfToday } from '../../utils';
+import { startOfToday, setMaxDate } from '../../utils';
 import { routeChanged } from '../routes/routes-slice';
 import { filtersCleared } from '../filters/filters-slice';
 import { formatDate } from '../../utils/format-date';
@@ -278,6 +278,7 @@ describe('reducer:query', () => {
       });
 
       it('sets the All range if the dates are right', () => {
+        setMaxDate(null);
         state.date_received_max = startOfToday();
         state.date_received_min = types.DATE_RANGE_MIN;
         alignDateRange(state);

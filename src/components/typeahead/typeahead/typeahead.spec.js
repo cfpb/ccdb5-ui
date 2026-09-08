@@ -14,8 +14,8 @@ describe('Typeahead', () => {
     position: 4,
     value: 'appl',
   };
-  const handleChangeMock = jest.fn();
-  const handleInputChangeMock = jest.fn();
+  const handleChangeMock = rs.fn();
+  const handleInputChangeMock = rs.fn();
 
   const renderComponent = (hasClear) => {
     render(

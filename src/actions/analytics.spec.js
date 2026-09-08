@@ -13,7 +13,7 @@ describe('action:analytics', () => {
   });
 
   it('creates an event object', () => {
-    const mockCallback = jest.fn();
+    const mockCallback = rs.fn();
     const expectedEvent = {
       event: 'Consumer Complaint Search',
       action: 'action tracker',
