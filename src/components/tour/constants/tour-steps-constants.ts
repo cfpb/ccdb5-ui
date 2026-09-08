@@ -45,12 +45,12 @@ export const TOUR_STEPS = [
   {
     element: LIST.STEP_3.selector,
     intro:
-      'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear all filters” under the Search bar.',
+      'The “Filter results by” panel lets you filter complaint data. To clear filters, uncheck individual selections in the filter panel or to select “Clear filters” under the Search bar.',
   },
   {
     element: LIST.STEP_4.selector,
     intro:
-      'You can adjust the date range of the complaint data showed using the “Date CFPB received the complaint” filter. <br /> The default date range is three years from today’s date.',
+      'You can adjust the date range of the complaint data showed using the “Date received” filter. <br /> The default date range is three years from today’s date.',
   },
   {
     element: LIST.STEP_5.selector,

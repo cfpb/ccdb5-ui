@@ -40,7 +40,7 @@ const buildDatePill = (dateReceivedMin, dateReceivedMax, dateLastIndexed) => {
   return {
     fieldName: 'date_received',
     value:
-      'Date Received: ' +
+      'Date received: ' +
       dayjs(dateReceivedMin).format('M/D/YYYY') +
       ' - ' +
       dayjs(dateReceivedMax).format('M/D/YYYY'),
@@ -73,7 +73,7 @@ export const PillPanel = () => {
   return (
     <section className="pill-panel">
       <ul className="m-tag-group pill-panel__list">
-        <li className="pill-panel__override">
+        <li className="pill-panel__label">
           <Paragraph>Filters applied:</Paragraph>
         </li>
         {filters.map((filter) => (
@@ -88,7 +88,7 @@ export const PillPanel = () => {
             }
           />
         ))}
-        <li className="pill-panel__override">
+        <li className="pill-panel__clear">
           <Button
             appearance="warning"
             label="Clear filters"

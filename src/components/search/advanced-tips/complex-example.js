@@ -1,4 +1,12 @@
-import { Icon, Heading } from '@cfpb/design-system-react';
+import {
+  Heading,
+  Icon,
+  Label,
+  List,
+  ListItem,
+  TextArea,
+  TextInput,
+} from '@cfpb/design-system-react';
 import { TooltipWrapper } from '../../common/tooltip-wrapper/tooltip-wrapper';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -47,24 +55,24 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
         <div className="o-expandable__content">
           {tooltipText && placeholderText ? (
             <>
-              <label className="descriptor" htmlFor={`example-${id}`}>
+              <Label isInline className="descriptor" htmlFor={`example-${id}`}>
                 Complex example:
-              </label>
+              </Label>
               <span className="u-visually-hidden">{tooltipText}</span>
               <TooltipWrapper text={tooltipText}>
                 {placeholderText.length > 30 ? (
-                  <textarea
-                    className="a-text-input example-input"
+                  <TextArea
+                    className="example-input"
                     id={`example-${id}`}
                     rows={2}
+                    placeholder=""
                     readOnly
                     value={placeholderText}
                   />
                 ) : (
-                  <input
-                    className="a-text-input example-input"
+                  <TextInput
+                    className="example-input"
                     id={`example-${id}`}
-                    rows={2}
                     readOnly
                     value={placeholderText}
                   />
@@ -75,13 +83,11 @@ export const ComplexExample = ({ id, notes, placeholderText, tooltipText }) => {
           <Heading type="4" className="descriptor">
             Notes:
           </Heading>
-          <ul className="m-list">
+          <List>
             {notes.map((note, index) => (
-              <li className="m-list__item" key={index}>
-                {note}
-              </li>
+              <ListItem key={index}>{note}</ListItem>
             ))}
-          </ul>
+          </List>
         </div>
       ) : null}
     </div>

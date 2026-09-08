@@ -68,11 +68,11 @@ export const ListPanel = () => {
 
   const _renderResults = () => {
     return (
-      <ul className="cards-panel">
+      <div className="cards-panel">
         {items.map((item) => (
           <ComplaintCard key={item.complaint_id} row={item} />
         ))}
-      </ul>
+      </div>
     );
   };
 

@@ -21,11 +21,11 @@ export const ActionBar = () => {
     <>
       <div className="action-bar" id="search-summary">
         {total === docCount ? (
-          <Heading type="2">
+          <Heading type="3">
             {'Showing ' + docCount.toLocaleString() + ' total complaints'}
           </Heading>
         ) : (
-          <Heading type="2">
+          <Heading type="3">
             {'Showing ' +
               total.toLocaleString() +
               ' matches out of ' +
@@ -34,26 +34,25 @@ export const ActionBar = () => {
           </Heading>
         )}
         {error ? null : (
-          <div>
-            <Heading type="3" className="h4 action-bar__actions">
-              <Button
-                label="Export data"
-                isLink
-                className="export-btn"
-                data-gtm_ignore="true"
-                onClick={() => {
-                  sendAnalyticsEvent('Export', 'User Opens Export Modal');
-                  dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
-                }}
-              />
-              <Button
-                label="Print"
-                isLink
-                iconLeft="print"
-                className="print-preview"
-                onClick={showPrintView}
-              />
-            </Heading>
+          <div className="action-bar__actions">
+            <Button
+              label="Export data"
+              isLink
+              iconRight="download"
+              className="export-btn"
+              data-gtm_ignore="true"
+              onClick={() => {
+                sendAnalyticsEvent('Export', 'User Opens Export Modal');
+                dispatch(modalShown(MODAL_TYPE_DATA_EXPORT));
+              }}
+            />
+            <Button
+              label="Print"
+              isLink
+              iconRight="print"
+              className="print-preview"
+              onClick={showPrintView}
+            />
           </div>
         )}
       </div>

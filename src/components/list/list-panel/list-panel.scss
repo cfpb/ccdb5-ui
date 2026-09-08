@@ -2,14 +2,25 @@
 @use 'css/base' as *;
 
 .list-panel {
+  box-sizing: border-box;
+
+  // One 30px gutter from the filter sidebar to list content (refine bar, cards).
+  padding-left: $grid-gutter-width;
+
+  @media screen and (max-width: $bp-sm-max) {
+    padding-left: 0;
+  }
+
   // The "No results were found for your search" heading.
   h2 {
     margin: 15px;
   }
 
   .cards-panel {
-    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
     margin: 0;
+    padding: 0;
   }
 
   .m-pagination {

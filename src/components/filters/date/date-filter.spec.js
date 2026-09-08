@@ -6,38 +6,37 @@ import { DateFilter } from './date-filter';
 const renderComponent = (newQueryState = {}) => {
   merge(newQueryState, queryState);
 
-  const data = {
-    query: newQueryState,
-  };
-
   render(<DateFilter />, {
-    preloadedState: data,
+    preloadedState: {
+      query: newQueryState,
+    },
   });
 };
 
 describe('component::DateFilter', () => {
-  it('should render initial state', () => {
-    const query = {
+  it('should render title and date inputs', () => {
+    renderComponent({
       date_received_min: new Date('2017-05-05T04:00:00.000Z'),
       date_received_max: new Date('2020-05-05T04:00:00.000Z'),
-    };
+    });
 
-    renderComponent(query);
-    expect(screen.getByText('Learn more')).toBeInTheDocument();
     expect(
-      screen.getByText(
-        'CFPB updated product and issue options in April 2017 and August 2023.',
-      ),
+      screen.getByRole('heading', {
+        name: 'Date received',
+      }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText('The date the CFPB received the complaint.'),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText('From')).toBeInTheDocument();
+    expect(screen.getByLabelText('To')).toBeInTheDocument();
   });
 
-  it('should render initial state with errors', () => {
-    const query = {
+  it('should render errors when from date is after to date', () => {
+    renderComponent({
       date_received_max: new Date('2017-05-05T04:00:00.000Z'),
       date_received_min: new Date('2020-05-05T04:00:00.000Z'),
-    };
-
-    renderComponent(query);
+    });
 
     expect(
       screen.getByText("'From' date must be less than 'To' date"),

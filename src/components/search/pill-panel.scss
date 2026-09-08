@@ -8,17 +8,30 @@
     margin: 0;
   }
 
-  &__override {
-    border: none;
+  // The label and clear control are list items so they wrap inline with the
+  // pills; reset the tag-group chrome the DS applies to every child.
+  &__label,
+  &__clear {
     padding-right: 0;
     padding-left: 0;
-
-    button {
-      padding-top: 5px;
-    }
+    border: 0;
 
     p {
       padding-top: 4px;
+      margin-bottom: 0;
+    }
+  }
+
+  &__clear button {
+    position: relative;
+    top: 1px;
+    padding: 4px 0;
+    line-height: 1.1875;
+  }
+
+  @media screen and (max-width: $bp-xs-max) {
+    &__clear {
+      display: block;
     }
   }
 }
