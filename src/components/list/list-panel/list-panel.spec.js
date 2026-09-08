@@ -4,7 +4,6 @@ import {
   testRender as render,
 } from '../../../test-utils/test-utils';
 import { ListPanel } from './list-panel';
-import fetchMock from 'jest-fetch-mock';
 import { merge } from '../../../test-utils/function-helpers';
 import { filtersState } from '../../../reducers/filters/filters-slice';
 
@@ -31,9 +30,9 @@ describe('ListPanel', () => {
     });
   };
 
-  const analyticsSpy = jest
+  const analyticsSpy = rs
     .spyOn(utils, 'sendAnalyticsEvent')
-    .mockImplementation(() => jest.fn());
+    .mockImplementation(() => rs.fn());
 
   beforeEach(() => {
     fetchMock.resetMocks();
@@ -74,9 +73,9 @@ describe('ListPanel', () => {
   });
 
   test('onSize triggers dispatch and analytics event', () => {
-    const sizeChangedSpy = jest
+    const sizeChangedSpy = rs
       .spyOn(pagingActions, 'sizeChanged')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     const newQueryState = {
       size: 25,
       sort: 'created_date_desc',
@@ -94,9 +93,9 @@ describe('ListPanel', () => {
   });
 
   test('onSort triggers dispatch and analytics event', () => {
-    const sortChangedSpy = jest
+    const sortChangedSpy = rs
       .spyOn(pagingActions, 'sortChanged')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     const newQueryState = {
       size: 25,
       sort: 'created_date_desc',

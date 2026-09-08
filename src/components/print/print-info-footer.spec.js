@@ -5,7 +5,9 @@ describe('PrintInfoFooter', () => {
   it('renders default empty state', () => {
     render(<PrintInfoFooter />, {});
     expect(screen.queryByText('URL:')).not.toBeInTheDocument();
-    expect(screen.queryByText('http://localhost/')).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('http://localhost:3000/'),
+    ).not.toBeInTheDocument();
   });
   it('renders default state', () => {
     render(<PrintInfoFooter />, {
@@ -16,6 +18,6 @@ describe('PrintInfoFooter', () => {
       },
     });
     expect(screen.getByText('URL:')).toBeInTheDocument();
-    expect(screen.getByText('http://localhost/')).toBeInTheDocument();
+    expect(screen.getByText('http://localhost:3000/')).toBeInTheDocument();
   });
 });

@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 describe('Select', () => {
   it('renders array values without crashing', async () => {
     const options = ['Uno', 'Dos', 'Tres'];
-    const changeSpy = jest.fn();
+    const changeSpy = rs.fn();
     // fix for setup here
     // https://github.com/testing-library/user-event/issues/833#issuecomment-1013797822
     const user = userEvent.setup({ delay: null });
@@ -36,7 +36,7 @@ describe('Select', () => {
   });
 
   it('renders object values without crashing', async () => {
-    const changeSpy = jest.fn();
+    const changeSpy = rs.fn();
     const user = userEvent.setup({ delay: null });
 
     render(
@@ -66,7 +66,7 @@ describe('Select', () => {
   });
 
   it('omits disabled options from the list', () => {
-    const changeSpy = jest.fn();
+    const changeSpy = rs.fn();
 
     const options = [
       { name: 'Uno', disabled: true },

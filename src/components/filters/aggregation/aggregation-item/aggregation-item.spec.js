@@ -7,11 +7,9 @@ import { merge } from '../../../../test-utils/function-helpers';
 import * as filter from '../../../../reducers/filters/filters-slice';
 import { filtersState } from '../../../../reducers/filters/filters-slice';
 import { slugify } from '../../../../utils';
-import fetchMock from 'jest-fetch-mock';
 import { AggregationItem } from './aggregation-item';
 import { aggResponse } from '../../../list/list-panel/fixture';
 
-fetchMock.enableMocks();
 const defaultTestProps = {
   fieldName: 'foo',
   item: {
@@ -133,18 +131,18 @@ describe('component::AggregationItem', () => {
     let replaceFiltersFn, toggleFilterFn;
 
     beforeEach(() => {
-      replaceFiltersFn = jest
+      replaceFiltersFn = rs
         .spyOn(filter, 'filtersReplaced')
-        .mockImplementation(() => jest.fn());
-      toggleFilterFn = jest
+        .mockImplementation(() => rs.fn());
+      toggleFilterFn = rs
         .spyOn(filter, 'filterToggled')
-        .mockImplementation(() => jest.fn());
+        .mockImplementation(() => rs.fn());
       fetchMock.resetMocks();
       fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
     });
 
     afterEach(() => {
-      jest.restoreAllMocks();
+      rs.restoreAllMocks();
     });
 
     describe('addFilter', () => {
