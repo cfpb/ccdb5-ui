@@ -1,7 +1,8 @@
 @use 'css/base' as *;
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
 
 .filter-panel-toggle {
-  margin-top: 30px;
+  margin-top: $gutter-normal;
 
   @media screen and (min-width: $bp-med-min) {
     display: none;
@@ -10,8 +11,36 @@
   @media screen and (max-width: $bp-sm-max) {
     display: block;
     width: 100%;
-    & .a-btn {
-      width: 100%;
-    }
   }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: $gutter-normal;
+    border: 1px solid var(--gray-40);
+    background-color: var(--gray-5);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  &__label {
+    margin: 0;
+  }
+
+  &__cue {
+    color: var(--pacific);
+    flex: none;
+  }
+
+  &--open &__header {
+    border-bottom: 0;
+  }
+}
+
+.filter-panel-toggle--open + .filter-panel.o-well {
+  border-top: 0;
 }

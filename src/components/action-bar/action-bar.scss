@@ -2,42 +2,44 @@
 @use 'css/base' as *;
 
 .action-bar {
-  border-left: 1px solid transparent;
-  border-right: 1px solid var(--gray-40);
-  border-bottom: 1px solid var(--gray-40);
-  background-color: var(--green-10);
-  padding: $grid-gutter-width;
+  margin: 0;
 
-  h3 {
-    margin: 0;
+  .m-notification__content {
+    max-width: none;
+  }
 
-    @media screen and (max-width: $bp-xs-max) {
-      padding: $gutter-normal;
-    }
+  // 8px between the count and Download/Print.
+  .m-notification__explanation {
+    margin-top: 8px;
+    margin-bottom: 0;
   }
 
   &__actions {
     display: flex;
     flex-wrap: wrap;
     gap: $gutter-normal;
-    padding-top: $gutter-normal;
+    padding: 0;
     margin: 0;
   }
 
-  @media screen and (max-width: $bp-xs-max) {
-    margin: 0;
-    padding-left: $gutter-normal;
-    padding-right: $gutter-normal;
-    border: 1px solid var(--gray-40);
-    width: 100%;
-    box-sizing: border-box;
-    .action-bar__actions {
-      margin-left: 0;
+  // Tablet and desktop: the search well's bottom edge already draws the
+  // top line. Desktop also has the sidebar's right edge for the left line.
+  // Keep those alert borders off so they don't double. Mobile stays a
+  // full box; tablet keeps the left border (no sidebar there).
+  @media screen and (min-width: $bp-sm-min) {
+    &.m-notification {
+      border-top: 0;
     }
   }
 
-  // Stacked layout below desktop: show the left edge so it matches the filter panel.
-  @media screen and (max-width: $bp-sm-max) {
-    border-left: 1px solid var(--gray-40);
+  @media screen and (min-width: $bp-med-min) {
+    &.m-notification {
+      border-left: 0;
+    }
+  }
+
+  @media screen and (max-width: $bp-xs-max) {
+    width: 100%;
+    box-sizing: border-box;
   }
 }

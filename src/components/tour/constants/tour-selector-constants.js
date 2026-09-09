@@ -32,7 +32,7 @@ export const TOUR_SELECTORS = {
   SELECT_SORT: `${TOUR_SCOPE} [data-tour="select-sort"]`,
   CARDS_PANEL: `${TOUR_SCOPE} .cards-panel`,
   TO_DETAIL: `${TOUR_SCOPE} .cards-panel .complaint-card__detail-link`,
-  MOBILE_FILTER_TOGGLE: `${TOUR_SCOPE} .filter-panel-toggle .m-btn-group .a-btn`,
+  MOBILE_FILTER_TOGGLE: `${TOUR_SCOPE} .filter-panel-toggle__header`,
 };
 
 const tourStep = (selector, label) => ({ selector, label });
@@ -47,7 +47,7 @@ export const TOUR_STEP_TARGETS = {
   SHOW_HIDE: tourStep(TOUR_SELECTORS.FILTER_SHOW_HIDE, 'Show/Hide'),
   SEARCH_BAR: tourStep(TOUR_SELECTORS.SEARCH_BAR, 'Search Bar'),
   SEARCH_SUMMARY: tourStep(TOUR_SELECTORS.SEARCH_SUMMARY, 'Search Summary'),
-  EXPORT_DATA: tourStep(TOUR_SELECTORS.EXPORT_BTN, 'Export Data'),
+  EXPORT_DATA: tourStep(TOUR_SELECTORS.EXPORT_BTN, 'Download Data'),
   PRINT_PAGE: tourStep(TOUR_SELECTORS.PRINT_BTN, 'Print Page'),
   SELECT_SIZE: tourStep(TOUR_SELECTORS.SELECT_SIZE, 'Show Number'),
   SELECT_SORT: tourStep(TOUR_SELECTORS.SELECT_SORT, 'Sort Results'),

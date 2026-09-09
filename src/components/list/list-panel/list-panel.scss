@@ -23,6 +23,19 @@
     padding: 0;
   }
 
+  // Mobile accordion: the toggle is the heading; keep the well joined to it.
+  .filter-panel {
+    > h3:first-of-type {
+      display: none;
+    }
+
+    &.o-well {
+      @media screen and (max-width: $bp-xs-max) {
+        border-right: 1px solid var(--gray-40);
+      }
+    }
+  }
+
   .m-pagination {
     .a-btn[disabled],
     .m-pagination__label,

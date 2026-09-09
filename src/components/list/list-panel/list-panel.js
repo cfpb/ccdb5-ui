@@ -17,6 +17,7 @@ import {
 } from '../../../reducers/query/selectors';
 import { useGetList } from '../../../api/hooks/use-get-list';
 import { Heading } from '@cfpb/design-system-react';
+import { BP_MED_MIN } from '../../../constants/breakpoints';
 
 const ERROR = 'ERROR';
 const NO_RESULTS = 'NO_RESULTS';
@@ -37,7 +38,7 @@ export const ListPanel = () => {
   const sort = useSelector(selectQuerySort);
   const width = useSelector(selectViewWidth);
 
-  const hasMobileFilters = width < 750;
+  const hasMobileFilters = width < BP_MED_MIN;
 
   const items = data?.hits || [];
 
@@ -85,8 +86,8 @@ export const ListPanel = () => {
 
   return (
     <section className="list-panel">
-      {!!hasMobileFilters && <FilterPanel />}
       <FilterPanelToggle />
+      {!!hasMobileFilters && <FilterPanel />}
       <div className="refine-bar">
         <Select
           label="Show per page"

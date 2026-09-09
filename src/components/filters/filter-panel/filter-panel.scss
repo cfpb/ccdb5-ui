@@ -18,21 +18,29 @@
     margin-top: $gutter-normal;
   }
 
-  // Vertical rhythm against <hr>s: 15px above titles and 30px below content
-  // (45px between expanded sections). Collapsed headers were 15+15=30px.
+  // 45px after the last item in an open filter, before the next section.
   .o-expandable__header {
     padding: $gutter-normal 0;
 
     &[aria-expanded='false'] {
-      padding-bottom: $grid-gutter-width;
+      padding-bottom: $gutter-wide;
     }
   }
 
   .o-expandable__content {
-    padding: 0 0 $grid-gutter-width;
+    padding: 0 0 $gutter-wide;
 
     &::before {
       padding-top: $gutter-normal;
+    }
+
+    &::after {
+      content: none;
+      display: none;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
     }
   }
 
@@ -44,7 +52,7 @@
       padding-bottom: 0;
 
       &[aria-expanded='false'] {
-        padding-bottom: $grid-gutter-width;
+        padding-bottom: $gutter-wide;
       }
     }
 
@@ -60,7 +68,7 @@
 
   // Keep any non-expandable filters on the same vertical rhythm.
   > section:not(.o-expandable) {
-    padding: $gutter-normal 0 $grid-gutter-width;
+    padding: $gutter-normal 0 $gutter-wide;
 
     > :first-child {
       margin-top: 0;
