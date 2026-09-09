@@ -18,13 +18,10 @@
     margin-top: $gutter-normal;
   }
 
-  // 45px after the last item in an open filter, before the next section.
+  // 15px above and below the title, open or closed. The 45px gap after
+  // open content is on `.o-expandable__content`, not the collapsed header.
   .o-expandable__header {
     padding: $gutter-normal 0;
-
-    &[aria-expanded='false'] {
-      padding-bottom: $gutter-wide;
-    }
   }
 
   .o-expandable__content {
