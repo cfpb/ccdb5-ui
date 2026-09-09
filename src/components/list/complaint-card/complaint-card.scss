@@ -15,10 +15,6 @@
   // Mobile: the complaint ID jump link's top/bottom rules separate cards.
   @media screen and (max-width: $bp-xs-max) {
     border-bottom: 0;
-
-    + .complaint-card .complaint-card__detail-link {
-      border-top: 0;
-    }
   }
 
   &__body {

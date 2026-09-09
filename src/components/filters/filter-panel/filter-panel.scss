@@ -44,26 +44,22 @@
     }
   }
 
-  // No helper text: 15px from the title to the first option, without
-  // collapsing the first row's own padding (that made Yes look flush
-  // against the heading while No still had a full 15px cell).
+  // No helper text: keep the expandable divider under the title. The first
+  // option row's 15px padding is the space after the line (don't add
+  // ::before padding or list margin on top of it).
   .aggregation.simple:not(:has(.o-expandable__content > p)) {
-    .o-expandable__header {
-      padding-bottom: 0;
-
-      &[aria-expanded='false'] {
-        padding-bottom: $gutter-wide;
-      }
-    }
-
     .o-expandable__content::before {
       padding-top: 0;
-      border-top: 0;
     }
 
     ul {
       margin-top: 0;
     }
+  }
+
+  // Last checkbox row already has 15px padding; 30px here reads as 45px.
+  .aggregation.simple .o-expandable__content {
+    padding-bottom: $grid-gutter-width;
   }
 
   // Keep any non-expandable filters on the same vertical rhythm.
