@@ -4,6 +4,12 @@
 .action-bar {
   margin: 0;
 
+  // Stacked layout: 30px above and below the results alert.
+  @media screen and (max-width: $bp-sm-max) {
+    margin-top: $grid-gutter-width;
+    margin-bottom: $grid-gutter-width;
+  }
+
   .m-notification__content {
     max-width: none;
   }
@@ -22,18 +28,12 @@
     margin: 0;
   }
 
-  // Tablet and desktop: the search well's bottom edge already draws the
-  // top line. Desktop also has the sidebar's right edge for the left line.
-  // Keep those alert borders off so they don't double. Mobile stays a
-  // full box; tablet keeps the left border (no sidebar there).
-  @media screen and (min-width: $bp-sm-min) {
-    &.m-notification {
-      border-top: 0;
-    }
-  }
-
+  // Desktop: the search well's bottom edge and the sidebar's right edge
+  // already draw those lines. Keep the alert's own top/left borders off
+  // so they don't double. Tablet/mobile keep a full box with 30px gaps.
   @media screen and (min-width: $bp-med-min) {
     &.m-notification {
+      border-top: 0;
       border-left: 0;
     }
   }

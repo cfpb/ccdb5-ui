@@ -2,7 +2,7 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 
 .filter-panel-toggle {
-  margin-top: $gutter-normal;
+  margin-top: 0;
 
   @media screen and (min-width: $bp-med-min) {
     display: none;
@@ -20,15 +20,20 @@
     gap: 10px;
     box-sizing: border-box;
     width: 100%;
-    padding: $gutter-normal;
+    min-height: 42px;
+    padding: 10px $gutter-normal;
     border: 1px solid var(--gray-40);
     background-color: var(--gray-5);
     cursor: pointer;
     text-align: left;
   }
 
-  &__label {
+  &__label,
+  &__label.h3 {
     margin: 0;
+    font-size: 1em;
+    font-weight: 500;
+    line-height: 1.375;
   }
 
   &__cue {
