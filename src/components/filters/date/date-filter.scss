@@ -2,11 +2,6 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 
 .date-filter {
-  // Keep 15px between expandable header divider and the From/To fields.
-  &.o-expandable .o-expandable__content::before {
-    padding-top: $gutter-normal;
-  }
-
   ul.date-inputs {
     margin: 0;
 

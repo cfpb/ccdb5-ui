@@ -22,6 +22,7 @@ export const FilterPanel = () => {
       {!!hasFilters && (
         <section className="filter-panel o-well">
           <Heading type="3">Filter results by</Heading>
+          <hr />
           <DateFilter />
           <hr />
           <NestedFilter
