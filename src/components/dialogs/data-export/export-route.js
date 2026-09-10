@@ -14,7 +14,7 @@ export const ExportRoute = () => {
   return (
     <>
       <Hero />
-      <section>
+      <section className="block block--flush-top">
         <Heading type="3">Download all complaint data (ZIP CSV)</Heading>
         <Button
           label="Download data"
