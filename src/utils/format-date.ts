@@ -20,10 +20,25 @@ export const formatDisplayDate = (dateString: DateInput): string => {
     .format('M/D/YYYY');
 };
 
+/** CFPB style: abbreviate Jan., Feb., Aug., Sept., Oct., Nov., Dec. */
+const CFPB_MONTHS = [
+  'Jan.',
+  'Feb.',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'Aug.',
+  'Sept.',
+  'Oct.',
+  'Nov.',
+  'Dec.',
+];
+
 export const formatNaturalDate = (dateString: DateInput): string => {
-  return dayjs(new Date(dateString as string | Date))
-    .utc()
-    .format('MMMM D, YYYY');
+  const date = dayjs(new Date(dateString as string | Date)).utc();
+  return `${CFPB_MONTHS[date.month()]} ${date.date()}, ${date.year()}`;
 };
 
 export const adjustDate = (dateIn: DateInput): string =>
