@@ -8,9 +8,7 @@ export const ExportConfirmation = () => {
   return (
     <section className="export-modal">
       <div className="ccdb-modal__header">
-        <Heading type="3">
-          Download complaint data
-        </Heading>
+        <Heading type="3">Download complaint data</Heading>
         <Button
           label="Close"
           isLink
