@@ -58,7 +58,7 @@ describe('ActionBar', () => {
     fireEvent.click(buttonExport);
     expect(dataExportSpy).toHaveBeenCalledTimes(1);
 
-    const buttonPrint = screen.getByRole('button', { name: /Print/ });
+    const buttonPrint = screen.getByRole('button', { name: /Print page/ });
     expect(buttonPrint).toBeInTheDocument();
     fireEvent.click(buttonPrint);
     expect(gaSpy).toHaveBeenCalledWith('Print', 'Print');

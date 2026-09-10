@@ -47,7 +47,7 @@ export const ActionBar = () => {
               }}
             />
             <Button
-              label="Print"
+              label="Print page"
               isLink
               iconRight="print"
               className="print-preview"
