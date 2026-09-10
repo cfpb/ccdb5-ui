@@ -41,6 +41,10 @@ export default function App() {
           />
           <Route path="/detail/:id" element={<ComplaintDetail />} />
           <Route path="/export/" element={<ExportRoute />} />
+          <Route
+            path="/data-research/consumer-complaints/search/export/"
+            element={<ExportRoute />}
+          />
         </Routes>
       </DSRProvider>
     </Router>
