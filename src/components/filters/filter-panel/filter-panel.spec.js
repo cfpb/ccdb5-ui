@@ -2,7 +2,6 @@ import { FilterPanel } from './filter-panel';
 import { merge } from '../../../test-utils/function-helpers';
 import { viewState } from '../../../reducers/view/view-slice';
 import { screen, testRender as render } from '../../../test-utils/test-utils';
-import userEvent from '@testing-library/user-event';
 
 const renderComponent = (newViewState) => {
   merge(newViewState, viewState);
@@ -17,8 +16,6 @@ const renderComponent = (newViewState) => {
 };
 
 describe('FilterPanel', () => {
-  const user = userEvent.setup({ delay: null });
-
   let viewStore;
   beforeEach(() => {
     viewStore = {
@@ -38,16 +35,15 @@ describe('FilterPanel', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('renders button at mobile width', async () => {
+  it('renders filters without a close button at mobile width', () => {
     viewStore.width = 600;
     viewStore.hasFilters = true;
     renderComponent(viewStore);
     expect(
-      screen.getByRole('button', { name: /Close filters/ }),
+      screen.getByRole('heading', { name: 'Filter results by' }),
     ).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: /Close filters/ }));
     expect(
-      screen.queryByRole('heading', { name: 'Filter results by' }),
+      screen.queryByRole('button', { name: /Close filters/ }),
     ).not.toBeInTheDocument();
   });
 });

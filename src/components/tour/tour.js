@@ -6,7 +6,7 @@ import {
   selectViewShowTour,
   selectViewWidth,
 } from '../../reducers/view/selectors';
-import { BP_SM_SPLIT_WIDE_MIN } from '../../constants/breakpoints';
+import { BP_MED_MIN } from '../../constants/breakpoints';
 import { TOUR_STEPS } from './constants/tour-steps-constants';
 import { TOUR_INTRO_OPTIONS } from './constants/tour-intro-options';
 import { TOUR_SELECTORS } from './constants/tour-selector-constants';
@@ -66,7 +66,7 @@ export const Tour = () => {
   const stepRef = useRef();
   const isLoading = isTrue([isPageLoading, isPrintMode]);
 
-  const isMobileTour = viewWidth < BP_SM_SPLIT_WIDE_MIN;
+  const isMobileTour = viewWidth < BP_MED_MIN;
 
   const baseSteps = useMemo(
     () =>

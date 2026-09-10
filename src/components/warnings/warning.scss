@@ -1,6 +1,15 @@
+@use 'css/base' as *;
+
 .warning-notification {
   &.m-notification {
     margin: 10px;
+
+    @media screen and (max-width: $bp-sm-max) {
+      width: 100%;
+      box-sizing: border-box;
+      margin-right: 0;
+      margin-left: 0;
+    }
 
     .m-notification__message {
       padding-right: 18px;

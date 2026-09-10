@@ -1,7 +1,19 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
+.search-panel {
+  // Mock: 30px padding on the well; 15px between heading, search, tips, pills.
+  &.o-well {
+    padding: $grid-gutter-width;
+  }
+
+  > h3 {
+    margin: 0 0 $gutter-normal;
+  }
+}
+
 .search-panel__last-updated {
   font-size: $base-font-size-px;
+  font-weight: 400;
   color: var(--gray);
 }

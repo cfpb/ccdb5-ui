@@ -66,6 +66,12 @@ describe('FederalState', () => {
     );
   });
 
+  test('does not render a selected-state list when no states are selected', () => {
+    render(<FederalState />);
+
+    expect(screen.queryByRole('list')).not.toBeInTheDocument();
+  });
+
   test('No matches found appears if user types non-existing option', async () => {
     render(<FederalState />);
     const input = screen.getByPlaceholderText(

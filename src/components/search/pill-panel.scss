@@ -1,7 +1,8 @@
 @use 'css/base' as *;
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
 
 .pill-panel {
-  margin-top: $grid-gutter-width;
+  margin-top: $gutter-normal;
   padding-right: $gutter-narrow;
 
   &__list {
@@ -30,6 +31,12 @@
   }
 
   @media screen and (max-width: $bp-xs-max) {
+    &__list {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $gutter-normal;
+    }
+
     &__clear {
       display: block;
     }

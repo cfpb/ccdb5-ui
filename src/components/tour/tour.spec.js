@@ -6,7 +6,7 @@ import { merge } from '../../test-utils/function-helpers';
 import userEvent from '@testing-library/user-event';
 import { aggResponse } from '../list/list-panel/fixture';
 import { queryState } from '../../reducers/query/query-slice';
-import { BP_SM_SPLIT_WIDE_MIN } from '../../constants/breakpoints';
+import { BP_MED_MIN } from '../../constants/breakpoints';
 
 const mockFetchResponses = () => {
   fetchMock.mockResponse((req) => {
@@ -113,7 +113,7 @@ describe('Tour loading behavior', () => {
 
     renderComponent({
       showTour: true,
-      width: BP_SM_SPLIT_WIDE_MIN - 1,
+      width: BP_MED_MIN - 1,
     });
 
     expect(await screen.findByRole('dialog')).toBeInTheDocument();
