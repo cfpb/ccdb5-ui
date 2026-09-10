@@ -2,44 +2,42 @@
 @use 'css/base' as *;
 
 .action-bar {
-  margin: 0;
+  border-left: 1px solid transparent;
+  border-right: 1px solid var(--gray-40);
+  border-bottom: 1px solid var(--gray-40);
+  background-color: var(--green-10);
+  padding: $grid-gutter-width;
 
-  // Stacked layout: 30px above and below the results alert.
-  @media screen and (max-width: $bp-sm-max) {
-    margin-top: $grid-gutter-width;
-    margin-bottom: $grid-gutter-width;
-  }
+  h3 {
+    margin: 0;
 
-  .m-notification__content {
-    max-width: none;
-  }
-
-  // 8px between the count and Download/Print.
-  .m-notification__explanation {
-    margin-top: 8px;
-    margin-bottom: 0;
+    @media screen and (max-width: $bp-xs-max) {
+      padding: $gutter-normal;
+    }
   }
 
   &__actions {
     display: flex;
     flex-wrap: wrap;
     gap: $gutter-normal;
-    padding: 0;
+    padding-top: $gutter-normal;
     margin: 0;
   }
 
-  // Desktop: the search well's bottom edge and the sidebar's right edge
-  // already draw those lines. Keep the alert's own top/left borders off
-  // so they don't double. Tablet/mobile keep a full box with 30px gaps.
-  @media screen and (min-width: $bp-med-min) {
-    &.m-notification {
-      border-top: 0;
-      border-left: 0;
+  @media screen and (max-width: $bp-xs-max) {
+    margin: 0;
+    padding-left: $gutter-normal;
+    padding-right: $gutter-normal;
+    border: 1px solid var(--gray-40);
+    width: 100%;
+    box-sizing: border-box;
+    .action-bar__actions {
+      margin-left: 0;
     }
   }
 
-  @media screen and (max-width: $bp-xs-max) {
-    width: 100%;
-    box-sizing: border-box;
+  // Stacked layout below desktop: show the left edge so it matches the filter panel.
+  @media screen and (max-width: $bp-sm-max) {
+    border-left: 1px solid var(--gray-40);
   }
 }

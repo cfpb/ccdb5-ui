@@ -19,12 +19,12 @@ describe('ResultsPanel', () => {
 
   it('renders list panel without crashing', () => {
     renderComponent({}, {});
-    expect(screen.getByText('Download data')).toBeInTheDocument();
+    expect(screen.getByText('Export data')).toBeInTheDocument();
   });
 
   it('renders printMode without crashing', () => {
     renderComponent({ searchText: 'Tacos' }, { isPrintMode: true });
-    expect(screen.getByText('Download data')).toBeInTheDocument();
+    expect(screen.getByText('Export data')).toBeInTheDocument();
     expect(screen.getByText('Search Term:')).toBeInTheDocument();
     expect(screen.getByText('Tacos')).toBeInTheDocument();
     expect(screen.getByText('URL:')).toBeInTheDocument();
