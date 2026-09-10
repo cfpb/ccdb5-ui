@@ -36,8 +36,10 @@
     }
   }
 
-  // Stacked layout below desktop: show the left edge so it matches the filter panel.
+  // Stacked layout below desktop: show the left edge so it matches the filter
+  // panel. The Filter results toggle already draws the shared bottom edge.
   @media screen and (max-width: $bp-sm-max) {
     border-left: 1px solid var(--gray-40);
+    border-bottom: 0;
   }
 }

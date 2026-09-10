@@ -1,24 +1,17 @@
 import './filter-panel.scss';
 import { Company } from '../company/company';
 import { CompanyReceivedFilter } from '../date/company-received-filter';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Heading } from '@cfpb/design-system-react';
+import { useSelector } from 'react-redux';
+import { Heading } from '@cfpb/design-system-react';
 import { DateFilter } from '../date/date-filter';
 import { FederalState } from '../federal-state/federal-state';
 import { SimpleFilter } from '../simple-filter/simple-filter';
 import { ZipCode } from '../zip-code/zip-code';
-import { updateFilterVisibility } from '../../../reducers/view/view-slice';
-import {
-  selectViewHasFilters,
-  selectViewWidth,
-} from '../../../reducers/view/selectors';
+import { selectViewHasFilters } from '../../../reducers/view/selectors';
 import { NestedFilter } from '../nested-filter/nested-filter';
 
 export const FilterPanel = () => {
-  const dispatch = useDispatch();
-  const width = useSelector(selectViewWidth);
   const hasFilters = useSelector(selectViewHasFilters);
-  const hasButton = width < 750;
   const descPublicResponse =
     "The company's optional public-facing response to a consumer's complaint.";
   const descTags =
@@ -28,21 +21,12 @@ export const FilterPanel = () => {
     <>
       {!!hasFilters && (
         <section className="filter-panel o-well">
-          {!!hasButton && (
-            <div className="filter-button">
-              <Button
-                label="Close filters"
-                iconRight="error"
-                title="Close filters"
-                onClick={() => dispatch(updateFilterVisibility())}
-              />
-            </div>
-          )}
           <Heading type="3">Filter results by</Heading>
+          <hr />
           <DateFilter />
           <hr />
           <NestedFilter
-            desc="The product or sub-product the consumer identified in the complaint."
+            desc="The type of product and sub-product the consumer identified in the complaint."
             fieldName="product"
           />
           <hr />

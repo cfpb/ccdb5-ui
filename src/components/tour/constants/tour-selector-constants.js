@@ -32,7 +32,7 @@ export const TOUR_SELECTORS = {
   SELECT_SORT: `${TOUR_SCOPE} [data-tour="select-sort"]`,
   CARDS_PANEL: `${TOUR_SCOPE} .cards-panel`,
   TO_DETAIL: `${TOUR_SCOPE} .cards-panel .complaint-card__detail-link`,
-  MOBILE_FILTER_TOGGLE: `${TOUR_SCOPE} .filter-panel-toggle .m-btn-group .a-btn`,
+  MOBILE_FILTER_TOGGLE: `${TOUR_SCOPE} .filter-panel-toggle__header`,
 };
 
 const tourStep = (selector, label) => ({ selector, label });

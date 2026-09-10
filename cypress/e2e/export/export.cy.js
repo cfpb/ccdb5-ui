@@ -10,10 +10,10 @@ describe('Complaint export', () => {
     cy.url().should('include', 'page=2');
     pagination().findByText('Page 2').should('exist');
 
-    cy.findByRole('button', { name: 'Export data' }).click();
-    cy.findByRole('dialog', { name: 'CFPB Modal Dialog' }).should(
-      'be.visible',
-    );
+    cy.get('#search-summary')
+      .findByRole('button', { name: 'Export data' })
+      .click();
+    cy.findByRole('dialog', { name: 'CFPB Modal Dialog' }).should('be.visible');
     cy.findByRole('heading', { name: 'Download complaint data' }).should(
       'be.visible',
     );
@@ -30,7 +30,9 @@ describe('Complaint export', () => {
     ).should('not.exist');
     cy.findByText(/exceed download limits/).should('not.exist');
 
-    cy.findByRole('button', { name: /Download data/ }).should('be.visible');
+    cy.findByRole('dialog', { name: 'CFPB Modal Dialog' })
+      .findByRole('button', { name: /Download data/ })
+      .should('be.visible');
     cy.findByRole('button', { name: /Copy link/ }).should('be.visible');
     cy.findByRole('heading', {
       name: 'Save a link to your filtered results',

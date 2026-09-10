@@ -12,6 +12,11 @@
     border: 0;
   }
 
+  // Mobile: the complaint ID jump link's top/bottom rules separate cards.
+  @media screen and (max-width: $bp-xs-max) {
+    border-bottom: 0;
+  }
+
   &__body {
     display: grid;
     grid-template-columns: 260px minmax(0, 1fr);

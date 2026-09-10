@@ -121,6 +121,14 @@ describe('ListPanel', () => {
     expect(screen.getByText('Filter results by')).toBeInTheDocument();
   });
 
+  test('FilterPanel showed at tablet width', () => {
+    const newViewState = { width: 800 };
+
+    renderComponent({}, newViewState);
+
+    expect(screen.getByText('Filter results by')).toBeInTheDocument();
+  });
+
   test('FilterPanel not showed when width is 1000', async () => {
     const newViewState = { width: 1000 };
     fetchMock.mockResponse((req) => {
