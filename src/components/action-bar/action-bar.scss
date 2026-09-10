@@ -10,10 +10,6 @@
 
   h3 {
     margin: 0;
-
-    @media screen and (max-width: $bp-xs-max) {
-      padding: $gutter-normal;
-    }
   }
 
   &__actions {
@@ -25,7 +21,8 @@
   }
 
   @media screen and (max-width: $bp-xs-max) {
-    margin: 0;
+    // 30px below the search well, 30px above Filter results.
+    margin: $grid-gutter-width 0;
     padding-left: $gutter-normal;
     padding-right: $gutter-normal;
     border: 1px solid var(--gray-40);
@@ -36,10 +33,9 @@
     }
   }
 
-  // Stacked layout below desktop: show the left edge so it matches the filter
-  // panel. The Filter results toggle already draws the shared bottom edge.
+  // Stacked layout below desktop: full box so a stale-data alert can sit
+  // between this bar and the Filter results toggle without a missing edge.
   @media screen and (max-width: $bp-sm-max) {
     border-left: 1px solid var(--gray-40);
-    border-bottom: 0;
   }
 }

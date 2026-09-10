@@ -82,7 +82,7 @@ export const TOUR_STEPS = [
   },
   {
     element: LIST.STEP_10.selector,
-    intro: 'Select “Print” to generate a pdf of the current page.',
+    intro: 'Select “Print page” to generate a pdf of the current page.',
   },
   {
     element: LIST.STEP_11.selector,
