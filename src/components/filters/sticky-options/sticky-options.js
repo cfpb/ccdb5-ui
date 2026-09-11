@@ -23,6 +23,10 @@ export const StickyOptions = ({ fieldName, options, selections, getLabel }) => {
       });
     }
   }
+  if (trackedSelections.length === 0) {
+    return null;
+  }
+
   return (
     <ul>
       {trackedSelections.map((opt) => (

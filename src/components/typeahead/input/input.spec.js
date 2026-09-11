@@ -6,8 +6,8 @@ import {
 import { Input } from './input';
 
 describe('Input', () => {
-  const handleChangeMock = jest.fn();
-  const handleEnterMock = jest.fn();
+  const handleChangeMock = rs.fn();
+  const handleEnterMock = rs.fn();
   const renderComponent = (handleClearMock, isVisible) => {
     render(
       <Input
@@ -34,7 +34,7 @@ describe('Input', () => {
   });
 
   test('When handleClear is given then clear button is present', () => {
-    const handleClearMock = jest.fn();
+    const handleClearMock = rs.fn();
     renderComponent(handleClearMock, true);
     fireEvent.click(screen.getByRole('button', { name: 'clear search' }));
     expect(handleClearMock).toHaveBeenCalled();

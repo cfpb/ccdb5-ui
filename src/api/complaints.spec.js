@@ -12,10 +12,7 @@ import {
   listResponse,
 } from '../components/list/list-panel/fixture';
 
-import fetchMock from 'jest-fetch-mock';
 import { aggResponseTransformed, documentResponse } from './fixture';
-
-fetchMock.enableMocks();
 
 /**
  *
@@ -33,7 +30,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  jest.restoreAllMocks();
+  rs.restoreAllMocks();
 });
 
 describe('getAggregations', () => {

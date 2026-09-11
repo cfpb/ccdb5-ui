@@ -1,4 +1,5 @@
-const { pluginProcessIcons } = require('./postcss/postcss-process-icons');
-module.exports = {
-  plugins: [require('autoprefixer'), pluginProcessIcons],
+import autoprefixer from 'autoprefixer';
+import pluginProcessIcons from './postcss/postcss-process-icons.js';
+export default {
+  plugins: [autoprefixer, pluginProcessIcons],
 };

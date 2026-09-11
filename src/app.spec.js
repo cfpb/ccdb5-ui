@@ -7,7 +7,6 @@ import * as useUpdateLocationHook from './hooks/use-update-location';
 import { ComplaintDetail } from './components/complaint-detail/complaint-detail';
 import { DsrLink } from './components/dsr-link/dsr-link';
 import { configureStoreUtil, waitFor } from './test-utils/test-utils';
-import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from './components/list/list-panel/fixture';
 
 describe('initial state', () => {
@@ -31,7 +30,7 @@ describe('initial state', () => {
         body: JSON.stringify(aggResponse),
       });
     });
-    const updateLocationHookSpy = jest.spyOn(
+    const updateLocationHookSpy = rs.spyOn(
       useUpdateLocationHook,
       'useUpdateLocation',
     );

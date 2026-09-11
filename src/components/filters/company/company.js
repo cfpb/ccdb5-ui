@@ -13,7 +13,7 @@ export const Company = () => {
   const aggsCompany = error ? [] : data?.company || [];
   const options = structuredClone(aggsCompany);
 
-  const desc = 'The company name that the consumer listed in their complaint.';
+  const desc = 'The company the consumer identified in the complaint.';
 
   return (
     <CollapsibleFilter
@@ -23,9 +23,7 @@ export const Company = () => {
     >
       <AsyncTypeahead
         fieldName={FIELD_NAME}
-        id="filter-company-typeahead"
-        label={desc}
-        placeholder=""
+        placeholder="Enter company name"
         ariaLabel="Company Search"
         htmlId="company-typeahead"
       />

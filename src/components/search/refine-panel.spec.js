@@ -21,6 +21,10 @@ describe('RefinePanel', () => {
     renderComponent({}, {});
     expect(screen.queryByText('State')).not.toBeInTheDocument();
   });
+  it('renders nothing at tablet width', () => {
+    renderComponent({}, { width: 800 });
+    expect(screen.queryByText('State')).not.toBeInTheDocument();
+  });
   it('renders in desktop view', () => {
     renderComponent({}, { width: 1000 });
     expect(

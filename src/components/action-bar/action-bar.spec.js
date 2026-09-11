@@ -4,7 +4,6 @@ import { queryState } from '../../reducers/query/query-slice';
 import { merge } from '../../test-utils/function-helpers';
 import { screen, testRender as render } from '../../test-utils/test-utils';
 import { waitFor } from '@testing-library/react';
-import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../list/list-panel/fixture';
 
 describe('ActionBar', () => {

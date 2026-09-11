@@ -14,22 +14,50 @@
     margin-top: $gutter-normal;
   }
 
-  // Vertical rhythm against <hr>s: 15px above titles and 30px below content.
+  // 15px above and below the title, open or closed. The 45px gap after
+  // open content is on `.o-expandable__content`, not the collapsed header.
   .o-expandable__header {
     padding: $gutter-normal 0;
   }
 
   .o-expandable__content {
-    padding: 0 0 $grid-gutter-width;
+    padding: 0 0 $gutter-wide;
 
     &::before {
       padding-top: $gutter-normal;
     }
+
+    &::after {
+      content: none;
+      display: none;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // No helper text: keep the expandable divider under the title. The first
+  // option row's 15px padding is the space after the line (don't add
+  // ::before padding or list margin on top of it).
+  .aggregation.simple:not(:has(.o-expandable__content > p)) {
+    .o-expandable__content::before {
+      padding-top: 0;
+    }
+
+    ul {
+      margin-top: 0;
+    }
+  }
+
+  // Last checkbox row already has 15px padding; 30px here reads as 45px.
+  .aggregation.simple .o-expandable__content {
+    padding-bottom: $grid-gutter-width;
   }
 
   // Keep any non-expandable filters on the same vertical rhythm.
   > section:not(.o-expandable) {
-    padding: $gutter-normal 0 $grid-gutter-width;
+    padding: $gutter-normal 0 $gutter-wide;
 
     > :first-child {
       margin-top: 0;

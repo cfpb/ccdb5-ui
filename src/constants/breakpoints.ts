@@ -3,3 +3,6 @@
  * (aligned with `@cfpb/cfpb-design-system` breakpoint vars).
  */
 export const BP_SM_SPLIT_WIDE_MIN = 750;
+
+/** Desktop layout; matches `$bp-med-min` (901px). */
+export const BP_MED_MIN = 901;

@@ -3,20 +3,20 @@ import { TourSteps } from './tour-steps';
 import introJs from 'intro.js';
 import { getIntroTarget, getModalPortalParent } from '../../utils/dom';
 
-jest.mock('intro.js');
+rs.mock('intro.js');
 
 const createIntroMock = () => ({
-  onexit: jest.fn().mockReturnThis(),
-  onbeforeexit: jest.fn().mockReturnThis(),
-  onbeforechange: jest.fn().mockReturnThis(),
-  onafterchange: jest.fn().mockReturnThis(),
-  onchange: jest.fn().mockReturnThis(),
-  oncomplete: jest.fn().mockReturnThis(),
-  setOptions: jest.fn(),
-  start: jest.fn(),
-  exit: jest.fn(),
-  goToStepNumber: jest.fn(),
-  currentStep: jest.fn(() => 0),
+  onexit: rs.fn().mockReturnThis(),
+  onbeforeexit: rs.fn().mockReturnThis(),
+  onbeforechange: rs.fn().mockReturnThis(),
+  onafterchange: rs.fn().mockReturnThis(),
+  onchange: rs.fn().mockReturnThis(),
+  oncomplete: rs.fn().mockReturnThis(),
+  setOptions: rs.fn(),
+  start: rs.fn(),
+  exit: rs.fn(),
+  goToStepNumber: rs.fn(),
+  currentStep: rs.fn(() => 0),
   _currentStep: 0,
   _options: { steps: [] },
   _introItems: [],
@@ -36,7 +36,7 @@ describe('TourSteps', () => {
   afterEach(() => {
     delete globalThis.__CCDB_CONFIG__;
     document.body.replaceChildren();
-    jest.clearAllMocks();
+    rs.clearAllMocks();
   });
 
   it('starts intro.js when enabled on mount', () => {
@@ -45,7 +45,7 @@ describe('TourSteps', () => {
         isEnabled={true}
         initialStep={0}
         steps={defaultSteps}
-        onExit={jest.fn()}
+        onExit={rs.fn()}
         options={{}}
       />,
     );
@@ -62,7 +62,7 @@ describe('TourSteps', () => {
         isEnabled={true}
         initialStep={0}
         steps={defaultSteps}
-        onExit={jest.fn()}
+        onExit={rs.fn()}
         options={{}}
       />,
     );
@@ -72,7 +72,7 @@ describe('TourSteps', () => {
         isEnabled={false}
         initialStep={0}
         steps={defaultSteps}
-        onExit={jest.fn()}
+        onExit={rs.fn()}
         options={{}}
       />,
     );
@@ -81,7 +81,7 @@ describe('TourSteps', () => {
   });
 
   it('calls onExit when intro.js exits', () => {
-    const onExit = jest.fn();
+    const onExit = rs.fn();
     let exitCallback;
 
     introInstance.onexit.mockImplementation((callback) => {
@@ -120,7 +120,7 @@ describe('TourSteps', () => {
         isEnabled={true}
         initialStep={0}
         steps={defaultSteps}
-        onExit={jest.fn()}
+        onExit={rs.fn()}
         options={{}}
       />,
     );
@@ -132,7 +132,7 @@ describe('TourSteps', () => {
         isEnabled={false}
         initialStep={0}
         steps={defaultSteps}
-        onExit={jest.fn()}
+        onExit={rs.fn()}
         options={{}}
       />,
     );

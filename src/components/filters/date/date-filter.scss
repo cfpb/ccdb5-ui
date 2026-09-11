@@ -2,11 +2,6 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 
 .date-filter {
-  // Keep 15px between expandable header divider and the From/To fields.
-  &.o-expandable .o-expandable__content::before {
-    padding-top: $gutter-normal;
-  }
-
   ul.date-inputs {
     margin: 0;
 
@@ -18,7 +13,7 @@
     li {
       display: inline-block;
       width: calc(50% - 8px); // Half $gutter-normal
-
+      padding: 0;
       list-style: none;
 
       &:first-of-type {
@@ -35,14 +30,12 @@
 
     p {
       margin: 0 0 10px;
+      color: var(--black);
     }
-  }
 
-  .date-ranges {
-    margin-top: $gutter-normal;
-
-    p {
-      margin: 0 0 10px;
+    // Tighter than the design system's default 15px button-group gap.
+    .m-btn-group {
+      gap: 8px;
     }
   }
 }

@@ -18,9 +18,9 @@ describe('RootModal', () => {
   });
 
   it('renders MoreAbout dialog', () => {
-    const closeSpy = jest
+    const closeSpy = rs
       .spyOn(viewActions, 'moreAboutModalHidden')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
     const { container } = render(<RootModal />, {
       preloadedState: {
         view: {

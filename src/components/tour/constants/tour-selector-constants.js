@@ -30,7 +30,7 @@ export const TOUR_SELECTORS = {
   SELECT_SORT: `${TOUR_SCOPE} [data-tour="select-sort"]`,
   CARDS_PANEL: `${TOUR_SCOPE} .cards-panel`,
   TO_DETAIL: `${TOUR_SCOPE} .cards-panel .complaint-card__detail-link`,
-  MOBILE_FILTER_TOGGLE: `${TOUR_SCOPE} .filter-panel-toggle .m-btn-group .a-btn`,
+  MOBILE_FILTER_TOGGLE: `${TOUR_SCOPE} .filter-panel-toggle__header`,
 };
 
 const tourStep = (selector, label) => ({ selector, label });
@@ -40,7 +40,7 @@ export const TOUR_STEP_TARGETS = {
   INDEX: tourStep(TOUR_SELECTORS.CONTENT, 'Index'),
   HELP_LINKS: tourStep(TOUR_SELECTORS.HERO_LINKS, 'Help Links'),
   FILTERS: tourStep(TOUR_SELECTORS.FILTER_PANEL, 'Filters'),
-  DATE_RECEIVED: tourStep(TOUR_SELECTORS.DATE_FILTER, 'Date Received'),
+  DATE_RECEIVED: tourStep(TOUR_SELECTORS.DATE_FILTER, 'Date received'),
   PRODUCT_ISSUE: tourStep(TOUR_SELECTORS.PRODUCT_AGGREGATION, 'Product/Issue'),
   SHOW_HIDE: tourStep(TOUR_SELECTORS.FILTER_SHOW_HIDE, 'Show/Hide'),
   SEARCH_BAR: tourStep(TOUR_SELECTORS.SEARCH_BAR, 'Search Bar'),

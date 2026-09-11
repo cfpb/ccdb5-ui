@@ -1,7 +1,6 @@
 import { screen, testRender as render } from '../../test-utils/test-utils';
 import { StaleDataWarnings } from './stale-data-warnings';
 import { resAggWarning } from './fixture';
-import fetchMock from 'jest-fetch-mock';
 
 describe('StaleDataWarnings', () => {
   const renderComponent = () => {

@@ -3,7 +3,6 @@ import {
   testRender as render,
   waitFor,
 } from '../../../test-utils/test-utils';
-import fetchMock from 'jest-fetch-mock';
 import { merge } from '../../../test-utils/function-helpers';
 import userEvent from '@testing-library/user-event';
 import { FederalState } from './federal-state';
@@ -45,9 +44,9 @@ describe('FederalState', () => {
   const user = userEvent.setup({ delay: null });
 
   test('Options appear when user types and dispatches multipleFiltersAdded on selection', async () => {
-    const multipleFiltersAddedSpy = jest
+    const multipleFiltersAddedSpy = rs
       .spyOn(filterActions, 'multipleFiltersAdded')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
 
     fetchMock.mockResponse(JSON.stringify(statesResponse));
     renderComponent({ state: ['TX'] });
@@ -65,6 +64,12 @@ describe('FederalState', () => {
     await waitFor(() =>
       expect(multipleFiltersAddedSpy).toHaveBeenCalledWith('state', ['MD']),
     );
+  });
+
+  test('does not render a selected-state list when no states are selected', () => {
+    render(<FederalState />);
+
+    expect(screen.queryByRole('list')).not.toBeInTheDocument();
   });
 
   test('No matches found appears if user types non-existing option', async () => {

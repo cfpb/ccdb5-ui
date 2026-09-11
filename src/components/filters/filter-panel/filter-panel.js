@@ -39,10 +39,11 @@ export const FilterPanel = () => {
             </div>
           )}
           <Heading type="3">Filter results by</Heading>
+          <hr />
           <DateFilter />
           <hr />
           <NestedFilter
-            desc="The product or sub-product the consumer identified in the complaint."
+            desc="The type of product and sub-product the consumer identified in the complaint."
             fieldName="product"
           />
           <hr />
@@ -65,7 +66,7 @@ export const FilterPanel = () => {
           <hr />
           <SimpleFilter
             title="Company response to consumer"
-            desc="This is how the company responded to the complaint."
+            desc="The company's response to the consumer's complaint."
             fieldName="company_response"
           />
           <hr />

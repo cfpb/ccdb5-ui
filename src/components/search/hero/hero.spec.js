@@ -13,9 +13,9 @@ describe('Hero', () => {
   };
 
   test('rendering', () => {
-    const showDialogSpy = jest
+    const showDialogSpy = rs
       .spyOn(viewActions, 'moreAboutModalShown')
-      .mockImplementation(() => jest.fn());
+      .mockImplementation(() => rs.fn());
 
     renderComponent();
     const linkDialog = screen.getByRole('button', {

@@ -4,7 +4,6 @@ import { queryState } from '../../../reducers/query/query-slice';
 import { Company } from './company';
 import { screen, testRender as render } from '../../../test-utils/test-utils';
 import userEvent from '@testing-library/user-event';
-import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from './fixture';
 
 const renderComponent = (newFiltersState, newQueryState) => {
@@ -48,15 +47,16 @@ describe('component::Company', () => {
     renderComponent(filters, { dateLastIndexed: '2024-10-07' });
     await screen.findByRole('checkbox', { name: 'Monocle Popper Inc' });
     expect(
-      screen.getByText(
-        'The company name that the consumer listed in their complaint.',
-      ),
+      screen.getByText('The company the consumer identified in the complaint.'),
     ).toBeInTheDocument();
-    const input = screen.getByRole('combobox', { name: 'Company Search' });
-    expect(input).toBeInTheDocument();
-    await user.type(input, 'Safe');
+    expect(
+      screen.getByPlaceholderText('Enter company name'),
+    ).toBeInTheDocument();
+    await user.type(screen.getByPlaceholderText('Enter company name'), 'Safe');
     fetchMock.mockResponse(JSON.stringify(['Safe-T Deposits LLC']));
-    expect(input).toHaveValue('Safe');
+    expect(screen.getByPlaceholderText('Enter company name')).toHaveValue(
+      'Safe',
+    );
     expect(
       screen.getByRole('checkbox', { name: 'Monocle Popper Inc' }),
     ).toBeInTheDocument();

@@ -45,7 +45,8 @@ const dateInputClassName = (hasError) =>
 
 export const DateFilter = () => {
   const fieldName = 'date_received';
-  const title = 'The date the CFPB received the complaint';
+  const title = 'Date received';
+  const desc = 'The date the CFPB received the complaint.';
   const dateFrom = useSelector(selectQueryDateReceivedMin);
   const dateThrough = useSelector(selectQueryDateReceivedMax);
   const formattedFromDate = dayjs(dateFrom).isValid()
@@ -143,7 +144,7 @@ export const DateFilter = () => {
     <CollapsibleFilter
       title={title}
       className="aggregation date-filter"
-      desc=""
+      desc={desc}
     >
       <div>
         <ul className="date-inputs">

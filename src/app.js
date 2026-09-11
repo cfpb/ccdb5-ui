@@ -5,6 +5,7 @@ import { ReactElement } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import { ComplaintDetail } from './components/complaint-detail/complaint-detail';
 import { DsrLink } from './components/dsr-link/dsr-link';
+import { ExportRoute } from './components/dialogs/data-export/export-route';
 import { SearchComponents } from './components/search/search-components';
 
 // Strip trailing slash; empty/root builds leave basename unset.
@@ -39,6 +40,11 @@ export default function App() {
             element={<ComplaintDetail />}
           />
           <Route path="/detail/:id" element={<ComplaintDetail />} />
+          <Route path="/export/" element={<ExportRoute />} />
+          <Route
+            path="/data-research/consumer-complaints/search/export/"
+            element={<ExportRoute />}
+          />
         </Routes>
       </DSRProvider>
     </Router>

@@ -22,8 +22,11 @@ describe('component::DateFilter', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: 'The date the CFPB received the complaint',
+        name: 'Date received',
       }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('The date the CFPB received the complaint.'),
     ).toBeInTheDocument();
     expect(screen.getByLabelText('From')).toBeInTheDocument();
     expect(screen.getByLabelText('To')).toBeInTheDocument();

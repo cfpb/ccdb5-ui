@@ -13,7 +13,6 @@ import {
 } from '../../../reducers/filters/filters-slice';
 import { queryState } from '../../../reducers/query/query-slice';
 import { viewState } from '../../../reducers/view/view-slice';
-import fetchMock from 'jest-fetch-mock';
 import { aggResponse } from '../list-panel/fixture';
 import userEvent from '@testing-library/user-event';
 import { waitFor } from '@testing-library/react';
@@ -52,7 +51,7 @@ describe('DownloadComplaintData', () => {
   });
 
   it('renders download links for all and filtered data', async () => {
-    const analyticsSpy = jest
+    const analyticsSpy = rs
       .spyOn(utils, 'sendAnalyticsEvent')
       .mockImplementation(() => {});
     fetchMock.mockResponseOnce(JSON.stringify(withHitTotal(50_000)));
@@ -107,7 +106,7 @@ describe('DownloadComplaintData', () => {
   });
 
   it('shows an error after an over-limit filtered download is attempted', async () => {
-    const aggregationsSpy = jest
+    const aggregationsSpy = rs
       .spyOn(aggregationHooks, 'useGetAggregations')
       .mockReturnValue({ data: { total: 200_000 } });
     const user = userEvent.setup({ delay: null });
