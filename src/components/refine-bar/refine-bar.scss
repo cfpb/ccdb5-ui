@@ -9,7 +9,9 @@
   align-items: start;
   width: 100%;
   margin: 0;
-  padding: $grid-gutter-width 0 0;
+
+  // Horizontal gutters come from the page/column — don't double-inset.
+  padding: $grid-gutter-width 0;
 
   section {
     margin: 0;
@@ -20,5 +22,9 @@
         width: 100%;
       }
     }
+  }
+
+  @media screen and (max-width: $bp-xs-max) {
+    padding: $gutter-normal 0;
   }
 }

@@ -1,41 +1,12 @@
 @use '@cfpb/cfpb-design-system/src/abstracts' as *;
 @use 'css/base' as *;
 
-.action-bar {
-  border-left: 1px solid transparent;
-  border-right: 1px solid var(--gray-40);
-  border-bottom: 1px solid var(--gray-40);
-  background-color: var(--green-10);
-  padding: $grid-gutter-width;
-
-  h3 {
-    margin: 0;
-  }
-
-  &__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $gutter-normal;
-    padding-top: $gutter-normal;
-    margin: 0;
-  }
-
+.search-status {
   @media screen and (max-width: $bp-xs-max) {
-    // 30px below the search well, 30px above Filter results.
-    margin: $grid-gutter-width 0;
-    padding-left: $gutter-normal;
-    padding-right: $gutter-normal;
-    border: 1px solid var(--gray-40);
-    width: 100%;
-    box-sizing: border-box;
-    .action-bar__actions {
-      margin-left: 0;
-    }
+    margin-bottom: $gutter-normal;
   }
+}
 
-  // Stacked layout below desktop: full box so a stale-data alert can sit
-  // between this bar and the Filter results toggle without a missing edge.
-  @media screen and (max-width: $bp-sm-max) {
-    border-left: 1px solid var(--gray-40);
-  }
+.action-bar {
+  margin: 0;
 }

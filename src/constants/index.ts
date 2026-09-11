@@ -11,8 +11,6 @@ export const maxDate = formatDate(new Date());
 export const minDate = formatDate(DATE_RANGE_MIN);
 
 // Modal Dialogs
-export const MODAL_TYPE_DATA_EXPORT = 'MODAL_TYPE_DATA_EXPORT';
-export const MODAL_TYPE_EXPORT_CONFIRMATION = 'MODAL_TYPE_EXPORT_CONFIRMATION';
 export const MODAL_TYPE_MORE_ABOUT = 'MODAL_TYPE_MORE_ABOUT';
 
 export const knownFilters = [
@@ -61,7 +59,6 @@ export const sorts = {
   relevance_desc: 'Most relevant',
   relevance_asc: 'Least relevant',
 } as const;
-
 export const SLUG_SEPARATOR = '•';
 
 /// ////////////////////////////////////////////////////////////////////////////

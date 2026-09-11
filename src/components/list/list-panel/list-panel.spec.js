@@ -68,8 +68,8 @@ describe('ListPanel', () => {
     const elements = await screen.findAllByText('EQUIFAX, INC.');
     expect(elements).toHaveLength(25);
 
-    const el = await screen.findAllByRole('link', { name: /Complaint / });
-    expect(el).toHaveLength(25);
+    const el = await screen.findAllByText(/Date received/);
+    expect(el).toHaveLength(26);
   });
 
   test('onSize triggers dispatch and analytics event', () => {
@@ -115,14 +115,6 @@ describe('ListPanel', () => {
 
   test('FilterPanel showed when width is 500', () => {
     const newViewState = { width: 500 };
-
-    renderComponent({}, newViewState);
-
-    expect(screen.getByText('Filter results by')).toBeInTheDocument();
-  });
-
-  test('FilterPanel showed at tablet width', () => {
-    const newViewState = { width: 800 };
 
     renderComponent({}, newViewState);
 

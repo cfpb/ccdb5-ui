@@ -3,15 +3,18 @@ import userEvent from '@testing-library/user-event';
 import { merge } from '../../../test-utils/function-helpers';
 import * as queryActions from '../../../reducers/query/query-slice';
 import { queryState } from '../../../reducers/query/query-slice';
+import { viewState } from '../../../reducers/view/view-slice';
 import * as utils from '../../../utils';
 import { DateRanges } from './date-ranges';
 import { dateRanges } from '../../../constants';
 
-const renderComponent = (newQueryState = {}) => {
+const renderComponent = (newQueryState = {}, newViewState = {}) => {
   merge(newQueryState, queryState);
+  merge(newViewState, viewState);
 
   const data = {
     query: newQueryState,
+    view: newViewState,
   };
 
   render(<DateRanges />, {
@@ -35,11 +38,8 @@ describe('component::DateRanges', () => {
 
   it('should render initial state', () => {
     const ranges = Object.values(dateRanges);
-    const query = {
-      dateRange: 'All',
-    };
 
-    renderComponent(query);
+    renderComponent({ dateRange: 'All' }, { tab: 'Trends' });
 
     expect(screen.getByText('Select date range')).toBeInTheDocument();
 
@@ -55,11 +55,7 @@ describe('component::DateRanges', () => {
   });
 
   it('should select button and trigger toggle on newly selected range', async () => {
-    const query = {
-      dateRange: 'All',
-    };
-
-    renderComponent(query);
+    renderComponent({ dateRange: 'All' }, { tab: 'Trends' });
 
     await user.click(screen.getByRole('button', { name: '1 year' }));
 
@@ -68,11 +64,7 @@ describe('component::DateRanges', () => {
   });
 
   it('should not trigger toggle on already selected range', async () => {
-    const query = {
-      dateRange: 'All',
-    };
-
-    renderComponent(query);
+    renderComponent({ dateRange: 'All' }, { tab: 'Trends' });
 
     await user.click(screen.getByRole('button', { name: 'Full date range' }));
 

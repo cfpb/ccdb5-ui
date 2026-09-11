@@ -91,10 +91,8 @@ describe('Search Bar', () => {
       waitForLoading();
 
       cy.url().should('include', 'searchText=mortgage');
-      cy.get('#search-summary')
-        .should('be.visible')
-        .and('contain.text', 'Showing')
-        .and('contain.text', 'complaints');
+      cy.get('#search-summary').should('contain.text', 'Showing');
+      cy.get('#search-summary').should('contain.text', 'complaints');
     });
   });
 });

@@ -25,11 +25,15 @@ describe('FilterPanelToggle', () => {
       hasFilters: true,
     };
     renderComponent(viewStore);
-    const button = screen.getByRole('button', { name: /Filter results/ });
-    expect(button).toHaveAttribute('aria-expanded', 'true');
-    await user.click(button);
+    expect(
+      screen.getByRole('button', { name: /Close filters/ }),
+    ).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /Close filters/ }));
+    expect(
+      screen.queryByRole('button', { name: /Close filters/ }),
+    ).not.toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /Filter results/ }),
-    ).toHaveAttribute('aria-expanded', 'false');
+    ).toBeInTheDocument();
   });
 });

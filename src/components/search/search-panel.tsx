@@ -1,5 +1,4 @@
 import './search-panel.scss';
-import { PillPanel } from './pill-panel';
 import { SearchBar } from './search-bar';
 import { formatNaturalDate } from '../../utils/format-date';
 import { useGetMetaQuery } from '../../api/complaints';
@@ -21,7 +20,6 @@ export const SearchPanel = () => {
     <WellContainer className="search-panel">
       <Heading type="3">Search complaint data {lastIndexedMessage}</Heading>
       <SearchBar />
-      <PillPanel />
     </WellContainer>
   );
 };

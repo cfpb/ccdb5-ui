@@ -25,9 +25,6 @@ describe('component:SearchPanel', () => {
     expect(
       screen.getByRole('heading', { name: /Search complaint data/ }),
     ).toBeInTheDocument();
-    expect(screen.getByText('Filters applied:')).toBeInTheDocument();
-    expect(
-      screen.getByText('Date received: 11/4/2021 - 11/4/2024'),
-    ).toBeInTheDocument();
+    expect(screen.queryByText('Filters applied:')).not.toBeInTheDocument();
   });
 });

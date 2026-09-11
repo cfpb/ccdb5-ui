@@ -10,5 +10,5 @@ export const selectViewIsPrintMode = (state: RootState): boolean =>
 export const selectViewShowTour = (state: RootState): boolean =>
   state.view.showTour;
 export const selectViewWidth = (state: RootState): number => state.view.width;
-export const selectViewModalTypeShown = (state: RootState): string | false =>
-  state.view.modalTypeShown;
+export const selectViewIsMoreAboutModalOpen = (state: RootState): boolean =>
+  state.view.isMoreAboutModalOpen;

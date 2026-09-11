@@ -1,7 +1,7 @@
 import target, {
   hideAdvancedSearchTips,
-  modalHidden,
-  modalShown,
+  moreAboutModalHidden,
+  moreAboutModalShown,
   showAdvancedSearchTips,
   tourHidden,
   tourShown,
@@ -23,19 +23,22 @@ describe('reducer:View', () => {
   });
 
   describe('Modal Actions', () => {
-    it('shows a modal', () => {
-      expect(target(viewState, modalShown('foo'))).toEqual({
+    it('shows the more about modal', () => {
+      expect(target(viewState, moreAboutModalShown())).toEqual({
         ...viewState,
-        modalTypeShown: 'foo',
+        isMoreAboutModalOpen: true,
       });
     });
 
-    it('hides a modal', () => {
+    it('hides the more about modal', () => {
       expect(
-        target({ ...viewState, modalTypeShown: 'foobar' }, modalHidden()),
+        target(
+          { ...viewState, isMoreAboutModalOpen: true },
+          moreAboutModalHidden(),
+        ),
       ).toEqual({
         ...viewState,
-        modalTypeShown: false,
+        isMoreAboutModalOpen: false,
       });
     });
   });
@@ -133,7 +136,7 @@ describe('reducer:View', () => {
         hasAdvancedSearchTips: false,
         hasFilters: true,
         isPrintMode: true,
-        modalTypeShown: false,
+        isMoreAboutModalOpen: false,
         showTour: false,
         width: 0,
       });

@@ -17,7 +17,7 @@ import {
 } from '../../../reducers/query/selectors';
 import { useGetList } from '../../../api/hooks/use-get-list';
 import { Heading } from '@cfpb/design-system-react';
-import { BP_MED_MIN } from '../../../constants/breakpoints';
+import { DownloadComplaintData } from '../download-complaint-data/download-complaint-data';
 
 const ERROR = 'ERROR';
 const NO_RESULTS = 'NO_RESULTS';
@@ -38,7 +38,7 @@ export const ListPanel = () => {
   const sort = useSelector(selectQuerySort);
   const width = useSelector(selectViewWidth);
 
-  const hasMobileFilters = width < BP_MED_MIN;
+  const hasMobileFilters = width < 750;
 
   const items = data?.hits || [];
 
@@ -69,11 +69,11 @@ export const ListPanel = () => {
 
   const _renderResults = () => {
     return (
-      <div className="cards-panel">
+      <ul className="cards-panel">
         {items.map((item) => (
           <ComplaintCard key={item.complaint_id} row={item} />
         ))}
-      </div>
+      </ul>
     );
   };
 
@@ -86,8 +86,8 @@ export const ListPanel = () => {
 
   return (
     <section className="list-panel">
-      <FilterPanelToggle />
       {!!hasMobileFilters && <FilterPanel />}
+      <FilterPanelToggle />
       <div className="refine-bar">
         <Select
           label="Show per page"
@@ -104,6 +104,7 @@ export const ListPanel = () => {
           handleChange={onSort}
         />
       </div>
+      <DownloadComplaintData />
       {renderByPhase[phase]()}
       <Pagination />
     </section>

@@ -4,7 +4,7 @@ import { waitForLoading } from '../utils';
 
 const dateFilterButton = (name) =>
   cy.findByRole('button', {
-    name: new RegExp(`${name} Date received filter`),
+    name: new RegExp(`${name} The date the CFPB received the complaint filter`),
   });
 
 const productFilterButton = (name) =>
@@ -37,7 +37,7 @@ const stateFilterButton = (name) =>
 
 const stateTypeahead = () =>
   cy.findByRole('combobox', {
-    name: 'Start typing to begin listing US states',
+    name: 'The state in the mailing address provided by the consumer.',
   });
 
 const sizeSelect = () => cy.findByLabelText('Show per page');

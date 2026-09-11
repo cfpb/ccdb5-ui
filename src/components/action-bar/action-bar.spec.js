@@ -1,67 +1,52 @@
 import { ActionBar } from './action-bar';
-import * as viewActions from '../../reducers/view/view-slice';
 import { viewState } from '../../reducers/view/view-slice';
+import { queryState } from '../../reducers/query/query-slice';
 import { merge } from '../../test-utils/function-helpers';
-import {
-  fireEvent,
-  screen,
-  testRender as render,
-} from '../../test-utils/test-utils';
-import * as utils from '../../utils';
+import { screen, testRender as render } from '../../test-utils/test-utils';
+import { waitFor } from '@testing-library/react';
 import { aggResponse } from '../list/list-panel/fixture';
 
 describe('ActionBar', () => {
-  const renderComponent = (newViewState) => {
+  const renderComponent = (newViewState = {}) => {
+    const newQueryState = { dateLastIndexed: '2020-05-05' };
+    merge(newQueryState, queryState);
     merge(newViewState, viewState);
 
-    const data = {
-      query: { dateLastIndexed: '2020-05-05' },
-      routes: { queryString: '?sdafds' },
-      view: newViewState,
-    };
-
     render(<ActionBar />, {
-      preloadedState: data,
+      preloadedState: {
+        query: newQueryState,
+        routes: { queryString: '?sdafds' },
+        view: newViewState,
+      },
     });
   };
 
-  let gaSpy;
   beforeEach(() => {
-    gaSpy = rs.spyOn(utils, 'sendAnalyticsEvent');
     fetchMock.resetMocks();
   });
 
-  test('rendering', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(aggResponse));
+  test('shows loading then success alert as aggregations resolve', async () => {
+    const { promise, resolve } = Promise.withResolvers();
+    fetchMock.mockResponseOnce(() => promise);
 
-    const view = {};
+    renderComponent();
 
-    const printModeOnSpy = rs
-      .spyOn(viewActions, 'updatePrintModeOn')
-      .mockImplementation(() => rs.fn());
+    expect(screen.getByText('Loading complaint counts…')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByLabelText('loading icon')).toBeInTheDocument();
+    });
+    expect(screen.queryByLabelText('success icon')).not.toBeInTheDocument();
 
-    const dataExportSpy = rs
-      .spyOn(viewActions, 'modalShown')
-      .mockImplementation(() => rs.fn());
-    renderComponent(view);
+    resolve({
+      body: JSON.stringify(aggResponse),
+      init: { status: 200 },
+    });
 
     await screen.findByText(
-      'Showing 4,303,365 matches out of 6,638,372 total complaints',
+      'Showing 4,303,365 matching results out of 6,638,372 total complaints',
     );
-    expect(
-      screen.getByText(
-        'Showing 4,303,365 matches out of 6,638,372 total complaints',
-      ),
-    ).toBeInTheDocument();
-    const buttonExport = screen.getByRole('button', { name: /Export data/ });
-    expect(buttonExport).toBeInTheDocument();
-    fireEvent.click(buttonExport);
-    expect(dataExportSpy).toHaveBeenCalledTimes(1);
-
-    const buttonPrint = screen.getByRole('button', { name: /Print page/ });
-    expect(buttonPrint).toBeInTheDocument();
-    fireEvent.click(buttonPrint);
-    expect(gaSpy).toHaveBeenCalledWith('Print', 'Print');
-    expect(printModeOnSpy).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(screen.getByLabelText('success icon')).toBeInTheDocument();
+    });
   });
 });
