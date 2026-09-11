@@ -23,13 +23,13 @@
   @media screen and (max-width: $bp-xs-max) {
     // 30px below the search well, 30px above Filter results.
     margin: $grid-gutter-width 0;
-    padding-left: $gutter-normal;
-    padding-right: $gutter-normal;
+    padding: $gutter-normal;
     border: 1px solid var(--gray-40);
     width: 100%;
     box-sizing: border-box;
     .action-bar__actions {
       margin-left: 0;
+      padding-top: 8px;
     }
   }
 
