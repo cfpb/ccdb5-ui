@@ -71,6 +71,12 @@ $cf-icon-path: '../css/fonts';
 
 // Overrides
 
+// DS `.m-notification--visible` is `display: flex` with no `align-items`,
+// so the icon sits at the top of the alert. Center it until DS does.
+.m-notification--visible {
+  align-items: center;
+}
+
 .content--1-3.ccdb-content {
   position: relative;
 

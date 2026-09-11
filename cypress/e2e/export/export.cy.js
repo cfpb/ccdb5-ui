@@ -11,7 +11,7 @@ describe('Complaint export', () => {
     pagination().findByText('Page 2').should('exist');
 
     cy.get('#search-summary')
-      .findByRole('button', { name: 'Export data' })
+      .findByRole('button', { name: 'Download data' })
       .click();
     cy.findByRole('dialog', { name: 'CFPB Modal Dialog' }).should('be.visible');
     cy.findByRole('heading', { name: 'Download complaint data' }).should(

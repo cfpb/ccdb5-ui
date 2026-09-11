@@ -1,10 +1,17 @@
+@use '@cfpb/cfpb-design-system/src/abstracts' as *;
+
 .advanced-tips {
   box-sizing: border-box;
   background-color: var(--gray-5);
 
-  // override parent padding
-  margin: 15px -15px;
+  // Pull 15px into the well's 30px sides on tablet+. On phone the well is
+  // already 15px, so a negative margin would flush the tips to the border.
+  margin: 15px 0;
   padding: 15px;
+
+  @include respond-to-min($bp-sm-min) {
+    margin: 15px -15px;
+  }
 
   .tip {
     padding: 15px 0;
