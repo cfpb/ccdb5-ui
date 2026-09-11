@@ -53,7 +53,7 @@ describe('ActionBar', () => {
         'Showing 4,303,365 matches out of 6,638,372 total complaints',
       ),
     ).toBeInTheDocument();
-    const buttonExport = screen.getByRole('button', { name: /Export data/ });
+    const buttonExport = screen.getByRole('button', { name: /Download data/ });
     expect(buttonExport).toBeInTheDocument();
     fireEvent.click(buttonExport);
     expect(dataExportSpy).toHaveBeenCalledTimes(1);

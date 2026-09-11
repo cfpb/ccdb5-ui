@@ -36,7 +36,7 @@ export const ActionBar = () => {
         {error ? null : (
           <div className="action-bar__actions">
             <Button
-              label="Export data"
+              label="Download data"
               isLink
               iconRight="download"
               className="export-btn"
