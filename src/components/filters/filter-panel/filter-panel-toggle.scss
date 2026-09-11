@@ -28,12 +28,11 @@
     text-align: left;
   }
 
+  // Keep DSR Heading type="3": desktop H3, phone visual H4 (18px).
+  // Only zero heading margin so it fits this bar; do not set font-size.
   &__label,
   &__label.h3 {
     margin: 0;
-    font-size: 1em;
-    font-weight: 500;
-    line-height: 1.375;
   }
 
   &__cue {
