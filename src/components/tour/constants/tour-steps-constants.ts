@@ -78,7 +78,8 @@ export const TOUR_STEPS = [
   },
   {
     element: LIST.STEP_9.selector,
-    intro: 'You can download complaint data as CSV by selecting “Export data”.',
+    intro:
+      'You can download complaint data as CSV by selecting “Download data”.',
   },
   {
     element: LIST.STEP_10.selector,

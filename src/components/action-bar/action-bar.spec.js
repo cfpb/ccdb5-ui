@@ -46,14 +46,14 @@ describe('ActionBar', () => {
     renderComponent(view);
 
     await screen.findByText(
-      'Showing 4,303,365 matches out of 6,638,372 total complaints',
+      'Showing 4,303,365 matching results out of 6,638,372 total complaints',
     );
     expect(
       screen.getByText(
-        'Showing 4,303,365 matches out of 6,638,372 total complaints',
+        'Showing 4,303,365 matching results out of 6,638,372 total complaints',
       ),
     ).toBeInTheDocument();
-    const buttonExport = screen.getByRole('button', { name: /Export data/ });
+    const buttonExport = screen.getByRole('button', { name: /Download data/ });
     expect(buttonExport).toBeInTheDocument();
     fireEvent.click(buttonExport);
     expect(dataExportSpy).toHaveBeenCalledTimes(1);
