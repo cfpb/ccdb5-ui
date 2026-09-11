@@ -18,14 +18,6 @@
     margin-top: $gutter-normal;
   }
 
-  // Desktop: 30px below "Filter results by" (DS h3 is 15px). Date received
-  // keeps the same 15px title padding as the other filters.
-  @media screen and (min-width: $bp-med-min) {
-    > h3 {
-      margin-bottom: $grid-gutter-width;
-    }
-  }
-
   // 15px above and below the title, open or closed. The 45px gap after
   // open content is on `.o-expandable__content`, not the collapsed header.
   .o-expandable__header {
