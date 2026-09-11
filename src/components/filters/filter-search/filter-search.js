@@ -16,6 +16,7 @@ export const FilterSearch = ({ fieldName }) => {
   const dispatch = useDispatch();
 
   const fieldNameNew = fieldName.replaceAll('_', ' ');
+  const placeholder = 'Enter name of ' + fieldNameNew;
   const { data, error } = useGetAggregations();
   const aggResults = error || !data ? [] : data[fieldName] || [];
   const subaggName = `sub_${fieldName}.raw`.toLowerCase();
@@ -116,14 +117,15 @@ export const FilterSearch = ({ fieldName }) => {
             filterBy={['key']}
             onChange={(selected) => handleSelections(selected)}
             onInputChange={(text) => handleInputChange(text)}
-            placeholder={'Enter name of ' + fieldNameNew}
+            placeholder={placeholder}
             labelKey="key"
             options={dropdownOptions}
             ref={ref}
             inputProps={{
               'aria-label': `${fieldNameNew} Filter Menu Input`,
               className: 'a-text-input a-text-input--full',
-              type: 'search',
+              type: 'text',
+              role: 'searchbox',
             }}
             renderMenuItemChildren={(option) => (
               <li className="typeahead__option typeahead__option--multi">
@@ -138,6 +140,11 @@ export const FilterSearch = ({ fieldName }) => {
               </li>
             )}
           />
+          {placeholder && !inputText ? (
+            <span className="typeahead__placeholder" aria-hidden="true">
+              {placeholder}
+            </span>
+          ) : null}
           {!!inputText && <ClearButton onClear={handleClear} />}
         </div>
       </div>

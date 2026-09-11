@@ -21,6 +21,12 @@
 
     .o-search-input {
       width: 100%;
+
+      &__input input {
+        height: 2.5rem;
+        padding: 0 44px 0 1.875rem;
+        line-height: 2.5rem;
+      }
     }
 
     .typeahead {
