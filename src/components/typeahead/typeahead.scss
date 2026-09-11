@@ -7,6 +7,15 @@
     width: 100%;
   }
 
+  // Chrome clips Source Sans 3 descenders in the input's ~19px content box
+  // (35px field minus DS 7px padding). Use the full control height as the
+  // line box and keep only the horizontal search-icon/clear gutters.
+  .o-search-input__input input {
+    height: 2.5rem;
+    padding: 0 44px 0 1.875rem;
+    line-height: 2.5rem;
+  }
+
   &__selector {
     width: 100%;
     position: relative;
@@ -70,6 +79,26 @@
       gap: 5px;
       color: var(--pacific);
     }
+  }
+
+  // Chrome clips Source Sans 3 descenders in native ::placeholder even when
+  // typed value text is fine. Keep the attribute for AT; paint a real overlay.
+  .o-search-input__input input::placeholder {
+    color: transparent;
+  }
+
+  &__placeholder {
+    position: absolute;
+    top: 0;
+    right: 44px;
+    bottom: 0;
+    left: 1.875rem;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    color: var(--input-text-placeholder, var(--gray));
+    pointer-events: none;
+    z-index: 1;
   }
 
   &__option-sub {

@@ -65,10 +65,16 @@ export const Typeahead = ({
             )}
             inputProps={{
               id: htmlId,
-              type: 'search',
+              type: 'text',
+              role: 'searchbox',
               className: 'a-text-input a-text-input--full',
             }}
           />
+          {placeholder && !input ? (
+            <span className="typeahead__placeholder" aria-hidden="true">
+              {placeholder}
+            </span>
+          ) : null}
           {!!input && <ClearButton onClear={handleClear} />}
         </div>
       </div>
