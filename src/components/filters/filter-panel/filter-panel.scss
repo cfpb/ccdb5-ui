@@ -85,18 +85,14 @@
     color: var(--gray-40);
   }
 
-  // Mobile: 15px content padding + 15px next title = 30px between filters.
+  // Mobile: 30px after the last control (date buttons, + Show more, checkboxes).
   @media screen and (max-width: $bp-xs-max) {
     .o-expandable__content {
-      padding-bottom: $gutter-normal;
-    }
-
-    .aggregation.simple .o-expandable__content {
-      padding-bottom: $gutter-normal;
+      padding-bottom: $grid-gutter-width;
     }
 
     > section:not(.o-expandable) {
-      padding-bottom: $gutter-normal;
+      padding-bottom: $grid-gutter-width;
     }
   }
 }
