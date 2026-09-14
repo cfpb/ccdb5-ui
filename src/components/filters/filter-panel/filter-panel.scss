@@ -84,4 +84,19 @@
     margin: 0;
     color: var(--gray-40);
   }
+
+  // Mobile: 15px content padding + 15px next title = 30px between filters.
+  @media screen and (max-width: $bp-xs-max) {
+    .o-expandable__content {
+      padding-bottom: $gutter-normal;
+    }
+
+    .aggregation.simple .o-expandable__content {
+      padding-bottom: $gutter-normal;
+    }
+
+    > section:not(.o-expandable) {
+      padding-bottom: $gutter-normal;
+    }
+  }
 }

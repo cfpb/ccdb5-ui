@@ -16,7 +16,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: $gutter-normal;
-    padding-top: $gutter-normal;
+    padding-top: 8px;
     margin: 0;
   }
 
@@ -29,7 +29,6 @@
     box-sizing: border-box;
     .action-bar__actions {
       margin-left: 0;
-      padding-top: 8px;
     }
   }
 
