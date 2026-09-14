@@ -13,8 +13,18 @@
   }
 
   // Mobile: the complaint ID jump link's top/bottom rules separate cards.
+  // Following cards use 15px top so 30+15=45px between cards. The first
+  // card keeps 30px under refine. Last card is 60px above the footer.
   @media screen and (max-width: $bp-xs-max) {
     border-bottom: 0;
+
+    & + & {
+      padding-top: $gutter-normal;
+    }
+
+    &:last-of-type {
+      padding-bottom: $grid-gutter-width * 2;
+    }
   }
 
   &__body {

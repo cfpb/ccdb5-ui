@@ -84,4 +84,15 @@
     margin: 0;
     color: var(--gray-40);
   }
+
+  // Mobile: 30px after the last control (date buttons, + Show more, checkboxes).
+  @media screen and (max-width: $bp-xs-max) {
+    .o-expandable__content {
+      padding-bottom: $grid-gutter-width;
+    }
+
+    > section:not(.o-expandable) {
+      padding-bottom: $grid-gutter-width;
+    }
+  }
 }
