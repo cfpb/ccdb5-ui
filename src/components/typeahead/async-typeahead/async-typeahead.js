@@ -118,7 +118,8 @@ export const AsyncTypeahead = ({
             filterBy={filterBy}
             inputProps={{
               id: htmlId,
-              type: 'search',
+              type: 'text',
+              role: 'searchbox',
               className: 'a-text-input a-text-input--full',
             }}
             isLoading={isLoading || isFetching}
@@ -158,6 +159,12 @@ export const AsyncTypeahead = ({
             // let RTKQ handle caching
             useCache={false}
           />
+
+          {placeholder && !searchValue ? (
+            <span className="typeahead__placeholder" aria-hidden="true">
+              {placeholder}
+            </span>
+          ) : null}
 
           {!!isVisible && (
             <ClearButton

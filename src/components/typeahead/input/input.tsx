@@ -36,7 +36,8 @@ export const Input = ({
           <Icon name="search" isPresentational />
         </label>
         <input
-          type="search"
+          type="text"
+          role="searchbox"
           id={htmlId}
           disabled={isDisabled}
           value={value}
