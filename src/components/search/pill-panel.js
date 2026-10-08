@@ -3,6 +3,8 @@ import { DATE_RANGE_MIN, knownFilters } from '../../constants';
 import { Button, Paragraph } from '@cfpb/design-system-react';
 import { selectFiltersRoot } from '../../reducers/filters/selectors';
 import {
+  selectQueryCompanyReceivedMax,
+  selectQueryCompanyReceivedMin,
   selectQueryDateLastIndexed,
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
@@ -29,7 +31,13 @@ const buildKnownFilterPills = (filterState) => {
   return filters;
 };
 
-const buildDatePill = (dateReceivedMin, dateReceivedMax, dateLastIndexed) => {
+const buildDatePill = (
+  fieldName,
+  fieldFormatted,
+  dateReceivedMin,
+  dateReceivedMax,
+  dateLastIndexed,
+) => {
   if (
     dayjs(dateReceivedMin).isSame(dayjs(DATE_RANGE_MIN), 'day') &&
     dayjs(dateReceivedMax).isSame(dayjs(dateLastIndexed), 'day')
@@ -38,9 +46,9 @@ const buildDatePill = (dateReceivedMin, dateReceivedMax, dateLastIndexed) => {
   }
 
   return {
-    fieldName: 'date_received',
+    fieldName,
     value:
-      'Date received: ' +
+      fieldFormatted +
       dayjs(dateReceivedMin).format('M/D/YYYY') +
       ' - ' +
       dayjs(dateReceivedMax).format('M/D/YYYY'),
@@ -53,17 +61,34 @@ export const PillPanel = () => {
   const dateLastIndexed = useSelector(selectQueryDateLastIndexed);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
+  const companyReceivedMin = useSelector(selectQueryCompanyReceivedMin);
+  const companyReceivedMax = useSelector(selectQueryCompanyReceivedMax);
   const searchField = useSelector(selectQuerySearchField);
 
   const filters = buildKnownFilterPills(filterState);
 
-  const datePill = buildDatePill(
+  const receivedPill = buildDatePill(
+    'date_received',
+    'Date received: ',
     dateReceivedMin,
     dateReceivedMax,
     dateLastIndexed,
   );
-  if (datePill) {
-    filters.unshift(datePill);
+
+  if (receivedPill) {
+    filters.unshift(receivedPill);
+  }
+
+  const sentPill = buildDatePill(
+    'date_sent',
+    'Sent to company: ',
+    companyReceivedMin,
+    companyReceivedMax,
+    dateLastIndexed,
+  );
+
+  if (sentPill) {
+    filters.push(sentPill);
   }
 
   if (filters.length === 0) {
