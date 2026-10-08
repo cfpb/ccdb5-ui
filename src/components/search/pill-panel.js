@@ -34,25 +34,30 @@ const buildKnownFilterPills = (filterState) => {
 const buildDatePill = (
   fieldName,
   fieldFormatted,
-  dateReceivedMin,
-  dateReceivedMax,
+  dateMin,
+  dateMax,
   dateLastIndexed,
 ) => {
-  if (
-    dayjs(dateReceivedMin).isSame(dayjs(DATE_RANGE_MIN), 'day') &&
-    dayjs(dateReceivedMax).isSame(dayjs(dateLastIndexed), 'day')
-  ) {
-    return null;
-  }
+  const min = dayjs(dateMin);
+  const max = dayjs(dateMax);
+  if (min.isValid() && max.isValid()) {
+    if (
+      min.isSame(dayjs(DATE_RANGE_MIN), 'day') &&
+      max.isSame(dayjs(dateLastIndexed), 'day')
+    ) {
+      return null;
+    }
 
-  return {
-    fieldName,
-    value:
-      fieldFormatted +
-      dayjs(dateReceivedMin).format('M/D/YYYY') +
-      ' - ' +
-      dayjs(dateReceivedMax).format('M/D/YYYY'),
-  };
+    return {
+      fieldName,
+      value:
+        fieldFormatted +
+        min.format('M/D/YYYY') +
+        ' - ' +
+        max.format('M/D/YYYY'),
+    };
+  }
+  return null;
 };
 
 export const PillPanel = () => {
@@ -88,6 +93,7 @@ export const PillPanel = () => {
   );
 
   if (sentPill) {
+    console.log(sentPill);
     filters.push(sentPill);
   }
 
