@@ -9,6 +9,8 @@ const renderComponent = (newFiltersState) => {
     dateLastIndexed: '2025-01-01',
     date_received_max: '2020-05-05',
     date_received_min: '2017-05-05',
+    company_received_max: '2019-11-05',
+    company_received_min: '2018-11-05',
   };
   merge(newFiltersState, filtersState);
   merge(newQueryState, queryState);
@@ -31,6 +33,12 @@ describe('component: PillPanel', () => {
     expect(
       screen.getByRole('button', {
         name: /Date received: 5\/5\/2017 - 5\/5\/2020/,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('button', {
+        name: /Sent to company: 11\/5\/2018 - 11\/5\/2019/,
       }),
     ).toBeInTheDocument();
 
