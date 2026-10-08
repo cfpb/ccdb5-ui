@@ -93,7 +93,6 @@ export const PillPanel = () => {
   );
 
   if (sentPill) {
-    console.log(sentPill);
     filters.push(sentPill);
   }
 

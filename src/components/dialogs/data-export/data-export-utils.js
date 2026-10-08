@@ -13,6 +13,22 @@ export const FILTER_DOWNLOAD_EMPTY_MESSAGE =
   'Filtered option is unavailable. You must add search terms or apply filters to download filtered results.';
 
 /**
+ *
+ * @param {object} queryState - query slice state
+ * @param {string} key - key for date param
+ * @returns {boolean} - Is there a valid date
+ */
+export function date_valid(queryState, key) {
+  const min = queryState[`${key}_min`];
+  const max = queryState[`${key}_max`];
+  return (
+    Boolean(min && max) &&
+    (!dayjs(min).isSame(DATE_RANGE_MIN, 'day') ||
+      !dayjs(max).isSame(queryState.dateLastIndexed, 'day'))
+  );
+}
+
+/**
  * Whether the user has applied search text, non-default dates, or any filters.
  *
  * @param {object} filtersState - filters slice state
@@ -25,12 +41,8 @@ export function hasAppliedFilters(filtersState, queryState) {
   );
   const hasSearchText = Boolean(queryState.searchText?.trim());
   const hasDateFilter =
-    Boolean(queryState.date_received_min && queryState.date_received_max) &&
-    (!dayjs(queryState.date_received_min).isSame(DATE_RANGE_MIN, 'day') ||
-      !dayjs(queryState.date_received_max).isSame(
-        queryState.dateLastIndexed,
-        'day',
-      ));
+    date_valid(queryState, 'date_received') ||
+    date_valid(queryState, 'company_received');
 
   return hasFilterValue || hasSearchText || hasDateFilter;
 }
