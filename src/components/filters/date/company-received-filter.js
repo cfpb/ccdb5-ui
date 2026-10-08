@@ -41,6 +41,30 @@ const companyReceivedErrors = (fromDate, throughDate) => {
   return errs;
 };
 
+export const coerceDates = (from, to) => {
+  let outFrom = from;
+  let outTo = to;
+
+  if (from) {
+    if (dayjs(from).isBefore(minDate)) {
+      outFrom = minDate;
+    }
+    if (!to) {
+      outTo = maxDate;
+    }
+  }
+
+  if (to) {
+    if (dayjs(to).isAfter(maxDate)) {
+      outTo = maxDate;
+    }
+    if (!from) {
+      outFrom = minDate;
+    }
+  }
+  return [outFrom, outTo];
+};
+
 const dateInputClassName = (hasError) =>
   ['a-text-input', hasError ? 'a-text-input--error' : '']
     .filter(Boolean)
@@ -97,6 +121,9 @@ export const CompanyReceivedFilter = () => {
       throughRef.current.value = '';
       _throughDate = '';
     }
+
+    [_fromDate, _throughDate] = coerceDates(_fromDate, _throughDate);
+
     const isDateDifferent =
       dateFrom !== _fromDate || dateThrough !== _throughDate;
     if (isDateDifferent) {

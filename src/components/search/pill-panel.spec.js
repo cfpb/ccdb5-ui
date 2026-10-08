@@ -4,11 +4,13 @@ import { merge } from '../../test-utils/function-helpers';
 import { filtersState } from '../../reducers/filters/filters-slice';
 import { queryState } from '../../reducers/query/query-slice';
 
-const renderComponent = (newFiltersState) => {
+const renderComponent = (newFiltersState, min, max) => {
   const newQueryState = {
     dateLastIndexed: '2025-01-01',
     date_received_max: '2020-05-05',
     date_received_min: '2017-05-05',
+    company_received_max: max,
+    company_received_min: min,
   };
   merge(newFiltersState, filtersState);
   merge(newQueryState, queryState);
@@ -23,14 +25,24 @@ const renderComponent = (newFiltersState) => {
 };
 describe('component: PillPanel', () => {
   it('renders without crashing', () => {
-    renderComponent({
-      company: ['Apples', 'Bananas are great'],
-      timely: ['Yes'],
-    });
+    renderComponent(
+      {
+        company: ['Apples', 'Bananas are great'],
+        timely: ['Yes'],
+      },
+      '2018-11-05',
+      '2019-11-05',
+    );
     expect(screen.getByText('Filters applied:')).toBeInTheDocument();
     expect(
       screen.getByRole('button', {
         name: /Date received: 5\/5\/2017 - 5\/5\/2020/,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('button', {
+        name: /Sent to company: 11\/5\/2018 - 11\/5\/2019/,
       }),
     ).toBeInTheDocument();
 
@@ -54,5 +66,22 @@ describe('component: PillPanel', () => {
     expect(
       screen.getByRole('button', { name: 'Clear filters' }),
     ).toBeInTheDocument();
+  });
+
+  it('does not render invalid dates', () => {
+    renderComponent(
+      {
+        company: ['Apples', 'Bananas are great'],
+        timely: ['Yes'],
+      },
+      null,
+      null,
+    );
+
+    expect(
+      screen.queryByRole('button', {
+        name: /Sent to company: Invalid Date - Invalid Date/,
+      }),
+    ).not.toBeInTheDocument();
   });
 });

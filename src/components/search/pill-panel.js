@@ -3,6 +3,8 @@ import { DATE_RANGE_MIN, knownFilters } from '../../constants';
 import { Button, Paragraph } from '@cfpb/design-system-react';
 import { selectFiltersRoot } from '../../reducers/filters/selectors';
 import {
+  selectQueryCompanyReceivedMax,
+  selectQueryCompanyReceivedMin,
   selectQueryDateLastIndexed,
   selectQueryDateReceivedMax,
   selectQueryDateReceivedMin,
@@ -29,22 +31,33 @@ const buildKnownFilterPills = (filterState) => {
   return filters;
 };
 
-const buildDatePill = (dateReceivedMin, dateReceivedMax, dateLastIndexed) => {
-  if (
-    dayjs(dateReceivedMin).isSame(dayjs(DATE_RANGE_MIN), 'day') &&
-    dayjs(dateReceivedMax).isSame(dayjs(dateLastIndexed), 'day')
-  ) {
-    return null;
-  }
+const buildDatePill = (
+  fieldName,
+  fieldFormatted,
+  dateMin,
+  dateMax,
+  dateLastIndexed,
+) => {
+  const min = dayjs(dateMin);
+  const max = dayjs(dateMax);
+  if (min.isValid() && max.isValid()) {
+    if (
+      min.isSame(dayjs(DATE_RANGE_MIN), 'day') &&
+      max.isSame(dayjs(dateLastIndexed), 'day')
+    ) {
+      return null;
+    }
 
-  return {
-    fieldName: 'date_received',
-    value:
-      'Date received: ' +
-      dayjs(dateReceivedMin).format('M/D/YYYY') +
-      ' - ' +
-      dayjs(dateReceivedMax).format('M/D/YYYY'),
-  };
+    return {
+      fieldName,
+      value:
+        fieldFormatted +
+        min.format('M/D/YYYY') +
+        ' - ' +
+        max.format('M/D/YYYY'),
+    };
+  }
+  return null;
 };
 
 export const PillPanel = () => {
@@ -53,17 +66,34 @@ export const PillPanel = () => {
   const dateLastIndexed = useSelector(selectQueryDateLastIndexed);
   const dateReceivedMin = useSelector(selectQueryDateReceivedMin);
   const dateReceivedMax = useSelector(selectQueryDateReceivedMax);
+  const companyReceivedMin = useSelector(selectQueryCompanyReceivedMin);
+  const companyReceivedMax = useSelector(selectQueryCompanyReceivedMax);
   const searchField = useSelector(selectQuerySearchField);
 
   const filters = buildKnownFilterPills(filterState);
 
-  const datePill = buildDatePill(
+  const receivedPill = buildDatePill(
+    'date_received',
+    'Date received: ',
     dateReceivedMin,
     dateReceivedMax,
     dateLastIndexed,
   );
-  if (datePill) {
-    filters.unshift(datePill);
+
+  if (receivedPill) {
+    filters.unshift(receivedPill);
+  }
+
+  const sentPill = buildDatePill(
+    'date_sent',
+    'Sent to company: ',
+    companyReceivedMin,
+    companyReceivedMax,
+    dateLastIndexed,
+  );
+
+  if (sentPill) {
+    filters.push(sentPill);
   }
 
   if (filters.length === 0) {

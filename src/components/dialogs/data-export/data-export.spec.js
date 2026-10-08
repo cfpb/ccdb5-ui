@@ -1,4 +1,5 @@
 import { DataExport } from './data-export';
+import { date_valid } from './data-export-utils.js';
 import * as utils from '../../../utils';
 import {
   fireEvent,
@@ -109,6 +110,22 @@ describe('DataExport', () => {
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
     expect(modalHiddenSpy).toHaveBeenCalled();
+  });
+
+  it('checks valid dates', async () => {
+    const isValid = date_valid(
+      { date_received_min: '2018-01-01', date_received_max: '2019-01-01' },
+      'date_received',
+    );
+    expect(isValid).toBe(true);
+  });
+
+  it('checks invalid dates', async () => {
+    const isValid = date_valid(
+      { date_received_min: null, date_received_max: '2019-01-01' },
+      'date_received',
+    );
+    expect(isValid).toBe(false);
   });
 
   it('defaults to all complaint data and shows empty-filter alert', () => {
