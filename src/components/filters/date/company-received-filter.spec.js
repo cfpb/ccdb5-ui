@@ -1,4 +1,5 @@
-import { CompanyReceivedFilter } from './company-received-filter';
+import { CompanyReceivedFilter, coerceDates } from './company-received-filter';
+import { maxDate, minDate } from '../../../constants';
 import { merge } from '../../../test-utils/function-helpers';
 import * as filterActions from '../../../reducers/query/query-slice';
 import { queryState } from '../../../reducers/query/query-slice';
@@ -31,13 +32,7 @@ describe('component::CompanyReceivedFilter', () => {
     // expect(screen.getByText())
     expect(companyReceivedDateUpdatedSpy).toHaveBeenCalledWith(
       '2018-09-03',
-      '',
-    );
-
-    await user.type(screen.getByLabelText('To'), '2021-09-03{Enter}');
-    expect(companyReceivedDateUpdatedSpy).toHaveBeenCalledWith(
-      '2018-09-03',
-      '2021-09-03',
+      maxDate,
     );
   });
 
@@ -49,5 +44,29 @@ describe('component::CompanyReceivedFilter', () => {
     expect(
       screen.getByText("'From' date must be less than 'To' date"),
     ).toBeInTheDocument();
+  });
+
+  it('coerces when no from', () => {
+    const [from, to] = coerceDates(null, '2022-11-11');
+    expect(from).toBe(minDate);
+    expect(to).toBe('2022-11-11');
+  });
+
+  it('coerces when bad from', () => {
+    const [from, to] = coerceDates('1900-01-01', '2022-11-11');
+    expect(from).toBe(minDate);
+    expect(to).toBe('2022-11-11');
+  });
+
+  it('coerces when no to', () => {
+    const [from, to] = coerceDates('2022-11-11', null);
+    expect(from).toBe('2022-11-11');
+    expect(to).toBe(maxDate);
+  });
+
+  it('coerces when bad to', () => {
+    const [from, to] = coerceDates('2022-11-11', '2050-11-11');
+    expect(from).toBe('2022-11-11');
+    expect(to).toBe(maxDate);
   });
 });
