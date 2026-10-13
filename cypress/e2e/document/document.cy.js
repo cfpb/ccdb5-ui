@@ -39,7 +39,7 @@ describe('Document View', () => {
 
   describe('preserve page state', () => {
     it('restores filters after visiting document detail', () => {
-      cy.visit('?searchText=pizza&size=10&sort=relevance_desc');
+      cy.visit('?searchText=bank&size=10&sort=relevance_desc');
 
       sortSelect().find('option:selected').should('have.text', 'Most relevant');
 
