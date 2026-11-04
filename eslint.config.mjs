@@ -106,6 +106,7 @@ export default tseslint.config(
       'no-console': ['warn'],
 
       // Match DSR unicorn overrides
+      'unicorn/no-asterisk-prefix-in-documentation-comments': 'off',
       'unicorn/prevent-abbreviations': 'off', // Airbnb was less strict than Unicorn
       'unicorn/null-data-property': 'off',
       'unicorn/no-null': 'off',
