@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { TourSteps } from './tour-steps';
+import { alignWideTooltip, TourSteps } from './tour-steps';
 import introJs from 'intro.js';
 import { getIntroTarget, getModalPortalParent } from '../../utils/dom';
 
@@ -29,6 +29,7 @@ describe('TourSteps', () => {
 
   beforeEach(() => {
     introInstance = createIntroMock();
+    introJs.tour = rs.fn(() => introInstance);
     introJs.mockImplementation(() => introInstance);
     delete globalThis.__CCDB_CONFIG__;
   });
@@ -50,10 +51,44 @@ describe('TourSteps', () => {
       />,
     );
 
-    expect(introJs).toHaveBeenCalledWith(getIntroTarget());
+    expect(introJs.tour).toHaveBeenCalledWith(getIntroTarget());
     expect(introInstance.setOptions).toHaveBeenCalled();
     expect(introInstance.start).toHaveBeenCalled();
-    expect(introInstance.goToStepNumber).toHaveBeenCalledWith(1);
+    expect(introInstance.goToStepNumber).not.toHaveBeenCalled();
+  });
+
+  it('starts a fresh tour when enabled again', () => {
+    const { rerender } = render(
+      <TourSteps
+        isEnabled={true}
+        initialStep={0}
+        steps={defaultSteps}
+        onExit={rs.fn()}
+        options={{}}
+      />,
+    );
+
+    rerender(
+      <TourSteps
+        isEnabled={false}
+        initialStep={0}
+        steps={defaultSteps}
+        onExit={rs.fn()}
+        options={{}}
+      />,
+    );
+
+    rerender(
+      <TourSteps
+        isEnabled={true}
+        initialStep={0}
+        steps={defaultSteps}
+        onExit={rs.fn()}
+        options={{}}
+      />,
+    );
+
+    expect(introInstance.start).toHaveBeenCalledTimes(2);
   });
 
   it('exits intro.js when disabled after being enabled', () => {
@@ -138,5 +173,54 @@ describe('TourSteps', () => {
     );
 
     expect(document.querySelector).toBe(originalQuerySelector);
+  });
+});
+
+describe('alignWideTooltip', () => {
+  const mountTooltip = (rect) => {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'introjs-tooltip wide';
+    tooltip.getBoundingClientRect = () => rect;
+    document.body.append(tooltip);
+  };
+
+  afterEach(() => {
+    document.body.replaceChildren();
+    rs.restoreAllMocks();
+  });
+
+  it('does nothing when the welcome tooltip is absent', () => {
+    const scrollBy = rs.spyOn(globalThis, 'scrollBy');
+    alignWideTooltip();
+    expect(scrollBy).not.toHaveBeenCalled();
+  });
+
+  it('scrolls a clipped welcome tooltip so its top stays in view', () => {
+    mountTooltip({ top: -120, bottom: 400 });
+    const scrollBy = rs
+      .spyOn(globalThis, 'scrollBy')
+      .mockImplementation(() => {});
+    alignWideTooltip();
+    expect(scrollBy).toHaveBeenCalledWith(0, -136);
+  });
+
+  it('scrolls when the welcome tooltip extends below the viewport', () => {
+    rs.spyOn(globalThis, 'innerHeight', 'get').mockReturnValue(800);
+    mountTooltip({ top: 200, bottom: 900 });
+    const scrollBy = rs
+      .spyOn(globalThis, 'scrollBy')
+      .mockImplementation(() => {});
+    alignWideTooltip();
+    expect(scrollBy).toHaveBeenCalledWith(0, 184);
+  });
+
+  it('leaves a fully visible welcome tooltip in place', () => {
+    rs.spyOn(globalThis, 'innerHeight', 'get').mockReturnValue(800);
+    mountTooltip({ top: 40, bottom: 200 });
+    const scrollBy = rs
+      .spyOn(globalThis, 'scrollBy')
+      .mockImplementation(() => {});
+    alignWideTooltip();
+    expect(scrollBy).not.toHaveBeenCalled();
   });
 });

@@ -37,6 +37,9 @@ export const TOUR_STEPS = [
       '</ul></div>' +
       '</div>',
     tooltipClass: 'wide',
+    // This step highlights the whole results column. Centering that tooltip
+    // scrolls it out of the top of the viewport.
+    scrollTo: 'off',
   },
   {
     element: LIST.STEP_2.selector,
@@ -78,7 +81,8 @@ export const TOUR_STEPS = [
   },
   {
     element: LIST.STEP_9.selector,
-    intro: 'You can download complaint data as CSV by selecting “Download data”.',
+    intro:
+      'You can download complaint data as CSV by selecting “Download data”.',
   },
   {
     element: LIST.STEP_10.selector,

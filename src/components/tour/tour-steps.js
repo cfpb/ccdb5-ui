@@ -4,6 +4,58 @@ import { Component, isValidElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { getIntroTarget, querySelector } from '../../utils/dom';
 
+const WIDE_TOOLTIP_VIEWPORT_PADDING = 16;
+
+/**
+ * The welcome tooltip is taller than many viewports. intro.js centers it,
+ * which puts the title above the window. Keep its top edge in view.
+ */
+export const alignWideTooltip = () => {
+  const tooltip = querySelector('.introjs-tooltip.wide');
+  if (!tooltip) {
+    return;
+  }
+  const { top, bottom } = tooltip.getBoundingClientRect();
+  const viewportBottom = innerHeight - WIDE_TOOLTIP_VIEWPORT_PADDING;
+  if (top < WIDE_TOOLTIP_VIEWPORT_PADDING || bottom > viewportBottom) {
+    scrollBy(0, top - WIDE_TOOLTIP_VIEWPORT_PADDING);
+  }
+};
+
+/**
+ * intro.js 8 sets tooltip `onclick` to null when a step has no click handler.
+ * The DOM spec ignores a null listener. happy-dom stores it, then throws on click.
+ * Subclasses keep their own copy of addEventListener, so each prototype is patched.
+ */
+const ignoreNullEventListeners = () => {
+  const targets = [document.createElement('div'), document, globalThis];
+
+  for (const target of targets) {
+    let proto = target;
+    while (proto) {
+      const descriptor = Object.getOwnPropertyDescriptor(
+        proto,
+        'addEventListener',
+      );
+      const original = descriptor?.value;
+      if (typeof original === 'function' && !original.ignoresNullListeners) {
+        class NullSafeEventTarget {
+          addEventListener(type, listener, options) {
+            if (listener == null) {
+              return;
+            }
+            return original.call(this, type, listener, options);
+          }
+        }
+        const wrapped = NullSafeEventTarget.prototype.addEventListener;
+        wrapped.ignoresNullListeners = true;
+        proto.addEventListener = wrapped;
+      }
+      proto = Object.getPrototypeOf(proto);
+    }
+  }
+};
+
 const tourElementPropType =
   typeof Element === 'undefined'
     ? PropTypes.any
@@ -50,17 +102,33 @@ export class TourSteps extends Component {
     options: {},
   };
 
+  getCurrentStepIndex = () => {
+    const intro = this.introJs;
+    if (!intro) {
+      return;
+    }
+    if (typeof intro.getCurrentStep === 'function') {
+      return intro.getCurrentStep();
+    }
+    if (typeof intro.currentStep === 'function') {
+      return intro.currentStep();
+    }
+    return intro._currentStep;
+  };
+
   onExit = () => {
+    const stepIndex = this.getCurrentStepIndex();
+    this.introJs?._root?.remove();
     this.restoreDocumentQueryPatch();
     const { onExit } = this.props;
     this.isVisible = false;
-    onExit(this.introJs._currentStep);
+    onExit(stepIndex);
   };
 
   onBeforeExit = () => {
     const { onBeforeExit } = this.props;
     if (onBeforeExit) {
-      return onBeforeExit(this.introJs._currentStep);
+      return onBeforeExit(this.getCurrentStepIndex());
     }
     return true;
   };
@@ -72,13 +140,11 @@ export class TourSteps extends Component {
     this.refreshAllStepElements();
     const { onBeforeChange, onPreventChange } = this.props;
     if (onBeforeChange) {
-      const continueStep = onBeforeChange(
-        this.introJs._currentStep,
-        nextElement,
-      );
+      const stepIndex = this.getCurrentStepIndex();
+      const continueStep = onBeforeChange(stepIndex, nextElement);
       if (continueStep === false && onPreventChange) {
         setTimeout(() => {
-          onPreventChange(this.introJs._currentStep);
+          onPreventChange(stepIndex);
         }, 0);
       }
       return continueStep;
@@ -92,12 +158,14 @@ export class TourSteps extends Component {
     }
     this.refreshAllStepElements();
     if (typeof this.introJs?.refresh === 'function') {
-      this.introJs.refresh(true);
+      this.introJs.refresh();
     }
     const { onAfterChange } = this.props;
     if (onAfterChange) {
-      onAfterChange(this.introJs._currentStep, element);
+      onAfterChange(this.getCurrentStepIndex(), element);
     }
+    alignWideTooltip();
+    setTimeout(alignWideTooltip, 0);
   };
 
   onChange = (element) => {
@@ -106,7 +174,7 @@ export class TourSteps extends Component {
     }
     const { onChange } = this.props;
     if (onChange) {
-      onChange(this.introJs._currentStep, element);
+      onChange(this.getCurrentStepIndex(), element);
     }
   };
 
@@ -119,16 +187,22 @@ export class TourSteps extends Component {
 
   updateStepElement = (stepIndex) => {
     const step = this.introJs?._options?.steps?.[stepIndex];
-    const introItem = this.introJs?._introItems?.[stepIndex];
     const selector = step?._selector;
-    if (!selector || !introItem) {
+    if (!selector) {
       return;
     }
     const element = querySelector(selector);
-    if (element) {
-      introItem.element = element;
-      introItem.position = step.position || 'auto';
+    if (!element) {
+      return;
     }
+    const introItem =
+      this.introJs?._introItems?.[stepIndex] ??
+      this.introJs.getSteps?.()?.[stepIndex];
+    if (!introItem) {
+      return;
+    }
+    introItem.element = element;
+    introItem.position = step.position || 'auto';
   };
 
   refreshAllStepElements = () => {
@@ -193,8 +267,17 @@ export class TourSteps extends Component {
   }
 
   componentWillUnmount() {
+    this.isVisible = false;
     this.restoreDocumentQueryPatch();
-    this.introJs?.exit();
+    const intro = this.introJs;
+    if (!intro) {
+      return;
+    }
+    // intro.js 8 exits asynchronously. Drop the callbacks first so tearing
+    // down this instance leaves a remounted tour on screen.
+    intro.onexit(() => true);
+    intro.onbeforeexit(() => true);
+    intro.exit(true);
   }
 
   enableDocumentQueryPatch() {
@@ -243,13 +326,28 @@ export class TourSteps extends Component {
     if (globalThis.window === undefined) {
       return;
     }
-    this.introJs = introJs(getIntroTarget());
+    ignoreNullEventListeners();
+    this.introJs = introJs.tour(getIntroTarget());
     this.introJs.onexit(this.onExit);
     this.introJs.onbeforeexit(this.onBeforeExit);
     this.introJs.onbeforechange(this.onBeforeChange);
     this.introJs.onafterchange(this.onAfterChange);
     this.introJs.onchange(this.onChange);
     this.introJs.oncomplete(this.onComplete);
+  }
+
+  /**
+   * intro.js 8 leaves the previous root mounted and ignores a second start()
+   * on that same instance. Each open gets a new tour.
+   */
+  retireIntro() {
+    const previous = this.introJs;
+    previous.onexit(() => true);
+    previous.onbeforeexit(() => true);
+    previous._root?.remove();
+    this.installIntroJs();
+    this.isConfigured = false;
+    void previous.exit(true);
   }
 
   configureIntroJs() {
@@ -263,16 +361,18 @@ export class TourSteps extends Component {
   }
 
   renderSteps() {
-    const { isEnabled, initialStep, steps, onStart } = this.props;
+    const { isEnabled, steps, onStart } = this.props;
     if (isEnabled && steps.length > 0 && !this.isVisible) {
+      this.retireIntro();
       this.enableDocumentQueryPatch();
       this.configureIntroJs();
+      this.isVisible = true;
+      // start() shows the first step. A new tour instance is required because
+      // intro.js 8 will not start the same instance twice.
       this.introJs.start();
       this.refreshAllStepElements();
-      this.isVisible = true;
-      this.introJs.goToStepNumber(initialStep + 1);
       if (onStart) {
-        onStart(this.introJs._currentStep);
+        onStart(this.getCurrentStepIndex());
       }
     } else if (!isEnabled && this.isVisible) {
       this.isVisible = false;

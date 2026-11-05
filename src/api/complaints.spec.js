@@ -67,7 +67,7 @@ describe('getAggregations', () => {
     expect(result.current).toMatchObject({
       status: 'pending',
       endpointName: 'getAggregations',
-      isLoading: false,
+      isLoading: true,
       isSuccess: false,
       isError: false,
       isFetching: true,
@@ -164,7 +164,7 @@ describe('getList', () => {
     expect(result.current).toMatchObject({
       status: 'pending',
       endpointName: 'getList',
-      isLoading: false,
+      isLoading: true,
       isSuccess: false,
       isError: false,
       isFetching: true,
