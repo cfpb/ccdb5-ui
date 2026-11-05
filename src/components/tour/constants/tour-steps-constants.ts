@@ -37,6 +37,9 @@ export const TOUR_STEPS = [
       '</ul></div>' +
       '</div>',
     tooltipClass: 'wide',
+    // This step highlights the whole results column. Centering that tooltip
+    // scrolls it out of the top of the viewport.
+    scrollTo: 'off',
   },
   {
     element: LIST.STEP_2.selector,
